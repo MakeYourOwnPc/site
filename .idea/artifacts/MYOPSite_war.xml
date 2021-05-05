@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="MYOPSite:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>MYOPSite</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="MYOPSite-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="MYOPSite:war exploded" />
+    </root>
+  </artifact>
+</component>
