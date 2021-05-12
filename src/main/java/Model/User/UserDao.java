@@ -2,9 +2,15 @@ package Model.User;
 
 import java.util.ArrayList;
 
-public interface UserDao {
-    ArrayList<User> doRetrieveAll();
-    User doRetrieveByEmail(String email);
-    boolean doSaveUser(User user);
-    boolean deleteUserByEmail(String email);
+public interface UserDao <E extends Exception>{
+    ArrayList<User> doRetrieveAll()throws E;
+    User doRetrieveByEmail(String email)throws E;
+    boolean doSave(User user)throws E;
+
+    boolean doDelete(User user)throws E;
+    boolean doUpdate(User user)throws E;
+    boolean doSetAdminByEmail(String email)throws E;
+    boolean doRemoveAdminByEmail(String email)throws E;
+    boolean doUpdatePassword(User user)throws E;
+
 }
