@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface CpuDao<E extends Exception>{
     ArrayList<Cpu> doRetrieveAll() throws E;
-    ArrayList<Cpu> doRetrieveBySocket(String cpusocket) throws E;
+    ArrayList<Cpu> doRetrieveBySocket(String cpuSocket) throws E;
     Cpu doRetrieveBySn(String sn) throws E;
     Cpu doRetrieveByName(String name) throws E;
     boolean doCheckStockBySn(String sn) throws E;
