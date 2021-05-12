@@ -4,11 +4,11 @@ public class PcCase {
     private String sn;
     private String name;
     private double price;
-    private double formFactor;
+    private String formFactor;
     private int stock;
 
 
-    public PcCase(String sn, String name, double price, double formFactor, int stock) {
+    public PcCase(String sn, String name, double price, String formFactor, int stock) {
         this.sn = sn;
         this.name = name;
         this.price = price;
@@ -40,11 +40,11 @@ public class PcCase {
         this.price = price;
     }
 
-    public double getFormFactor() {
+    public String getFormFactor() {
         return formFactor;
     }
 
-    public void setFormFactor(double formFactor) {
+    public void setFormFactor(String formFactor) {
         this.formFactor = formFactor;
     }
 

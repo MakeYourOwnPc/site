@@ -4,7 +4,7 @@ public class Cpu {
 
     private String sn;
     private String name;
-    private String cpusocket;
+    private String socket;
     private double price;
     private int consumption;
     private boolean integratedgpu;
@@ -26,12 +26,12 @@ public class Cpu {
         this.name = name;
     }
 
-    public String getCpusocket() {
-        return cpusocket;
+    public String getSocket() {
+        return socket;
     }
 
-    public void setCpusocket(String cpusocket) {
-        this.cpusocket = cpusocket;
+    public void setSocket(String socket) {
+        this.socket = socket;
     }
 
     public double getPrice() {
@@ -66,10 +66,10 @@ public class Cpu {
         this.stock = available;
     }
 
-    public Cpu(String sn, String name, String cpusocket, double price, int consumption, boolean integratedgpu, int stock) {
+    public Cpu(String sn, String name, String socket, double price, int consumption, boolean integratedgpu, int stock) {
         this.sn = sn;
         this.name = name;
-        this.cpusocket = cpusocket;
+        this.socket = socket;
         this.price = price;
         this.consumption = consumption;
         this.integratedgpu = integratedgpu;

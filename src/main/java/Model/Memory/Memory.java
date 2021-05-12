@@ -17,7 +17,7 @@ public class Memory {
         this.sn = sn;
         this.name = name;
         Socket = socket;
-        this.mType = mType;
+        this.mType = mType; //false= ram true=massStorage
         this.amountMemories = amountMemories;
         this.consumption = consumption;
         this.price = price;

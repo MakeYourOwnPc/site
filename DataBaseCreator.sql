@@ -47,7 +47,7 @@ create table gpus(
 create table cpus(
                              sn char(11) PRIMARY KEY ,
                              name char(100) not null unique,
-                             cpusocket char(10) not null,
+                             socket char(10) not null,
                             integratedgpu boolean not null,
                              consumption int not null,
                              price float not null,
