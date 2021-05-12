@@ -104,14 +104,15 @@ create table country(
 
 create table purchases (
     id int primary key auto_increment,
-    build int not null,
-        foreign key (build) references builds(id),
+    idbuild int not null,
+        foreign key (idbuild) references builds(id),
     creationdate datetime not null ,
     cellphonenumber char(13) not null,
     totalprice float not null,
     address char(40) not null,
     city char(30) not null,
     cap char(6) not null,
+    email char(40) not null ,
     countryid char(2) not null,
         foreign key (countryid) references country(id)
 )

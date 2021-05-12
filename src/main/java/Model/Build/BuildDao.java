@@ -13,7 +13,7 @@ public interface BuildDao<E extends Exception>{
     ArrayList<Build> doRetrieveByType(String type)throws E;
     ArrayList<Build> doRetrieveByPower(int power) throws E;
     boolean doDeleteById(int id) throws E;
-    boolean doUpdate(Psu psu)throws E;
+    boolean doUpdate(Build build)throws E;
     boolean doSave(Build build) throws E;
     ArrayList<Build> doRetrieveSuggested() throws E;
     ArrayList<Build> doRetrieveByMobo(Mobo mobo) throws E;
