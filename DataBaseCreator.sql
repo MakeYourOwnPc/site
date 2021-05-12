@@ -90,6 +90,7 @@ create table builds(
 
 create table memoriesbuiltin(
     idbuild int not null ,
+    amountofmemories int not null,
     sn char(11) not null,
     primary key (idbuild,sn),
     foreign key (idbuild) references builds(id),
