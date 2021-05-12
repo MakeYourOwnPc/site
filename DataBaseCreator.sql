@@ -18,7 +18,7 @@ create table memories(
     consumption int not null,
     price float not null,
     amountmemories tinyint not null,
-    available int not null
+    stock int not null
 );
 
 create table motherboards(
@@ -32,7 +32,7 @@ create table motherboards(
                        formfactor char(10) not null,
                        consumption int not null,
                        price float not null,
-                       available int not null
+                       stock int not null
 );
 
 create table gpus(
@@ -40,7 +40,7 @@ create table gpus(
                              name char(100) not null unique,
                              consumption int not null,
                              price float not null,
-                             available int not null
+                             stock int not null
 );
 
 
@@ -51,7 +51,7 @@ create table cpus(
                             integratedgpu boolean not null,
                              consumption int not null,
                              price float not null,
-                             available int not null
+                             stock int not null
 );
 
 create table psus(
@@ -59,16 +59,15 @@ create table psus(
                              name char(100) not null unique,
                              power int not null,
                              price float not null,
-                             available int not null
+                             stock int not null
 );
 
 create table pccases(
                              sn char(11) PRIMARY KEY ,
                              name char(100) not null unique,
                              formfactor char(10) not null,
-                             consumption int not null,
                              price float not null,
-                             avaliable int not null
+                             stock int not null
 );
 
 
@@ -114,8 +113,6 @@ create table purchases (
     cap char(6) not null,
     countryid char(2) not null,
         foreign key (countryid) references country(id)
-
-
 )
 
 
