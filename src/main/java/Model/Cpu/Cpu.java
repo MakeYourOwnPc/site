@@ -65,7 +65,9 @@ public class Cpu {
     public void setStock(int available) {
         this.stock = available;
     }
+    public Cpu(){
 
+    }
     public Cpu(String sn, String name, String socket, double price, int consumption, boolean integratedgpu, int stock) {
         this.sn = sn;
         this.name = name;

@@ -8,7 +8,7 @@ import Model.Psu.Psu;
 
 import java.util.ArrayList;
 
-public interface PurchaseDao <E extends Exception>{
+public interface IPurchaseDao<E extends Exception>{
     ArrayList<Purchase> doRetrieveAll() throws E;
     Purchase doRetrieveById(int id) throws E;
     ArrayList<Purchase> doRetrieveByType(String type)throws E;

@@ -47,6 +47,9 @@ public class User {
         this.password = password;
     }
 
+    public User(){
+    }
+    
     public User(String email, boolean admin, String firstName, String lastName, String password) {
         this.email = email;
         this.admin = admin;

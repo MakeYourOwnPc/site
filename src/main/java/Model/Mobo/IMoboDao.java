@@ -4,7 +4,7 @@ import Model.Memory.Memory;
 
 import java.util.ArrayList;
 
-public interface MoboDao <E extends Exception>{
+public interface IMoboDao<E extends Exception>{
     ArrayList<Mobo> doRetrieveAll() throws E;
     Mobo doRetrieveBySn(String sn) throws E;
     Mobo doRetrieveByName(String name)throws E;

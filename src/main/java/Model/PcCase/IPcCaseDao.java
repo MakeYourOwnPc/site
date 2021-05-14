@@ -4,7 +4,7 @@ import Model.Gpu.Gpu;
 
 import java.util.ArrayList;
 
-public interface PcCaseDao <E extends Exception>{
+public interface IPcCaseDao<E extends Exception>{
     ArrayList<PcCase> doRetrieveAll() throws E;
     ArrayList<PcCase> doRetrieveByFormFactor() throws E;
     PcCase doRetrieveBySn(String sn) throws E;

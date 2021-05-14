@@ -7,7 +7,8 @@ public class PcCase {
     private String formFactor;
     private int stock;
 
-
+    public PcCase(){
+    }
     public PcCase(String sn, String name, double price, String formFactor, int stock) {
         this.sn = sn;
         this.name = name;

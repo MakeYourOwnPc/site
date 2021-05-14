@@ -4,7 +4,7 @@ import Model.Mobo.Mobo;
 
 import java.util.ArrayList;
 
-public interface PsuDao <E extends Exception>{
+public interface IPsuDao<E extends Exception>{
     ArrayList<Psu> doRetrieveAll() throws E;
     Psu doRetrieveBySn(String sn) throws E;
     Psu doRetrieveByName(String name)throws E;

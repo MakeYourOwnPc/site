@@ -7,7 +7,7 @@ import Model.Psu.Psu;
 
 import java.util.ArrayList;
 
-public interface BuildDao<E extends Exception>{
+public interface IBuildDao<E extends Exception>{
     ArrayList<Build> doRetrieveAll() throws E;
     Build doRetrieveById(int id) throws E;
     ArrayList<Build> doRetrieveByType(String type)throws E;

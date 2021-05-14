@@ -7,6 +7,8 @@ public class Gpu {
     private double price;
     private int stock;
 
+    public Gpu(){
+    }
     public Gpu(String sn, String name, int consumption, double price, int stock) {
         this.sn = sn;
         this.name = name;
