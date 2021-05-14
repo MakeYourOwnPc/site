@@ -5,7 +5,7 @@
 <head>
     <title>JSP - Hello World</title>
     <meta name="viewport" content="width=device-witdht, initial-scale=1.0"/>
-    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
 </head>
 <body>
 
@@ -29,7 +29,7 @@ serfesafesf
     </div>
 
 </div>
-<script src="js/bootstrap.js"></script>
-<script src="popper.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+<script src="bootstrap/popper.js"></script>
 </body>
 </html>
