@@ -1,0 +1,23 @@
+
+.default{
+
+    color:white;
+    background-color: #353a35;
+}
+
+.object{
+    color:white;
+    background-color: #000000;
+}
+.active{
+    background-color: #1195c6;
+    color:white;
+}
+.nav-link{
+    color: white;
+    font-weight: 700;
+}
+.nav-item{
+    color: white;
+    font-weight: 700;
+}
