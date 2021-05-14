@@ -11,6 +11,6 @@ public interface ICpuDao<E extends Exception>{
     boolean doSave(Cpu cpu) throws E;
     boolean doUpdate(Cpu cpu) throws E;
     boolean doUpdateStock(Cpu cpu) throws E;
-    boolean doDeleteBySn(String name) throws E;
+    boolean doDelete(String name) throws E;
 
 }

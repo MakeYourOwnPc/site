@@ -4,12 +4,12 @@ public class Gpu {
     private String sn;
     private String name;
     private int consumption;
-    private double price;
+    private float price;
     private int stock;
 
     public Gpu(){
     }
-    public Gpu(String sn, String name, int consumption, double price, int stock) {
+    public Gpu(String sn, String name, int consumption, float price, int stock) {
         this.sn = sn;
         this.name = name;
         this.consumption = consumption;
@@ -41,11 +41,11 @@ public class Gpu {
         this.consumption = consumption;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
