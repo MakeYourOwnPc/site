@@ -12,7 +12,7 @@ public interface IBuildDao<E extends Exception>{
     Build doRetrieveById(int id) throws E;
     ArrayList<Build> doRetrieveByType(String type)throws E;
     ArrayList<Build> doRetrieveByPower(int power) throws E;
-    boolean doDeleteById(int id) throws E;
+    boolean doDelete(int id) throws E;
     boolean doUpdate(Build build)throws E;
     boolean doSave(Build build) throws E;
     ArrayList<Build> doRetrieveSuggested() throws E;

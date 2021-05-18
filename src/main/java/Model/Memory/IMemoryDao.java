@@ -9,7 +9,7 @@ public interface IMemoryDao<E extends Exception> {
     Memory doRetrieveBySn(String sn) throws E;
     Memory doRetrieveByName(String name)throws E;
     ArrayList<Memory> doRetrieveBySocket(String socket) throws E;
-    boolean doDeleteBySn(String sn) throws E;
+    boolean doDelete(String sn) throws E;
     boolean doUpdate(Memory memory)throws E;
     boolean doUpdateStock(Memory memory)throws E;
     boolean doSave(Memory memory) throws E;

@@ -13,5 +13,5 @@ public interface IPcCaseDao<E extends Exception>{
     boolean doSave(PcCase pcCase) throws E;
     boolean doUpdate(PcCase pcCase) throws E;
     boolean doUpdateStock(PcCase pcCase) throws E;
-    boolean doDeleteBySn(String sn) throws E;
+    boolean doDelete(String sn) throws E;
 }
