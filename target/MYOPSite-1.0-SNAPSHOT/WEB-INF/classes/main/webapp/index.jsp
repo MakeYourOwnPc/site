@@ -18,6 +18,17 @@
 </div>
 <a href="hello-servlet">Hello Servlet</a>
 serfesafesf
+<div class="container" style="background-color: #0b5ed7">
+    <div class="row gx">
+        <div class="col-2">kfbdhjbfisdhjsdvdsfgsg dhdhf</div>
+        <div class="col-2">sg </div>
+        <div class="col-2">sdth </div>
+        <div class="col-2">pollo </div>
+        <div class="col-4">col2 </div>
+
+    </div>
+
+</div>
 <script src="js/bootstrap.js"></script>
 <script src="popper.js"></script>
 </body>

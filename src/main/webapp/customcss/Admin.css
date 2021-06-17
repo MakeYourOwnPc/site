@@ -1,0 +1,67 @@
+
+button {
+    color:white;
+    padding:1rem;
+}
+
+button:hover{
+    color:gray;
+}
+
+.sidebar {
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: var(--bs-dark);
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    border-color: var(--active-color);
+    border-style:solid none none none;
+}
+
+/* Sidebar links */
+.sidebar a {
+    display: block;
+    color: white;
+
+    padding: 16px;
+    text-decoration: none;
+}
+
+/* Active/current link */
+.sidebar a.active {
+    background-color:var(--active-bg);
+    color: white;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+}
+.sidebar-toggler{
+    display: none;
+}
+@media screen and (max-width: 700px) {
+    .sidebar {
+        display: none;
+    }
+    .sidebar-toggler{
+        display: block;
+    }
+}
+
+
+
+
+
+
+

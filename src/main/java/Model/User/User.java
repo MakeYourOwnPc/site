@@ -3,8 +3,8 @@ package Model.User;
 public class User {
     private String email;
     private boolean admin;
-    private String FirstName;
-    private String LastName;
+    private String firstName;
+    private String lastName;
     private String password;
 
     public String getEmail() {
@@ -24,19 +24,19 @@ public class User {
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getPassword() {
@@ -53,8 +53,12 @@ public class User {
     public User(String email, boolean admin, String firstName, String lastName, String password) {
         this.email = email;
         this.admin = admin;
-        FirstName = firstName;
-        LastName = lastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
+    }
+
+    public String fullName(){
+        return this.firstName +" "+lastName;
     }
 }
