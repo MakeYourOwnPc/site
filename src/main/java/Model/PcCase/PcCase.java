@@ -1,28 +1,38 @@
 package Model.PcCase;
 
 public class PcCase {
-    private String sn;
+    private int id;
     private String name;
-    private double price;
+    private float price;
     private String formFactor;
     private int stock;
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    private String imagePath;
+
     public PcCase(){
     }
-    public PcCase(String sn, String name, double price, String formFactor, int stock) {
-        this.sn = sn;
+    public PcCase(int id, String name, float price, String formFactor, int stock) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.formFactor = formFactor;
         this.stock = stock;
     }
 
-    public String getSn() {
-        return sn;
+    public int getId() {
+        return id;
     }
 
-    public void setSn(String sn) {
-        this.sn = sn;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -33,11 +43,11 @@ public class PcCase {
         this.name = name;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

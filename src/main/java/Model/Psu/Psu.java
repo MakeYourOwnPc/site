@@ -1,21 +1,32 @@
 package Model.Psu;
 
 public class Psu {
-    private String sn;
+    private int id;
     private String name;
     private int power;
     private float price;
     private int stock;
 
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    private String imagePath;
+
     public Psu() {
     }
 
-    public String getSn() {
-        return sn;
+    public int getId() {
+        return id;
     }
 
-    public void setSn(String sn) {
-        this.sn = sn;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -1,7 +1,7 @@
 package Model.Mobo;
 
 public class Mobo {
-    private String sn;
+    private int id;
     private String name;
     private int amountSlotNvme;
     private int amountSlotSata ;
@@ -12,11 +12,23 @@ public class Mobo {
     private int consumption;
     private float price;
     private int stock;
+
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    private String imagePath;
+
     public Mobo() {
     }
 
-    public Mobo(String sn, String name, int amountSlotNvme, int amountSlotSata, int amountSlotRam, String cpuSocket, String ramSocket, String formFactor, int consumption, float price, int stock) {
-        this.sn = sn;
+    public Mobo(int id, String name, int amountSlotNvme, int amountSlotSata, int amountSlotRam, String cpuSocket, String ramSocket, String formFactor, int consumption, float price, int stock) {
+        this.id = id;
         this.name = name;
         this.amountSlotNvme = amountSlotNvme;
         this.amountSlotSata = amountSlotSata;
@@ -29,12 +41,12 @@ public class Mobo {
         this.stock = stock;
     }
 
-    public String getSn() {
-        return sn;
+    public int getId() {
+        return id;
     }
 
-    public void setSn(String sn) {
-        this.sn = sn;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

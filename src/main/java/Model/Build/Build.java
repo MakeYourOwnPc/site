@@ -1,24 +1,40 @@
 package Model.Build;
 
 import Model.Cpu.Cpu;
+import Model.Cpu.CpuDao;
 import Model.Gpu.Gpu;
+import Model.Gpu.GpuDao;
 import Model.Memory.Memory;
+import Model.Memory.MemoryDao;
 import Model.Mobo.Mobo;
+import Model.Mobo.MoboDao;
 import Model.PcCase.PcCase;
+import Model.PcCase.PcCaseDao;
 import Model.Psu.Psu;
+import Model.Psu.PsuDao;
 import Model.User.User;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Build {
-    private Mobo mobo;
-    private Gpu gpu;
-    private Cpu cpu;
-    private ArrayList<Memory> memories;
+    private int mobo;
+    private int gpu;
+    private int cpu;
+    private ArrayList<Integer> memories;
     private int id;
-    private PcCase pcCase;
-    private Psu psu;
-    private User user;
+    private int pcCase;
+    private int psu;
+
+    public String getMaker() {
+        return maker;
+    }
+
+    public void setMaker(String maker) {
+        this.maker = maker;
+    }
+
+    private String maker;
     private boolean suggested;
     private String type;
 
@@ -31,11 +47,11 @@ public class Build {
         this.id = id;
     }
 
-    public Cpu getCpu() {
+    public int getCpu() {
         return cpu;
     }
 
-    public void setCpu(Cpu cpu) {
+    public void setCpu(int cpu) {
         this.cpu = cpu;
     }
 
@@ -59,78 +75,99 @@ public class Build {
         this.memories = new ArrayList<>();
     }
 
-    public Build(Mobo mobo, Gpu gpu, ArrayList<Memory> memories, PcCase pcCase, Psu psu, User user) throws BuildException {
+    public Build(int mobo, int gpu, ArrayList<Integer> memories, int pcCase, int psu, String maker) throws BuildException {
         this.mobo = mobo;
         this.gpu = gpu;
         this.memories = memories;
         this.pcCase = pcCase;
         this.psu = psu;
-        this.user = user;
-        verifier();
+        this.maker = maker;
+        //verifier();
     }
-
-    public Mobo getMobo() {
+    public int getMobo() {
         return mobo;
     }
 
-    public void setMobo(Mobo mobo) {
+    public void setMobo(int mobo) {
         this.mobo = mobo;
     }
 
-    public Gpu getGpu() {
+    public int getGpu() {
         return gpu;
     }
 
-    public void setGpu(Gpu gpu) {
+    public void setGpu(int gpu) {
         this.gpu = gpu;
     }
 
-    public ArrayList<Memory> getMemories() {
+    public ArrayList<Integer> getMemories() {
         return memories;
     }
 
-    public void setMemories(ArrayList<Memory> memories) {
+    public void setMemories(ArrayList<Integer> memories) {
         this.memories = memories;
     }
 
-    public PcCase getPcCase() {
+    public int getPcCase() {
         return pcCase;
     }
 
-    public void setPcCase(PcCase pcCase) {
+    public void setPcCase(int pcCase) {
         this.pcCase = pcCase;
     }
 
-    public Psu getPsu() {
+    public int getPsu() {
         return psu;
     }
 
-    public void setPsu(Psu psu) {
+    public void setPsu(int psu) {
         this.psu = psu;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void addMemory(Memory memory) {
+    public void addMemory(Integer memory) {
         memories.add(memory);
     }
 
-    public float price(){
+    public float price() throws SQLException{
         float price=0;
+        MoboDao moboDao = new MoboDao();
+        CpuDao cpuDao = new CpuDao();
+        GpuDao gpuDao = new GpuDao();
+        PsuDao psuDao = new PsuDao();
+        PcCaseDao pcCaseDao = new PcCaseDao();
+        MemoryDao memoryDao = new MemoryDao();
+        Mobo mobo = moboDao.doRetrieveById(this.mobo);
+        Cpu cpu = cpuDao.doRetrieveById(this.cpu);
+        Gpu gpu = gpuDao.doRetrieveById(this.gpu);
+        PcCase pcCase = pcCaseDao.doRetrieveById(this.pcCase);
+        Psu psu = psuDao.doRetrieveById(this.psu);
+        ArrayList<Memory> memories = new ArrayList<>();
+        for(int id:this.memories){
+            memories.add(memoryDao.doRetrieveById(id));
+        }
         for(Memory memory:memories){
             price+=memory.getPrice();
         }
-        return (float) (mobo.getPrice()+gpu.getPrice()+ cpu.getPrice()+pcCase.getPrice()+ psu.getPrice()+price);
+        return (mobo.getPrice()+gpu.getPrice()+ cpu.getPrice()+pcCase.getPrice()+ psu.getPrice()+price);
 
     }
 
-    public boolean verifier() throws BuildException {
+    public boolean verifier() throws SQLException,BuildException {
+        MoboDao moboDao = new MoboDao();
+        CpuDao cpuDao = new CpuDao();
+        GpuDao gpuDao = new GpuDao();
+        PsuDao psuDao = new PsuDao();
+        PcCaseDao pcCaseDao = new PcCaseDao();
+        MemoryDao memoryDao = new MemoryDao();
+        Mobo mobo = moboDao.doRetrieveById(this.mobo);
+        Cpu cpu = cpuDao.doRetrieveById(this.cpu);
+        Gpu gpu = gpuDao.doRetrieveById(this.gpu);
+        PcCase pcCase = pcCaseDao.doRetrieveById(this.pcCase);
+        Psu psu = psuDao.doRetrieveById(this.psu);
+        ArrayList<Memory> memories = new ArrayList<>();
+        for(int id:this.memories){
+            memories.add(memoryDao.doRetrieveById(id));
+        }
         int sataDrives = 0;
         int nvmeDrives = 0;
         int ramMemories = 0;
@@ -175,6 +212,7 @@ public class Build {
         return true;
 
     }
+
 }
 
 

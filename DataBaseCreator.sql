@@ -2,7 +2,7 @@ DROP database MakeYourOwnPc;
 create database MakeYourOwnPc;
 USE  MakeYourOwnPc;
 
-create table users(
+create table Users(
     email CHAR(40) PRIMARY KEY ,
     firstname char(30) not null,
     lastname char(30) not null,
@@ -10,19 +10,20 @@ create table users(
     password char(64) not null
 );
 
-create table memories(
-    sn char(11) PRIMARY KEY ,
+create table Memories(
+                         id int primary key auto_increment ,
     name char(100) not null unique,
     mtype boolean not null,#false= ram true=massStorage
     socket char(10) not null,
     consumption int not null,
     price float not null,
     amountmemories tinyint not null,
-    stock int not null
+    stock int not null,
+    imagepath char(100)
 );
 
-create table motherboards(
-                       sn char(11) PRIMARY KEY ,
+create table Motherboards(
+                             id int primary key auto_increment ,
                        name char(100) not null unique,
                        amountslotnvme tinyint not null,
                        amountslotsata tinyint not null,
@@ -32,77 +33,82 @@ create table motherboards(
                        formfactor char(10) not null,
                        consumption int not null,
                        price float not null,
-                       stock int not null
+                       stock int not null,
+                             imagepath char(100)
 );
 
-create table gpus(
-                             sn char(11) PRIMARY KEY ,
+create table Gpus(
+                     id int primary key auto_increment ,
                              name char(100) not null unique,
                              consumption int not null,
                              price float not null,
-                             stock int not null
+                             stock int not null,
+                     imagepath char(100)
 );
 
 
-create table cpus(
-                             sn char(11) PRIMARY KEY ,
+create table Cpus(
+                     id int primary key auto_increment ,
                              name char(100) not null unique,
                              socket char(10) not null,
-                            integratedgpu boolean not null,
+                             integratedgpu boolean not null,
                              consumption int not null,
                              price float not null,
-                             stock int not null
+                             stock int not null,
+                     imagepath char(100)
 );
 
-create table psus(
-                             sn char(11) PRIMARY KEY ,
+create table Psus(
+                     id int primary key auto_increment ,
                              name char(100) not null unique,
                              power int not null,
                              price float not null,
-                             stock int not null
+                             stock int not null,
+                     imagepath char(100)
 );
 
-create table pccases(
-                             sn char(11) PRIMARY KEY ,
+create table Pccases(
+                        id int primary key auto_increment ,
                              name char(100) not null unique,
                              formfactor char(10) not null,
                              price float not null,
-                             stock int not null
+                             stock int not null,
+                        imagepath char(100)
 );
 
 
-create table builds(
+create table Builds(
     id int primary key auto_increment,
-    mobo char(11) not null,
-    gpu char(11),
-    psu char(11) not null,
-    pccase char(11) not null,
+    mobo int not null,
+    gpu int,
+    psu int not null,
+    pccase int not null,
     maker char(40) not null,
     suggested boolean not null,
     type char(20) not null,
-    foreign key (mobo) references motherboards(sn) on delete cascade on update no action ,
-    foreign key (gpu) references gpus(sn) on delete cascade on update no action ,
-    foreign key (psu) references psus(sn) on delete cascade on update no action ,
-    foreign key (pccase) references pccases(sn) on delete cascade on update no action ,
+    foreign key (mobo) references motherboards(id) on delete cascade on update no action ,
+    foreign key (gpu) references gpus(id) on delete cascade on update no action ,
+    foreign key (psu) references psus(id) on delete cascade on update no action ,
+    foreign key (pccase) references pccases(id) on delete cascade on update no action ,
     foreign key (maker) references users(email)
 
 );
 
-create table memoriesbuiltin(
+create table Memoriesbuiltin(
     idbuild int not null ,
     amountofmemories int not null,
-    sn char(11) not null,
-    primary key (idbuild,sn),
+    id int not null,
+    primary key (idbuild,id),
     foreign key (idbuild) references builds(id),
-    foreign key (sn) references memories(sn)
+    foreign key (id) references memories(id)
 );
 
-create table country(
+create table Countries(
     id char(2) primary key ,
     label char(20) unique
 );
 
-create table purchases (
+create table Purchases (
     id int primary key auto_increment,
     idbuild int not null,
         foreign key (idbuild) references builds(id),
@@ -114,7 +120,7 @@ create table purchases (
     cap char(6) not null,
     email char(40) not null ,
     countryid char(2) not null,
-        foreign key (countryid) references country(id)
+        foreign key (countryid) references Countries(id)
 )
 
 

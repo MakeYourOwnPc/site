@@ -2,20 +2,31 @@ package Model.Cpu;
 
 public class Cpu {
 
-    private String sn;
+    private int id;
     private String name;
     private String socket;
-    private double price;
+    private float price;
     private int consumption;
     private boolean integratedgpu;
     private int stock;
 
-    public String getSn() {
-        return sn;
+
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setSn(String sn) {
-        this.sn = sn;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    private String imagePath;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -34,11 +45,11 @@ public class Cpu {
         this.socket = socket;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -68,8 +79,8 @@ public class Cpu {
     public Cpu(){
 
     }
-    public Cpu(String sn, String name, String socket, double price, int consumption, boolean integratedgpu, int stock) {
-        this.sn = sn;
+    public Cpu(int id, String name, String socket, float price, int consumption, boolean integratedgpu, int stock) {
+        this.id = id;
         this.name = name;
         this.socket = socket;
         this.price = price;

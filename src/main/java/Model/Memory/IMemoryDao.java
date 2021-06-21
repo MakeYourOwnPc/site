@@ -5,14 +5,13 @@ import Model.Mobo.Mobo;
 import java.util.ArrayList;
 
 public interface IMemoryDao<E extends Exception> {
-    ArrayList<Memory> doRetrieveAll() throws E;
-    Memory doRetrieveBySn(String sn) throws E;
-    Memory doRetrieveByName(String name)throws E;
-    ArrayList<Memory> doRetrieveBySocket(String socket) throws E;
-    boolean doDelete(String sn) throws E;
+    ArrayList<Memory> doRetrieveAll(int limit, int offset) throws E;
+    Memory doRetrieveById(int id) throws E;
+    ArrayList<Memory> doRetrieveByName(String name,int limit, int offset)throws E;
+    ArrayList<Memory> doRetrieveBySocket(String socket,int limit, int offset) throws E;
+    ArrayList<Memory> doRetrieveByMType(Boolean mType,int limit, int offset) throws E;
+    boolean doDelete(int id) throws E;
     boolean doUpdate(Memory memory)throws E;
     boolean doUpdateStock(Memory memory)throws E;
     boolean doSave(Memory memory) throws E;
-    boolean doCheckStockBySn(String sn)throws E;
-
 }

@@ -3,14 +3,12 @@ package Model.Cpu;
 import java.util.ArrayList;
 
 public interface ICpuDao<E extends Exception>{
-    ArrayList<Cpu> doRetrieveAll() throws E;
-    ArrayList<Cpu> doRetrieveBySocket(String cpuSocket) throws E;
-    Cpu doRetrieveBySn(String sn) throws E;
-    Cpu doRetrieveByName(String name) throws E;
-    boolean doCheckStockBySn(String sn) throws E;
+    ArrayList<Cpu> doRetrieveAll(int limit, int offset) throws E;
+    ArrayList<Cpu> doRetrieveBySocket(String cpuSocket,int limit, int offset) throws E;
+    Cpu doRetrieveById(int id) throws E;
+    ArrayList<Cpu> doRetrieveByName(String name,int limit, int offset) throws E;
     boolean doSave(Cpu cpu) throws E;
     boolean doUpdate(Cpu cpu) throws E;
     boolean doUpdateStock(Cpu cpu) throws E;
-    boolean doDelete(String name) throws E;
-
+    boolean doDelete(int id) throws E;
 }

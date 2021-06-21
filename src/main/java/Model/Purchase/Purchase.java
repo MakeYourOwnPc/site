@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class Purchase {
     private int id;
-    private Build build;
+    private int idbuild;
     private LocalDate creationDate;
     private String cellphonenumber;
     private float price ;
@@ -15,14 +15,14 @@ public class Purchase {
     private String city;
     private String cap;
     private String email;
-    private Country country;
+    private String country;
 
     public Purchase() {
     }
 
-    public Purchase(int id, Build build, LocalDate creationDate, String cellphonenumber, float price, String address, String city, String cap, String email, Country country) {
+    public Purchase(int id, int idbuild, LocalDate creationDate, String cellphonenumber, float price, String address, String city, String cap, String email, String country) {
         this.id = id;
-        this.build = build;
+        this.idbuild = idbuild;
         this.creationDate = creationDate;
         this.cellphonenumber = cellphonenumber;
         this.price = price;
@@ -41,12 +41,12 @@ public class Purchase {
         this.id = id;
     }
 
-    public Build getBuild() {
-        return build;
+    public int getIdBuild() {
+        return idbuild;
     }
 
-    public void setBuild(Build build) {
-        this.build = build;
+    public void setIdBuild(int idbuild) {
+        this.idbuild = idbuild;
     }
 
     public LocalDate getCreationDate() {
@@ -105,11 +105,11 @@ public class Purchase {
         this.email = email;
     }
 
-    public Country getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(Country country) {
+    public void setCountry(String country) {
         this.country = country;
     }
 }
