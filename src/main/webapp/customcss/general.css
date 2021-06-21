@@ -1,0 +1,61 @@
+
+:root{
+    --active-bg:#1195c6;
+    --active-color:white;
+    border-radius: 5px;
+
+}
+.default{
+    color:white;
+    background-color: #353a35;
+}
+
+.object{
+    color:white;
+    background-color: #000000;
+}
+.active{
+    background-color: var(--active-bg);
+    color:var(--active-color);
+}
+.nav-link{
+    color: white;
+    font-weight: 700;
+}
+.nav-item{
+    color: white;
+    font-weight: 700;
+}
+ svg{
+    float: left;
+    position: absolute;
+    height: inherit;
+}
+.topbar{
+    list-style-type: none;
+    height: 45px;
+    margin: 0;
+    margin-bottom: 0;
+    padding: 0;
+    background-color: var(--bs-dark);
+}
+.topbar *:hover{
+    background-color: gray;
+}
+.topbar *{
+    list-style: none;
+    list-style-image: none;
+    overflow: hidden;
+    vertical-align: top;
+    display: inline-block;
+    height: inherit;
+    border-radius:inherit;
+}
+
+
+
+
+
+
+
+

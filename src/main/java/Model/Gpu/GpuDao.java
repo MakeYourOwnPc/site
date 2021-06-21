@@ -1,7 +1,6 @@
 package Model.Gpu;
 
 import Model.ConnPool;
-import Model.User.User;
 
 import java.io.File;
 import java.sql.*;
