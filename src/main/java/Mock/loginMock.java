@@ -1,5 +1,6 @@
 package Mock;
 
+import Model.ConnPool;
 import Model.User.User;
 
 import javax.servlet.RequestDispatcher;
@@ -9,7 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
+import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 @WebServlet(name="login",value = "/login")
 public class loginMock  extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -17,6 +24,7 @@ public class loginMock  extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         User user=null;
+
          if(email.equalsIgnoreCase("admin@admin.it")&&password.equalsIgnoreCase("admin"))
          {
              user= new User("admin@admin.it",true,"nomeAdmin","cognomeAdmin","admin");

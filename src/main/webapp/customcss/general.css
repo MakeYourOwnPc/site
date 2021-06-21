@@ -7,7 +7,7 @@
 }
 .default{
     color:white;
-    background-color: #353a35;
+    background-color: #011826;
 }
 
 .object{
@@ -28,12 +28,11 @@
 }
  svg{
     float: left;
-    position: absolute;
+    position: relative;
     height: inherit;
 }
 .topbar{
     list-style-type: none;
-    height: 45px;
     margin: 0;
     margin-bottom: 0;
     padding: 0;
@@ -45,12 +44,102 @@
 .topbar *{
     list-style: none;
     list-style-image: none;
-    overflow: hidden;
+    overflow: visible;
     vertical-align: top;
-    display: inline-block;
-    height: inherit;
-    border-radius:inherit;
+    display: inline;
+    height: 3rem;
+
 }
+.topbar .icon-container{
+    display: inline-block;
+
+}
+
+.icon-container:hover{
+    color:gray;
+}
+
+.icon-container{
+    height: inherit;
+    color:white;
+    padding:1rem;
+    transition-duration: 0.3s;
+    position: relative;
+    background-color: transparent;
+    border: none;
+    display: inline;
+}
+.sidebar {
+    width: 25%;
+    background-color: var(--bs-dark);
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    border-color: var(--active-color);
+    border-style:solid none none none;
+}
+
+/* Sidebar links */
+.sidebar h2 {
+    display: block;
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+    margin-left: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+/* Active/current link */
+.sidebar h2.active {
+    background-color:var(--active-bg);
+    color: white;
+}
+
+/* Links on mouse-over */
+.sidebar h2:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+}
+.sidebar-toggler{
+    display: none;
+}
+#formContainter{
+    float: right;
+    width: 25%;
+
+}
+@media screen and (max-width: 700px) {
+    .sidebar {
+        display: none;
+    }
+    .sidebar-toggler{
+        display: block;
+    }
+    #formContainter{
+        width: 75%;
+    }
+}
+
+#formContainter {
+    height: 100%;
+    background-color: #023859;
+    display: block;
+    ;
+}
+
+.label { grid-area: label; }
+
+.form { grid-area: form; }
+
+
+
+
 
 
 

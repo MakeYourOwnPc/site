@@ -15,7 +15,8 @@ public class adminPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        if (session.isNew() || !((User) session.getAttribute("user")).isAdmin()) {
+        User user= (User) session.getAttribute("user");
+        if (session.isNew() ||user==null|| !user.isAdmin()) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             RequestDispatcher dispatcher = request.getRequestDispatcher("./index.html");
             dispatcher.forward(request,response);
