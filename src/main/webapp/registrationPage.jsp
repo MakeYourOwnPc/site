@@ -39,6 +39,8 @@
         <label for="password">Confirm Your Password</label>
         <input type="password" name="passwordtest" id="passwordtest">
 
+        <input type="submit" value="Register Now">
+
 
     </form>
 </div>
