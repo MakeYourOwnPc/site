@@ -1,5 +1,6 @@
 package Model.Purchase;
 
+
 import Model.ConnPool;
 import Model.Cpu.Cpu;
 import Model.Memory.Memory;

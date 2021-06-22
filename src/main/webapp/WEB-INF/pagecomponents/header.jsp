@@ -37,6 +37,7 @@
                 <input class="form-control" type="email" placeholder="Email" name="email">
                 <input class="form-control" type="password" placeholder="Password" name="password">
                 <button class="btn active" type="submit">Log In</button>
+                <a class="btn optional" href="/MYOPSite_war_exploded/registrationPage.jsp">Register Now</a>
             </form>
             <%}else{%>
             <span class="navbar-text"> Welcome <%=user.fullName()%>

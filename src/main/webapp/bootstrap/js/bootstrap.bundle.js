@@ -2143,9 +2143,9 @@
     return getWindow(element).getComputedStyle(element);
   }
 
-  function isTableElement(element) {
-    return ['table', 'td', 'th'].indexOf(getNodeName(element)) >= 0;
-  }
+    function isTableElement(element) {
+      return ['table', 'td', 'th'].indexOf(getNodeName(element)) >= 0;
+    }
 
   function getDocumentElement(element) {
     // $FlowFixMe[incompatible-return]: assume body is always available

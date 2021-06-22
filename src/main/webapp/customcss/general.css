@@ -18,6 +18,10 @@
     background-color: var(--active-bg);
     color:var(--active-color);
 }
+.optional{
+    background-color: var(--bs-green);
+    color:var(--active-color);
+}
 .nav-link{
     color: white;
     font-weight: 700;
@@ -26,11 +30,20 @@
     color: white;
     font-weight: 700;
 }
- svg{
+ .icon-container .sidebar-icon{
     float: left;
     position: relative;
     height: inherit;
 }
+
+.filter-icon{
+    display: inline-block;
+    position: absolute;
+    height: inherit;
+    color: white;
+    padding: 5px;
+}
+
 .topbar{
     list-style-type: none;
     margin: 0;
@@ -41,18 +54,24 @@
 .topbar *:hover{
     background-color: gray;
 }
+svg{
+    height: inherit;
+    align-content: center;
+}
 .topbar *{
     list-style: none;
     list-style-image: none;
     overflow: visible;
-    vertical-align: top;
-    display: inline;
+    vertical-align: center;
+    display: inline-block;
     height: 3rem;
 
 }
 .topbar .icon-container{
     display: inline-block;
-
+}
+.topbar .icon-container svg{
+    padding: 5px;
 }
 
 .icon-container:hover{
@@ -109,11 +128,13 @@ div.content {
 .sidebar-toggler{
     display: none;
 }
-#formContainter{
+#searchFormContainer{
     float: right;
     width: 25%;
-
+    height: 100%;
+    background-color: #023859;
 }
+
 @media screen and (max-width: 700px) {
     .sidebar {
         display: none;
@@ -121,22 +142,19 @@ div.content {
     .sidebar-toggler{
         display: block;
     }
-    #formContainter{
+    #searchFormContainer{
         width: 75%;
     }
 }
 
-#formContainter {
-    height: 100%;
-    background-color: #023859;
-    display: block;
-    ;
+
+
+.registration-box{
+    box-sizing: border-box;
+    display: flex;
+    position: center;
+
 }
-
-.label { grid-area: label; }
-
-.form { grid-area: form; }
-
 
 
 
