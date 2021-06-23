@@ -68,7 +68,7 @@
 </div>
 </body>
 <script>
-    function validateForm(){
+    function validateData(){
         var submitable =true
        if( document.forms["registration"]["firstname"].value==""){
            submitable =false;
