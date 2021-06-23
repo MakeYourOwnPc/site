@@ -24,6 +24,7 @@ public class EmailIsPresent extends HttpServlet {
                 response.getWriter().print("true");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            response.setStatus(500);
         }
     }
 }
