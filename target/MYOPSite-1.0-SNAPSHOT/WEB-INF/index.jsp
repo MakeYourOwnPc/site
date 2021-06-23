@@ -12,7 +12,7 @@
             <script src="./bootstrap/js/bootstrap.js" defer></script>
             <script src="./bootstrap/popper.js" defer></script>
             <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
-
+            <script src="./jslibraries/jQuery.js"defer></script>
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>

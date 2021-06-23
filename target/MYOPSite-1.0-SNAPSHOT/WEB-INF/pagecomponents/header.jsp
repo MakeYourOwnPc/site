@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/index.jsp">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Build</a>
@@ -37,12 +37,14 @@
                 <input class="form-control" type="email" placeholder="Email" name="email">
                 <input class="form-control" type="password" placeholder="Password" name="password">
                 <button class="btn active" type="submit">Log In</button>
+                <a class="btn optional" href="/MYOPSite_war_exploded/registrationPage.jsp">Register Now</a>
             </form>
             <%}else{%>
-            <span class="navbar-text"> Welcome <%=user.fullName()%> </span>
-            <form action="logout">
-            <button class="icon-container" ><%@include file="/icons/exit_door.svg"%> </button>
-            </form>
+            <span class="navbar-text"> Welcome <%=user.fullName()%>
+                 <form action="logout" style="display: inline-block;height: 3rem;">
+                   <button class="icon-container"  ><%@include file="/icons/exit_door.svg"%> </button>
+                 </form>
+            </span>
             <%}%>
         </div>
     </div>

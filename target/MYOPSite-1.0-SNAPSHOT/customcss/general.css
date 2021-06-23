@@ -7,7 +7,7 @@
 }
 .default{
     color:white;
-    background-color: #353a35;
+    background-color: #011826;
 }
 
 .object{
@@ -18,6 +18,10 @@
     background-color: var(--active-bg);
     color:var(--active-color);
 }
+.optional{
+    background-color: var(--bs-green);
+    color:var(--active-color);
+}
 .nav-link{
     color: white;
     font-weight: 700;
@@ -26,14 +30,22 @@
     color: white;
     font-weight: 700;
 }
- svg{
+ .icon-container .sidebar-icon{
     float: left;
-    position: absolute;
+    position: relative;
     height: inherit;
 }
+
+.filter-icon{
+    display: inline-block;
+    position: absolute;
+    height: inherit;
+    color: white;
+    padding: 5px;
+}
+
 .topbar{
     list-style-type: none;
-    height: 45px;
     margin: 0;
     margin-bottom: 0;
     padding: 0;
@@ -42,15 +54,110 @@
 .topbar *:hover{
     background-color: gray;
 }
+svg{
+    height: inherit;
+    align-content: center;
+}
 .topbar *{
     list-style: none;
     list-style-image: none;
-    overflow: hidden;
-    vertical-align: top;
+    overflow: visible;
+    vertical-align: center;
     display: inline-block;
-    height: inherit;
-    border-radius:inherit;
+    height: 3rem;
+
 }
+.topbar .icon-container{
+    display: inline-block;
+}
+.topbar .icon-container svg{
+    padding: 5px;
+}
+
+.icon-container:hover{
+    color:gray;
+}
+
+.icon-container{
+    height: inherit;
+    color:white;
+    padding:1rem;
+    transition-duration: 0.3s;
+    position: relative;
+    background-color: transparent;
+    border: none;
+    display: inline;
+}
+.sidebar {
+    width: 25%;
+    background-color: var(--bs-dark);
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    border-color: var(--active-color);
+    border-style:solid none none none;
+}
+
+/* Sidebar links */
+.sidebar h2 {
+    display: block;
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+    margin-left: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+/* Active/current link */
+.sidebar h2.active {
+    background-color:var(--active-bg);
+    color: white;
+}
+
+/* Links on mouse-over */
+.sidebar h2:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+}
+.sidebar-toggler{
+    display: none;
+}
+#searchFormContainer{
+    float: right;
+    width: 25%;
+    height: 100%;
+    background-color: #023859;
+}
+
+@media screen and (max-width: 700px) {
+    .sidebar {
+        display: none;
+    }
+    .sidebar-toggler{
+        display: block;
+    }
+    #searchFormContainer{
+        width: 75%;
+    }
+}
+
+
+
+.registration-box{
+    box-sizing: border-box;
+    display: flex;
+    position: center;
+
+}
+
+
+
 
 
 
