@@ -13,36 +13,67 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="customcss/general.css"/>
 </head>
-<body>
+<body class="default">
 <script src="bootstrap/js/bootstrap.js" defer></script>
 <script src="bootstrap/popper.js" defer></script>
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
 <script src="jslibraries/jQuery.js"></script>
 
-<div class="registration-box">
-    <form action="/registration" method="put">
-        <label for="firstname">Firstname</label>
-        <input type="text" name="firstname" id="firstname">
+<div>
+    <form name="registration" action="/registration" method="put" onsubmit="validateData()">
+        <table  class="registration-box">
+            <tr><td>
+            <label for="firstname">Firstname</label><br>
+                <span class="alert-info hidden"> FirstName not Inserted</span>
 
-        <label for="lastname">Lastname</label>
-        <input type="text" name="lastname" id="lastname">
-
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email">
-
-        <label for="emailtest">Confirm Your Email</label>
-        <input type="email" name="emailtest" id="emailtest">
-
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password">
-
-        <label for="password">Confirm Your Password</label>
-        <input type="password" name="passwordtest" id="passwordtest">
-
-        <input type="submit" value="Register Now">
+            </td><td>
+            <input type="text" name="firstname" id="firstname">
+                </td></tr>
+            <tr><td>
+                 <label for="lastname">LastName</label><br>
+                <span class="alert-info hidden"> LastName not Inserted</span>
+                <td>
+            <input type="text" name="lastname" id="lastname">
+            </td></tr>
+            <tr><td>
+            <label for="email">Email</label><br>
+                <span class="alert-info hidden"> Incorrect Email</span>
+            <td>
+            <input type="email" name="email" id="email">
+            </td></tr>
+            <tr><td>
+            <label for="emailtest">Confirm Your Email</label><br>
+                <span class="alert-info hidden">Not The Same Email</span>
+            <td>
+            <input type="email" name="emailtest" id="emailtest">
+            </td></tr>
+            <tr><td>
+            <label for="password">Password</label><br>
+            <td>
+            <input type="password" name="password" id="password">
+            </td></tr>
+            <tr><td>
+                <label for="password">Confirm Your Password</label><br>
+                <span class="alert-info hidden">Not The Same Password</span>
+            <td>
+                <input type="password" name="passwordtest" id="passwordtest">
+            </td></tr>
+            <tr><td>
+                <input type="submit" value="Register Now">
+            </td></tr>
+        </table>
 
 
     </form>
 </div>
 </body>
+<script>
+    function validateForm(){
+        var submitable =true
+       if( document.forms["registration"]["firstname"].value==""){
+           submitable =false;
+           document.getElementById("firstname").
+       }
+    }
+</script>
 </html>

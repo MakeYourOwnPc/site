@@ -2,12 +2,14 @@
 :root{
     --active-bg:#1195c6;
     --active-color:white;
+    --bg-secondary-color:#023859;
     border-radius: 5px;
-
-}
-.default{
     color:white;
     background-color: #011826;
+
+}
+.hidden{
+    display: none;
 }
 
 .object{
@@ -23,11 +25,11 @@
     color:var(--active-color);
 }
 .nav-link{
-    color: white;
+    color:var(--active-color);
     font-weight: 700;
 }
 .nav-item{
-    color: white;
+    color:var(--active-color);
     font-weight: 700;
 }
  .icon-container .sidebar-icon{
@@ -40,7 +42,7 @@
     display: inline-block;
     position: absolute;
     height: inherit;
-    color: white;
+    color:var(--active-color);
     padding: 5px;
 }
 
@@ -80,7 +82,7 @@ svg{
 
 .icon-container{
     height: inherit;
-    color:white;
+    color:var(--active-color);
     padding:1rem;
     transition-duration: 0.3s;
     position: relative;
@@ -101,7 +103,7 @@ svg{
 /* Sidebar links */
 .sidebar h2 {
     display: block;
-    color: white;
+    color:var(--active-color);
     padding: 16px;
     text-decoration: none;
     margin-left: 0.8rem;
@@ -111,13 +113,13 @@ svg{
 /* Active/current link */
 .sidebar h2.active {
     background-color:var(--active-bg);
-    color: white;
+    color:var(--active-color);
 }
 
 /* Links on mouse-over */
 .sidebar h2:hover:not(.active) {
     background-color: #555;
-    color: white;
+    color:var(--active-color);
 }
 
 div.content {
@@ -132,7 +134,7 @@ div.content {
     float: right;
     width: 25%;
     height: 100%;
-    background-color: #023859;
+    var(--bg-secondary-color:#023859);
 }
 
 @media screen and (max-width: 700px) {
@@ -153,7 +155,8 @@ div.content {
     box-sizing: border-box;
     display: flex;
     position: center;
-
+    background-color: var(--bg-secondary-color);
+    color:var(--active-color);
 }
 
 

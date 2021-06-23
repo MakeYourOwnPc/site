@@ -41,7 +41,7 @@
             </form>
             <%}else{%>
             <span class="navbar-text"> Welcome <%=user.fullName()%>
-                 <form action="logout" style="display: inline-block;height: 3rem;">
+                 <form action="/MYOPSite_war_exploded/logout" style="display: inline-block;height: 3rem;">
                    <button class="icon-container"  ><%@include file="/icons/exit_door.svg"%> </button>
                  </form>
             </span>
