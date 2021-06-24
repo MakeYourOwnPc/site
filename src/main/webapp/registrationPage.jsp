@@ -20,58 +20,59 @@
 <script src="jslibraries/jQuery.js"></script>
 
 
-<div>
+<div class="centered-box">
+    <div class="box-container">
+    <h1>Registration Form</h1>
     <form name="registration" action="/registration" method="post" onsubmit="return validateData()">
         <table  class="registration-box">
             <tr><td>
-            <label for="firstname">Firstname</label><br>
-
-
+            <label for="firstname">Firstname</label>
             </td><td>
-            <input type="text" name="firstname" id="firstname" required>
+            <input type="text" name="firstname" id="firstname"  required>
                 <span id="firstname-alert" class="alert-info hidden"> FirstName not Inserted</span>
                 </td></tr>
             <tr><td>
-                 <label for="lastname">LastName</label><br>
+                 <label for="lastname">LastName</label>
                 <td>
-            <input type="text" name="lastname" id="lastname" required>
+            <input type="text" name="lastname" id="lastname"  required>
                 <span  id="lastname-alert" class="alert-info hidden"> LastName not Inserted</span>
 
             </td></tr>
             <tr><td>
-            <label for="email">Email</label><br>
+            <label for="email">Email</label>
 
             <td>
-            <input type="email" name="email" id="email" onfocusout="existingEmail()" required>
+            <input type="email" name="email" id="email" onfocusout="existingEmail()"  required>
                 <span id="email-alert" class="alert-info hidden" > Incorrect Email</span>
             </td></tr>
             <tr><td>
-            <label for="emailtest">Confirm Your Email</label><br>
+            <label for="emailtest">Confirm Email</label>
 
             <td>
-            <input type="email" name="emailtest" id="emailtest" required>
+            <input type="email" name="emailtest" id="emailtest"  required>
                 <span id="emailtest-alert"class="alert-info hidden">Not The Same Email</span>
             </td></tr>
             <tr><td>
-            <label for="password">Password</label><br>
+            <label for="password">Password</label>
             <td>
-            <input id="password" type="password" name="password" id="password" required>
+            <input id="password" type="password" name="password" id="password"  required>
                 <span id="password-alert" class="alert-info hidden" >Password Incorrect</span>
             </td></tr>
             <tr><td>
-                <label for="passwordtest">Confirm Your Password</label><br>
+                <label for="passwordtest">Confirm Password</label>
 
             <td>
                 <input type="password" name="passwordtest" id="passwordtest" required>
                 <span id="passwordtest-alert" class="alert-info hidden" >Not The Same Password</span>
             </td></tr>
             <tr><td>
-                <input type="submit" value="Register Now">
+                <input class="btn active" type="submit" value="Register Now">
             </td></tr>
         </table>
 
 
     </form>
+    </div>
 </div>
 </body>
 <script>
