@@ -14,7 +14,7 @@ public class UserDao implements IUserDao<SQLException>{
         try(Connection conn = ConnPool.getConnection()){
             try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Users;")){
                 ResultSet rs = ps.executeQuery();
-                ArrayList<User> list = new ArrayList<User>();
+                ArrayList<User> list = new ArrayList<>();
                 while(rs.next()){
                     User user = new User();
                     user.setEmail(rs.getString("email"));
@@ -69,8 +69,7 @@ public class UserDao implements IUserDao<SQLException>{
                 ps.setString(3,user.getLastName());
                 ps.setString(4,user.getPassword());
                 ps.setBoolean(5,user.isAdmin());
-                ps.executeQuery();
-                return true;
+                return ps.executeUpdate()>0;
             }
             catch(SQLException e){
                 return false;
