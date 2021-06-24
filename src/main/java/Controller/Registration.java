@@ -34,6 +34,7 @@ public class Registration extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
+        System.out.println("Buongiorno");
         Pattern pattern = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
         String firstName = req.getParameter("firstname");
         String lastName = req.getParameter("lastname");
@@ -65,6 +66,7 @@ public class Registration extends HttpServlet {
         }
         user.setPassword("");
         session.setAttribute("user",user);
+        System.out.println("Buona giornata");
         resp.sendRedirect("/MYOPSite_war_exploded/");
     }
 

@@ -2,7 +2,7 @@
 <% User user= (User) session.getAttribute("user");
 %>
 
-<nav class="navbar navbar-expand-lg navbar-dark object">
+<nav class="navbar navbar-expand-lg navbar-dark  header">
     <div class="container-fluid">
         <a class="navbar-brand" href="./">Make Your Own Pc</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@
             </form>
             <%}else{%>
             <span class="navbar-text"> Welcome <%=user.fullName()%>
-                 <form action="logout" style="display: inline-block;height: 3rem;">
+                 <form action="/MYOPSite_war_exploded/logout" style="display: inline-block;height: 3rem;">
                    <button class="icon-container"  ><%@include file="/icons/exit_door.svg"%> </button>
                  </form>
             </span>

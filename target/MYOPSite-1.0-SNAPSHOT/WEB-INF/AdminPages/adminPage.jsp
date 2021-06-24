@@ -21,7 +21,7 @@
         </div>
         <h2 id="selectedFormTitle"> Choose Element</h2>
 
-        <div id="icon-container filter-icon" onclick="hideFormContainer()" >
+        <div class="icon-container filter-icon" onclick="hideFormContainer()" >
             <%@include file="../../icons/filter_icon.svg" %>
         </div>
 
