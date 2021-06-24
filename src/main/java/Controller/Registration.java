@@ -15,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.Enumeration;
+import java.util.regex.Pattern;
 
 @WebServlet(name="registration",urlPatterns = "/registration")
 public class Registration extends HttpServlet {
@@ -33,11 +34,12 @@ public class Registration extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
+        Pattern pattern = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
         String firstName = req.getParameter("firstname");
         String lastName = req.getParameter("lastname");
         String email = req.getParameter("email");
         String emailTest = req.getParameter("emailtest");
-        if(!email.equalsIgnoreCase(emailTest)) try {
+        if(!email.equalsIgnoreCase(emailTest)||!pattern.matcher(email).matches()) try {
             throw new Exception();
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,6 +63,7 @@ public class Registration extends HttpServlet {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        user.setPassword("");
         session.setAttribute("user",user);
         resp.sendRedirect("/MYOPSite_war_exploded/");
     }
