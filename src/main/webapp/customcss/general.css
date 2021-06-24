@@ -6,15 +6,59 @@
     border-radius: 5px;
     color:white;
     background-color: #011826;
-
 }
+#selectedFormTitle{
+    position: relative;
+    position: relative;
+    top: 13%;
+    transform: translate(0%, -50%);
+    margin: 0;
+}
+body{
+    color: white;
+}
+td{
+    padding: 3px;
+}
+input[type=text], select, input[type=email],input[type=password],input[type=number]{
+    width: 100%;
+    padding: 0.4rem 0.5rem;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
 .hidden{
     display: none;
 }
 
-.object{
+.centered-box{
+    z-index: -1;
+    position: fixed; /* or absolute */
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+}
+
+
+.header{
+    padding: 10px;
     color:white;
     background-color: #000000;
+    text-align: center;
+}
+
+.box-container{
+    padding: 10px;
+    color:white;
+    background-color: #000000;
+    text-align: center;
+    border-radius: 5px;
+
 }
 .active{
     background-color: var(--active-bg);
@@ -39,11 +83,11 @@
 }
 
 .filter-icon{
+    float: right;
     display: inline-block;
     position: absolute;
     height: inherit;
     color:var(--active-color);
-    padding: 5px;
 }
 
 .topbar{
@@ -52,6 +96,7 @@
     margin-bottom: 0;
     padding: 0;
     background-color: var(--bs-dark);
+    height: 3rem;
 }
 .topbar *:hover{
     background-color: gray;
@@ -83,7 +128,7 @@ svg{
 .icon-container{
     height: inherit;
     color:var(--active-color);
-    padding:1rem;
+
     transition-duration: 0.3s;
     position: relative;
     background-color: transparent;
@@ -91,7 +136,7 @@ svg{
     display: inline;
 }
 .sidebar {
-    width: 25%;
+
     background-color: var(--bs-dark);
     position: fixed;
     height: 100%;
@@ -138,25 +183,30 @@ div.content {
 }
 
 @media screen and (max-width: 700px) {
-    .sidebar {
-        display: none;
+    .centered-box{
+        width: 95%;
     }
+
     .sidebar-toggler{
         display: block;
     }
     #searchFormContainer{
-        width: 75%;
+        width: 100%;
     }
 }
 
 
-
+table tbody{
+    padding: 10px;
+}
 .registration-box{
+    padding: 10px;
     box-sizing: border-box;
     display: flex;
     position: center;
     background-color: var(--bg-secondary-color);
     color:var(--active-color);
+    border-radius: 5px;
 }
 
 
