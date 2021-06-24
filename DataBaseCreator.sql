@@ -122,15 +122,15 @@ create table Purchases
 (
     id              int primary key auto_increment,
     idbuild         int      not null,
-    foreign key (idbuild) references builds (id),
     creationdate    datetime not null,
-    cellphonenumber char(13) not null,
-    totalprice      float    not null,
+    cellphone char(13) not null,
+    price      float    not null,
     address         char(40) not null,
     city            char(30) not null,
     cap             char(6)  not null,
     email           char(40) not null,
     countryid       char(2)  not null,
+    foreign key (idbuild) references builds (id),
     foreign key (countryid) references Countries (id)
 )
 

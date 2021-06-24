@@ -13,7 +13,6 @@ public interface IPurchaseDao<E extends Exception>{
     Purchase doRetrieveById(int id) throws E;
     ArrayList<Purchase> doRetrieveByType(String type, int limit, int offset)throws E;
     boolean doDelete(int id) throws E;
-    boolean doUpdate(Purchase purchase)throws E;
     boolean doSave(Purchase purchase) throws E;
     ArrayList<Purchase> doRetrieveSuggested(int limit, int offset) throws E;
     ArrayList<Purchase> doRetrieveByMobo(String name,int limit, int offset) throws E;

@@ -7,10 +7,7 @@ import Model.Memory.Memory;
 import Model.Mobo.Mobo;
 import Model.Psu.Psu;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class PurchaseDao implements IPurchaseDao<SQLException>{
@@ -130,13 +127,25 @@ public class PurchaseDao implements IPurchaseDao<SQLException>{
     }
 
     @Override
-    public boolean doUpdate(Purchase purchase) throws SQLException {
-        return false;
-    }
-
-    @Override
     public boolean doSave(Purchase purchase) throws SQLException {
-        return false;
+        try(Connection conn = ConnPool.getConnection()){
+            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Purchases (idbuild,creationdate,cellphone,country,price,address,cap,city,email) VALUES (?,?,?,?,?,?,?,?,?)")){
+                ps.setInt(1,purchase.getIdBuild());
+                ps.setDate(2, Date.valueOf(purchase.getCreationDate()));
+                ps.setString(3, purchase.getCellphonenumber());
+                ps.setString(4, purchase.getCountry());
+                ps.setFloat(5,purchase.getPrice());
+                ps.setString(6, purchase.getAddress());
+                ps.setString(7, purchase.getCap());
+                ps.setString(8, purchase.getCity());
+                ps.setString(9, purchase.getEmail());
+                return ps.executeUpdate()>0;
+            }catch(SQLException e){
+                return false;
+            }
+        }catch(SQLException e){
+            return false;
+        }
     }
 
     @Override
