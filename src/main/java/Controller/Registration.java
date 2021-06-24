@@ -40,7 +40,7 @@ public class Registration extends HttpServlet {
         String lastName = req.getParameter("lastname");
         String email = req.getParameter("email");
         String emailTest = req.getParameter("emailtest");
-        if(!email.equalsIgnoreCase(emailTest)||!pattern.matcher(email).matches()) try {
+        if (!email.equalsIgnoreCase(emailTest) || !pattern.matcher(email).matches()) try {
             throw new Exception();
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,21 +59,20 @@ public class Registration extends HttpServlet {
         user.setAdmin(false);
         UserDao userDao = new UserDao();
         try {
-            if(!userDao.isPresent(email)) {
+            if (!userDao.isPresent(email)) {
                 userDao.doSave(user);
                 user.setPassword("");
                 session.setAttribute("user", user);
                 System.out.println("Buona giornata");
                 resp.sendRedirect("/MYOPSite_war_exploded/");
-            }
-            else {
+            } else {
                 resp.setStatus(500);
-                req.setAttribute("errorDescription","Email already used.");
+                req.setAttribute("errorDescription", "Email already used.");
+                throw new Exception();
             }
-        } catch (SQLException throwables) {
+        } catch (Exception throwables) {
             resp.setStatus(500);
             throwables.printStackTrace();
         }
     }
-
 }
