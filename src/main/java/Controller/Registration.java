@@ -62,7 +62,9 @@ public class Registration extends HttpServlet {
             if(userDao.doRetrieveByEmail(email)==null)
                 userDao.doSave(user);
         } catch (SQLException throwables) {
+            resp.setStatus(500);
             throwables.printStackTrace();
+            return;
         }
         user.setPassword("");
         session.setAttribute("user",user);

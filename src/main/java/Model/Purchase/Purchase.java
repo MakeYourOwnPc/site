@@ -1,8 +1,6 @@
 package Model.Purchase;
 
-import Model.Build.Build;
-import Model.Country.Country;
-
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Purchase {
