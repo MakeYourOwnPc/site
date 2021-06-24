@@ -32,9 +32,10 @@ public class Registration extends HttpServlet {
         return stringBuilder.toString();
     }
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws RuntimeException {
+
         HttpSession session = req.getSession(true);
-        System.out.println("Buongiorno");
+
         Pattern pattern = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
         String firstName = req.getParameter("firstname");
         String lastName = req.getParameter("lastname");
@@ -63,16 +64,16 @@ public class Registration extends HttpServlet {
                 userDao.doSave(user);
                 user.setPassword("");
                 session.setAttribute("user", user);
-                System.out.println("Buona giornata");
                 resp.sendRedirect("/MYOPSite_war_exploded/");
             } else {
-                resp.setStatus(500);
+
                 req.setAttribute("errorDescription", "Email already used.");
                 throw new Exception();
             }
         } catch (Exception throwables) {
             resp.setStatus(500);
             throwables.printStackTrace();
+            throw new RuntimeException();
         }
     }
 }
