@@ -59,17 +59,21 @@ public class Registration extends HttpServlet {
         user.setAdmin(false);
         UserDao userDao = new UserDao();
         try {
-            if(userDao.doRetrieveByEmail(email)==null)
+            if(!userDao.isPresent(email)) {
                 userDao.doSave(user);
+                user.setPassword("");
+                session.setAttribute("user", user);
+                System.out.println("Buona giornata");
+                resp.sendRedirect("/MYOPSite_war_exploded/");
+            }
+            else {
+                resp.setStatus(500);
+                req.setAttribute("errorDescription","Email already used.");
+            }
         } catch (SQLException throwables) {
             resp.setStatus(500);
             throwables.printStackTrace();
-            return;
         }
-        user.setPassword("");
-        session.setAttribute("user",user);
-        System.out.println("Buona giornata");
-        resp.sendRedirect("/MYOPSite_war_exploded/");
     }
 
 }

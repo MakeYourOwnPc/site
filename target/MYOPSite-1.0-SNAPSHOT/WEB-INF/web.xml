@@ -18,13 +18,5 @@
         <location>/WEB-INF/errors/error.jsp</location>
     </error-page>
 
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>registration</web-resource-name>
-            <url-pattern>/registration/*</url-pattern>
-        </web-resource-collection>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
-    </security-constraint>
+
 </web-app>

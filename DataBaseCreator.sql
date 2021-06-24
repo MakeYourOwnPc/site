@@ -8,7 +8,7 @@ create table Users
     firstname char(30) not null,
     lastname  char(30) not null,
     admin     boolean default false,
-    password  char(64) not null
+    password  char(128) not null
 );
 
 create table Memories

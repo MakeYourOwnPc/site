@@ -59,7 +59,21 @@ public class UserDao implements IUserDao<SQLException>{
             return null;
         }
     }
-
+    public boolean isPresent(String email) throws SQLException{
+        try(Connection conn = ConnPool.getConnection()){
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Users WHERE email=?;")){
+                ps.setString(1,email);
+                ResultSet rs = ps.executeQuery();
+                if(rs.isBeforeFirst())
+                    return true;
+                else return false;
+            }catch(SQLException e) {
+                return false;
+            }
+        }catch(SQLException e){
+            return false;
+        }
+    }
     @Override
     public boolean doSave(User user) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
@@ -72,10 +86,12 @@ public class UserDao implements IUserDao<SQLException>{
                 return ps.executeUpdate()>0;
             }
             catch(SQLException e){
+                e.printStackTrace();
                 return false;
             }
         }
         catch(SQLException e){
+            e.printStackTrace();
             return false;
         }
     }

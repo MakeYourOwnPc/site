@@ -9,7 +9,7 @@
 }
 #selectedFormTitle{
     position: relative;
-    position: relative;
+
     top: 13%;
     transform: translate(0%, -50%);
     margin: 0;
@@ -93,7 +93,7 @@ input[type=text], select, input[type=email],input[type=password],input[type=numb
 .topbar{
     list-style-type: none;
     margin: 0;
-    margin-bottom: 0;
+
     padding: 0;
     background-color: var(--bs-dark);
     height: 3rem;
@@ -107,7 +107,7 @@ svg{
 }
 .topbar *{
     list-style: none;
-    list-style-image: none;
+
     overflow: visible;
     vertical-align: center;
     display: inline-block;
@@ -128,7 +128,6 @@ svg{
 .icon-container{
     height: inherit;
     color:var(--active-color);
-
     transition-duration: 0.3s;
     position: relative;
     background-color: transparent;
@@ -176,6 +175,7 @@ div.content {
     display: none;
 }
 #searchFormContainer{
+    background-color: var(--bg-secondary-color);
     float: right;
     width: 25%;
     height: 100%;
