@@ -5,7 +5,7 @@
   Time: 12:48
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>MYOC-Registration</title>
@@ -23,7 +23,7 @@
 <div class="centered-box">
     <div class="box-container">
     <h1>Registration Form</h1>
-    <form name="registration" action="/registration" method="post" onsubmit="return validateData()">
+    <form name="registration" action="/MYOPSite_war_exploded/registration" method="post" onsubmit="return validateData()">
         <table  class="registration-box">
             <tr><td>
             <label for="firstname">Firstname</label>
