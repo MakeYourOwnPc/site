@@ -59,7 +59,7 @@
     }
 
     function hideFormContainer(){
-        $("#searchFormContainer").slideToggle();
+        $("#searchForm").slideToggle();
     }
 
     $(document).ready(function () {
@@ -90,14 +90,14 @@
             case "Cpus":
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='cpus'>" +
                     "<tr><td><label for='CPUsocket' >Socket</label></td>" +
-                    "<td><div class='form'><input type='text' id='CPUsocket' name='CPUsocket' value='CPUsocket'></td></tr>";
+                    "<td><div class='form'><input type='text' id='CPUsocket' name='CPUsocket' ></td></tr>";
                 break;
 
             case "Memories":
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='memories'>" +
 
                     "<tr><td><label for='RAMsocket' >Socket</label></td>" +
-                    "<td><input type='text' id='RAMsocket' name='RAMsocket' value='RAMsocket'></td></tr>" +
+                    "<td><input type='text' id='RAMsocket' name='RAMsocket'></td></tr>" +
 
                     "<tr><td><label for='Ram' >Ram</label></td>" +
                     "<td><input type='radio' id='Ram' name='mType' value='Ram'></td></tr>" +
@@ -111,7 +111,7 @@
             case "Cases":
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='cases'>" +
                     "<tr><td><label for='formFactorm'>Form Factor</label></td>" +
-                    "<td><input type='text' id='formFactor' name='formFactor' value='formFactor'></td></tr>";
+                    "<td><input type='text' id='formFactor' name='formFactor' ></td></tr>";
                 power = false;
                 break;
             case "Psus":
@@ -119,8 +119,8 @@
                 break;
             case "Users":
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='users'>" +
-                    "<tr><td><input type='text' id='firstName' name='firstName' value='First Name'></td>" +
-                    "<td><input type='text' id='lastName' name='lastName' value='Last Name'></td></tr>";
+                    "<tr><td><input type='text' id='firstName' name='firstName'></td>" +
+                    "<td><input type='text' id='lastName' name='lastName' ></td></tr>";
                 user = true;
                 power = false;
                 break;
@@ -129,10 +129,10 @@
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='memories'>" +
 
                     "<tr><td><label for='CPUsocket'>CPU Socket</label></td>" +
-                    "<td><input type='text' id='CPUsocket' name='CPUsocket' value='CPUSocket'></td></tr>" +
+                    "<td><input type='text' id='CPUsocket' name='CPUsocket'></td></tr>" +
 
                     "<tr><td><label for='RAMsocket'>RAM Type</label></td>" +
-                    "<td><input type='text' id='RAMsocket' name='RAMsocket' value='RAMSocket'></td></tr>" +
+                    "<td><input type='text' id='RAMsocket' name='RAMsocket' ></td></tr>" +
 
                     "<tr><td><label for='nRAMSockets'>RAM Slots</label></td>" +
                     "<td><input type='number' id='nRAMSockets' name='nRAMSockets'></td></tr>" +
@@ -146,12 +146,12 @@
         }
 
         if (user) formHTML += "<tr><td class='label'><label for='id'>Object Id</label></td>" +
-            "<td><input type='number' id='id' name='id' value='Object id'></td></tr>"
+            "<td><input type='number' id='id' name='id' ></td></tr>"
 
         else formHTML += "<tr><td><label for='power'>Power</label></td>" +
             "<td class='form'><input type='number' id='power' name='power'></td></tr>";
 
-        formHTML += "<tr><td><label for='name'>Name</label></td><td><input type='text' id='name' name='name' value='Search Name'></td></tr>";
+        formHTML += "<tr><td><label for='name'>Name</label></td><td><input type='text' id='name' name='name'></td></tr>";
         $("#searchFormContainer").html(formHTML);
     }
 
