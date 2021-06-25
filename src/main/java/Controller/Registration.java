@@ -36,17 +36,19 @@ public class Registration extends HttpServlet {
 
         HttpSession session = req.getSession(true);
 
-        Pattern pattern = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
+        Pattern patternEmail = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
+        Pattern patternPassword = Pattern.compile("^(?=.*[a-z])(?=.*\\d)(?=.*[@#$%])(?=.*[A-Z]).{8,16}$");
         String firstName = req.getParameter("firstname");
         String lastName = req.getParameter("lastname");
         String email = req.getParameter("email");
         String emailTest = req.getParameter("emailtest");
-        if (!email.equalsIgnoreCase(emailTest) || !pattern.matcher(email).matches()) try {
+        String password = req.getParameter("password");
+        if (!email.equalsIgnoreCase(emailTest) || !patternEmail.matcher(email).matches() || !patternPassword.matcher(password).matches()) try {
             throw new Exception();
         } catch (Exception e) {
-            e.printStackTrace();
+            resp.setStatus(500);
+            throw new RuntimeException();
         }
-        String password = req.getParameter("password");
         try {
             password = setPassword(password);
         } catch (NoSuchAlgorithmException e) {
@@ -66,7 +68,6 @@ public class Registration extends HttpServlet {
                 session.setAttribute("user", user);
                 resp.sendRedirect("/MYOPSite_war_exploded/");
             } else {
-
                 req.setAttribute("errorDescription", "Email already used.");
                 throw new Exception();
             }
