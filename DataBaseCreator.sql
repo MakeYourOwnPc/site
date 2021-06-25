@@ -132,9 +132,15 @@ create table Purchases
     countryid       char(2)  not null,
     foreign key (idbuild) references builds (id),
     foreign key (countryid) references Countries (id)
+);
+
+create table ShoppingCarts
+(
+    user char(40) primary key,
+    idbuild int not null,
+    foreign key(user) references Users(email),
+    foreign key(idbuild) references Builds(id)
 )
-
-
 
 
 

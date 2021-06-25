@@ -37,7 +37,7 @@ public class Registration extends HttpServlet {
         HttpSession session = req.getSession(true);
 
         Pattern patternEmail = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
-        Pattern patternPassword = Pattern.compile("^(?=.*[a-z])(?=.*\\d)(?=.*[@#$%])(?=.*[A-Z]).{8,16}$");
+        Pattern patternPassword = Pattern.compile("^(?=.*[a-z])(?=.*\\d)(?=.*[@#$._%-])(?=.*[A-Z]).{8,16}$");
         String firstName = req.getParameter("firstname");
         String lastName = req.getParameter("lastname");
         String email = req.getParameter("email");
