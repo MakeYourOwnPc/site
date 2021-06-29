@@ -151,7 +151,14 @@
                     "<td><input type='number' id='nSATASockets' name='nSATASockets'></td></tr>" +
 
                     "<tr><td><label for='nNVMESockets'>NVME Sockets</label></td>" +
-                    "<td><input type='number' id='nNVMESockets' name='nNVMESockets'></td></tr>";
+                    "<td><input type='number' id='nNVMESockets' name='nNVMESockets'></td></tr>"+
+
+                    "<tr><td><label for='formFactor'>Form Factor</label></td>" +
+                    "<td><select type='number' id='formFActor' name='formfactor'>" +
+                    "<option value='mini-itx'>Mini-ITX</option>" +
+                    "<option value='micro-atx'>Micro-ATX</option>" +
+                    "<option value='atx'>ATX</option>" +
+                    "</select></td></tr>";
                 break;
         }
 
@@ -307,6 +314,7 @@
             "</tr>"
         $("#searchResult").append(row);
     }
+
     function psusTabler(value) {
         var row;
         row = "<tr>"+
@@ -317,6 +325,8 @@
             "</tr>"
         $("#searchResult").append(row);
     }
+
+
 
 
 </script>
