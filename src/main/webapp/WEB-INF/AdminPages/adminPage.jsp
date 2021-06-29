@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>MYOP-Admin</title>
-    <meta name="viewport" content="width=device-witdht, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="../customcss/general.css"/>
 </head>
@@ -21,7 +21,7 @@
     </div>
     <h2 id="selectedFormTitle"> Choose Element</h2>
 
-    <div class="icon-container filter-icon" onclick="hideFormContainer()">
+    <div class="icon-container filter-icon" onclick="toggleFormContainer()">
         <%@include file="../../icons/filter_icon.svg" %>
     </div>
 
@@ -37,26 +37,31 @@
     <h2 class="button">Cases</h2>
     <h2 class="button">Psus</h2>
     <h2 class="button">MotherBoards</h2>
+    <h2 class="button">Builds</h2>
     <h2 class="button">Users</h2>
 </nav>
 <div>
-<form id="searchForm" action="" onkeyup="submitForm()">
-    <table id="searchFormContainer">
-    </table>
-</form>
+    <form id="searchForm" action="">
+        <table id="searchFormContainer">
+        </table>
+
+    </form>
 </div>
-<ul id="searchResult">
-</ul>
+<table id="searchResult">
+</table>
 <span>
 </span>
 </body>
 
 <script>
+
+    var selectedElement;
+
     function hideSidebar() {
         $("#sidebar").slideToggle();
     }
 
-    function hideFormContainer() {
+    function toggleFormContainer() {
         $("#searchForm").slideToggle();
     }
 
@@ -75,13 +80,20 @@
     });
 
     function changeForm(text) {
-
+        selectedElement = text;
         $("#selectedFormTitle").text(text);
 
         var formHTML;
         var user = false;
         var power = true;
         switch (text) {
+            case "Builds":
+                formHTML="<input type='hidden' id='requestedItem' name='requestedItem' value='builds'>"+
+                    "<tr><td><label for='CPUname'>CPU Name</label></td><td><input type='text' id='CPUname' name='cpuname'></td></tr>" +
+                    "<tr><td><label for='GPUname'>GPU Name</label></td><td><input type='text' id='GPUname' name='gpuname'></td></tr>" +
+                    "<tr><td><label for='PSUname'>PSU Name</label></td><td><input type='text' id='PSUname' name='psuname'></td></tr>" +
+                    "<tr><td><label for='CASEname'>CASE Name</label></td><td><input type='text' id='CASEname' name='casename'></td></tr>"
+                    break;
             case "Gpus":
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='gpus'>";
                 break;
@@ -149,16 +161,161 @@
         else formHTML += "<tr><td><label for='power'>Power</label></td>" +
             "<td class='form'><input type='number' id='power' name='power'></td></tr>";
 
-        formHTML += "<tr><td><label for='name'>Name</label></td><td><input type='text' id='name' name='name'></td></tr>";
+        formHTML += "<tr><td><label for='name'>Name</label></td><td><input type='text' id='name' name='name'></td></tr>" +
+            "<button  class='btn'onclick='submitForm()'>Search</button>";
+
         $("#searchFormContainer").html(formHTML);
     }
 
     function submitForm() {
-        var data = new FormData(document.getElementById("searchForm"));
-        var output = Object.fromEntries(data.entries());
-        output.filters = data.getAll("filters");
-        console.log({object});
+        let xhttp = new XMLHttpRequest();
+        let formDATA = $("#searchForm").serialize();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                $("#searchResult").html("<tr><td>" + this.responseText + "</td></tr>");
 
+                var results = JSON.parse(this.responseText);
+                switch (selectedElement) {
+                    case "Gpu":
+                        results.forEach(gpuTabler);
+                        break;
+                    case "Cpu":
+                        results.forEach(cpuTabler);
+                        break;
+                    case "Memory":
+                        results.forEach(memoryTabler);
+                        break;
+                    case "Build":
+                        results.forEach(buildTabler);
+                        break;
+                    case "MotherBoards":
+                        results.forEach(moboTabler);
+                        break;
+                    case "Cases":
+                        results.forEach(pcCaseTabler);
+                        break;
+                    case "Psus":
+                        results.forEach(pcCaseTabler);
+                        break;
+                }
+            }
+
+            xhttp.open("POST", "/MYOPSite_war_exploded/emailispresent", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(formDATA);
+        };
+    }
+
+    function gpuTabler(value) {
+        var row;
+        row = "<tr>"+
+        "<td>" + value.name + "</td>" +
+        "<td>" + value.id + "</td>" +
+        "<td>" + value.socket + "</td>"
+        if (value.integratedgpu)
+            row += "<td>Yes</td>"
+        else row += "<td>No</td>"
+
+        row += "<td>" + value.price + "</td>" +
+            "<td>" + value.stock + "</td>" +
+            "<td><img src=-'" + value.image + "'></td>" +
+            "</tr>"
+        $("#searchResult").append(row);
+    }
+
+    function cpuTabler(value) {
+        var row;
+        row = "<tr>"+
+        "<td>" + value.name + "</td>" +
+        "<td>" + value.id + "</td>" +
+        "<td>" + value.socket + "</td>"
+        if (value.integratedgpu)
+            row += "<td>Yes</td>"
+        else row += "<td>No</td>"
+
+        row += "<td>" + value.consumption + "</td>" +
+            "<td>" + value.price + "</td>" +
+            "<td>" + value.stock + "</td>" +
+            "<td><img src=-'" + value.image + "'></td>" +
+            "</tr>"
+        $("#searchResult").append(row);
+    }
+
+    function memoryTabler(value) {
+        var row;
+        row = "<tr>"
+            + "<td>" + value.name + "</td>" +
+            +"<td>" + value.id + "</td>" +
+            +"<td>" + value.socket + "</td>"
+        if (value.mType)
+            row += "<td>Mass Storage</td>"
+        else row += "<td>Ram</td>"
+
+        row += "<td>" + value.amountMemories + "</td>" +
+            "<td>" + value.consumption + "</td>" +
+            "<td>" + value.price + "</td>" +
+            "<td>" + value.stock + "</td>" +
+            "<td><img src=-'" + value.image + "'></td>" +
+            "</tr>"
+        $("#searchResult").append(row);
+    }
+    function moboTabler(value) {
+        var row;
+        row = "<tr>"+
+            "<td>" + value.name + "</td>" +
+            "<td>" + value.id + "</td>" +
+
+            "<td>" + value.cpuSocket + "</td>" +
+            "<td>" + value.ramSocket + "</td>" +
+            "<td>" + value.amountSlotNvme + "</td>" +
+            "<td>" + value.amountSlotSata + "</td>" +
+         "<td>" + value.amountMemories + "</td>" +
+            "<td>" + value.formFactor + "</td>" +
+            "<td>" + value.consumption + "</td>" +
+            "<td>" + value.price + "</td>" +
+            "<td>" + value.stock + "</td>" +
+            "<td><img src=-'" + value.image + "'></td>" +
+            "</tr>"
+        $("#searchResult").append(row);
+    }
+
+    function pcCaseTabler(value) {
+        var row;
+        row = "<tr>"+
+            "<td>" + value.name + "</td>" +
+            "<td>" + value.id + "</td>" +
+            "<td>" + value.price + "</td>" +
+            "<td>" + value.stock + "</td>" +
+            "<td><img src=-'" + value.image + "'></td>" +
+            "</tr>"
+        $("#searchResult").append(row);
+    }
+
+    function buildTabler(value) {
+        var row;
+        row = "<tr>"+
+            "<td>" + value.id + "</td>" +
+            "<td>" + value.mobo + "</td>" +
+            "<td>" + value.gpu + "</td>" +
+            "<td>" + value.cpu + "</td><td>" ;
+            for(let i in value.memory){
+                row+= i + "<br>";
+            }
+            row+="</td><td>" + value.stock + "</td>" +
+                "<td>" + value.pcCase + "</td><td>"+
+            "<td><img src=-'" + value.image + "'></td>" +
+            "</tr>"
+        $("#searchResult").append(row);
+    }
+    function psusTabler(value) {
+        var row;
+        row = "<tr>"+
+            "<td>" + value.id + "</td>" +
+        "</td><td>" + value.stock + "</td>" +
+            "<td>" + value.pcCase + "</td><td>"+
+            "<td><img src=-'" + value.image + "'></td>" +
+            "</tr>"
+        $("#searchResult").append(row);
     }
 
 

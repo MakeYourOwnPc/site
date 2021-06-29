@@ -17,13 +17,15 @@ public class EmailIsPresent extends HttpServlet {
         UserDao dao= new UserDao();
         String email= request.getParameter("email");
 
+
         response.setContentType("plain/text");
         response.setCharacterEncoding("UTF-8");
         try {
-            if(dao.doRetrieveByEmail(email)==null)
-                response.getWriter().print("false");
-            else
+            if(dao.isPresent(email))
                 response.getWriter().print("true");
+
+            else
+                response.getWriter().print("false");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             response.setStatus(500);

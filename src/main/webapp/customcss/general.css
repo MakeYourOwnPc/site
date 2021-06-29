@@ -112,7 +112,6 @@ svg{
     list-style: none;
 
     overflow: visible;
-    vertical-align: center;
     display: inline-block;
     height: 3rem;
 
@@ -182,14 +181,15 @@ div.content {
     float: right;
     width: 25%;
     height: 100%;
-    var(--bg-secondary-color:#023859);
 }
 
 @media screen and (max-width: 700px) {
     .centered-box{
         width: 95%;
     }
-
+    .centered-box{
+    transform: translate(-50%, -43%);
+    }
     .sidebar-toggler{
         display: block;
     }
@@ -206,7 +206,6 @@ table tbody{
     padding: 10px;
     box-sizing: border-box;
     display: flex;
-    position: center;
     background-color: var(--bg-secondary-color);
     color:var(--active-color);
     border-radius: 5px;
