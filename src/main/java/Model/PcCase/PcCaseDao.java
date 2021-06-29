@@ -2,6 +2,7 @@ package Model.PcCase;
 
 import Model.ConnPool;
 import Model.Gpu.Gpu;
+import Model.Mobo.Mobo;
 import Model.Psu.Psu;
 
 import java.io.File;
@@ -125,7 +126,40 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
             return null;
         }
     }
+    @Override
+    public ArrayList<PcCase> doRetrieveByParameters(String name,String formFactor,int limit, int offset) throws SQLException {
+        try(Connection conn = ConnPool.getConnection()){
+            String query = "SELECT * FROM PcCases WHERE ";
+            StringBuilder stringBuilder = new StringBuilder();
+            if(!name.isBlank()){
+                stringBuilder.append("NAME LIKE %"+name+"%");
+            }
+            if(!formFactor.isBlank()){
+                if(!stringBuilder.isEmpty())
+                    stringBuilder.append(" AND ");
+                stringBuilder.append("formfactor="+formFactor);
+            }
+            stringBuilder.append(" ORDER BY name LIMIT "+offset+","+limit+";");
+            ArrayList<PcCase> list = new ArrayList<>();
+            ResultSet rs = conn.createStatement().executeQuery(query+ stringBuilder);
+                while(rs.next()){
+                    PcCase pcCase = new PcCase();
+                    pcCase.setName(rs.getString("name"));
+                    pcCase.setId(rs.getInt("id"));
+                    pcCase.setFormFactor(rs.getString("formfactor"));
+                    pcCase.setPrice(rs.getFloat("price"));
+                    pcCase.setStock(rs.getInt("stock"));
+                    pcCase.setImagePath(rs.getString("imagepath"));
+                    list.add(pcCase);
+                }
+                rs.close();
+                return list;
+            }
+            catch(SQLException e){
+                return null;
+            }
 
+    }
     @Override
     public boolean doSave(PcCase pcCase) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){

@@ -16,14 +16,14 @@
 
 <nav class="topbar">
 
-        <div id="icon-container sidebar-icon" onclick="hideSidebar()">
-            <%@include file="../../icons/list-ul.svg" %>
-        </div>
-        <h2 id="selectedFormTitle"> Choose Element</h2>
+    <div id="icon-container sidebar-icon" onclick="hideSidebar()">
+        <%@include file="../../icons/list-ul.svg" %>
+    </div>
+    <h2 id="selectedFormTitle"> Choose Element</h2>
 
-        <div class="icon-container filter-icon" onclick="hideFormContainer()" >
-            <%@include file="../../icons/filter_icon.svg" %>
-        </div>
+    <div class="icon-container filter-icon" onclick="hideFormContainer()">
+        <%@include file="../../icons/filter_icon.svg" %>
+    </div>
 
     <br>
 
@@ -39,18 +39,16 @@
     <h2 class="button">MotherBoards</h2>
     <h2 class="button">Users</h2>
 </nav>
-<form   id="searchForm" action="" onkeyup="submitForm()">
+<div>
+<form id="searchForm" action="" onkeyup="submitForm()">
     <table id="searchFormContainer">
     </table>
 </form>
+</div>
 <ul id="searchResult">
-
 </ul>
-
 <span>
-
 </span>
-
 </body>
 
 <script>
@@ -58,7 +56,7 @@
         $("#sidebar").slideToggle();
     }
 
-    function hideFormContainer(){
+    function hideFormContainer() {
         $("#searchForm").slideToggle();
     }
 
@@ -142,7 +140,7 @@
 
                     "<tr><td><label for='nNVMESockets'>NVME Sockets</label></td>" +
                     "<td><input type='number' id='nNVMESockets' name='nNVMESockets'></td></tr>";
-                    break;
+                break;
         }
 
         if (user) formHTML += "<tr><td class='label'><label for='id'>Object Id</label></td>" +

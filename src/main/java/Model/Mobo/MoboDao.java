@@ -29,6 +29,7 @@ public class MoboDao implements IMoboDao<SQLException>{
                     mobo.setCpuSocket(rs.getString("cpusocket"));
                     mobo.setRamSocket(rs.getString("ramsocket"));
                     mobo.setStock(rs.getInt("stock"));
+                    mobo.setImagePath(rs.getString("imagepath"));
                     list.add(mobo);
                 }
                 return list;
@@ -300,19 +301,42 @@ public class MoboDao implements IMoboDao<SQLException>{
     }
 
     @Override
-    public ArrayList<Mobo> doRetrieveByEverything(String ramSocket, String cpuSocket, String formFactor, int nvmeSlot, int sataSlot,int ramSlot,int limit, int offset) throws SQLException {
+    public ArrayList<Mobo> doRetrieveByParameters(String name,String ramSocket, String cpuSocket, String formFactor, int nvmeSlot, int sataSlot,int ramSlot,int limit, int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motherboards WHERE ramsocket=? AND cpusocket=? AND formfactor=? AND amountslotnvme>=? AND amountslotsata>=? AND amountslotram>=? ORDER BY name LIMIT ?,?;")){
-                ps.setString(1,ramSocket);
-                ps.setString(2,cpuSocket);
-                ps.setString(3,formFactor);
-                ps.setInt(4,nvmeSlot);
-                ps.setInt(5,sataSlot);
-                ps.setInt(6,ramSlot);
-                ps.setInt(7,offset);
-                ps.setInt(8,limit);
+            String query = "SELECT * FROM Motherboards WHERE ";
+                StringBuilder stringBuilder = new StringBuilder();
+                if(!name.isBlank()){
+
+                    stringBuilder.append("NAME LIKE %"+name+"%");
+                }
+                if(!ramSocket.isBlank()){
+                    if(!stringBuilder.isEmpty())
+                        stringBuilder.append(" AND ");
+                    stringBuilder.append("ramsocket="+ramSocket);
+                }
+                if(!formFactor.isBlank()){
+                    if(!stringBuilder.isEmpty())
+                        stringBuilder.append(" AND ");
+                    stringBuilder.append("formFactor="+formFactor);
+                }
+                if(nvmeSlot==0){
+                    if(!stringBuilder.isEmpty())
+                        stringBuilder.append(" AND ");
+                    stringBuilder.append("nvmeSlot>="+nvmeSlot);
+                }
+                if(sataSlot==0){
+                    if(!stringBuilder.isEmpty())
+                        stringBuilder.append(" AND ");
+                    stringBuilder.append("sataslot>="+sataSlot);
+                }
+                if(ramSlot==0){
+                    if(!stringBuilder.isEmpty())
+                        stringBuilder.append(" AND ");
+                    stringBuilder.append("ramslot="+ramSlot);
+                }
+                stringBuilder.append(" ORDER BY name LIMIT "+offset+","+limit+";");
                 ArrayList<Mobo> list = new ArrayList<Mobo>();
-                ResultSet rs = ps.executeQuery();
+                ResultSet rs = conn.createStatement().executeQuery(query+ stringBuilder);
                 while(rs.next()){
                     Mobo mobo = new Mobo();
                     mobo.setConsumption(rs.getInt("consumption"));
@@ -326,15 +350,13 @@ public class MoboDao implements IMoboDao<SQLException>{
                     mobo.setCpuSocket(rs.getString("cpusocket"));
                     mobo.setRamSocket(rs.getString("ramsocket"));
                     mobo.setStock(rs.getInt("stock"));
+                    mobo.setImagePath(rs.getString("imagepath"));
                     list.add(mobo);
                 }
                 return list;
             }catch(SQLException e){
                 return null;
             }
-        }catch (SQLException e){
-            return null;
-        }
     }
 
     @Override

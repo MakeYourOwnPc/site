@@ -2,6 +2,7 @@ package Model.Cpu;
 
 import Model.ConnPool;
 import Model.Gpu.Gpu;
+import Model.Memory.Memory;
 
 import java.io.File;
 import java.sql.*;
@@ -25,6 +26,7 @@ public class CpuDao implements ICpuDao<SQLException> {
                     cpu.setConsumption(rs.getInt("consumption"));
                     cpu.setPrice(rs.getFloat("price"));
                     cpu.setStock(rs.getInt("stock"));
+                    cpu.setImagePath(rs.getString("imagepath"));
                     list.add(cpu);
                 }
                 rs.close();
@@ -127,7 +129,46 @@ public class CpuDao implements ICpuDao<SQLException> {
             return null;
         }
     }
-
+    @Override
+    public ArrayList<Cpu> doRetrieveByParameters(String name,String socket,Boolean integratedGpu,int limit,int offset) throws SQLException {
+        try(Connection conn = ConnPool.getConnection()){
+            String query= "SELECT * FROM Cpus WHERE ";
+            StringBuilder stringBuilder = new StringBuilder();
+            if(!name.isBlank()){
+                stringBuilder.append(" name LIKE %"+name+"%");
+            }
+            if(!socket.isBlank()){
+                if(!stringBuilder.isEmpty())
+                    stringBuilder.append(" AND ");
+                stringBuilder.append("socket="+socket);
+            }
+            if(integratedGpu!=null){
+                if(!stringBuilder.isEmpty())
+                    stringBuilder.append(" AND ");
+                stringBuilder.append("integratedgpu="+integratedGpu);
+            }
+            stringBuilder.append(" ORDER BY name LIMIT "+offset+","+limit+";");
+            ArrayList<Cpu> list = new ArrayList<>();
+            ResultSet rs = conn.createStatement().executeQuery(query+ stringBuilder);
+                while(rs.next()){
+                    Cpu cpu = new Cpu();
+                    cpu.setName(rs.getString("name"));
+                    cpu.setId(rs.getInt("id"));
+                    cpu.setIntegratedgpu(rs.getBoolean("integratedgpu"));
+                    cpu.setSocket(rs.getString("socket"));
+                    cpu.setConsumption(rs.getInt("consumption"));
+                    cpu.setPrice(rs.getFloat("price"));
+                    cpu.setStock(rs.getInt("stock"));
+                    cpu.setImagePath(rs.getString("imagepath"));
+                    list.add(cpu);
+                }
+                rs.close();
+                return list;
+            }
+            catch(SQLException e){
+                return null;
+            }
+    }
     @Override
     public boolean doSave(Cpu cpu) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){

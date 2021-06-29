@@ -1,6 +1,7 @@
 package Model.Memory;
 
 import Model.ConnPool;
+import Model.Mobo.Mobo;
 
 import java.io.File;
 import java.sql.*;
@@ -25,6 +26,7 @@ public class MemoryDao implements IMemoryDao<SQLException>{
                     memory.setStock(rs.getInt("stock"));
                     memory.setmType(rs.getBoolean("mType"));
                     memory.setSocket(rs.getString("socket"));
+                    memory.setImagePath(rs.getString("imagepath"));
                     list.add(memory);
                 }
                 return list;
@@ -149,7 +151,45 @@ public class MemoryDao implements IMemoryDao<SQLException>{
             return null;
         }
     }
-
+    @Override
+    public ArrayList<Memory> doRetrieveByParameters(String name,String socket, Boolean mType, int limit, int offset) throws SQLException {
+        try(Connection conn = ConnPool.getConnection()){
+            String query= "SELECT * FROM Memories WHERE ";
+                StringBuilder stringBuilder = new StringBuilder();
+                if(!name.isBlank()){
+                    stringBuilder.append(" name LIKE %"+name+"%");
+                }
+                if(!socket.isBlank()){
+                    if(!stringBuilder.isEmpty())
+                        stringBuilder.append(" AND ");
+                    stringBuilder.append("socket="+socket);
+                }
+                if(mType!=null){
+                    if(!stringBuilder.isEmpty())
+                        stringBuilder.append(" AND ");
+                    stringBuilder.append("mtype="+mType);
+                }
+                stringBuilder.append(" ORDER BY name LIMIT "+offset+","+limit+";");
+                ArrayList<Memory> list = new ArrayList<>();
+                ResultSet rs = conn.createStatement().executeQuery(query+ stringBuilder);
+            while(rs.next()){
+                Memory memory = new Memory();
+                memory.setConsumption(rs.getInt("consumption"));
+                memory.setAmountMemories(rs.getInt("amountmemories"));
+                memory.setName(rs.getString("name"));
+                memory.setPrice(rs.getFloat("price"));
+                memory.setId(rs.getInt("id"));
+                memory.setStock(rs.getInt("stock"));
+                memory.setmType(rs.getBoolean("mType"));
+                memory.setSocket(rs.getString("socket"));
+                memory.setImagePath(rs.getString("imagepath"));
+                list.add(memory);
+            }
+            return list;
+            }catch(SQLException e){
+                return null;
+            }
+    }
     @Override
     public boolean doDelete(int id) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){

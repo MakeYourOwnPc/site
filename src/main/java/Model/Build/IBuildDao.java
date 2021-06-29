@@ -13,10 +13,11 @@ public interface IBuildDao<E extends Exception>{
     Build doRetrieveById(int id) throws E;
     ArrayList<Build> doRetrieveByType(String type,int limit,int offset)throws E;
     ArrayList<Build> doRetrieveByPower(int power,int limit,int offset) throws E;
-    ArrayList<Build> doRetrieveSuggested(int limit,int offset) throws E;
-    ArrayList<Build> doRetrieveByMobo(Mobo mobo,int limit,int offset) throws E;
-    ArrayList<Build> doRetrieveByCpu(Cpu cpu,int limit,int offset) throws E;
-    ArrayList<Build> doRetrieveByGpu(Gpu gpu, int limit, int offset) throws E;
+    ArrayList<Build> doRetrieveSuggested(boolean isSuggested,int limit,int offset) throws E;
+    ArrayList<Build> doRetrieveByMobo(String name,int limit,int offset) throws E;
+    ArrayList<Build> doRetrieveByCpu(String name,int limit,int offset) throws E;
+    ArrayList<Build> doRetrieveByGpu(String name, int limit, int offset) throws E;
+    ArrayList<BuildNames> doRetrieveByParameters(String mobo,String cpu,String gpu,String psu,String type,Boolean isSuggested,int limit,int offset) throws E;
     boolean doDelete(int id) throws E;
     boolean doUpdate(Build build)throws E;
     boolean doSave(Build build) throws E;

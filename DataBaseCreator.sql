@@ -88,6 +88,7 @@ create table Builds
 (
     id        int primary key auto_increment,
     mobo      int      not null,
+    cpu       int      not null,
     gpu       int,
     psu       int      not null,
     pccase    int      not null,

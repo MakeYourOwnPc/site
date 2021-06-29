@@ -128,6 +128,38 @@ public class PsuDao implements IPsuDao <SQLException> {
                 return null;
             }
     }
+    @Override
+    public ArrayList<Psu> doRetrieveByParameters(String name,int power,int limit, int offset) throws SQLException {
+        try(Connection conn = ConnPool.getConnection()){
+            String query = "SELECT * FROM Psus WHERE ";
+            StringBuilder stringBuilder = new StringBuilder();
+            if(!name.isBlank()){
+                stringBuilder.append("NAME LIKE %"+name+"%");
+            }
+            if(power!=0){
+                if(!stringBuilder.isEmpty())
+                    stringBuilder.append(" AND ");
+                stringBuilder.append("power>="+power);
+            }
+                ResultSet rs = conn.createStatement().executeQuery(query+ stringBuilder+"ORDER BY name LIMIT "+offset+","+limit+";");
+                ArrayList<Psu> list = new ArrayList<Psu>();
+                while(rs.next()){
+                    Psu psu = new Psu();
+                    psu.setName(rs.getString("name"));
+                    psu.setId(rs.getInt("id"));
+                    psu.setPower(rs.getInt("power"));
+                    psu.setPrice(rs.getFloat("price"));
+                    psu.setStock(rs.getInt("stock"));
+                    psu.setImagePath(rs.getString("imagepath"));
+                    list.add(psu);
+                }
+                rs.close();
+                return list;
+            }
+            catch(SQLException e){
+                return null;
+            }
+    }
 
     @Override
     public boolean doDelete(int id) throws SQLException {

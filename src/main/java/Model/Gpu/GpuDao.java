@@ -22,6 +22,7 @@ public class GpuDao implements IGpuDao<SQLException> {
                     gpu.setConsumption(rs.getInt("consumption"));
                     gpu.setPrice(rs.getFloat("price"));
                     gpu.setStock(rs.getInt("stock"));
+                    gpu.setImagePath(rs.getString("imagepath"));
                     list.add(gpu);
                 }
                 rs.close();
@@ -49,6 +50,7 @@ public class GpuDao implements IGpuDao<SQLException> {
                     gpu.setConsumption(rs.getInt("consumption"));
                     gpu.setPrice(rs.getFloat("price"));
                     gpu.setStock(rs.getInt("stock"));
+                    gpu.setImagePath(rs.getString("imagepath"));
                     list.add(gpu);
                 rs.close();
                 return gpu;
@@ -78,6 +80,7 @@ public class GpuDao implements IGpuDao<SQLException> {
                     gpu.setConsumption(rs.getInt("consumption"));
                     gpu.setPrice(rs.getFloat("price"));
                     gpu.setStock(rs.getInt("stock"));
+                    gpu.setImagePath(rs.getString("imagepath"));
                     list.add(gpu);
                 }
                 rs.close();

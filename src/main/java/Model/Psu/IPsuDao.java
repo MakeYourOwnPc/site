@@ -9,6 +9,7 @@ public interface IPsuDao<E extends Exception>{
     Psu doRetrieveById(int id) throws E;
     ArrayList<Psu> doRetrieveByName(String name,int limit, int offset)throws E;
     ArrayList<Psu> doRetrieveByPower(int power,int limit, int offset) throws E;
+    ArrayList<Psu> doRetrieveByParameters(String name,int power,int limit,int offset) throws E;
     boolean doDelete(int id) throws E;
     boolean doUpdate(Psu psu)throws E;
     boolean doUpdateStock(Psu psu)throws E;
