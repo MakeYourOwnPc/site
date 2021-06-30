@@ -162,7 +162,7 @@
                 break;
         }
 
-        if (user) formHTML += "<tr><td class='label'><label for='id'>Object Id</label></td>" +
+        if (!user) formHTML += "<tr><td class='label'><label for='id'>Object Id</label></td>" +
             "<td><input type='number' id='id' name='id' ></td></tr>"
 
         else formHTML += "<tr><td><label for='power'>Power</label></td>" +
@@ -172,6 +172,7 @@
             "<button  class='btn'onclick='submitForm()'>Search</button>";
 
         $("#searchFormContainer").html(formHTML);
+        submitForm();
     }
 
     function submitForm() {
@@ -202,7 +203,10 @@
                         results.forEach(pcCaseTabler);
                         break;
                     case "Psus":
-                        results.forEach(pcCaseTabler);
+                        results.forEach(psusTabler);
+                        break;
+                    case"Users":
+                        results.forEach(userTabler);
                         break;
                 }
             }
@@ -213,20 +217,33 @@
         };
     }
 
+    function userTabler(value){
+        var row;
+        row = "<tr>"+
+            "<td>" + value.firstname + "</td>" +
+            "<td>" + value.lastname + "</td>" +
+            "<td>" + value.email + "</td>" ;
+        if (value.admin)
+            row += "<td>Yes</td>";
+        else row += "<td>No</td>";
+            row+="</tr>";
+        $("#searchResult").append(row);
+
+    }
     function gpuTabler(value) {
         var row;
         row = "<tr>"+
         "<td>" + value.name + "</td>" +
         "<td>" + value.id + "</td>" +
-        "<td>" + value.socket + "</td>"
+        "<td>" + value.socket + "</td>";
         if (value.integratedgpu)
-            row += "<td>Yes</td>"
-        else row += "<td>No</td>"
+            row += "<td>Yes</td>";
+        else row += "<td>No</td>";
 
         row += "<td>" + value.price + "</td>" +
             "<td>" + value.stock + "</td>" +
             "<td><img src=-'" + value.image + "'></td>" +
-            "</tr>"
+            "</tr>";
         $("#searchResult").append(row);
     }
 
