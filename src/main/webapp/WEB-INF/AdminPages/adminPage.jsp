@@ -41,11 +41,13 @@
     <h2 class="button">Users</h2>
 </nav>
 <div>
-    <form id="searchForm" action="">
+    <form id="searchForm" >
         <table id="searchFormContainer">
         </table>
 
     </form>
+
+    "<button  class='btn' onclick='submitForm()'>Search</button>"
 </div>
 <table id="searchResult">
 </table>
@@ -125,12 +127,14 @@
                 power = false;
                 break;
             case "Psus":
-                formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='psus'>";
+                formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='psus'>"+
+                    "<tr><td><label for='power'>Power</label></td>" +
+                    "<td class='form'><input type='number' id='power' name='power'></td></tr>";
                 break;
             case "Users":
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='users'>" +
-                    "<tr><td><input type='text' id='firstName' name='firstName'></td>" +
-                    "<td><input type='text' id='lastName' name='lastName' ></td></tr>";
+                    "<tr><td><label for='email'>Email</label></td>" +
+                    "<td><input type='text' id='email' name='email' ></td></tr>";
                 user = true;
                 power = false;
                 break;
@@ -165,24 +169,25 @@
         if (!user) formHTML += "<tr><td class='label'><label for='id'>Object Id</label></td>" +
             "<td><input type='number' id='id' name='id' ></td></tr>"
 
-        else formHTML += "<tr><td><label for='power'>Power</label></td>" +
-            "<td class='form'><input type='number' id='power' name='power'></td></tr>";
 
-        formHTML += "<tr><td><label for='name'>Name</label></td><td><input type='text' id='name' name='name'></td></tr>" +
-            "<button  class='btn'onclick='submitForm()'>Search</button>";
+        formHTML += "<tr><td><label for='name'>Name</label></td><td><input type='text' id='name' name='name'></td></tr>" ;
 
         $("#searchFormContainer").html(formHTML);
         submitForm();
     }
 
     function submitForm() {
+
         let xhttp = new XMLHttpRequest();
         let formDATA = $("#searchForm").serialize();
+
         xhttp.onreadystatechange = function () {
+
             if (this.readyState == 4 && this.status == 200) {
                 $("#searchResult").html("<tr><td>" + this.responseText + "</td></tr>");
 
                 var results = JSON.parse(this.responseText);
+
                 switch (selectedElement) {
                     case "Gpu":
                         results.forEach(gpuTabler);
@@ -208,13 +213,18 @@
                     case"Users":
                         results.forEach(userTabler);
                         break;
+                    default:$("#searchResult").html("Error")
                 }
             }
-
-            xhttp.open("POST", "/MYOPSite_war_exploded/emailispresent", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send(formDATA);
         };
+        xhttp.open("POST", "/MYOPSite_war_exploded/emailispresent", true);
+
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhttp.send(formDATA);
+        console.log(formDATA);
+
+
     }
 
     function userTabler(value){
