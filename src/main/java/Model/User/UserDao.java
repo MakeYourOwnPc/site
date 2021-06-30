@@ -18,7 +18,6 @@ public class UserDao implements IUserDao<SQLException>{
                 while(rs.next()){
                     User user = new User();
                     user.setEmail(rs.getString("email"));
-                    user.setPassword(rs.getString("password"));
                     user.setFirstName(rs.getString("firstname"));
                     user.setLastName(rs.getString("lastname"));
                     user.setAdmin(rs.getBoolean("admin"));
@@ -44,7 +43,6 @@ public class UserDao implements IUserDao<SQLException>{
                 ResultSet rs = ps.executeQuery();
                 User user = new User();
                 user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
                 user.setFirstName(rs.getString("firstname"));
                 user.setLastName(rs.getString("lastname"));
                 user.setAdmin(rs.getBoolean("admin"));

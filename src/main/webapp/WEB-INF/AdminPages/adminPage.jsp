@@ -217,7 +217,7 @@
                 }
             }
         };
-        xhttp.open("POST", "/MYOPSite_war_exploded/emailispresent", true);
+        xhttp.open("POST", "/MYOPSite_war_exploded/adminpage", true);
 
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -230,8 +230,8 @@
     function userTabler(value){
         var row;
         row = "<tr>"+
-            "<td>" + value.firstname + "</td>" +
-            "<td>" + value.lastname + "</td>" +
+            "<td>" + value.firstName + "</td>" +
+            "<td>" + value.lastName + "</td>" +
             "<td>" + value.email + "</td>" ;
         if (value.admin)
             row += "<td>Yes</td>";
