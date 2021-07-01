@@ -66,7 +66,7 @@ public class AdminPage extends HttpServlet {
                 CpuDao cpuDao = new CpuDao();
                 String nameCpu = req.getParameter("name");
                 String socketCpu = req.getParameter("CPUsocket");
-                String test = req.getParameter("integratedgpu");
+                String test = req.getParameter("integratedGpu");
                 Boolean integratedGpu;
                 if(!test.isBlank())
                  integratedGpu = Boolean.valueOf(test);
@@ -129,7 +129,7 @@ public class AdminPage extends HttpServlet {
                 MemoryDao memoryDao = new MemoryDao();
                 String nameMemory = req.getParameter("name");
                 String socketMemory = req.getParameter("MEMsocket");
-                String testType = req.getParameter("mtype");
+                String testType = req.getParameter("mType");
                 if(nameMemory.isBlank()&&socketMemory.isBlank()&&testType.isBlank()) {
                     try {
                         ArrayList<Memory> list = memoryDao.doRetrieveAll(50,0);
@@ -218,10 +218,10 @@ public class AdminPage extends HttpServlet {
                     resp.getWriter().print(gson.toJson(list));
                 }
                 break;
-            case "pccases":
+            case "cases":
                 PcCaseDao pcCaseDao = new PcCaseDao();
                 String namePcCase = req.getParameter("name");
-                String formFactorCase = req.getParameter("formfactor");
+                String formFactorCase = req.getParameter("formFactor");
                 if(namePcCase.isBlank()&&formFactorCase.isBlank()) {
                     try {
                         ArrayList<PcCase> list = pcCaseDao.doRetrieveAll(50,0);
