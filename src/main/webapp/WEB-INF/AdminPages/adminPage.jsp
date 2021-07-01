@@ -99,7 +99,7 @@
                     "<tr><td><label for='MOBOname'>MOBO Name</label></td><td><input type='text' id='MOBOname' name='moboName'></td></tr>" +
                     "<tr><td><label for='buildType'>Build Type</label></td><td><input type='text' id='buildType' name='type'></td></tr>" +
                     "<tr><td><label for='maker'>Maker Name</label></td><td><input type='text' id='maker' name='maker'></td></tr>" +
-                    "<tr><td><label for='CASEname'>CASE Name</label></td><td><input type='text' id='CASEname' name='caseName'></td></tr>"+
+                    "<tr><td><label for='CASEname'>CASE Name</label></td><td><input type='text' id  ='CASEname' name='caseName'></td></tr>"+
                     "<tr><td><label for='suggested' >Suggested</label></td>" +
                     "<td><input type='radio' id='suggested' name='suggested' value='true'></td></tr>" +
 
@@ -137,13 +137,13 @@
                     "<td><input type='text' id='MEMsocket' name='MEMsocket'></td></tr>" +
 
                     "<tr><td><label for='Ram' >Ram</label></td>" +
-                    "<td><input type='radio' id='Ram' name='mType' value='Ram'></td></tr>" +
+                    "<td><input type='radio' id='Ram' name='mType' value='false'></td></tr>" +
 
                     "<td><label for='All' >All</label></td>" +
                     "<td><input type='radio' id='All' name='mType' checked value=''></td></tr>" +
 
                     "<tr><td><label for='MassStorage'>MassStorage</label></td>" +
-                    "<td class='form'><input type='radio' id='MassStorage' name='mType' value='MassStorage'></td></tr>" +
+                    "<td class='form'><input type='radio' id='MassStorage' name='mType' value='true'></td></tr>" +
 
                     "<tr><td><label for='amountMemories'>Amount Of Memories</label></td>" +
                     "<td><input type='number' id='amountMemories' name='amountOfMemories'></td></tr>";
@@ -338,9 +338,9 @@
             "<td>" + value.id + "</td>" +
             "<td>" + value.cpuSocket + "</td>" +
             "<td>" + value.ramSocket + "</td>" +
+            "<td>" + value.amountSlotRam + "</td>" +
             "<td>" + value.amountSlotNvme + "</td>" +
             "<td>" + value.amountSlotSata + "</td>" +
-         "<td>" + value.amountSlotRam + "</td>" +
             "<td>" + value.formFactor + "</td>" +
             "<td>" + value.consumption + "</td>" +
             "<td>" + value.price + "</td>" +
@@ -353,7 +353,7 @@
     function pcCaseTabler(value) {
         var row;
         row = "<tr>"+
-            "<td>" + value.name + "</td>" +
+            "<td class='productName'>" + value.name + "</td>" +
             "<td>" + value.id + "</td>" +
             "<td>" + value.formFactor + "</td>" +
             "<td>" + value.price + "</td>" +
@@ -366,7 +366,7 @@
     function buildTabler(value) {
         var row;
         row = "<tr>"+
-            "<td>" + value.id + "</td>" +
+            "<td class='databaseId'>" + value.id + "</td>" +
             "<td>" + value.mobo + "</td>" +
             "<td>" + value.gpu + "</td>" +
             "<td>" + value.cpu + "</td>"+
