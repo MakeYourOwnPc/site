@@ -92,10 +92,11 @@
             case "Builds":
                 $("#searchResult").addClass("buildsTable");
                 formHTML="<input type='hidden' id='requestedItem' name='requestedItem' value='builds'>"+
-                    "<tr><td><label for='CPUname'>CPU Name</label></td><td><input type='text' id='CPUname' name='cpuname'></td></tr>" +
-                    "<tr><td><label for='GPUname'>GPU Name</label></td><td><input type='text' id='GPUname' name='gpuname'></td></tr>" +
-                    "<tr><td><label for='PSUname'>PSU Name</label></td><td><input type='text' id='PSUname' name='psuname'></td></tr>" +
-                    "<tr><td><label for='CASEname'>CASE Name</label></td><td><input type='text' id='CASEname' name='casename'></td></tr>"
+                    "<tr><td><label for='CPUname'>CPU Name</label></td><td><input type='text' id='CPUname' name='cpuName'></td></tr>" +
+                    "<tr><td><label for='GPUname'>GPU Name</label></td><td><input type='text' id='GPUname' name='gpuName'></td></tr>" +
+                    "<tr><td><label for='PSUname'>PSU Name</label></td><td><input type='text' id='PSUname' name='psuName'></td></tr>" +
+                    "<tr><td><label for='MOBOname'>MOBO Name</label></td><td><input type='text' id='MOBOname' name='moboName'></td></tr>" +
+                    "<tr><td><label for='CASEname'>CASE Name</label></td><td><input type='text' id='CASEname' name='caseName'></td></tr>"
                     break;
             case "Gpus":
                 $("#searchResult").addClass("gpusTable");
