@@ -135,12 +135,12 @@ public class CpuDao implements ICpuDao<SQLException> {
             String query= "SELECT * FROM Cpus WHERE ";
             StringBuilder stringBuilder = new StringBuilder();
             if(!name.isBlank()){
-                stringBuilder.append(" name LIKE %"+name+"%");
+                stringBuilder.append(" UPPER(name) LIKE UPPER('%"+name+"%')");
             }
             if(!socket.isBlank()){
                 if(!stringBuilder.isEmpty())
                     stringBuilder.append(" AND ");
-                stringBuilder.append("socket="+socket);
+                stringBuilder.append("UPPER(socket) LIKE UPPER('%"+socket+"%')");
             }
             if(integratedGpu!=null){
                 if(!stringBuilder.isEmpty())

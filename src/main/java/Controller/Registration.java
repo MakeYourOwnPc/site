@@ -19,18 +19,7 @@ import java.util.regex.Pattern;
 
 @WebServlet(name="registration",urlPatterns = "/registration")
 public class Registration extends HttpServlet {
-    public String setPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
-        SecureRandom secureRandom = new SecureRandom();
-        byte[] salt = new byte[16];
-        secureRandom.nextBytes(salt);
-        messageDigest.update(salt);
-        byte[] hashedPassword = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
-        StringBuilder stringBuilder = new StringBuilder();
-        for(byte bit:hashedPassword)
-            stringBuilder.append(String.format("%02x",bit));
-        return stringBuilder.toString();
-    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws RuntimeException {
 
@@ -50,7 +39,8 @@ public class Registration extends HttpServlet {
             throw new RuntimeException();
         }
         try {
-            password = setPassword(password);
+            PasswordHasher passwordHasher = new PasswordHasher();
+            password = passwordHasher.setPassword(password);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

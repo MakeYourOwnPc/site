@@ -88,14 +88,27 @@
         var formHTML;
         var user = false;
         var power = true;
+        var name=true;
         switch (text) {
             case "Builds":
                 $("#searchResult").addClass("buildsTable");
                 formHTML="<input type='hidden' id='requestedItem' name='requestedItem' value='builds'>"+
-                    "<tr><td><label for='CPUname'>CPU Name</label></td><td><input type='text' id='CPUname' name='cpuname'></td></tr>" +
-                    "<tr><td><label for='GPUname'>GPU Name</label></td><td><input type='text' id='GPUname' name='gpuname'></td></tr>" +
-                    "<tr><td><label for='PSUname'>PSU Name</label></td><td><input type='text' id='PSUname' name='psuname'></td></tr>" +
-                    "<tr><td><label for='CASEname'>CASE Name</label></td><td><input type='text' id='CASEname' name='casename'></td></tr>"
+                    "<tr><td><label for='CPUname'>CPU Name</label></td><td><input type='text' id='CPUname' name='cpuName'></td></tr>" +
+                    "<tr><td><label for='GPUname'>GPU Name</label></td><td><input type='text' id='GPUname' name='gpuName'></td></tr>" +
+                    "<tr><td><label for='PSUname'>PSU Name</label></td><td><input type='text' id='PSUname' name='psuName'></td></tr>" +
+                    "<tr><td><label for='MOBOname'>MOBO Name</label></td><td><input type='text' id='MOBOname' name='moboName'></td></tr>" +
+                    "<tr><td><label for='buildType'>Build Type</label></td><td><input type='text' id='buildType' name='type'></td></tr>" +
+                    "<tr><td><label for='maker'>Maker Name</label></td><td><input type='text' id='maker' name='maker'></td></tr>" +
+                    "<tr><td><label for='CASEname'>CASE Name</label></td><td><input type='text' id  ='CASEname' name='caseName'></td></tr>"+
+                    "<tr><td><label for='suggested' >Suggested</label></td>" +
+                    "<td><input type='radio' id='suggested' name='suggested' value='true'></td></tr>" +
+
+                    "<td><label for='Allsug' >All</label></td>" +
+                    "<td><input type='radio' id='Allsug' name='suggested' checked value=''></td></tr>" +
+
+                    "<tr><td><label for='notSuggested'>Not Suggested</label></td>" +
+                    "<td class='form'><input type='radio' id='notSuggested' name='suggested' value='false'></td></tr>"
+                name=false;
                     break;
             case "Gpus":
                 $("#searchResult").addClass("gpusTable");
@@ -124,13 +137,13 @@
                     "<td><input type='text' id='MEMsocket' name='MEMsocket'></td></tr>" +
 
                     "<tr><td><label for='Ram' >Ram</label></td>" +
-                    "<td><input type='radio' id='Ram' name='mType' value='Ram'></td></tr>" +
+                    "<td><input type='radio' id='Ram' name='mType' value='false'></td></tr>" +
 
                     "<td><label for='All' >All</label></td>" +
                     "<td><input type='radio' id='All' name='mType' checked value=''></td></tr>" +
 
                     "<tr><td><label for='MassStorage'>MassStorage</label></td>" +
-                    "<td class='form'><input type='radio' id='MassStorage' name='mType' value='MassStorage'></td></tr>" +
+                    "<td class='form'><input type='radio' id='MassStorage' name='mType' value='true'></td></tr>" +
 
                     "<tr><td><label for='amountMemories'>Amount Of Memories</label></td>" +
                     "<td><input type='number' id='amountMemories' name='amountOfMemories'></td></tr>";
@@ -138,8 +151,14 @@
             case "Cases":
                 $("#searchResult").addClass("casesTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='cases'>" +
-                    "<tr><td><label for='formFactorm'>Form Factor</label></td>" +
-                    "<td><input type='text' id='formFactor' name='formFactor' ></td></tr>";
+
+                    "<tr><tr><td><label for='formFactor'>Form Factor</label></td>" +
+                "<td><select type='number' id='formFActor' name='formFactor'>" +
+                "<option></option>" +
+                "<option value='mini-itx'>Mini-ITX</option>" +
+                "<option value='micro-atx'>Micro-ATX</option>" +
+                "<option value='atx'>ATX</option>" +
+                "</select></td></tr>";
                 power = false;
                 break;
             case "Psus":
@@ -188,7 +207,7 @@
 
 
 
-
+        if(name)
         formHTML += "<tr><td><label for='name'>Name</label></td><td><input type='text' id='name' name='name'></td></tr>" ;
 
         $("#searchFormContainer").html(formHTML);
@@ -199,6 +218,7 @@
 
         let xhttp = new XMLHttpRequest();
         let formDATA = $("#searchForm").serialize();
+        $("#searchResult").html("");
 
         xhttp.onreadystatechange = function () {
 
@@ -207,7 +227,7 @@
 
                 var results = JSON.parse(this.responseText);
 
-                $("#searchResult").html("");
+
 
                 switch (selectedElement) {
                     case "Gpus":
@@ -258,12 +278,12 @@
     function userTabler(value){
         var row;
         row = "<tr>"+
-            "<td>" + value.firstName + "</td>" +
-            "<td>" + value.lastName + "</td>" +
-            "<td>" + value.email + "</td>" ;
+            "<td class='firstname>" + value.firstName + "</td>" +
+            "<td class='lastname'>" + value.lastName + "</td>" +
+            "<td class='email'>" + value.email + "</td>" ;
         if (value.admin)
-            row += "<td>Yes</td>";
-        else row += "<td>No</td>";
+            row += "<td class='isAdmin'>Yes</td>";
+        else row += "<td class='isAdmin'>No</td>";
             row+="</tr>";
         $("#searchResult").append(row);
 
@@ -271,11 +291,12 @@
     function gpuTabler(value) {
         var row;
         row = "<tr>"+
-        "<td>" + value.name + "</td>" +
-        "<td>" + value.id + "</td>" +
-         "<td>" + value.price + "</td>" +
-            "<td>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.image + "'></td>" +
+        "<td class='productName' >" + value.name + "</td>" +
+        "<td class='databaseId'>" + value.id + "</td>" +
+            "<td class='consumption'>" + value.consumption + "</td>" +
+         "<td class='price'>" + value.price + "</td>" +
+            "<td class='inStock'>" + value.stock + "</td>" +
+            "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>";
         $("#searchResult").append(row);
     }
@@ -283,54 +304,54 @@
     function cpuTabler(value) {
         var row;
         row = "<tr>"+
-        "<td>" + value.name + "</td>" +
-        "<td>" + value.id + "</td>" +
-        "<td>" + value.socket + "</td>"
+        "<td class='productName'>" + value.name + "</td>" +
+        "<td class='databaseId'>" + value.id + "</td>" +
+        "<td class='socket'>" + value.socket + "</td>"
         if (value.integratedgpu)
-            row += "<td>Yes</td>"
-        else row += "<td>No</td>"
+            row += "<td class='integratedGpu'>Yes</td>"
+        else row += "<td class='integratedGpu'>No</td>"
 
-        row += "<td>" + value.consumption + "</td>" +
-            "<td>" + value.price + "</td>" +
-            "<td>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.image + "'></td>" +
+        row += "<td class='consumption'>" + value.consumption + "</td>" +
+            "<td class='price'>" + value.price + "</td>" +
+            "<td class='inStock'>" + value.stock + "</td>" +
+            "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
         $("#searchResult").append(row);
     }
 
     function memoryTabler(value) {
         var row;
-        row = "<tr>"
-            + "<td>" + value.name + "</td>" +
-            +"<td>" + value.id + "</td>" +
-            +"<td>" + value.socket + "</td>"
+        row = "<tr>"+
+        "<td class='productName'>" + value.name + "</td>" +
+        "<td class='databaseId'>" + value.id + "</td>" +
+        "<td class='socket'>" + value.socket + "</td>";
         if (value.mType)
-            row += "<td>Mass Storage</td>"
-        else row += "<td>Ram</td>"
+            row += "<td class='memoryType'>Mass Storage</td>"
+        else row += "<td class='memoryType'>Ram</td>"
 
-        row += "<td>" + value.amountMemories + "</td>" +
-            "<td>" + value.consumption + "</td>" +
-            "<td>" + value.price + "</td>" +
-            "<td>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.image + "'></td>" +
+        row += "<td class='Amount of Memories'>" + value.amountMemories + "</td>" +
+            "<td class='consumption'>" + value.consumption + "</td>" +
+            "<td class='price'>" + value.price + "</td>" +
+            "<td class='inStock'>" + value.stock + "</td>" +
+            "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
         $("#searchResult").append(row);
     }
     function moboTabler(value) {
         var row;
         row = "<tr>"+
-            "<td>" + value.name + "</td>" +
-            "<td>" + value.id + "</td>" +
-            "<td>" + value.cpuSocket + "</td>" +
-            "<td>" + value.ramSocket + "</td>" +
-            "<td>" + value.amountSlotNvme + "</td>" +
-            "<td>" + value.amountSlotSata + "</td>" +
-         "<td>" + value.amountMemories + "</td>" +
-            "<td>" + value.formFactor + "</td>" +
-            "<td>" + value.consumption + "</td>" +
-            "<td>" + value.price + "</td>" +
-            "<td>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.image + "'></td>" +
+            "<td class='productName' >" + value.name + "</td>" +
+            "<td class='databaseId'>" + value.id + "</td>" +
+            "<td class='cpuSocket'>" + value.cpuSocket + "</td>" +
+            "<td class='ramSocket'>" + value.ramSocket + "</td>" +
+            "<td class='ramSlots'>" + value.amountSlotRam + "</td>" +
+            "<td class='nvmeSlots'>" + value.amountSlotNvme + "</td>" +
+            "<td class='sataSlots'>" + value.amountSlotSata + "</td>" +
+            "<td class='formFactor'>" + value.formFactor + "</td>" +
+            "<td class='consumption'>" + value.consumption + "</td>" +
+            "<td class='price'>" + value.price + "</td>" +
+            "<td class='inStock'>" + value.stock + "</td>" +
+            "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
         $("#searchResult").append(row);
     }
@@ -338,11 +359,12 @@
     function pcCaseTabler(value) {
         var row;
         row = "<tr>"+
-            "<td>" + value.name + "</td>" +
-            "<td>" + value.id + "</td>" +
-            "<td>" + value.price + "</td>" +
-            "<td>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.image + "'></td>" +
+            "<td class='productName' >" + value.name + "</td>" +
+            "<td class='databaseId'>" + value.id + "</td>" +
+            "<td class='formFactor'>" + value.formFactor + "</td>" +
+            "<td class='price'>" + value.price + "</td>" +
+            "<td class='inStock'>" + value.stock + "</td>" +
+            "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
         $("#searchResult").append(row);
     }
@@ -350,16 +372,21 @@
     function buildTabler(value) {
         var row;
         row = "<tr>"+
-            "<td>" + value.id + "</td>" +
-            "<td>" + value.mobo + "</td>" +
-            "<td>" + value.gpu + "</td>" +
-            "<td>" + value.cpu + "</td><td>" ;
-            for(let i in value.memory){
+            "<td class='databaseId'>" + value.id + "</td>" +
+            "<td class='moboName'>" + value.mobo + "</td>" +
+            "<td  class='gpuName'>" + value.gpu + "</td>" +
+            "<td class='cpuName'>" + value.cpu + "</td>"+
+             "<td class='caseName'>" + value.pcCase + "</td><td class='memoriesName'>";
+            for(let i in value.memories){
                 row+= i + "<br>";
             }
-            row+="</td><td>" + value.stock + "</td>" +
-                "<td>" + value.pcCase + "</td><td>"+
-            "<td><img src=-'" + value.image + "'></td>" +
+            row+="</td>";
+        if (value.suggested)
+            row += "<td class='isSuggested'>Yes</td>"
+        else row += "<td class='isSuggested'>No</td>"
+
+            row+= "<td class='buildType'>" + value.type + "</td>" +
+                "<td class='maker'>" + value.maker + "</td>" +
             "</tr>"
         $("#searchResult").append(row);
     }
@@ -367,11 +394,12 @@
     function psusTabler(value) {
         var row;
         row = "<tr>"+
-            "<td>" + value.name + "</td>" +
-            "<td>" + value.id + "</td>" +
-        "</td><td>" + value.stock + "</td>" +
-            "<td>" + value.pcCase + "</td><td>"+
-            "<td><img src=-'" + value.image + "'></td>" +
+            "<td class='productName' >" + value.name + "</td>" +
+            "<td class='databaseId'>" + value.id + "</td>" +
+            "<td class='power'>" + value.power + "</td>"+
+            "<td class='inStock'>" + value.stock + "</td>" +
+
+            "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
         $("#searchResult").append(row);
     }

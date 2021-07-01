@@ -129,11 +129,9 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
     @Override
     public ArrayList<PcCase> doRetrieveByParameters(String name,String formFactor,int limit, int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()) {
-            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM Pccases WHERE name LIKE %?% AND formfactor %?% ORDER BY name LIMIT ?,?;")) {
-                ps.setString(1, name);
-                ps.setString(2, formFactor);
-                ps.setInt(3, offset);
-                ps.setInt(4, limit);
+            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM Pccases WHERE UPPER(name) LIKE UPPER('%"+name+"%') AND UPPER(formfactor) LIKE UPPER('"+formFactor+"%') ORDER BY name LIMIT ?,?;")) {
+                ps.setInt(1, offset);
+                ps.setInt(2, limit);
                 ArrayList<PcCase> list = new ArrayList<>();
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {

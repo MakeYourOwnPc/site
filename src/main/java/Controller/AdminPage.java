@@ -28,6 +28,8 @@ import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Locale;
+
 @WebServlet(name="adminpage",urlPatterns = "/adminpage")
 public class AdminPage extends HttpServlet {
     @Override
@@ -87,7 +89,7 @@ public class AdminPage extends HttpServlet {
                 else{
                     ArrayList<Cpu> list = null;
                     try {
-                        list = cpuDao.doRetrieveByParameters(nameCpu,socketCpu,integratedGpu,0,50);
+                        list = cpuDao.doRetrieveByParameters(nameCpu,socketCpu,integratedGpu,50,0);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -115,7 +117,7 @@ public class AdminPage extends HttpServlet {
                 else{
                     ArrayList<Gpu> list = null;
                     try {
-                        list = gpuDao.doRetrieveByName(nameGpu,0,50);
+                        list = gpuDao.doRetrieveByName(nameGpu,50,0);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -145,7 +147,7 @@ public class AdminPage extends HttpServlet {
                 else{
                     ArrayList<Memory> list = null;
                     try {
-                        list = memoryDao.doRetrieveByParameters(nameMemory,socketMemory,testType.isBlank()?null:Boolean.valueOf(testType),0,50);
+                        list = memoryDao.doRetrieveByParameters(nameMemory,socketMemory,testType.isBlank()?null:Boolean.valueOf(testType),50,0);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -179,7 +181,7 @@ public class AdminPage extends HttpServlet {
                 else{
                     ArrayList<Mobo> list = null;
                     try {
-                        list = moboDao.doRetrieveByParameters(nameMobo,socketRamMobo,socketCpuMobo,formFactor,numSlotNvme.isBlank()?0:Integer.parseInt(numSlotNvme),numSlotSata.isBlank()?0:Integer.parseInt(numSlotSata),numSlotRam.isBlank()?0:Integer.parseInt(numSlotRam),0,50);
+                        list = moboDao.doRetrieveByParameters(nameMobo,socketRamMobo,socketCpuMobo,formFactor,numSlotNvme.isBlank()?0:Integer.parseInt(numSlotNvme),numSlotSata.isBlank()?0:Integer.parseInt(numSlotSata),numSlotRam.isBlank()?0:Integer.parseInt(numSlotRam),50,0);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -208,7 +210,7 @@ public class AdminPage extends HttpServlet {
                 else{
                     ArrayList<Psu> list = null;
                     try {
-                        list = psuDao.doRetrieveByParameters(namePsu,power.isBlank()?0:Integer.parseInt(power),0,50);
+                        list = psuDao.doRetrieveByParameters(namePsu,power.isBlank()?0:Integer.parseInt(power),50,0);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -237,7 +239,7 @@ public class AdminPage extends HttpServlet {
                 else{
                     ArrayList<PcCase> list = null;
                     try {
-                        list = pcCaseDao.doRetrieveByParameters(namePcCase,formFactorCase,0,50);
+                        list = pcCaseDao.doRetrieveByParameters(namePcCase,formFactorCase,50,0);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -249,11 +251,11 @@ public class AdminPage extends HttpServlet {
                 break;
             case "builds":
                 BuildDao buildDao = new BuildDao();
-                String mobo = req.getParameter("mobo");
-                String cpu = req.getParameter("cpu");
-                String gpu = req.getParameter("gpu");
-                String psu = req.getParameter("psu");
-                String pcCase = req.getParameter("pcCase");
+                String mobo = req.getParameter("moboName");
+                String cpu = req.getParameter("cpuName");
+                String gpu = req.getParameter("gpuName");
+                String psu = req.getParameter("psuName");
+                String pcCase = req.getParameter("caseName");
                 String maker = req.getParameter("maker");
                 String suggested = req.getParameter("suggested");
                 String type = req.getParameter("type");
@@ -272,7 +274,7 @@ public class AdminPage extends HttpServlet {
                 else{
                     ArrayList<BuildNames> list = null;
                     try {
-                        list = buildDao.doRetrieveByParameters(mobo,cpu,gpu,psu,type,suggested.isBlank()?null:Boolean.valueOf(suggested),0,50);
+                        list = buildDao.doRetrieveByParameters(mobo,cpu,gpu,psu,type,suggested.isBlank()?null:Boolean.valueOf(suggested),50,0);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }

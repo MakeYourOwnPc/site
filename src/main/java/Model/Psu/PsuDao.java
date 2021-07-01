@@ -131,11 +131,10 @@ public class PsuDao implements IPsuDao <SQLException> {
     @Override
     public ArrayList<Psu> doRetrieveByParameters(String name,int power,int limit, int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()) {
-            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM Psus WHERE name LIKE %?% AND power>=? ORDER BY name LIMIT ?,?;")) {
-                ps.setString(1, name);
-                ps.setInt(2, power);
-                ps.setInt(3, offset);
-                ps.setInt(4, limit);
+            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM Psus WHERE UPPER(name) LIKE UPPER('%"+name+"?%') AND power>=? ORDER BY name LIMIT ?,?;")) {
+                ps.setInt(1, power);
+                ps.setInt(2, offset);
+                ps.setInt(3, limit);
                 ResultSet rs = ps.executeQuery();
                 ArrayList<Psu> list = new ArrayList<Psu>();
                 while (rs.next()) {

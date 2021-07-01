@@ -303,16 +303,12 @@ public class MoboDao implements IMoboDao<SQLException>{
     @Override
     public ArrayList<Mobo> doRetrieveByParameters(String name,String ramSocket, String cpuSocket, String formFactor, int nvmeSlot, int sataSlot,int ramSlot,int limit, int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()) {
-            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motherboards WHERE name LIKE %?% AND ramsocket LIKE %?% AND cpusocket LIKE %?% AND formfactor LIKE %?% AND amountnvmeslot>=? AND amountsataslot>=? AND amountramslot>=? ORDER BY name LIMIT ?,?;")) {
-                ps.setString(1, name);
-                ps.setString(2, ramSocket);
-                ps.setString(3, cpuSocket);
-                ps.setString(4, formFactor);
-                ps.setInt(5, nvmeSlot);
-                ps.setInt(6, sataSlot);
-                ps.setInt(7, ramSlot);
-                ps.setInt(8, offset);
-                ps.setInt(9, limit);
+            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motherboards WHERE UPPER(name) LIKE UPPER('%"+name+"%') AND UPPER(ramsocket) LIKE UPPER('%"+ramSocket+"%') AND UPPER(cpusocket) LIKE UPPER('%"+cpuSocket+"%') AND UPPER(formfactor) LIKE UPPER('"+formFactor+"%') AND amountslotnvme>=? AND amountslotsata>=? AND amountslotram>=? ORDER BY name LIMIT ?,?;")) {
+                ps.setInt(1, nvmeSlot);
+                ps.setInt(2, sataSlot);
+                ps.setInt(3, ramSlot);
+                ps.setInt(4, offset);
+                ps.setInt(5, limit);
                 ArrayList<Mobo> list = new ArrayList<Mobo>();
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {

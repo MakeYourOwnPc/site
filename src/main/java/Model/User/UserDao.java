@@ -38,7 +38,7 @@ public class UserDao implements IUserDao<SQLException>{
     @Override
     public User doRetrieveByEmail(String email) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Users WHERE email=?;")){
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Users WHERE UPPER(email)=UPPER(?);")){
                 ps.setString(1,email);
                 ResultSet rs = ps.executeQuery();
                 User user = new User();
