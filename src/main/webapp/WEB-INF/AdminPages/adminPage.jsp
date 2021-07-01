@@ -151,8 +151,14 @@
             case "Cases":
                 $("#searchResult").addClass("casesTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='cases'>" +
-                    "<tr><td><label for='formFactorm'>Form Factor</label></td>" +
-                    "<td><input type='text' id='formFactor' name='formFactor' ></td></tr>";
+
+                    "<tr><tr><td><label for='formFactor'>Form Factor</label></td>" +
+                "<td><select type='number' id='formFActor' name='formFactor'>" +
+                "<option></option>" +
+                "<option value='mini-itx'>Mini-ITX</option>" +
+                "<option value='micro-atx'>Micro-ATX</option>" +
+                "<option value='atx'>ATX</option>" +
+                "</select></td></tr>";
                 power = false;
                 break;
             case "Psus":
@@ -272,12 +278,12 @@
     function userTabler(value){
         var row;
         row = "<tr>"+
-            "<td>" + value.firstName + "</td>" +
-            "<td>" + value.lastName + "</td>" +
-            "<td>" + value.email + "</td>" ;
+            "<td class='firstname>" + value.firstName + "</td>" +
+            "<td class='lastname'>" + value.lastName + "</td>" +
+            "<td class='email'>" + value.email + "</td>" ;
         if (value.admin)
-            row += "<td>Yes</td>";
-        else row += "<td>No</td>";
+            row += "<td class='isAdmin'>Yes</td>";
+        else row += "<td class='isAdmin'>No</td>";
             row+="</tr>";
         $("#searchResult").append(row);
 
@@ -285,11 +291,11 @@
     function gpuTabler(value) {
         var row;
         row = "<tr>"+
-        "<td>" + value.name + "</td>" +
-        "<td>" + value.id + "</td>" +
-            "<td>" + value.consumption + "</td>" +
-         "<td>" + value.price + "</td>" +
-            "<td>" + value.stock + "</td>" +
+        "<td class='productName' >" + value.name + "</td>" +
+        "<td class='databaseId'>" + value.id + "</td>" +
+            "<td class='consumption'>" + value.consumption + "</td>" +
+         "<td class='price'>" + value.price + "</td>" +
+            "<td class='inStock'>" + value.stock + "</td>" +
             "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>";
         $("#searchResult").append(row);
@@ -298,16 +304,16 @@
     function cpuTabler(value) {
         var row;
         row = "<tr>"+
-        "<td>" + value.name + "</td>" +
-        "<td>" + value.id + "</td>" +
-        "<td>" + value.socket + "</td>"
+        "<td class='productName'>" + value.name + "</td>" +
+        "<td class='databaseId'>" + value.id + "</td>" +
+        "<td class='socket'>" + value.socket + "</td>"
         if (value.integratedgpu)
-            row += "<td>Yes</td>"
-        else row += "<td>No</td>"
+            row += "<td class='integratedGpu'>Yes</td>"
+        else row += "<td class='integratedGpu'>No</td>"
 
-        row += "<td>" + value.consumption + "</td>" +
-            "<td>" + value.price + "</td>" +
-            "<td>" + value.stock + "</td>" +
+        row += "<td class='consumption'>" + value.consumption + "</td>" +
+            "<td class='price'>" + value.price + "</td>" +
+            "<td class='inStock'>" + value.stock + "</td>" +
             "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
         $("#searchResult").append(row);
@@ -315,18 +321,18 @@
 
     function memoryTabler(value) {
         var row;
-        row = "<tr>"
-            + "<td>" + value.name + "</td>" +
-            +"<td>" + value.id + "</td>" +
-            +"<td>" + value.socket + "</td>"
+        row = "<tr>"+
+        "<td class='productName'>" + value.name + "</td>" +
+        "<td class='databaseId'>" + value.id + "</td>" +
+        "<td class='socket'>" + value.socket + "</td>";
         if (value.mType)
-            row += "<td>Mass Storage</td>"
-        else row += "<td>Ram</td>"
+            row += "<td class='memoryType'>Mass Storage</td>"
+        else row += "<td class='memoryType'>Ram</td>"
 
-        row += "<td>" + value.amountMemories + "</td>" +
-            "<td>" + value.consumption + "</td>" +
-            "<td>" + value.price + "</td>" +
-            "<td>" + value.stock + "</td>" +
+        row += "<td class='Amount of Memories'>" + value.amountMemories + "</td>" +
+            "<td class='consumption'>" + value.consumption + "</td>" +
+            "<td class='price'>" + value.price + "</td>" +
+            "<td class='inStock'>" + value.stock + "</td>" +
             "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
         $("#searchResult").append(row);
@@ -334,17 +340,17 @@
     function moboTabler(value) {
         var row;
         row = "<tr>"+
-            "<td>" + value.name + "</td>" +
-            "<td>" + value.id + "</td>" +
-            "<td>" + value.cpuSocket + "</td>" +
-            "<td>" + value.ramSocket + "</td>" +
-            "<td>" + value.amountSlotRam + "</td>" +
-            "<td>" + value.amountSlotNvme + "</td>" +
-            "<td>" + value.amountSlotSata + "</td>" +
-            "<td>" + value.formFactor + "</td>" +
-            "<td>" + value.consumption + "</td>" +
-            "<td>" + value.price + "</td>" +
-            "<td>" + value.stock + "</td>" +
+            "<td class='productName' >" + value.name + "</td>" +
+            "<td class='databaseId'>" + value.id + "</td>" +
+            "<td class='cpuSocket'>" + value.cpuSocket + "</td>" +
+            "<td class='ramSocket'>" + value.ramSocket + "</td>" +
+            "<td class='ramSlots'>" + value.amountSlotRam + "</td>" +
+            "<td class='nvmeSlots'>" + value.amountSlotNvme + "</td>" +
+            "<td class='sataSlots'>" + value.amountSlotSata + "</td>" +
+            "<td class='formFactor'>" + value.formFactor + "</td>" +
+            "<td class='consumption'>" + value.consumption + "</td>" +
+            "<td class='price'>" + value.price + "</td>" +
+            "<td class='inStock'>" + value.stock + "</td>" +
             "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
         $("#searchResult").append(row);
@@ -353,11 +359,11 @@
     function pcCaseTabler(value) {
         var row;
         row = "<tr>"+
-            "<td class='productName'>" + value.name + "</td>" +
-            "<td>" + value.id + "</td>" +
-            "<td>" + value.formFactor + "</td>" +
-            "<td>" + value.price + "</td>" +
-            "<td>" + value.stock + "</td>" +
+            "<td class='productName' >" + value.name + "</td>" +
+            "<td class='databaseId'>" + value.id + "</td>" +
+            "<td class='formFactor'>" + value.formFactor + "</td>" +
+            "<td class='price'>" + value.price + "</td>" +
+            "<td class='inStock'>" + value.stock + "</td>" +
             "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
         $("#searchResult").append(row);
@@ -367,19 +373,20 @@
         var row;
         row = "<tr>"+
             "<td class='databaseId'>" + value.id + "</td>" +
-            "<td>" + value.mobo + "</td>" +
-            "<td>" + value.gpu + "</td>" +
-            "<td>" + value.cpu + "</td>"+
-             "<td>" + value.pcCase + "</td>";
+            "<td class='moboName'>" + value.mobo + "</td>" +
+            "<td  class='gpuName'>" + value.gpu + "</td>" +
+            "<td class='cpuName'>" + value.cpu + "</td>"+
+             "<td class='caseName'>" + value.pcCase + "</td><td class='memoriesName'>";
             for(let i in value.memories){
                 row+= i + "<br>";
             }
+            row+="</td>";
         if (value.suggested)
-            row += "<td>Yes</td>"
-        else row += "<td>No</td>"
+            row += "<td class='isSuggested'>Yes</td>"
+        else row += "<td class='isSuggested'>No</td>"
 
-            row+= "<td><td>" + value.type + "</td></td>" +
-                "<td><td>" + value.maker + "</td></td>" +
+            row+= "<td class='buildType'>" + value.type + "</td>" +
+                "<td class='maker'>" + value.maker + "</td>" +
             "</tr>"
         $("#searchResult").append(row);
     }
@@ -387,10 +394,10 @@
     function psusTabler(value) {
         var row;
         row = "<tr>"+
-            "<td>" + value.name + "</td>" +
-            "<td>" + value.id + "</td>" +
-            "<td>" + value.power + "</td>"+
-        "<td>" + value.stock + "</td>" +
+            "<td class='productName' >" + value.name + "</td>" +
+            "<td class='databaseId'>" + value.id + "</td>" +
+            "<td class='power'>" + value.power + "</td>"+
+            "<td class='inStock'>" + value.stock + "</td>" +
 
             "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
