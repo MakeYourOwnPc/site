@@ -274,9 +274,10 @@
         row = "<tr>"+
         "<td>" + value.name + "</td>" +
         "<td>" + value.id + "</td>" +
+            "<td>" + value.consumption + "</td>" +
          "<td>" + value.price + "</td>" +
             "<td>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.image + "'></td>" +
+            "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>";
         $("#searchResult").append(row);
     }
@@ -294,7 +295,7 @@
         row += "<td>" + value.consumption + "</td>" +
             "<td>" + value.price + "</td>" +
             "<td>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.image + "'></td>" +
+            "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
         $("#searchResult").append(row);
     }
@@ -313,7 +314,7 @@
             "<td>" + value.consumption + "</td>" +
             "<td>" + value.price + "</td>" +
             "<td>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.image + "'></td>" +
+            "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
         $("#searchResult").append(row);
     }
@@ -326,12 +327,12 @@
             "<td>" + value.ramSocket + "</td>" +
             "<td>" + value.amountSlotNvme + "</td>" +
             "<td>" + value.amountSlotSata + "</td>" +
-         "<td>" + value.amountMemories + "</td>" +
+         "<td>" + value.amountSlotRam + "</td>" +
             "<td>" + value.formFactor + "</td>" +
             "<td>" + value.consumption + "</td>" +
             "<td>" + value.price + "</td>" +
             "<td>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.image + "'></td>" +
+            "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
         $("#searchResult").append(row);
     }
@@ -341,9 +342,10 @@
         row = "<tr>"+
             "<td>" + value.name + "</td>" +
             "<td>" + value.id + "</td>" +
+            "<td>" + value.formFactor + "</td>" +
             "<td>" + value.price + "</td>" +
             "<td>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.image + "'></td>" +
+            "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
         $("#searchResult").append(row);
     }
@@ -354,13 +356,17 @@
             "<td>" + value.id + "</td>" +
             "<td>" + value.mobo + "</td>" +
             "<td>" + value.gpu + "</td>" +
-            "<td>" + value.cpu + "</td><td>" ;
-            for(let i in value.memory){
+            "<td>" + value.cpu + "</td>"+
+             "<td>" + value.pcCase + "</td>";
+            for(let i in value.memories){
                 row+= i + "<br>";
             }
-            row+="</td><td>" + value.stock + "</td>" +
-                "<td>" + value.pcCase + "</td><td>"+
-            "<td><img src=-'" + value.image + "'></td>" +
+        if (value.suggested)
+            row += "<td>Yes</td>"
+        else row += "<td>No</td>"
+
+            row+= "<td><td>" + value.type + "</td></td>" +
+                "<td><td>" + value.maker + "</td></td>" +
             "</tr>"
         $("#searchResult").append(row);
     }
@@ -370,9 +376,10 @@
         row = "<tr>"+
             "<td>" + value.name + "</td>" +
             "<td>" + value.id + "</td>" +
-        "</td><td>" + value.stock + "</td>" +
-            "<td>" + value.pcCase + "</td><td>"+
-            "<td><img src=-'" + value.image + "'></td>" +
+            "<td>" + value.power + "</td>"+
+        "<td>" + value.stock + "</td>" +
+
+            "<td><img src=-'" + value.imagePath + "'></td>" +
             "</tr>"
         $("#searchResult").append(row);
     }
