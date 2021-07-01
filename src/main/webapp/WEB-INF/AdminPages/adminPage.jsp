@@ -104,20 +104,30 @@
             case "Cpus":
                 $("#searchResult").addClass("cpusTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='cpus'>" +
+
                     "<tr><td><label for='CPUsocket' >Socket</label></td>" +
-                    "<td><div class='form'><input type='text' id='CPUsocket' name='CPUsocket' ></td></tr>";
+                    "<td><div class='form'><input type='text' id='CPUsocket' name='CPUsocket' ></td></tr>"+
+
+                    "<tr><td><label for='integratedCPU' >Integrated Gpu</label></td>" +
+                    "<td><div class='form'><input type='radio' id='integratedCPU' name='integratedCPU' value='true'></td></tr>" +
+                    "<tr><td><label for='integratedCPU' >No Integrated Gpu</label></td>" +
+                "<td><div class='form'><input type='radio' id='integratedCPU' name='integratedCPU' value='false'></td></tr>"+
+                "<tr><td><label for='integratedCPU' >Ignore Integrated Gpu</label></td>" +
+                "<td><div class='form'><input type='radio' id='integratedCPU' name='integratedCPU' value='' checked></td></tr>";
                 break;
 
             case "Memories":
                 $("#searchResult").addClass("memoriesTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='memories'>" +
-                    "<input type='hidden' id='requestedItem' name='mType'>" +
 
                     "<tr><td><label for='MEMsocket' >Memory Socket</label></td>" +
                     "<td><input type='text' id='MEMsocket' name='MEMsocket'></td></tr>" +
 
                     "<tr><td><label for='Ram' >Ram</label></td>" +
                     "<td><input type='radio' id='Ram' name='mType' value='Ram'></td></tr>" +
+
+                    "<td><label for='All' >All</label></td>" +
+                    "<td><input type='radio' id='All' name='mType' checked></td></tr>" +
 
                     "<tr><td><label for='MassStorage'>MassStorage</label></td>" +
                     "<td class='form'><input type='radio' id='MassStorage' name='mType' value='MassStorage'></td></tr>" +
@@ -167,7 +177,7 @@
                     "<td><input type='number' id='nNVMESockets' name='nNVMESockets'></td></tr>"+
 
                     "<tr><td><label for='formFactor'>Form Factor</label></td>" +
-                    "<td><select type='number' id='formFActor' name='formfactor'>" +
+                    "<td><select type='number' id='formFActor' name='formFactor'>" +
                     "<option>All</option>" +
                     "<option value='mini-itx'>Mini-ITX</option>" +
                     "<option value='micro-atx'>Micro-ATX</option>" +
