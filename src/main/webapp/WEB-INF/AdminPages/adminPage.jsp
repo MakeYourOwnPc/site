@@ -88,6 +88,7 @@
         var formHTML;
         var user = false;
         var power = true;
+        var name=true;
         switch (text) {
             case "Builds":
                 $("#searchResult").addClass("buildsTable");
@@ -96,7 +97,17 @@
                     "<tr><td><label for='GPUname'>GPU Name</label></td><td><input type='text' id='GPUname' name='gpuName'></td></tr>" +
                     "<tr><td><label for='PSUname'>PSU Name</label></td><td><input type='text' id='PSUname' name='psuName'></td></tr>" +
                     "<tr><td><label for='MOBOname'>MOBO Name</label></td><td><input type='text' id='MOBOname' name='moboName'></td></tr>" +
-                    "<tr><td><label for='CASEname'>CASE Name</label></td><td><input type='text' id='CASEname' name='caseName'></td></tr>"
+                    "<tr><td><label for='maker'>Maker Name</label></td><td><input type='text' id='maker' name='maker'></td></tr>" +
+                    "<tr><td><label for='CASEname'>CASE Name</label></td><td><input type='text' id='CASEname' name='caseName'></td></tr>"+
+                    "<tr><td><label for='suggested' >Suggested</label></td>" +
+                    "<td><input type='radio' id='suggested' name='suggested' value='true'></td></tr>" +
+
+                    "<td><label for='Allsug' >All</label></td>" +
+                    "<td><input type='radio' id='Allsug' name='suggested' checked value=''></td></tr>" +
+
+                    "<tr><td><label for='notSuggested'>Not Suggested</label></td>" +
+                    "<td class='form'><input type='radio' id='notSuggested' name='suggested' value='false'></td></tr>"
+                name=false;
                     break;
             case "Gpus":
                 $("#searchResult").addClass("gpusTable");
@@ -189,7 +200,7 @@
 
 
 
-
+        if(name)
         formHTML += "<tr><td><label for='name'>Name</label></td><td><input type='text' id='name' name='name'></td></tr>" ;
 
         $("#searchFormContainer").html(formHTML);
