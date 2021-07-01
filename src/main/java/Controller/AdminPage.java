@@ -65,7 +65,7 @@ public class AdminPage extends HttpServlet {
             case "cpus":
                 CpuDao cpuDao = new CpuDao();
                 String nameCpu = req.getParameter("name");
-                String socketCpu = req.getParameter("socket");
+                String socketCpu = req.getParameter("CPUsocket");
                 String test = req.getParameter("integratedgpu");
                 Boolean integratedGpu;
                 if(!test.isBlank())
@@ -128,7 +128,7 @@ public class AdminPage extends HttpServlet {
             case "memories":
                 MemoryDao memoryDao = new MemoryDao();
                 String nameMemory = req.getParameter("name");
-                String socketMemory = req.getParameter("socket");
+                String socketMemory = req.getParameter("MEMsocket");
                 String testType = req.getParameter("mtype");
                 if(nameMemory.isBlank()&&socketMemory.isBlank()&&testType.isBlank()) {
                     try {
