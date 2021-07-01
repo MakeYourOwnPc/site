@@ -128,21 +128,15 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
     }
     @Override
     public ArrayList<PcCase> doRetrieveByParameters(String name,String formFactor,int limit, int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            String query = "SELECT * FROM PcCases WHERE ";
-            StringBuilder stringBuilder = new StringBuilder();
-            if(!name.isBlank()){
-                stringBuilder.append("NAME LIKE %"+name+"%");
-            }
-            if(!formFactor.isBlank()){
-                if(!stringBuilder.isEmpty())
-                    stringBuilder.append(" AND ");
-                stringBuilder.append("formfactor="+formFactor);
-            }
-            stringBuilder.append(" ORDER BY name LIMIT "+offset+","+limit+";");
-            ArrayList<PcCase> list = new ArrayList<>();
-            ResultSet rs = conn.createStatement().executeQuery(query+ stringBuilder);
-                while(rs.next()){
+        try(Connection conn = ConnPool.getConnection()) {
+            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM Pccases WHERE name LIKE %?% AND formfactor %?% ORDER BY name LIMIT ?,?;")) {
+                ps.setString(1, name);
+                ps.setString(2, formFactor);
+                ps.setInt(3, offset);
+                ps.setInt(4, limit);
+                ArrayList<PcCase> list = new ArrayList<>();
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
                     PcCase pcCase = new PcCase();
                     pcCase.setName(rs.getString("name"));
                     pcCase.setId(rs.getInt("id"));
@@ -154,10 +148,12 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
                 }
                 rs.close();
                 return list;
-            }
-            catch(SQLException e){
+            } catch (SQLException e) {
                 return null;
             }
+        }catch(SQLException e){
+            return null;
+        }
 
     }
     @Override

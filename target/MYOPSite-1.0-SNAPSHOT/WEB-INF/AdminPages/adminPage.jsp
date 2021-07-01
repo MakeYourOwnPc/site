@@ -40,14 +40,14 @@
     <h2 class="button">Builds</h2>
     <h2 class="button">Users</h2>
 </nav>
-<div>
+<div class="rightBox">
     <form id="searchForm" >
         <table id="searchFormContainer">
         </table>
 
     </form>
 
-    "<button  class='btn' onclick='submitForm()'>Search</button>"
+    <button  class='btn active' onclick='submitForm()'>Search</button>
 </div>
 <table id="searchResult">
 </table>
@@ -64,7 +64,7 @@
     }
 
     function toggleFormContainer() {
-        $("#searchForm").slideToggle();
+        $(".rightBox").slideToggle();
     }
 
     $(document).ready(function () {
@@ -159,6 +159,7 @@
 
                     "<tr><td><label for='formFactor'>Form Factor</label></td>" +
                     "<td><select type='number' id='formFActor' name='formfactor'>" +
+                    "<option>All</option>" +
                     "<option value='mini-itx'>Mini-ITX</option>" +
                     "<option value='micro-atx'>Micro-ATX</option>" +
                     "<option value='atx'>ATX</option>" +
@@ -184,36 +185,45 @@
         xhttp.onreadystatechange = function () {
 
             if (this.readyState == 4 && this.status == 200) {
-                $("#searchResult").html("<tr><td>" + this.responseText + "</td></tr>");
+                console.log (this.responseText);
 
                 var results = JSON.parse(this.responseText);
+                $("#searchResult").removeClass(); /* without attributes removes all classes*/
 
                 switch (selectedElement) {
-                    case "Gpu":
+                    case "Gpus":
+                        $("#searchResult").addClass("gpusTable");
                         results.forEach(gpuTabler);
                         break;
-                    case "Cpu":
+                    case "Cpus":
+                        $("#searchResult").addClass("cpusTable");
                         results.forEach(cpuTabler);
                         break;
                     case "Memory":
+                        $("#searchResult").addClass("memoriesTable");
                         results.forEach(memoryTabler);
                         break;
                     case "Build":
+                        $("#searchResult").addClass("buildsTable");
                         results.forEach(buildTabler);
                         break;
                     case "MotherBoards":
+                        $("#searchResult").addClass("motherboardsTable");
                         results.forEach(moboTabler);
                         break;
                     case "Cases":
+                        $("#searchResult").addClass("casesTable");
                         results.forEach(pcCaseTabler);
                         break;
                     case "Psus":
+                        $("#searchResult").addClass("psusTable");
                         results.forEach(psusTabler);
                         break;
                     case"Users":
+                        $("#searchResult").addClass("usersTable");
                         results.forEach(userTabler);
                         break;
-                    default:$("#searchResult").html("Error")
+                    default:$("#searchResult").html("Cannot visualize");
                 }
             }
         };
@@ -245,12 +255,7 @@
         row = "<tr>"+
         "<td>" + value.name + "</td>" +
         "<td>" + value.id + "</td>" +
-        "<td>" + value.socket + "</td>";
-        if (value.integratedgpu)
-            row += "<td>Yes</td>";
-        else row += "<td>No</td>";
-
-        row += "<td>" + value.price + "</td>" +
+         "<td>" + value.price + "</td>" +
             "<td>" + value.stock + "</td>" +
             "<td><img src=-'" + value.image + "'></td>" +
             "</tr>";
@@ -298,7 +303,6 @@
         row = "<tr>"+
             "<td>" + value.name + "</td>" +
             "<td>" + value.id + "</td>" +
-
             "<td>" + value.cpuSocket + "</td>" +
             "<td>" + value.ramSocket + "</td>" +
             "<td>" + value.amountSlotNvme + "</td>" +
