@@ -84,12 +84,13 @@
     function changeForm(text) {
         selectedElement = text;
         $("#selectedFormTitle").text(text);
-
+        $("#searchResult").removeClass(); /* without attributes removes all classes*/
         var formHTML;
         var user = false;
         var power = true;
         switch (text) {
             case "Builds":
+                $("#searchResult").addClass("buildsTable");
                 formHTML="<input type='hidden' id='requestedItem' name='requestedItem' value='builds'>"+
                     "<tr><td><label for='CPUname'>CPU Name</label></td><td><input type='text' id='CPUname' name='cpuname'></td></tr>" +
                     "<tr><td><label for='GPUname'>GPU Name</label></td><td><input type='text' id='GPUname' name='gpuname'></td></tr>" +
@@ -97,19 +98,23 @@
                     "<tr><td><label for='CASEname'>CASE Name</label></td><td><input type='text' id='CASEname' name='casename'></td></tr>"
                     break;
             case "Gpus":
+                $("#searchResult").addClass("gpusTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='gpus'>";
                 break;
             case "Cpus":
+                $("#searchResult").addClass("cpusTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='cpus'>" +
                     "<tr><td><label for='CPUsocket' >Socket</label></td>" +
                     "<td><div class='form'><input type='text' id='CPUsocket' name='CPUsocket' ></td></tr>";
                 break;
 
             case "Memories":
+                $("#searchResult").addClass("memoriesTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='memories'>" +
+                    "<input type='hidden' id='requestedItem' name='mType'>" +
 
-                    "<tr><td><label for='RAMsocket' >Socket</label></td>" +
-                    "<td><input type='text' id='RAMsocket' name='RAMsocket'></td></tr>" +
+                    "<tr><td><label for='MEMsocket' >Memory Socket</label></td>" +
+                    "<td><input type='text' id='MEMsocket' name='MEMsocket'></td></tr>" +
 
                     "<tr><td><label for='Ram' >Ram</label></td>" +
                     "<td><input type='radio' id='Ram' name='mType' value='Ram'></td></tr>" +
@@ -121,17 +126,20 @@
                     "<td><input type='number' id='amountMemories' name='amountOfMemories'></td></tr>";
                 break;
             case "Cases":
+                $("#searchResult").addClass("casesTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='cases'>" +
                     "<tr><td><label for='formFactorm'>Form Factor</label></td>" +
                     "<td><input type='text' id='formFactor' name='formFactor' ></td></tr>";
                 power = false;
                 break;
             case "Psus":
+                $("#searchResult").addClass("psusTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='psus'>"+
                     "<tr><td><label for='power'>Power</label></td>" +
                     "<td class='form'><input type='number' id='power' name='power'></td></tr>";
                 break;
             case "Users":
+                $("#searchResult").addClass("usersTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='users'>" +
                     "<tr><td><label for='email'>Email</label></td>" +
                     "<td><input type='text' id='email' name='email' ></td></tr>";
@@ -140,6 +148,7 @@
                 break;
 
             case "MotherBoards":
+                $("#searchResult").addClass("motherboardsTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='memories'>" +
 
                     "<tr><td><label for='CPUsocket'>CPU Socket</label></td>" +
@@ -167,8 +176,7 @@
                 break;
         }
 
-        if (!user) formHTML += "<tr><td class='label'><label for='id'>Object Id</label></td>" +
-            "<td><input type='number' id='id' name='id' ></td></tr>"
+
 
 
         formHTML += "<tr><td><label for='name'>Name</label></td><td><input type='text' id='name' name='name'></td></tr>" ;
@@ -188,39 +196,39 @@
                 console.log (this.responseText);
 
                 var results = JSON.parse(this.responseText);
-                $("#searchResult").removeClass(); /* without attributes removes all classes*/
+
+                $("#searchResult").html("");
 
                 switch (selectedElement) {
                     case "Gpus":
-                        $("#searchResult").addClass("gpusTable");
+
                         results.forEach(gpuTabler);
                         break;
                     case "Cpus":
-                        $("#searchResult").addClass("cpusTable");
+
                         results.forEach(cpuTabler);
                         break;
-                    case "Memory":
-                        $("#searchResult").addClass("memoriesTable");
+                    case "Memories":
                         results.forEach(memoryTabler);
                         break;
-                    case "Build":
-                        $("#searchResult").addClass("buildsTable");
+                    case "Builds":
+
                         results.forEach(buildTabler);
                         break;
                     case "MotherBoards":
-                        $("#searchResult").addClass("motherboardsTable");
+
                         results.forEach(moboTabler);
                         break;
                     case "Cases":
-                        $("#searchResult").addClass("casesTable");
+
                         results.forEach(pcCaseTabler);
                         break;
                     case "Psus":
-                        $("#searchResult").addClass("psusTable");
+
                         results.forEach(psusTabler);
                         break;
                     case"Users":
-                        $("#searchResult").addClass("usersTable");
+
                         results.forEach(userTabler);
                         break;
                     default:$("#searchResult").html("Cannot visualize");
@@ -349,6 +357,7 @@
     function psusTabler(value) {
         var row;
         row = "<tr>"+
+            "<td>" + value.name + "</td>" +
             "<td>" + value.id + "</td>" +
         "</td><td>" + value.stock + "</td>" +
             "<td>" + value.pcCase + "</td><td>"+
