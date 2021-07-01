@@ -199,6 +199,7 @@
 
         let xhttp = new XMLHttpRequest();
         let formDATA = $("#searchForm").serialize();
+        $("#searchResult").html("");
 
         xhttp.onreadystatechange = function () {
 
@@ -207,7 +208,7 @@
 
                 var results = JSON.parse(this.responseText);
 
-                $("#searchResult").html("");
+
 
                 switch (selectedElement) {
                     case "Gpus":
