@@ -22,7 +22,7 @@
     <h2 id="selectedFormTitle"> Choose Element</h2>
 
 
-    <form action='modifyDB' method='post'>
+    <form action='showItem' method='post'>
         <input type='hidden' name='option' value='create'>
         <input type='submit' class='btn active' value='Add Element'></form>
     <div class="icon-container filter-icon" onclick="toggleFormContainer()">
@@ -435,7 +435,7 @@
     function buttonAdder(id){
         let buttonForm;
         let requestedItem=$("#requestedItem").attr("value");
-        buttonForm="<td><form action='modifyDB' method='post'><input type='hidden' name='id' value='"+id+"'>" +
+        buttonForm="<td><form action='showItem' method='post'><input type='hidden' name='id' value='"+id+"'>" +
             "<input type='hidden' name='option' value='update'>" +
             "<input type='hidden'  name='requestedItem' value='"+requestedItem+"'>" +
             "<input type='submit' class='btn active' value='Modify'></form></td>";
