@@ -97,6 +97,7 @@
                     "<tr><td><label for='GPUname'>GPU Name</label></td><td><input type='text' id='GPUname' name='gpuName'></td></tr>" +
                     "<tr><td><label for='PSUname'>PSU Name</label></td><td><input type='text' id='PSUname' name='psuName'></td></tr>" +
                     "<tr><td><label for='MOBOname'>MOBO Name</label></td><td><input type='text' id='MOBOname' name='moboName'></td></tr>" +
+                    "<tr><td><label for='buildType'>Build Type</label></td><td><input type='text' id='buildType' name='type'></td></tr>" +
                     "<tr><td><label for='maker'>Maker Name</label></td><td><input type='text' id='maker' name='maker'></td></tr>" +
                     "<tr><td><label for='CASEname'>CASE Name</label></td><td><input type='text' id='CASEname' name='caseName'></td></tr>"+
                     "<tr><td><label for='suggested' >Suggested</label></td>" +
