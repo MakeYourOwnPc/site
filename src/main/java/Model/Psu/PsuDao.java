@@ -176,28 +176,13 @@ public class PsuDao implements IPsuDao <SQLException> {
     @Override
     public boolean doUpdate(Psu psu) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("UPDATE Psus set name=?,power=?,price=?,imagepath=? WHERE id=?;")){
-                Psu psuOld = doRetrieveById(psu.getId());
-                if(psu.getName()!=null)
-                    ps.setString(1, psu.getName());
-                else
-                    ps.setString(1,psuOld.getName());
-                if(psu.getPower()!=0)
+            try(PreparedStatement ps = conn.prepareStatement("UPDATE Psus set name=?,power=?,price=?,imagepath=?,stock=? WHERE id=?;")){
+                ps.setString(1, psu.getName());
                 ps.setInt(2,psu.getPower());
-                else
-                    ps.setInt(2,psuOld.getPower());
-                if(psu.getPrice()!=0)
-                    ps.setFloat(3,psu.getPrice());
-                else
-                    ps.setFloat(3,psuOld.getPrice());
-                if(psu.getImagePath()!=null){
-                    File file = new File(psuOld.getImagePath());
-                    file.delete();
-                    ps.setString(4,psu.getImagePath());
-                }
-                else
-                    ps.setString(4,psuOld.getImagePath());
-                ps.setInt(5, psu.getId());
+                ps.setFloat(3,psu.getPrice());
+                ps.setString(4,psu.getImagePath());
+                ps.setInt(5,psu.getStock());
+                ps.setInt(6, psu.getId());
                 return ps.executeUpdate()>0;
             }catch(SQLException e){
                 return false;

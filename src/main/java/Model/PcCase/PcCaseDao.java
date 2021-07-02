@@ -179,28 +179,13 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
     @Override
     public boolean doUpdate(PcCase pcCase) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("UPDATE Pccases SET name=?,formfactor=?,price=?,imagepath=? WHERE id=?;")){
-                PcCase pcCaseOld = doRetrieveById(pcCase.getId());
-                if(pcCase.getName()!=null)
-                    ps.setString(1, pcCase.getName());
-                else
-                    ps.setString(1,pcCaseOld.getName());
-                if(pcCase.getFormFactor()!=null)
-                    ps.setString(2,pcCase.getFormFactor());
-                else
-                    ps.setString(2,pcCaseOld.getFormFactor());
-                if(pcCase.getPrice()!=0)
-                    ps.setFloat(3,pcCase.getPrice());
-                else
-                    ps.setFloat(3,pcCaseOld.getPrice());
-                if(pcCase.getImagePath()!=null){
-                    File file = new File(pcCaseOld.getImagePath());
-                    file.delete();
-                    ps.setString(4,pcCase.getImagePath());
-                }
-                else
-                    ps.setString(4,pcCaseOld.getImagePath());
-                ps.setInt(5, pcCase.getId());
+            try(PreparedStatement ps = conn.prepareStatement("UPDATE Pccases SET name=?,formfactor=?,price=?,imagepath=?,stock=? WHERE id=?;")){
+                ps.setString(1, pcCase.getName());
+                ps.setString(2,pcCase.getFormFactor());
+                ps.setFloat(3,pcCase.getPrice());
+                ps.setString(4,pcCase.getImagePath());
+                ps.setInt(5,pcCase.getStock());
+                ps.setInt(6, pcCase.getId());
                 return ps.executeUpdate()>0;
             }catch(SQLException e){
                 return false;

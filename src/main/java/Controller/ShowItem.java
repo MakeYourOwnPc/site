@@ -37,7 +37,11 @@ public class ShowItem extends HttpServlet {
                 UserDao userDao = new UserDao();
                 try {
                     User user = userDao.doRetrieveByEmail(email);
-                    req.setAttribute("item",user);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(user);
+                    resp.setContentType("plain/text");
+                    resp.setCharacterEncoding("UTF-8");
+                    resp.getWriter().print(json);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -47,7 +51,11 @@ public class ShowItem extends HttpServlet {
                 GpuDao gpuDao = new GpuDao();
                 try {
                     Gpu gpu = gpuDao.doRetrieveById(Integer.parseInt(idGpu));
-                    req.setAttribute("item",gpu);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(gpu);
+                    resp.setContentType("plain/text");
+                    resp.setCharacterEncoding("UTF-8");
+                    resp.getWriter().print(json);
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -58,7 +66,11 @@ public class ShowItem extends HttpServlet {
                 CpuDao cpuDao = new CpuDao();
                 try {
                     Cpu cpu = cpuDao.doRetrieveById(Integer.parseInt(idCpu));
-                    req.setAttribute("item",cpu);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(cpu);
+                    resp.setContentType("plain/text");
+                    resp.setCharacterEncoding("UTF-8");
+                    resp.getWriter().print(json);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -68,7 +80,11 @@ public class ShowItem extends HttpServlet {
                 PsuDao psuDao = new PsuDao();
                 try {
                     Psu psu = psuDao.doRetrieveById(Integer.parseInt(idPsu));
-                    req.setAttribute("item",psu);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(psu);
+                    resp.setContentType("plain/text");
+                    resp.setCharacterEncoding("UTF-8");
+                    resp.getWriter().print(json);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -78,7 +94,11 @@ public class ShowItem extends HttpServlet {
                 MemoryDao memoryDao = new MemoryDao();
                 try {
                     Memory memory = memoryDao.doRetrieveById(Integer.parseInt(idMemory));
-                    req.setAttribute("item",memory);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(memory);
+                    resp.setContentType("plain/text");
+                    resp.setCharacterEncoding("UTF-8");
+                    resp.getWriter().print(json);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -88,7 +108,11 @@ public class ShowItem extends HttpServlet {
                 MoboDao moboDao = new MoboDao();
                 try {
                     Mobo mobo = moboDao.doRetrieveById(Integer.parseInt(idMobo));
-                    req.setAttribute("item",mobo);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(mobo);
+                    resp.setContentType("plain/text");
+                    resp.setCharacterEncoding("UTF-8");
+                    resp.getWriter().print(json);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -98,7 +122,11 @@ public class ShowItem extends HttpServlet {
                 PcCaseDao pcCaseDao = new PcCaseDao();
                 try {
                     PcCase pcCase = pcCaseDao.doRetrieveById(Integer.parseInt(idCase));
-                    req.setAttribute("item",pcCase);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(pcCase);
+                    resp.setContentType("plain/text");
+                    resp.setCharacterEncoding("UTF-8");
+                    resp.getWriter().print(json);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

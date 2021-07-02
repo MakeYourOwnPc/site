@@ -355,52 +355,19 @@ public class MoboDao implements IMoboDao<SQLException>{
     @Override
     public boolean doUpdate(Mobo mobo) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("UPDATE Memories SET name=?,formfactor=?,amountslotnvme=?,amountslotsata=?,amountslotram=?,cpusocket=?,ramsocket=?,consumption=?,price=?,socket=?,imagepath=? WHERE id=?;")){
-                Mobo moboOld = doRetrieveById(mobo.getId());
-                if(mobo.getName()!=null)
+            try(PreparedStatement ps = conn.prepareStatement("UPDATE Memories SET name=?,formfactor=?,amountslotnvme=?,amountslotsata=?,amountslotram=?,cpusocket=?,ramsocket=?,consumption=?,price=?,socket=?,imagepath=?,stock=? WHERE id=?;")){
                 ps.setString(1,mobo.getName());
-                else
-                    ps.setString(1,moboOld.getName());
-                if(mobo.getFormFactor()!=null)
                 ps.setString(2,mobo.getFormFactor());
-                else
-                ps.setString(2,moboOld.getFormFactor());
-                if(mobo.getAmountSlotNvme()!=0)
                 ps.setInt(3,mobo.getAmountSlotNvme());
-                else
-                ps.setInt(3,moboOld.getAmountSlotNvme());
-                if(mobo.getAmountSlotSata()!=0)
                 ps.setInt(4,mobo.getAmountSlotSata());
-                else
-                    ps.setInt(4,moboOld.getAmountSlotSata());
-                if(mobo.getAmountSlotRam()!=0)
                 ps.setInt(5,mobo.getAmountSlotRam());
-                else
-                ps.setInt(5,moboOld.getAmountSlotRam());
-                if(mobo.getCpuSocket()!=null)
                 ps.setString(6,mobo.getCpuSocket());
-                else
-                ps.setString(6,moboOld.getCpuSocket());
-                if(mobo.getRamSocket()!=null)
                 ps.setString(7,mobo.getRamSocket());
-                else
-                    ps.setString(7,moboOld.getRamSocket());
-                if(mobo.getConsumption()!=0)
                 ps.setInt(8,mobo.getConsumption());
-                else
-                    ps.setInt(8,moboOld.getConsumption());
-                if(mobo.getPrice()!=0)
                 ps.setFloat(9,mobo.getPrice());
-                else
-                    ps.setFloat(9,moboOld.getPrice());
-                if(mobo.getImagePath()!=null){
-                    File file = new File(moboOld.getImagePath());
-                    file.delete();
-                    ps.setString(10,mobo.getImagePath());
-                }
-                else
-                    ps.setString(10,moboOld.getImagePath());
-                ps.setInt(11,mobo.getId());
+                ps.setString(10,mobo.getImagePath());
+                ps.setInt(11,mobo.getStock());
+                ps.setInt(12,mobo.getId());
                 return ps.executeUpdate()>0;
             }
             catch (SQLException e){

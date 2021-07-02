@@ -209,36 +209,15 @@ public class MemoryDao implements IMemoryDao<SQLException>{
     @Override
     public boolean doUpdate(Memory memory) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("UPDATE Memories SET name=?,price=?,mType=?,socket=?,amountmemories=?,consumption=?,imagepath=? WHERE id=?;")){
-                Memory memoryOld = doRetrieveById(memory.getId());
-                if(memory.getName()!=null)
+            try(PreparedStatement ps = conn.prepareStatement("UPDATE Memories SET name=?,price=?,mType=?,socket=?,amountmemories=?,consumption=?,imagepath=?,stock=? WHERE id=?;")){
                 ps.setString(1,memory.getName());
-                else
-                ps.setString(1,memoryOld.getName());
-                if(memory.getPrice()!=0)
                 ps.setFloat(2,memory.getPrice());
-                else
-                ps.setFloat(2,memoryOld.getPrice());
-                ps.setBoolean(4,memory.ismType());
-                if(memory.getSocket()!=null)
-                ps.setString(5, memory.getSocket());
-                else
-                ps.setString(5, memoryOld.getSocket());
-                if(memory.getAmountMemories()!=0)
-                ps.setInt(6,memory.getAmountMemories());
-                else
-                ps.setInt(6,memoryOld.getAmountMemories());
-                if(memory.getConsumption()!=0)
-                ps.setInt(7,memory.getConsumption());
-                else
-                ps.setInt(7,memoryOld.getConsumption());
-                if(memory.getImagePath()!=null){
-                    File file = new File(memoryOld.getImagePath());
-                    file.delete();
-                    ps.setString(8,memory.getImagePath());
-                }
-                else
-                    ps.setString(8, memoryOld.getImagePath());
+                ps.setBoolean(3,memory.ismType());
+                ps.setString(4, memory.getSocket());
+                ps.setInt(5,memory.getAmountMemories());
+                ps.setInt(6,memory.getConsumption());
+                ps.setString(7,memory.getImagePath());
+                ps.setInt(8,memory.getStock());
                 ps.setInt(9,memory.getId());
                 return ps.executeUpdate()>0;
             }catch(SQLException e){
