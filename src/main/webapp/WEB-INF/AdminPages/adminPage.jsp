@@ -115,7 +115,7 @@
                     "<td><input type='radio' id='Allsug' name='suggested' checked value=''></td></tr>" +
 
                     "<tr><td><label for='notSuggested'>Not Suggested</label></td>" +
-                    "<td class='form'><input type='radio' id='notSuggested' name='suggested' value='false'></td></tr>"
+                    "<td><input type='radio' id='notSuggested' name='suggested' value='false'></td></tr>"
                 name=false;
                     break;
             case "Gpus":
@@ -133,10 +133,10 @@
 
                     "<tr><td><label for='integratedGpu' >Integrated Gpu</label></td>" +
                     "<td><div class='form'><input type='radio' id='integratedCPU' name='integratedGpu' value='true'></td></tr>" +
-                    "<tr><td><label for='integratedGpu' >No Integrated Gpu</label></td>" +
-                "<td><div class='form'><input type='radio' id='integratedGpu' name='integratedGpu' value='false'></td></tr>"+
-                "<tr><td><label for='integratedGpu' >Ignore Integrated Gpu</label></td>" +
-                "<td><div class='form'><input type='radio' id='integratedGpu' name='integratedGpu' value='' checked></td></tr>";
+                    "<tr><td><label for='noIntegratedGpu' >No Integrated Gpu</label></td>" +
+                "<td><div class='form'><input type='radio' id='noIntegratedGpu' name='integratedGpu' value='false'></td></tr>"+
+                "<tr><td><label for='ignoreIntegratedGpu' >Ignore Integrated Gpu</label></td>" +
+                "<td><input type='radio' id='ignoreIntegratedGpu' name='integratedGpu' value='' checked></td></tr>";
                 break;
 
             case "Memories":
@@ -168,7 +168,6 @@
 
                     "<tr><tr><td><label for='formFactor'>Form Factor</label></td>" +
                 "<td><select type='number' id='formFActor' name='formFactor'>" +
-                "<option></option>" +
                 "<option value='mini-itx'>Mini-ITX</option>" +
                 "<option value='micro-atx'>Micro-ATX</option>" +
                 "<option value='atx'>ATX</option>" +
@@ -181,7 +180,7 @@
                 $("#searchResult").addClass("psusTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='psus'>"+
                     "<tr><td><label for='power'>Power</label></td>" +
-                    "<td class='form'><input type='number' id='power' name='power'></td></tr>";
+                    "<td><input type='number' id='power' name='power'></td></tr>";
                 break;
             case "Users":
                 tableHeader="<tr><th>Firstname</th><th>Lastname</th><th>Email</th><th>Is Admin</th></tr>"
@@ -189,7 +188,17 @@
                 $("#searchResult").addClass("usersTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='users'>" +
                     "<tr><td><label for='email'>Email</label></td>" +
-                    "<td><input type='text' id='email' name='email' ></td></tr>";
+                    "<td><input type='text' id='email' name='email' ></td></tr>" +
+
+                    "<tr><td><label for='isAdmin' >Admin</label></td>" +
+                    "<td><input type='radio' id='isAdmin' name='admin' value='true'></td></tr>" +
+
+                    "<td><label for='All' >All</label></td>" +
+                    "<td><input type='radio' id='All' name='admin' checked value=''></td></tr>" +
+
+                    "<tr><td><label for='normalUser'>normalUser</label></td>" +
+                    "<td><input type='radio' id='normalUser' name='admin' value='false'></td></tr>";
+
                 user = true;
                 power = false;
                 break;
@@ -216,7 +225,7 @@
                     "<td><input type='number' id='nNVMESockets' name='nNVMESockets'></td></tr>"+
 
                     "<tr><td><label for='formFactor'>Form Factor</label></td>" +
-                    "<td><select type='number' id='formFActor' name='formFactor'>" +
+                    "<td><select id='formFActor' name='formFactor'>" +
                     "<option></option>" +
                     "<option value='mini-itx'>Mini-ITX</option>" +
                     "<option value='micro-atx'>Micro-ATX</option>" +

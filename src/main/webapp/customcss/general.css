@@ -36,13 +36,21 @@ input[type=text], select, input[type=email],input[type=password],input[type=numb
 }
 
 .centered-box{
-    z-index: -1;
-    position: fixed; /* or absolute */
+    width: 45%;
+    position: absolute;
     top: 50%;
     left: 50%;
     /* bring your own prefixes */
     transform: translate(-50%, -50%);
     border-radius: 5px;
+}
+
+.centered-box tbody{
+    width: 100%
+}
+
+.centered-box tbody tr td{
+    width: 50%;
 }
 
 
@@ -177,6 +185,20 @@ div.content {
 #searchResult{
     width: 100%;
 }
+table tbody{
+    padding: 10px;
+}
+.registration-box{
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--bg-secondary-color);
+    color:var(--active-color);
+    border-radius: 5px;
+}
+.registration-box tbody td {
+    padding-left: 20px;
+    padding-right: 20px;
+}
 
 @media screen and (max-width: 700px) {
     #searchResult * {
@@ -242,10 +264,8 @@ div.content {
     }
 
     .centered-box{
-        width: 95%;
-    }
-    .centered-box{
     transform: translate(-50%, -43%);
+        width: 95%;
     }
     .sidebar-toggler{
         display: block;
@@ -256,17 +276,7 @@ div.content {
 }
 
 
-table tbody{
-    padding: 10px;
-}
-.registration-box{
-    padding: 10px;
-    box-sizing: border-box;
-    display: flex;
-    background-color: var(--bg-secondary-color);
-    color:var(--active-color);
-    border-radius: 5px;
-}
+
 
 
 
