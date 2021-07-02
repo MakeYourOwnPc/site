@@ -25,11 +25,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(name="showItem",urlPatterns = "/showItem")
+@WebServlet(name="showItem",urlPatterns = "/admin/showItem")
 public class ShowItem extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String requestedItem = req.getParameter("requestedItem");
+        System.out.println("ciao");
         switch(requestedItem){
             case "users":
                 String email = req.getParameter("email");
