@@ -37,8 +37,6 @@ public class ShowItem extends HttpServlet {
                 try {
                     User user = userDao.doRetrieveByEmail(email);
                     req.setAttribute("item",user);
-                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/updateDatabase.jsp");
-                    dispatcher.forward(req,resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -49,8 +47,7 @@ public class ShowItem extends HttpServlet {
                 try {
                     Gpu gpu = gpuDao.doRetrieveById(Integer.parseInt(idGpu));
                     req.setAttribute("item",gpu);
-                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/updateDatabase.jsp");
-                    dispatcher.forward(req,resp);
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -61,8 +58,6 @@ public class ShowItem extends HttpServlet {
                 try {
                     Cpu cpu = cpuDao.doRetrieveById(Integer.parseInt(idCpu));
                     req.setAttribute("item",cpu);
-                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/updateDatabase.jsp");
-                    dispatcher.forward(req,resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -73,8 +68,6 @@ public class ShowItem extends HttpServlet {
                 try {
                     Psu psu = psuDao.doRetrieveById(Integer.parseInt(idPsu));
                     req.setAttribute("item",psu);
-                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/updateDatabase.jsp");
-                    dispatcher.forward(req,resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -85,8 +78,6 @@ public class ShowItem extends HttpServlet {
                 try {
                     Memory memory = memoryDao.doRetrieveById(Integer.parseInt(idMemory));
                     req.setAttribute("item",memory);
-                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/updateDatabase.jsp");
-                    dispatcher.forward(req,resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -97,8 +88,6 @@ public class ShowItem extends HttpServlet {
                 try {
                     Mobo mobo = moboDao.doRetrieveById(Integer.parseInt(idMobo));
                     req.setAttribute("item",mobo);
-                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/updateDatabase.jsp");
-                    dispatcher.forward(req,resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -109,13 +98,13 @@ public class ShowItem extends HttpServlet {
                 try {
                     PcCase pcCase = pcCaseDao.doRetrieveById(Integer.parseInt(idCase));
                     req.setAttribute("item",pcCase);
-                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/updateDatabase.jsp");
-                    dispatcher.forward(req,resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
                 break;
             case "builds":;
         }
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/UpdateDatabase.jsp");
+        dispatcher.forward(req,resp);
     }
 }
