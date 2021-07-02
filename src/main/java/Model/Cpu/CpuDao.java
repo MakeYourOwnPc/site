@@ -197,26 +197,14 @@ public class CpuDao implements ICpuDao<SQLException> {
     @Override
     public boolean doUpdate(Cpu cpu) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("UPDATE Cpus SET name=?,price=?,consumption=?,socket=?,integratedgpu=? WHERE id=?;")){
-                Cpu cpuOld = doRetrieveById(cpu.getId());
-                if(cpu.getName()!=null)
+            try(PreparedStatement ps = conn.prepareStatement("UPDATE Cpus SET name=?,price=?,consumption=?,socket=?,integratedgpu=?,stock=? WHERE id=?;")){
                 ps.setString(1,cpu.getName());
-                else
-                    ps.setString(1,cpuOld.getName());
-                if(cpu.getPrice()!=0)
                 ps.setFloat(2,cpu.getPrice());
-                else
-                    ps.setFloat(2,cpuOld.getPrice());
-                if(cpu.getConsumption()!=0)
                 ps.setInt(3,cpu.getConsumption());
-                else
-                    ps.setInt(3,cpuOld.getConsumption());
-                if(cpu.getSocket()!=null)
                 ps.setString(4,cpu.getSocket());
-                else
-                    ps.setString(4,cpuOld.getSocket());
                 ps.setBoolean(6,cpu.isIntegratedgpu());
-                ps.setInt(7, cpu.getId());
+                ps.setInt(7,cpu.getStock());
+                ps.setInt(8, cpu.getId());
                 return ps.executeUpdate()>0;
             }
             catch(SQLException e){
