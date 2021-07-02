@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.Gpu.Gpu;
+import Model.Gpu.GpuDao;
 import Model.User.User;
 import Model.User.UserDao;
 
@@ -8,13 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
+
 public class ModifyDB extends HttpServlet {
+    public String uploadPath = System.getenv("CATALINA_HOME") + File.separator;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
@@ -67,11 +72,19 @@ public class ModifyDB extends HttpServlet {
                     user.setAdmin(Boolean.valueOf(admin));
                 return userDao.doUpdate(user);
             case "gpus":
+                String idGpu = req.getParameter("id");
+                GpuDao gpuDao = new GpuDao();
+                Gpu gpu = gpuDao.doRetrieveById(Integer.parseInt(idGpu));
                 String nameGpu = req.getParameter("name");
                 String price = req.getParameter("price");
                 String consumption = req.getParameter("consumption");
                 Part filePart = req.getPart("image");
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                if(!nameGpu.isBlank())
+                    gpu.setName(nameGpu);
+                if(!price.isBlank())
+                    gpu.setPrice(Float.parseFloat(price));
+
         }
         return false;
     }

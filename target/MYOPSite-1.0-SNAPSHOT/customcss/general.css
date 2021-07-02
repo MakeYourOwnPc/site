@@ -5,19 +5,18 @@
     --bg-secondary-color:#023859;
     border-radius: 5px;
     color:white;
-    background-color: #011826;
+    --bg-default-color:#011826;
+    background-color:var(--bg-default-color);
     --bg-tertiary-color:#03070D;
 }
 
-#selectedFormTitle{
-    position: relative;
 
-    top: 13%;
-    transform: translate(0%, -50%);
-    margin: 0;
-}
+
+
 body{
+    height: 100%;
     color: white;
+    background-color:var(--bg-default-color) ;
 }
 td{
     padding: 3px;
@@ -37,13 +36,21 @@ input[type=text], select, input[type=email],input[type=password],input[type=numb
 }
 
 .centered-box{
-    z-index: -1;
-    position: fixed; /* or absolute */
+    width: 45%;
+    position: absolute;
     top: 50%;
     left: 50%;
     /* bring your own prefixes */
     transform: translate(-50%, -50%);
     border-radius: 5px;
+}
+
+.centered-box tbody{
+    width: 100%
+}
+
+.centered-box tbody tr td{
+    width: 50%;
 }
 
 
@@ -93,33 +100,25 @@ input[type=text], select, input[type=email],input[type=password],input[type=numb
 }
 
 .topbar{
-    list-style-type: none;
-    margin: 0;
-
-    padding: 0;
     background-color: var(--bs-dark);
-    height: 3rem;
+    height: 45px;
+    display: inline-block;
+    width: 100%;
 }
-.topbar *:hover{
-    background-color: gray;
+.topbar *{
+    height: inherit;
+    position: inherit;
+    vertical-align: top;
+    display: inline-block;
 }
+
+.topbar form{
+    float: right;
+}
+
 svg{
     height: inherit;
     align-content: center;
-}
-.topbar *{
-    list-style: none;
-
-    overflow: visible;
-    display: inline-block;
-    height: 3rem;
-
-}
-.topbar .icon-container{
-    display: inline-block;
-}
-.topbar .icon-container svg{
-    padding: 5px;
 }
 
 .icon-container:hover{
@@ -138,11 +137,12 @@ svg{
 .sidebar {
 
     background-color: var(--bs-dark);
-    position: fixed;
+    position: absolute;
     height: 100%;
     overflow: auto;
     border-color: var(--active-color);
-    border-style:solid none none none;
+    border-style:solid none solid none;
+    z-index: 99;
 }
 
 /* Sidebar links */
@@ -177,13 +177,29 @@ div.content {
 }
 .rightBox{
     background-color: var(--bg-secondary-color);
-    float: right;
+    z-index: 80;
+    position: absolute;
     width: 25%;
-    height: 100%;
+    right: 0;
 }
-#searchResult * {
-   background-color: var(--bg-tertiary-color);
+#searchResult{
+    width: 100%;
 }
+table tbody{
+    padding: 10px;
+}
+.registration-box{
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--bg-secondary-color);
+    color:var(--active-color);
+    border-radius: 5px;
+}
+.registration-box tbody td {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 @media screen and (max-width: 700px) {
     #searchResult * {
         display: block;
@@ -196,17 +212,23 @@ div.content {
         left: -9999px;
     }
 
-    tr { border: 1px solid #ccc; }
-
-    td {
+    #searchResult tr{
+        margin: 10px;
+        border-radius: 5px;
+        border-style:solid ;
+        border-color: #2D83A6;
+        border-width: 5px;
+    }
+    #searchResult tr td {
         /* Behave  like a "row" */
+
         border: none;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid  #2D83A6;
         position: relative;
         padding-left: 50%;
     }
 
-    #searchResult table td:before {
+    td:before {
         /* Now like a table header */
         position: absolute;
         /* Top/left values mimic padding */
@@ -217,25 +239,33 @@ div.content {
         white-space: nowrap;
     }
 
-    /*
-    Label the data
-    */
-    td:nth-of-type(1):before { content: "First Name"; }
-    td:nth-of-type(2):before { content: "Last Name"; }
-    td:nth-of-type(3):before { content: "Job Title"; }
-    td:nth-of-type(4):before { content: "Favorite Color"; }
-    td:nth-of-type(5):before { content: "Wars of Trek?"; }
-    td:nth-of-type(6):before { content: "Secret Alias"; }
-    td:nth-of-type(7):before { content: "Date of Birth"; }
-    td:nth-of-type(8):before { content: "Dream Vacation City"; }
-    td:nth-of-type(9):before { content: "GPA"; }
-    td:nth-of-type(10):before { content: "Arbitrary Data"; }
+    .socket:before { content: "Socket" ; }
+    .productName:before { content: "Product Name"; }
+    .databaseId:before { content: "Database Id"; }
+    .cpuSocket:before { content: "CPU Socket"; }
+    .ramSocket:before { content: "RAM Socket"; }
+    .ramSlots:before { content: "Ram Slots"; }
+    .nvmeSlots:before { content: "NVME Slots"; }
+    .sataSlots:before { content: "SATA Slots"; }
+    .formFactor:before { content: "Form Factor"; }
+    .consumption:before { content: "Consumption"; }
+    .price:before { content: "Price"; }
+    .inStock:before { content: "In Stock"; }
+    .moboName:before { content: "MOBO"; }
+    .gpuName:before { content: "GPU"; }
+    .cpuName:before { content: "CPU"; }
+    .memoriesName:before{ content:"Memories";}
+    .isSuggested:before{ content:"Suggested";}
+    .memoryType:before{ content:"Memory Type";}
+    .amountOfMemories:before{ content:"Amount Of Memories";}
+
+    #searchResult tr td:last-child{
+        border-style: none;
+    }
 
     .centered-box{
-        width: 95%;
-    }
-    .centered-box{
     transform: translate(-50%, -43%);
+        width: 95%;
     }
     .sidebar-toggler{
         display: block;
@@ -246,17 +276,7 @@ div.content {
 }
 
 
-table tbody{
-    padding: 10px;
-}
-.registration-box{
-    padding: 10px;
-    box-sizing: border-box;
-    display: flex;
-    background-color: var(--bg-secondary-color);
-    color:var(--active-color);
-    border-radius: 5px;
-}
+
 
 
 

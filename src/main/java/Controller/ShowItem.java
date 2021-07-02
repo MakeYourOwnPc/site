@@ -16,6 +16,7 @@ import Model.User.User;
 import Model.User.UserDao;
 import com.google.gson.Gson;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,11 +36,9 @@ public class ShowItem extends HttpServlet {
                 UserDao userDao = new UserDao();
                 try {
                     User user = userDao.doRetrieveByEmail(email);
-                    Gson gson = new Gson();
-                    String json = gson.toJson(user);
-                    resp.setContentType("plain/text");
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.getWriter().print(json);
+                    req.setAttribute("item",user);
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/updateDatabase.jsp");
+                    dispatcher.forward(req,resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -49,11 +48,9 @@ public class ShowItem extends HttpServlet {
                 GpuDao gpuDao = new GpuDao();
                 try {
                     Gpu gpu = gpuDao.doRetrieveById(Integer.parseInt(idGpu));
-                    Gson gson = new Gson();
-                    String json = gson.toJson(gpu);
-                    resp.setContentType("plain/text");
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.getWriter().print(json);
+                    req.setAttribute("item",gpu);
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/updateDatabase.jsp");
+                    dispatcher.forward(req,resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -63,11 +60,9 @@ public class ShowItem extends HttpServlet {
                 CpuDao cpuDao = new CpuDao();
                 try {
                     Cpu cpu = cpuDao.doRetrieveById(Integer.parseInt(idCpu));
-                    Gson gson = new Gson();
-                    String json = gson.toJson(cpu);
-                    resp.setContentType("plain/text");
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.getWriter().print(json);
+                    req.setAttribute("item",cpu);
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/updateDatabase.jsp");
+                    dispatcher.forward(req,resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -77,11 +72,9 @@ public class ShowItem extends HttpServlet {
                 PsuDao psuDao = new PsuDao();
                 try {
                     Psu psu = psuDao.doRetrieveById(Integer.parseInt(idPsu));
-                    Gson gson = new Gson();
-                    String json = gson.toJson(psu);
-                    resp.setContentType("plain/text");
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.getWriter().print(json);
+                    req.setAttribute("item",psu);
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/updateDatabase.jsp");
+                    dispatcher.forward(req,resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -91,11 +84,9 @@ public class ShowItem extends HttpServlet {
                 MemoryDao memoryDao = new MemoryDao();
                 try {
                     Memory memory = memoryDao.doRetrieveById(Integer.parseInt(idMemory));
-                    Gson gson = new Gson();
-                    String json = gson.toJson(memory);
-                    resp.setContentType("plain/text");
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.getWriter().print(json);
+                    req.setAttribute("item",memory);
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/updateDatabase.jsp");
+                    dispatcher.forward(req,resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -105,11 +96,9 @@ public class ShowItem extends HttpServlet {
                 MoboDao moboDao = new MoboDao();
                 try {
                     Mobo mobo = moboDao.doRetrieveById(Integer.parseInt(idMobo));
-                    Gson gson = new Gson();
-                    String json = gson.toJson(mobo);
-                    resp.setContentType("plain/text");
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.getWriter().print(json);
+                    req.setAttribute("item",mobo);
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/updateDatabase.jsp");
+                    dispatcher.forward(req,resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -119,11 +108,9 @@ public class ShowItem extends HttpServlet {
                 PcCaseDao pcCaseDao = new PcCaseDao();
                 try {
                     PcCase pcCase = pcCaseDao.doRetrieveById(Integer.parseInt(idCase));
-                    Gson gson = new Gson();
-                    String json = gson.toJson(pcCase);
-                    resp.setContentType("plain/text");
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.getWriter().print(json);
+                    req.setAttribute("item",pcCase);
+                    RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/updateDatabase.jsp");
+                    dispatcher.forward(req,resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
