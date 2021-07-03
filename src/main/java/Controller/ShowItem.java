@@ -30,7 +30,6 @@ public class ShowItem extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String requestedItem = req.getParameter("requestedItem");
-        System.out.println("ciao");
         switch(requestedItem){
             case "users":
                 String email = req.getParameter("email");
@@ -103,7 +102,7 @@ public class ShowItem extends HttpServlet {
                     throwables.printStackTrace();
                 }
                 break;
-            case "mobos":
+            case "motherboards":
                 String idMobo = req.getParameter("id");
                 MoboDao moboDao = new MoboDao();
                 try {

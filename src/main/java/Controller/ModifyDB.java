@@ -169,7 +169,7 @@ public class ModifyDB extends HttpServlet {
                     pcCase.setImagePath(uploadPath + "none");
                 resp.getWriter().print(pcCaseDao.doSave(pcCase));
             }
-            case "mobos" -> {
+            case "motherboards" -> {
                 MoboDao moboDao = new MoboDao();
                 Mobo mobo = new Mobo();
                 String nameMobo = req.getParameter("name");
@@ -350,7 +350,7 @@ public class ModifyDB extends HttpServlet {
                     pcCase.setImagePath(fileNameCase + uploadPath);
                 resp.getWriter().print(pcCaseDao.doUpdate(pcCase));
             }
-            case "mobos" -> {
+            case "motherboards" -> {
                 String idMobo = req.getParameter("id");
                 MoboDao moboDao = new MoboDao();
                 Mobo mobo = moboDao.doRetrieveById(Integer.parseInt(idMobo));

@@ -77,7 +77,7 @@ public class ItemIsPresent extends HttpServlet {
                     throwables.printStackTrace();
                 }
             }
-            case "mobos" -> {
+            case "motherboards" -> {
                 MoboDao moboDao = new MoboDao();
                 ArrayList<Mobo> list = null;
                 try {
