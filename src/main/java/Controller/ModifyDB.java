@@ -100,7 +100,7 @@ public class ModifyDB extends HttpServlet {
                 gpu.setConsumption(Integer.parseInt(consumptionGpu));
                 gpu.setStock(Integer.parseInt(stockGpu));
                 if (!fileNameGpu.isBlank())
-                    gpu.setImagePath(fileNameGpu + uploadPath);
+                    gpu.setImagePath(uploadPath+fileNameGpu);
                 else
                     gpu.setImagePath(uploadPath + "none");
                 resp.getWriter().print(gpuDao.doSave(gpu));
@@ -127,7 +127,7 @@ public class ModifyDB extends HttpServlet {
                 cpu.setConsumption(Integer.parseInt(consumptionCpu));
                 cpu.setStock(Integer.parseInt(stockCpu));
                 if (!fileNameCpu.isBlank())
-                    cpu.setImagePath(fileNameCpu + uploadPath);
+                    cpu.setImagePath(uploadPath+fileNameCpu);
                 else
                     cpu.setImagePath(uploadPath + "none");
                 resp.getWriter().print(cpuDao.doSave(cpu));
@@ -150,7 +150,7 @@ public class ModifyDB extends HttpServlet {
                 psu.setPower(Integer.parseInt(power));
                 psu.setStock(Integer.parseInt(stockPsu));
                 if (!fileNamePsu.isBlank())
-                    psu.setImagePath(fileNamePsu + uploadPath);
+                    psu.setImagePath(uploadPath+fileNamePsu);
                 else
                     psu.setImagePath(uploadPath + "none");
                 resp.getWriter().print(psuDao.doSave(psu));
@@ -173,7 +173,7 @@ public class ModifyDB extends HttpServlet {
                 pcCase.setFormFactor(formFactorCase);
                 pcCase.setStock(Integer.parseInt(stockCase));
                 if (!fileNameCase.isBlank())
-                    pcCase.setImagePath(fileNameCase + uploadPath);
+                    pcCase.setImagePath(uploadPath+fileNameCase);
                 else
                     pcCase.setImagePath(uploadPath + "none");
                 resp.getWriter().print(pcCaseDao.doSave(pcCase));
@@ -209,7 +209,7 @@ public class ModifyDB extends HttpServlet {
                 mobo.setRamSocket(ramSocket);
                 mobo.setStock(Integer.parseInt(stockMobo));
                 if (!fileNameMobo.isBlank())
-                    mobo.setImagePath(fileNameMobo + uploadPath);
+                    mobo.setImagePath(uploadPath+fileNameMobo);
                 else
                     mobo.setImagePath(uploadPath + "none");
                 resp.getWriter().print(moboDao.doSave(mobo));
@@ -238,7 +238,7 @@ public class ModifyDB extends HttpServlet {
                 memory.setAmountMemories(Integer.parseInt(amountMemories));
                 memory.setStock(Integer.parseInt(stockMemory));
                 if (!fileNameMemory.isBlank())
-                    memory.setImagePath(fileNameMemory + uploadPath);
+                    memory.setImagePath(uploadPath+fileNameMemory);
                 else
                     memory.setImagePath(uploadPath + "none");
                 resp.getWriter().print(memoryDao.doSave(memory));
