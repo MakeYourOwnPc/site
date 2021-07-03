@@ -51,7 +51,7 @@ public class MemoryDao implements IMemoryDao<SQLException>{
                 memory.setPrice(rs.getFloat("price"));
                 memory.setId(rs.getInt("id"));
                 memory.setStock(rs.getInt("stock"));
-                memory.setmType(rs.getBoolean("mType"));
+                memory.setmType(rs.getBoolean("mtype"));
                 memory.setSocket(rs.getString("socket"));
                 memory.setImagePath(rs.getString("imagepath"));
                 return memory;
