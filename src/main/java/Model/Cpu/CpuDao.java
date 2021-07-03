@@ -102,10 +102,9 @@ public class CpuDao implements ICpuDao<SQLException> {
     @Override
     public ArrayList<Cpu> doRetrieveByName(String name,int limit,int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Cpus WHERE name CONTAINS ? ORDER BY name LIMIT ?,?;")){
-                ps.setString(1,name);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Cpus WHERE UPPER(name) LIKE UPPER('%"+name+"%') ORDER BY name LIMIT ?,?;")){
+                ps.setInt(1,offset);
+                ps.setInt(2,limit);
                 ResultSet rs = ps.executeQuery();
                 ArrayList<Cpu> list = new ArrayList<Cpu>();
                 while(rs.next()){
@@ -117,6 +116,7 @@ public class CpuDao implements ICpuDao<SQLException> {
                     cpu.setConsumption(rs.getInt("consumption"));
                     cpu.setPrice(rs.getFloat("price"));
                     cpu.setStock(rs.getInt("stock"));
+                    cpu.setImagePath(rs.getString("imagepath"));
                     list.add(cpu);
                 }
                 rs.close();

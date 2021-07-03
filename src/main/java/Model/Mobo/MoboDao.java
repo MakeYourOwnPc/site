@@ -72,10 +72,9 @@ public class MoboDao implements IMoboDao<SQLException>{
     @Override
     public ArrayList<Mobo> doRetrieveByName(String name,int limit, int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motherboards WHERE name CONTAINS ? ORDER BY name LIMIT ?,?;")){
-                ps.setString(1,name);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motherboards WHERE UPPER(name) LIKE UPPER('%"+name+"%') ORDER BY name LIMIT ?,?;")){
+                ps.setInt(1,offset);
+                ps.setInt(2,limit);
                 ArrayList<Mobo> list = new ArrayList<Mobo>();
                 ResultSet rs = ps.executeQuery();
                 while(rs.next()){

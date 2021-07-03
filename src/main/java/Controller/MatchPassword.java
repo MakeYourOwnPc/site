@@ -22,6 +22,8 @@ public class MatchPassword extends HttpServlet {
         try {
             User user = userDao.doRetrieveByEmail(email);
             PasswordHasher passwordHasher = new PasswordHasher();
+            resp.setContentType("plain/text");
+            resp.setCharacterEncoding("UTF-8");
             if(!passwordHasher.setPassword(oldPassword).equals(user.getPassword()))
                 resp.getWriter().print("true");
             else
