@@ -47,7 +47,6 @@
     <form id="searchForm" >
         <table id="searchFormContainer">
         </table>
-
     </form>
 
     <button class='btn active' onclick='submitForm()'>Search</button>
@@ -69,12 +68,14 @@
                     </td>
                 </tr>
             </table>
-            <form id="updateForm" enctype="multipart/form-data">
+            <form id="updateForm" action="./modifyDB" method="post" enctype="multipart/form-data">
                 <table class="registration-box" id="updateFormBox">
                 </table>
-            </form>
+
             <table id="buttonSpace">
             </table>
+            </form>
+
         </div>
     </div>
 </div>
@@ -507,20 +508,20 @@
                 formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="gpus">' +
 
                     '<tr><td><label for="id">DataBase Id</label></td>' +
-                    '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
+                    '<td><input type="hidden" name="id" value="' + item.id + '" >' + item.id + '</td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
-                    '<td><input type="text" id="productName" value="' + item.name + '">' +
+                    '<td><input type="text" id="productName" name="name" value="' + item.name + '" onkeyup="checkProductName()">' +
                     '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                     '<tr><td><label for="consumption">Consumption</label></td>' +
-                    '<td><input type="number" id="consumption" value="' + item.consumption + '"></td></tr>' +
+                    '<td><input type="number" name="consumption" id="consumption" value="' + item.consumption + '"></td></tr>' +
 
                     '<tr><td><label for="price">Price</label></td>' +
-                    '<td><input type="number" step="0.01" value="' + item.price + '"></td></tr>' +
+                    '<td><input type="number" step="0.01" name="price" value="' + item.price + '"></td></tr>' +
 
                     '<tr><td><label for="inStock">In Stock</label></td>' +
-                    '<td><input type="number" id="inStock" value="' + item.stock + '"></td></tr>' +
+                    '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
 
                     '<tr><td><input type="file" id="image" name="image"></td></tr>' +
                     '<tr><td><img src="' + item.imagePath + '"></td></tr>'
@@ -535,7 +536,7 @@
                     '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
-                    '<td><input type="text" id="productName" value="' + item.name + '">' +
+                    '<td><input name="name" type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()" >' +
                     '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                     '<tr><td><label for="CPUsocket">Socket</label></td>' +
@@ -548,13 +549,13 @@
                     '<td><input type="radio" id="noIntegratedGpu" name="integratedGpu" value="false"' + noIntegrated + '></td></tr>' +
 
                     '<tr><td><label for="consumption">Consumption</label></td>' +
-                    '<td><input type="number" id="consumption" value="' + item.consumption + '"></td></tr>' +
+                    '<td><input type="number" name="consumption" id="consumption" value="' + item.consumption + '"></td></tr>' +
 
                     '<tr><td><label for="price">Price</label></td>' +
-                    '<td><input type="number" step="0.01" value="' + item.price + '"></td></tr>' +
+                    '<td><input type="number" step="0.01" name="price" value="' + item.price + '"></td></tr>' +
 
                     '<tr><td><label for="inStock">In Stock</label></td>' +
-                    '<td><input type="number" id="inStock" value="' + item.stock + '"></td></tr>' +
+                    '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
 
                     '<tr><td><input type="file" id="image" name="image"></td><td><img src="' + item.imagePath + '"></td></tr>';
                 break;
@@ -569,7 +570,7 @@
                     '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
-                    '<td><input type="text" id="productName" value="' + item.name + '">' +
+                    '<td><input name="name" type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()" >' +
                     '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                     ' <tr><td><label for="MEMsocket">Memory Socket</label></td>' +
@@ -586,44 +587,44 @@
 
 
                     '<tr><td><label for="consumption">Consumption</label></td>' +
-                    '<td><input type="number" id="consumption" value="' + item.consumption + '"></td></tr>' +
+                    '<td><input type="number" name="consumption" id="consumption" value="' + item.consumption + '"></td></tr>' +
 
                     '<tr><td><label for="price">Price</label></td>' +
-                    '<td><input type="number" step="0.01" value="' + item.price + '"></td></tr>' +
+                    '<td><input type="number" step="0.01" name="price"  value="' + item.price + '"></td></tr>' +
 
                     '<tr><td><label for="inStock">In Stock</label></td>' +
-                    '<td><input type="number" id="inStock" value="' + item.stock + '"></td></tr>' +
+                    '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
 
                     '<tr><td><input type="file" id="image" name="image"></td>' +
                     '<td><img src="' + item.imagePath + '"></td></tr>';
                 break;
             case"Cases":
                 let miniitx = (item.formFactor == "mini-itx") ? 'selected' : '';
-                let microatx = (item.formFactor == "micro-atx") ? 'selected' : '';
-                let atx = (item.formFactor == "atx") ? 'selected' : '';
+                let microatx = (item.formFactor == "micro-ATX") ? 'selected' : '';
+                let atx = (item.formFactor == "ATX") ? 'selected' : '';
                 formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="cases">' +
 
                     '<tr><td><label for="id">DataBase Id</label></td>' +
-                    '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
+                    '<td><input type="text" name="id" value="' + item.id + '" disabled  ></td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
-                    '<td><input type="text" id="productName" value="' + item.name + '">' +
+                    '<td><input type="text" id="productName" name="name" value="' + item.name + '" onkeyup="checkProductName()" >' +
                     '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                     '<tr><td><label for="formFactor">Form Factor</label></td>' +
                     '<td><select id="formFActor" name="formFactor">' +
                     '<option value="mini-itx"' + miniitx + '>Mini-ITX</option>' +
-                    " <option value='micro-atx' " + microatx + ">Micro-ATX</option>" +
-                    "<option value='atx'" + atx + ">ATX</option></select></td></tr>" +
+                    " <option value='micro-ATX' " + microatx + ">Micro-ATX</option>" +
+                    "<option value='ATX'" + atx + ">ATX</option></select></td></tr>" +
 
                     '<tr><td><label for="consumption">Consumption</label></td>' +
-                    '<td><input type="number" id="consumption" value="' + item.consumption + '"></td></tr>' +
+                    '<td><input type="number" id="consumption" name="consumption" value="' + item.consumption + '"></td></tr>' +
 
                     '<tr><td><label for="price">Price</label></td>' +
-                    '<td><input type="number" step="0.01" value="' + item.price + '"></td></tr>' +
+                    '<td><input type="number" step="0.01" name="price" value="' + item.price + '"></td></tr>' +
 
                     '<tr><td><label for="inStock">In Stock</label></td>' +
-                    '<td><input type="number" id="inStock" value="' + item.stock + '"></td></tr>' +
+                    '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
 
                     '<tr><td><input type="file" id="image" name="image"></td>' +
                     '<td><img src="' + item.imagePath + '"></td></tr>';
@@ -638,7 +639,7 @@
                     '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
-                    '<td><input type="text" id="productName" value="' + item.name + '">' +
+                    '<td><input type="text" id="productName" name="name" value="' + item.name + '" onkeyup="checkProductName()">' +
                     '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                     "<tr><td><label for='CPUsocket'>CPU Socket</label></td>" +
@@ -663,13 +664,13 @@
                     "<option value='atx'" + atxm + ">ATX</option></select></td></tr>" +
 
                     '<tr><td><label for="consumption">Consumption</label></td>' +
-                    '<td><input type="number" id="consumption" value="' + item.consumption + '"></td></tr>' +
+                    '<td><input type="number" id="consumption" name="consumption" value="' + item.consumption + '"></td></tr>' +
 
                     '<tr><td><label for="price">Price</label></td>' +
-                    '<td><input type="number" step="0.01" value="' + item.price + '"></td></tr>' +
+                    '<td><input type="number" step="0.01" name="price" value="' + item.price + '"></td></tr>' +
 
                     '<tr><td><label for="inStock">In Stock</label></td>' +
-                    '<td><input type="number" id="inStock" value="' + item.stock + '"></td></tr>' +
+                    '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
 
                     '<tr><td><input type="file" id="image" name="image"></td>' +
                     '<td><img src="' + item.imagePath + '"></td></tr>';
@@ -678,20 +679,20 @@
                 formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="psus">' +
 
                     '<tr><td><label for="id">DataBase Id</label></td>' +
-                    '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
+                    '<td><input type="text" name="id" name="name" value="' + item.id + '" disabled></td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
-                    '<td><input type="text" id="productName" value="' + item.name + '">' +
+                    '<td><input type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()">' +
                     '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
-                    '<tr><td><label for="consumption">Power</label></td>' +
-                    '<td><input type="text" id="consumption" value="' + item.power + '"></td></tr>' +
+                    '<tr><td><label for="power">Power</label></td>' +
+                    '<td><input type="text" id="power" name="power" value="' + item.power + '"></td></tr>' +
 
                     '<tr><td><label for="price">Price</label></td>' +
-                    '<td><input type="number" step="0.01" value="' + item.price + '"></td></tr>' +
+                    '<td><input type="number" step="0.01" name="price" value="' + item.price + '"></td></tr>' +
 
                     '<tr><td><label for="inStock">In Stock</label></td>' +
-                    '<td><input type="number" id="inStock" value="' + item.stock + '"></td></tr>' +
+                    '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
 
                     '<tr><td><input type="file" id="image" name="image"></td>' +
                     '<td><img src="' + item.imagePath + '"></td></tr>';
@@ -715,8 +716,9 @@
                 break;
 
         }
-        let buttonHTML='<tr><td><button type="submit" name="option" value="delete" class="btn btn-danger">Delete</button></td>' +
-            '<td><button id="saveChanges"type="submit" name="option" value="update"  class="btn btn-success" >Save Changes</button></td></tr>';
+        let buttonHTML='<tr><td><input type="radio" name="option" value="delete" class="btn btn-danger" >Delete</input></td>' +
+            '<td><input id="saveChanges" type="radio" name="option" value="update"  class="btn btn-success" >Save Changes</input></td>' +
+            '<td><input type="submit"></td></tr>';
         console.log(formHTML);
         $("#updateTitle").text("Update Element");
         $("#updateFormBox").html(formHTML);
@@ -726,17 +728,22 @@
 
     function updateItem(){
         let formData = $("#updateForm").serialize();
-        console.log(formData);
+
+
+        console.log("dati update "+formData);
         $.ajax({
-            url: "./showItem",
+            url: "./modifyDB",
             type: 'POST',
             data: formData,
-            beforeSend: function (x) {
-                x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            },
+            formEnctype:"multipart/form-data",
+            /*beforeSend: function (x) {
+                x.setRequestHeader("Content-type", "multipart/form-data");
+            },*/
+            enctype: 'multipart/form-data',
             success: function (data) {
                 if(data=="true"){
                     $("#name").attr("value",$("#productName").val());
+                    toggleOverlay();
                     submitForm();
                 }
             },
@@ -765,7 +772,7 @@
         };
         xhttp.open("POST", "/MYOPSite_war_exploded/itemispresent", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        let requestSend="email="+document.getElementById("productName").value+"&id="+document.getElementById("id").value+
+        let requestSend="="+document.getElementById("productName").value+"&id="+document.getElementById("id").value+
             "&requestedItem="+document.getElementById("requestedItemUpdate").value;
         xhttp.send(requestSend);
     }

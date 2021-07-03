@@ -16,6 +16,7 @@ import Model.User.User;
 import Model.User.UserDao;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +30,9 @@ import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 @WebServlet(name="modifyDB",urlPatterns = "/admin/modifyDB")
+@MultipartConfig
 public class ModifyDB extends HttpServlet {
+
     public String uploadPath = System.getenv("CATALINA_HOME") + File.separator;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -257,6 +260,7 @@ public class ModifyDB extends HttpServlet {
                 resp.getWriter().print(userDao.doUpdate(user));
             }
             case "gpus" -> {
+                System.out.println("ciao gpu");
                 String idGpu = req.getParameter("id");
                 GpuDao gpuDao = new GpuDao();
                 Gpu gpu = gpuDao.doRetrieveById(Integer.parseInt(idGpu));
@@ -276,7 +280,9 @@ public class ModifyDB extends HttpServlet {
                     gpu.setStock(Integer.parseInt(stockGpu));
                 if (!fileNameGpu.isBlank())
                     gpu.setImagePath(fileNameGpu + uploadPath);
+
                 resp.getWriter().print(gpuDao.doUpdate(gpu));
+                return;
             }
             case "cpus" -> {
                 String idCpu = req.getParameter("id");
@@ -422,5 +428,6 @@ public class ModifyDB extends HttpServlet {
                 resp.getWriter().print(memoryDao.doUpdate(memory));
             }
         }
+        resp.sendRedirect("/MYOPSite_war_exploded/admin/");
     }
 }
