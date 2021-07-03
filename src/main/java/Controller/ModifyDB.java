@@ -47,16 +47,14 @@ public class ModifyDB extends HttpServlet {
         else if (option.equals("update")) {
             try {
                 update(requestedItem,req,resp);
-            } catch (SQLException throwables) {
+            } catch (SQLException | NoSuchAlgorithmException throwables) {
                 throwables.printStackTrace();
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
             }
         }
 
     }
     public boolean insert(String requestedItem, HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
-        switch(requestedItem){
+        switch (requestedItem) {
            /* case "users":
                 PasswordHasher passwordHasher = new PasswordHasher();
                 Pattern patternPassword = Pattern.compile("^(?=.*[a-z])(?=.*\\d)(?=.*[@#$._%-])(?=.*[A-Z]).{8,16}$");
@@ -81,7 +79,7 @@ public class ModifyDB extends HttpServlet {
                 if (!admin.isBlank())
                     user.setAdmin(Boolean.valueOf(admin));
                 return userDao.doUpdate(user);*/
-            case "gpus":
+            case "gpus" -> {
                 GpuDao gpuDao = new GpuDao();
                 Gpu gpu = new Gpu();
                 String nameGpu = req.getParameter("name");
@@ -90,7 +88,7 @@ public class ModifyDB extends HttpServlet {
                 String stockGpu = req.getParameter("stock");
                 Part filePartGpu = req.getPart("image");
                 String fileNameGpu = Paths.get(filePartGpu.getSubmittedFileName()).getFileName().toString();
-                if (nameGpu.isBlank()||priceGpu.isBlank()||consumptionGpu.isBlank()||stockGpu.isBlank()||Integer.parseInt(stockGpu)<0)
+                if (nameGpu.isBlank() || priceGpu.isBlank() || consumptionGpu.isBlank() || stockGpu.isBlank() || Integer.parseInt(stockGpu) < 0)
                     resp.setStatus(500);
                 gpu.setName(nameGpu);
                 gpu.setPrice(Float.parseFloat(priceGpu));
@@ -99,9 +97,10 @@ public class ModifyDB extends HttpServlet {
                 if (!fileNameGpu.isBlank())
                     gpu.setImagePath(fileNameGpu + uploadPath);
                 else
-                    gpu.setImagePath(uploadPath+"none");
+                    gpu.setImagePath(uploadPath + "none");
                 return gpuDao.doSave(gpu);
-            case "cpus":
+            }
+            case "cpus" -> {
                 CpuDao cpuDao = new CpuDao();
                 Cpu cpu = new Cpu();
                 String nameCpu = req.getParameter("name");
@@ -112,65 +111,64 @@ public class ModifyDB extends HttpServlet {
                 String stockCpu = req.getParameter("stock");
                 Part filePartCpu = req.getPart("image");
                 String fileNameCpu = Paths.get(filePartCpu.getSubmittedFileName()).getFileName().toString();
-                if (nameCpu.isBlank()||priceCpu.isBlank()||socketCpu.isBlank()||integratedGpu.isBlank()|| !(integratedGpu.equals("true") || integratedGpu.equals("false"))||consumptionCpu.isBlank()||stockCpu.isBlank()||Integer.parseInt(stockCpu)<0)
+                if (nameCpu.isBlank() || priceCpu.isBlank() || socketCpu.isBlank() || integratedGpu.isBlank() || !(integratedGpu.equals("true") || integratedGpu.equals("false")) || consumptionCpu.isBlank() || stockCpu.isBlank() || Integer.parseInt(stockCpu) < 0)
                     resp.setStatus(500);
                 cpu.setName(nameCpu);
                 cpu.setPrice(Float.parseFloat(priceCpu));
                 cpu.setSocket(socketCpu);
-                cpu.setIntegratedgpu(Boolean.valueOf(integratedGpu));
+                cpu.setIntegratedgpu(Boolean.parseBoolean(integratedGpu));
                 cpu.setConsumption(Integer.parseInt(consumptionCpu));
                 cpu.setStock(Integer.parseInt(stockCpu));
                 if (!fileNameCpu.isBlank())
                     cpu.setImagePath(fileNameCpu + uploadPath);
                 else
-                    cpu.setImagePath(uploadPath+"none");
-                return cpuDao.doUpdate(cpu);
-            case "psus":
-                String idPsu = req.getParameter("id");
+                    cpu.setImagePath(uploadPath + "none");
+                return cpuDao.doSave(cpu);
+            }
+            case "psus" -> {
                 PsuDao psuDao = new PsuDao();
-                Psu psu = psuDao.doRetrieveById(Integer.parseInt(idPsu));
+                Psu psu = new Psu();
                 String namePsu = req.getParameter("name");
                 String pricePsu = req.getParameter("price");
                 String power = req.getParameter("power");
                 String stockPsu = req.getParameter("stock");
                 Part filePartPsu = req.getPart("image");
                 String fileNamePsu = Paths.get(filePartPsu.getSubmittedFileName()).getFileName().toString();
-                if (!namePsu.isBlank())
-                    psu.setName(namePsu);
-                if (!pricePsu.isBlank())
-                    psu.setPrice(Float.parseFloat(pricePsu));
-                if (!power.isBlank())
-                    psu.setPower(Integer.parseInt(power));
-                if (!stockPsu.isBlank() && Integer.parseInt(stockPsu) >= 0)
-                    psu.setStock(Integer.parseInt(stockPsu));
+                if (namePsu.isBlank() || pricePsu.isBlank() || power.isBlank() || stockPsu.isBlank() || Integer.parseInt(stockPsu) < 0)
+                    resp.setStatus(500);
+                psu.setName(namePsu);
+                psu.setPrice(Float.parseFloat(pricePsu));
+                psu.setPower(Integer.parseInt(power));
+                psu.setStock(Integer.parseInt(stockPsu));
                 if (!fileNamePsu.isBlank())
                     psu.setImagePath(fileNamePsu + uploadPath);
-                return psuDao.doUpdate(psu);
-            case "cases":
-                String idCase = req.getParameter("id");
+                else
+                    psu.setImagePath(uploadPath + "none");
+                return psuDao.doSave(psu);
+            }
+            case "cases" -> {
                 PcCaseDao pcCaseDao = new PcCaseDao();
-                PcCase pcCase = pcCaseDao.doRetrieveById(Integer.parseInt(idCase));
+                PcCase pcCase = new PcCase();
                 String nameCase = req.getParameter("name");
                 String priceCase = req.getParameter("price");
                 String formFactorCase = req.getParameter("formFactor");
                 String stockCase = req.getParameter("stock");
                 Part filePartCase = req.getPart("image");
                 String fileNameCase = Paths.get(filePartCase.getSubmittedFileName()).getFileName().toString();
-                if (!nameCase.isBlank())
+                if (nameCase.isBlank() || priceCase.isBlank() || formFactorCase.isBlank() || stockCase.isBlank() || Integer.parseInt(stockCase) < 0)
                     pcCase.setName(nameCase);
-                if (!priceCase.isBlank())
-                    pcCase.setPrice(Float.parseFloat(priceCase));
-                if (!formFactorCase.isBlank())
-                    pcCase.setFormFactor(formFactorCase);
-                if (!stockCase.isBlank() && Integer.parseInt(stockCase) >= 0)
-                    pcCase.setStock(Integer.parseInt(stockCase));
+                pcCase.setPrice(Float.parseFloat(priceCase));
+                pcCase.setFormFactor(formFactorCase);
+                pcCase.setStock(Integer.parseInt(stockCase));
                 if (!fileNameCase.isBlank())
                     pcCase.setImagePath(fileNameCase + uploadPath);
-                return pcCaseDao.doUpdate(pcCase);
-            case "mobos":
-                String idMobo = req.getParameter("id");
+                else
+                    pcCase.setImagePath(uploadPath + "none");
+                return pcCaseDao.doSave(pcCase);
+            }
+            case "mobos" -> {
                 MoboDao moboDao = new MoboDao();
-                Mobo mobo = moboDao.doRetrieveById(Integer.parseInt(idMobo));
+                Mobo mobo = new Mobo();
                 String nameMobo = req.getParameter("name");
                 String priceMobo = req.getParameter("price");
                 String consumptionMobo = req.getParameter("consumption");
@@ -183,33 +181,26 @@ public class ModifyDB extends HttpServlet {
                 String stockMobo = req.getParameter("stock");
                 Part filePartMobo = req.getPart("image");
                 String fileNameMobo = Paths.get(filePartMobo.getSubmittedFileName()).getFileName().toString();
-                if (!nameMobo.isBlank())
+                if (nameMobo.isBlank() || priceMobo.isBlank() || consumptionMobo.isBlank() || formFactorMobo.isBlank() || amountSlotNvme.isBlank() || Integer.parseInt(amountSlotNvme) < 0 || amountSlotRam.isBlank() || Integer.parseInt(amountSlotRam) < 0 || amountSlotSata.isBlank() || Integer.parseInt(amountSlotSata) < 0 || cpuSocket.isBlank() || ramSocket.isBlank() || stockMobo.isBlank() || Integer.parseInt(stockMobo) < 0)
                     mobo.setName(nameMobo);
-                if (!priceMobo.isBlank())
-                    mobo.setPrice(Float.parseFloat(priceMobo));
-                if (!consumptionMobo.isBlank())
-                    mobo.setConsumption(Integer.parseInt(consumptionMobo));
-                if (!formFactorMobo.isBlank())
-                    mobo.setFormFactor(formFactorMobo);
-                if (!amountSlotNvme.isBlank() && Integer.parseInt(amountSlotNvme) >= 0)
-                    mobo.setAmountSlotNvme(Integer.parseInt(amountSlotNvme));
-                if (!amountSlotRam.isBlank() && Integer.parseInt(amountSlotRam) >= 0)
-                    mobo.setAmountSlotRam(Integer.parseInt(amountSlotRam));
-                if (!amountSlotSata.isBlank() && Integer.parseInt(amountSlotSata) >= 0)
-                    mobo.setAmountSlotSata(Integer.parseInt(stockMobo));
-                if (!cpuSocket.isBlank())
-                    mobo.setCpuSocket(cpuSocket);
-                if (!ramSocket.isBlank())
-                    mobo.setRamSocket(ramSocket);
-                if (!stockMobo.isBlank() && Integer.parseInt(stockMobo) >= 0)
-                    mobo.setStock(Integer.parseInt(stockMobo));
+                mobo.setPrice(Float.parseFloat(priceMobo));
+                mobo.setConsumption(Integer.parseInt(consumptionMobo));
+                mobo.setFormFactor(formFactorMobo);
+                mobo.setAmountSlotNvme(Integer.parseInt(amountSlotNvme));
+                mobo.setAmountSlotRam(Integer.parseInt(amountSlotRam));
+                mobo.setAmountSlotSata(Integer.parseInt(stockMobo));
+                mobo.setCpuSocket(cpuSocket);
+                mobo.setRamSocket(ramSocket);
+                mobo.setStock(Integer.parseInt(stockMobo));
                 if (!fileNameMobo.isBlank())
                     mobo.setImagePath(fileNameMobo + uploadPath);
-                return moboDao.doUpdate(mobo);
-            case "memories":
-                String idMemory = req.getParameter("id");
+                else
+                    mobo.setImagePath(uploadPath + "none");
+                return moboDao.doSave(mobo);
+            }
+            case "memories" -> {
                 MemoryDao memoryDao = new MemoryDao();
-                Memory memory = memoryDao.doRetrieveById(Integer.parseInt(idMemory));
+                Memory memory = new Memory();
                 String nameMemory = req.getParameter("name");
                 String priceMemory = req.getParameter("price");
                 String socketMemory = req.getParameter("socket");
@@ -219,29 +210,26 @@ public class ModifyDB extends HttpServlet {
                 String stockMemory = req.getParameter("stock");
                 Part filePartMemory = req.getPart("image");
                 String fileNameMemory = Paths.get(filePartMemory.getSubmittedFileName()).getFileName().toString();
-                if (!nameMemory.isBlank())
+                if (!nameMemory.isBlank() || socketMemory.isBlank() || mType.isBlank() || !(mType.equals("true") || mType.equals("false")) || priceMemory.isBlank() || consumptionMemory.isBlank() || amountMemories.isBlank() || Integer.parseInt(amountMemories) < 0 || stockMemory.isBlank() || Integer.parseInt(stockMemory) < 0)
                     memory.setName(nameMemory);
-                if (!socketMemory.isBlank())
-                    memory.setSocket(socketMemory);
-                if (!mType.isBlank() && (mType.equals("true") || mType.equals("false")))
-                    memory.setmType(Boolean.valueOf(mType));
-                if (!priceMemory.isBlank())
-                    memory.setPrice(Float.parseFloat(priceMemory));
-                if (!consumptionMemory.isBlank())
-                    memory.setConsumption(Integer.parseInt(consumptionMemory));
-                if (!amountMemories.isBlank() && Integer.parseInt(amountMemories) >= 0)
-                    memory.setAmountMemories(Integer.parseInt(amountMemories));
-                if (!stockMemory.isBlank() && Integer.parseInt(stockMemory) >= 0)
-                    memory.setStock(Integer.parseInt(stockMemory));
+                memory.setSocket(socketMemory);
+                memory.setmType(Boolean.parseBoolean(mType));
+                memory.setPrice(Float.parseFloat(priceMemory));
+                memory.setConsumption(Integer.parseInt(consumptionMemory));
+                memory.setAmountMemories(Integer.parseInt(amountMemories));
+                memory.setStock(Integer.parseInt(stockMemory));
                 if (!fileNameMemory.isBlank())
                     memory.setImagePath(fileNameMemory + uploadPath);
-                return memoryDao.doUpdate(memory);
+                else
+                    memory.setImagePath(uploadPath + "none");
+                return memoryDao.doSave(memory);
+            }
         }
         return false;
     }
     public boolean update(String requestedItem, HttpServletRequest req, HttpServletResponse resp) throws SQLException, NoSuchAlgorithmException, ServletException, IOException {
         switch (requestedItem) {
-            case "users":
+            case "users" -> {
                 PasswordHasher passwordHasher = new PasswordHasher();
                 Pattern patternPassword = Pattern.compile("^(?=.*[a-z])(?=.*\\d)(?=.*[@#$._%-])(?=.*[A-Z]).{8,16}$");
                 String email = req.getParameter("email");
@@ -263,9 +251,10 @@ public class ModifyDB extends HttpServlet {
                 if (!lastName.isBlank())
                     user.setLastName(lastName);
                 if (!admin.isBlank())
-                    user.setAdmin(Boolean.valueOf(admin));
+                    user.setAdmin(Boolean.parseBoolean(admin));
                 return userDao.doUpdate(user);
-            case "gpus":
+            }
+            case "gpus" -> {
                 String idGpu = req.getParameter("id");
                 GpuDao gpuDao = new GpuDao();
                 Gpu gpu = gpuDao.doRetrieveById(Integer.parseInt(idGpu));
@@ -286,7 +275,8 @@ public class ModifyDB extends HttpServlet {
                 if (!fileNameGpu.isBlank())
                     gpu.setImagePath(fileNameGpu + uploadPath);
                 return gpuDao.doUpdate(gpu);
-            case "cpus":
+            }
+            case "cpus" -> {
                 String idCpu = req.getParameter("id");
                 CpuDao cpuDao = new CpuDao();
                 Cpu cpu = cpuDao.doRetrieveById(Integer.parseInt(idCpu));
@@ -305,7 +295,7 @@ public class ModifyDB extends HttpServlet {
                 if (!socketCpu.isBlank())
                     cpu.setSocket(socketCpu);
                 if (!integratedGpu.isBlank())
-                    cpu.setIntegratedgpu(Boolean.valueOf(integratedGpu));
+                    cpu.setIntegratedgpu(Boolean.parseBoolean(integratedGpu));
                 if (!consumptionCpu.isBlank())
                     cpu.setConsumption(Integer.parseInt(consumptionCpu));
                 if (!stockCpu.isBlank() && Integer.parseInt(stockCpu) >= 0)
@@ -313,7 +303,8 @@ public class ModifyDB extends HttpServlet {
                 if (!fileNameCpu.isBlank())
                     cpu.setImagePath(fileNameCpu + uploadPath);
                 return cpuDao.doUpdate(cpu);
-            case "psus":
+            }
+            case "psus" -> {
                 String idPsu = req.getParameter("id");
                 PsuDao psuDao = new PsuDao();
                 Psu psu = psuDao.doRetrieveById(Integer.parseInt(idPsu));
@@ -334,7 +325,8 @@ public class ModifyDB extends HttpServlet {
                 if (!fileNamePsu.isBlank())
                     psu.setImagePath(fileNamePsu + uploadPath);
                 return psuDao.doUpdate(psu);
-            case "cases":
+            }
+            case "cases" -> {
                 String idCase = req.getParameter("id");
                 PcCaseDao pcCaseDao = new PcCaseDao();
                 PcCase pcCase = pcCaseDao.doRetrieveById(Integer.parseInt(idCase));
@@ -355,7 +347,8 @@ public class ModifyDB extends HttpServlet {
                 if (!fileNameCase.isBlank())
                     pcCase.setImagePath(fileNameCase + uploadPath);
                 return pcCaseDao.doUpdate(pcCase);
-            case "mobos":
+            }
+            case "mobos" -> {
                 String idMobo = req.getParameter("id");
                 MoboDao moboDao = new MoboDao();
                 Mobo mobo = moboDao.doRetrieveById(Integer.parseInt(idMobo));
@@ -394,7 +387,8 @@ public class ModifyDB extends HttpServlet {
                 if (!fileNameMobo.isBlank())
                     mobo.setImagePath(fileNameMobo + uploadPath);
                 return moboDao.doUpdate(mobo);
-            case "memories":
+            }
+            case "memories" -> {
                 String idMemory = req.getParameter("id");
                 MemoryDao memoryDao = new MemoryDao();
                 Memory memory = memoryDao.doRetrieveById(Integer.parseInt(idMemory));
@@ -412,7 +406,7 @@ public class ModifyDB extends HttpServlet {
                 if (!socketMemory.isBlank())
                     memory.setSocket(socketMemory);
                 if (!mType.isBlank() && (mType.equals("true") || mType.equals("false")))
-                    memory.setmType(Boolean.valueOf(mType));
+                    memory.setmType(Boolean.parseBoolean(mType));
                 if (!priceMemory.isBlank())
                     memory.setPrice(Float.parseFloat(priceMemory));
                 if (!consumptionMemory.isBlank())
@@ -424,6 +418,7 @@ public class ModifyDB extends HttpServlet {
                 if (!fileNameMemory.isBlank())
                     memory.setImagePath(fileNameMemory + uploadPath);
                 return memoryDao.doUpdate(memory);
+            }
         }
         return false;
     }
