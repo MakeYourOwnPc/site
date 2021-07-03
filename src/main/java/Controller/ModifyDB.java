@@ -326,9 +326,13 @@ public class ModifyDB extends HttpServlet {
                     gpu.setConsumption(Integer.parseInt(consumptionGpu));
                 if (!stockGpu.isBlank() && Integer.parseInt(stockGpu) >= 0)
                     gpu.setStock(Integer.parseInt(stockGpu));
-                if (!fileNameGpu.isBlank())
-                    gpu.setImagePath(uploadPath+fileNameGpu);
-
+                if (!fileNameGpu.isBlank()) {
+                    gpu.setImagePath(uploadPath + fileNameGpu);
+                    try(InputStream inputStream = filePartGpu.getInputStream()){
+                        File file = new File(uploadPath+fileNameGpu);
+                        Files.copy(inputStream,file.toPath());
+                    }
+                }
                 resp.getWriter().print(gpuDao.doUpdate(gpu));
                 return;
             }
@@ -356,8 +360,13 @@ public class ModifyDB extends HttpServlet {
                     cpu.setConsumption(Integer.parseInt(consumptionCpu));
                 if (!stockCpu.isBlank() && Integer.parseInt(stockCpu) >= 0)
                     cpu.setStock(Integer.parseInt(stockCpu));
-                if (!fileNameCpu.isBlank())
-                    cpu.setImagePath(uploadPath+fileNameCpu);
+                if (!fileNameCpu.isBlank()) {
+                    cpu.setImagePath(uploadPath + fileNameCpu);
+                    try(InputStream inputStream = filePartCpu.getInputStream()){
+                        File file = new File(uploadPath+fileNameCpu);
+                        Files.copy(inputStream,file.toPath());
+                    }
+                }
                 resp.getWriter().print(cpuDao.doUpdate(cpu));
             }
             case "psus" -> {
@@ -378,8 +387,13 @@ public class ModifyDB extends HttpServlet {
                     psu.setPower(Integer.parseInt(power));
                 if (!stockPsu.isBlank() && Integer.parseInt(stockPsu) >= 0)
                     psu.setStock(Integer.parseInt(stockPsu));
-                if (!fileNamePsu.isBlank())
-                    psu.setImagePath(uploadPath+fileNamePsu);
+                if (!fileNamePsu.isBlank()) {
+                    psu.setImagePath(uploadPath + fileNamePsu);
+                    try(InputStream inputStream = filePartPsu.getInputStream()){
+                        File file = new File(uploadPath+fileNamePsu);
+                        Files.copy(inputStream,file.toPath());
+                    }
+                }
                 resp.getWriter().print(psuDao.doUpdate(psu));
             }
             case "cases" -> {
@@ -400,8 +414,13 @@ public class ModifyDB extends HttpServlet {
                     pcCase.setFormFactor(formFactorCase);
                 if (!stockCase.isBlank() && Integer.parseInt(stockCase) >= 0)
                     pcCase.setStock(Integer.parseInt(stockCase));
-                if (!fileNameCase.isBlank())
-                    pcCase.setImagePath(uploadPath+fileNameCase );
+                if (!fileNameCase.isBlank()) {
+                    pcCase.setImagePath(uploadPath + fileNameCase);
+                    try(InputStream inputStream = filePartCase.getInputStream()){
+                        File file = new File(uploadPath+fileNameCase);
+                        Files.copy(inputStream,file.toPath());
+                    }
+                }
                 resp.getWriter().print(pcCaseDao.doUpdate(pcCase));
             }
             case "motherboards" -> {
@@ -440,8 +459,13 @@ public class ModifyDB extends HttpServlet {
                     mobo.setRamSocket(ramSocket);
                 if (!stockMobo.isBlank() && Integer.parseInt(stockMobo) >= 0)
                     mobo.setStock(Integer.parseInt(stockMobo));
-                if (!fileNameMobo.isBlank())
-                    mobo.setImagePath(uploadPath+fileNameMobo);
+                if (!fileNameMobo.isBlank()) {
+                    mobo.setImagePath(uploadPath + fileNameMobo);
+                    try(InputStream inputStream = filePartMobo.getInputStream()){
+                        File file = new File(uploadPath+fileNameMobo);
+                        Files.copy(inputStream,file.toPath());
+                    }
+                }
                 resp.getWriter().print(moboDao.doUpdate(mobo));
             }
             case "memories" -> {
@@ -471,8 +495,13 @@ public class ModifyDB extends HttpServlet {
                     memory.setAmountMemories(Integer.parseInt(amountMemories));
                 if (!stockMemory.isBlank() && Integer.parseInt(stockMemory) >= 0)
                     memory.setStock(Integer.parseInt(stockMemory));
-                if (!fileNameMemory.isBlank())
-                    memory.setImagePath(uploadPath+fileNameMemory);
+                if (!fileNameMemory.isBlank()) {
+                    memory.setImagePath(uploadPath + fileNameMemory);
+                    try(InputStream inputStream = filePartMemory.getInputStream()){
+                        File file = new File(uploadPath+fileNameMemory);
+                        Files.copy(inputStream,file.toPath());
+                    }
+                }
                 resp.getWriter().print(memoryDao.doUpdate(memory));
             }
         }
