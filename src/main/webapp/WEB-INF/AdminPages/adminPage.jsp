@@ -69,8 +69,8 @@
                     </td>
                 </tr>
             </table>
-            <form enctype="multipart/form-data">
-                <table class="registration-box" id="updateForm">
+            <form id="updateForm" enctype="multipart/form-data">
+                <table class="registration-box" id="updateFormBox">
                 </table>
             </form>
             <table id="buttonSpace">
@@ -193,6 +193,7 @@
 
                     "<tr><tr><td><label for='formFactor'>Form Factor</label></td>" +
                     "<td><select type='number' id='formFActor' name='formFactor'>" +
+                    "<option>All</option>" +
                     "<option value='mini-itx'>Mini-ITX</option>" +
                     "<option value='micro-atx'>Micro-ATX</option>" +
                     "<option value='atx'>ATX</option>" +
@@ -251,7 +252,7 @@
 
                     "<tr><td><label for='formFactor'>Form Factor</label></td>" +
                     "<td><select id='formFActor' name='formFactor'>" +
-                    "<option></option>" +
+                    "<option>All</option>" +
                     "<option value='mini-itx'>Mini-ITX</option>" +
                     "<option value='micro-atx'>Micro-ATX</option>" +
                     "<option value='atx'>ATX</option>" +
@@ -503,13 +504,14 @@
 
         switch (selectedElement) {
             case"Gpus":
-                formHTML = ' <input type="hidden" id="requestedItem" name="requestedItem" value="gpus">' +
+                formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="gpus">' +
 
                     '<tr><td><label for="id">DataBase Id</label></td>' +
                     '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
-                    '<td><input type="text" id="productName" value="' + item.name + '"></td></tr>' +
+                    '<td><input type="text" id="productName" value="' + item.name + '">' +
+                    '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                     '<tr><td><label for="consumption">Consumption</label></td>' +
                     '<td><input type="number" id="consumption" value="' + item.consumption + '"></td></tr>' +
@@ -527,13 +529,14 @@
                 let integrated = (item.integratedGpu) ? 'checked' : '';
                 let noIntegrated = (!item.integratedGpu) ? 'checked' : '';
                 formHTML =
-                    '<input type="hidden" id="requestedItem" name="requestedItem" value="cpus">' +
+                    '<input type="hidden" id="requestedItemUpdate" name="requestedItem" value="cpus">' +
 
                     '<tr><td><label for="id">DataBase Id</label></td>' +
                     '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
-                    '<td><input type="text" id="productName" value="' + item.name + '"></td></tr>' +
+                    '<td><input type="text" id="productName" value="' + item.name + '">' +
+                    '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                     '<tr><td><label for="CPUsocket">Socket</label></td>' +
                     '<td><input type="text" id="CPUsocket" name="CPUsocket" value="' + item.socket + '"></td></tr>' +
@@ -560,13 +563,14 @@
                 let ram = (!item.mType) ? 'checked' : '';
                 let massStorage = (item.mType) ? 'checked' : '';
                 formHTML =
-                    ' <input type="hidden" id="requestedItem" name="requestedItem" value="memories">' +
+                    ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="memories">' +
 
                     '<tr><td><label for="id">DataBase Id</label></td>' +
                     '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
-                    '<td><input type="text" id="productName" value="' + item.name + '"></td></tr>' +
+                    '<td><input type="text" id="productName" value="' + item.name + '">' +
+                    '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                     ' <tr><td><label for="MEMsocket">Memory Socket</label></td>' +
                     '<td><input type="text" id="MEMsocket" name="MEMsocket" value="' + item.socket + '"></td></tr>' +
@@ -597,13 +601,14 @@
                 let miniitx = (item.formFactor == "mini-itx") ? 'selected' : '';
                 let microatx = (item.formFactor == "micro-atx") ? 'selected' : '';
                 let atx = (item.formFactor == "atx") ? 'selected' : '';
-                formHTML = ' <input type="hidden" id="requestedItem" name="requestedItem" value="cases">' +
+                formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="cases">' +
 
                     '<tr><td><label for="id">DataBase Id</label></td>' +
                     '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
-                    '<td><input type="text" id="productName" value="' + item.name + '"></td></tr>' +
+                    '<td><input type="text" id="productName" value="' + item.name + '">' +
+                    '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                     '<tr><td><label for="formFactor">Form Factor</label></td>' +
                     '<td><select id="formFActor" name="formFactor">' +
@@ -627,13 +632,14 @@
                 let miniitxm = (item.formFactor == "mini-itx") ? 'selected' : '';
                 let microatxm = (item.formFactor == "micro-atx") ? 'selected' : '';
                 let atxm = (item.formFactor == "atx") ? 'selected' : '';
-                formHTML = ' <input type="hidden" id="requestedItem" name="requestedItem" value="motherboards">' +
+                formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="motherboards">' +
 
                     '<tr><td><label for="id">DataBase Id</label></td>' +
                     '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
-                    '<td><input type="text" id="productName" value="' + item.name + '"></td></tr>' +
+                    '<td><input type="text" id="productName" value="' + item.name + '">' +
+                    '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                     "<tr><td><label for='CPUsocket'>CPU Socket</label></td>" +
                     " <td><input type='text' id='CPUsocket' name='CPUsocket' value='" + item.cpuSocket + "'></td></tr>" +
@@ -669,13 +675,14 @@
                     '<td><img src="' + item.imagePath + '"></td></tr>';
                 break
             case"Psus":
-                formHTML = ' <input type="hidden" id="requestedItem" name="requestedItem" value="psus">' +
+                formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="psus">' +
 
                     '<tr><td><label for="id">DataBase Id</label></td>' +
                     '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
-                    '<td><input type="text" id="productName" value="' + item.name + '"></td></tr>' +
+                    '<td><input type="text" id="productName" value="' + item.name + '">' +
+                    '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                     '<tr><td><label for="consumption">Power</label></td>' +
                     '<td><input type="text" id="consumption" value="' + item.power + '"></td></tr>' +
@@ -692,7 +699,7 @@
 
             case"Users":
                 let admin = (item.admin) ? 'checked' : '';
-                formHTML = ' <input type="hidden" id="requestedItem" name="requestedItem" value="users">' +
+                formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="users">' +
 
                     '<tr><td><label for="email">User Email</label></td>' +
                     '<td><input type="text" name="email" value="' + item.email + '" disabled></td></tr>' +
@@ -709,14 +716,58 @@
 
         }
         let buttonHTML='<tr><td><button type="submit" name="option" value="delete" class="btn btn-danger">Delete</button></td>' +
-            '<td><button type="submit" name="option" value="update"  class="btn btn-success" >Save Changes</button></td></tr>';
+            '<td><button id="saveChanges"type="submit" name="option" value="update"  class="btn btn-success" >Save Changes</button></td></tr>';
         console.log(formHTML);
         $("#updateTitle").text("Update Element");
-        $("#updateForm").html(formHTML);
+        $("#updateFormBox").html(formHTML);
         $("#buttonSpace").html(buttonHTML)
         toggleOverlay();
+    }
+
+    function updateItem(){
+        let formData = $("#updateForm").serialize();
+        console.log(formData);
+        $.ajax({
+            url: "./showItem",
+            type: 'POST',
+            data: formData,
+            beforeSend: function (x) {
+                x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            },
+            success: function (data) {
+                if(data=="true"){
+                    $("#name").attr("value",$("#productName").val());
+                    submitForm();
+                }
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+
+    }
 
 
+    function checkProductName(){
+        let xhttp = new XMLHttpRequest();
+        let nameAlert = document.getElementById("productName");
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                if(this.responseText=="true"){
+                    $("#saveChanges").disable();
+                    $("#name-alert").disable();
+                    console.log("email rejected");
+                }
+                else
+                    $("#saveChanges").enabled();
+                    $("#name-alert").disable();
+            }
+        };
+        xhttp.open("POST", "/MYOPSite_war_exploded/itemispresent", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        let requestSend="email="+document.getElementById("productName").value+"&id="+document.getElementById("id").value+
+            "&requestedItem="+document.getElementById("requestedItemUpdate").value;
+        xhttp.send(requestSend);
     }
 
 
