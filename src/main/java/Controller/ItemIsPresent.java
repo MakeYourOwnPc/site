@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-@WebServlet(name="itemIsPresent",urlPatterns = "/itemIsPresent")
+@WebServlet(name="itemIsPresent",urlPatterns = "/admin/itemIsPresent")
 public class ItemIsPresent extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

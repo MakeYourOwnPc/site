@@ -16,6 +16,7 @@ import Model.User.User;
 import Model.User.UserDao;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +28,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
-
+@WebServlet(name="modifyDB",urlPatterns = "/admin/modifyDB")
 public class ModifyDB extends HttpServlet {
     public String uploadPath = System.getenv("CATALINA_HOME") + File.separator;
     @Override
