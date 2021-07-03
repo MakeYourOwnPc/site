@@ -91,8 +91,10 @@ public class ModifyDB extends HttpServlet {
                 String stockGpu = req.getParameter("stock");
                 Part filePartGpu = req.getPart("image");
                 String fileNameGpu = Paths.get(filePartGpu.getSubmittedFileName()).getFileName().toString();
-                if (nameGpu.isBlank() || priceGpu.isBlank() || consumptionGpu.isBlank() || stockGpu.isBlank() || Integer.parseInt(stockGpu) < 0)
+                if (nameGpu.isBlank() || priceGpu.isBlank() || consumptionGpu.isBlank() || stockGpu.isBlank() || Integer.parseInt(stockGpu) < 0) {
                     resp.setStatus(500);
+                    return;
+                }
                 gpu.setName(nameGpu);
                 gpu.setPrice(Float.parseFloat(priceGpu));
                 gpu.setConsumption(Integer.parseInt(consumptionGpu));
@@ -114,8 +116,10 @@ public class ModifyDB extends HttpServlet {
                 String stockCpu = req.getParameter("stock");
                 Part filePartCpu = req.getPart("image");
                 String fileNameCpu = Paths.get(filePartCpu.getSubmittedFileName()).getFileName().toString();
-                if (nameCpu.isBlank() || priceCpu.isBlank() || socketCpu.isBlank() || integratedGpu.isBlank() || !(integratedGpu.equals("true") || integratedGpu.equals("false")) || consumptionCpu.isBlank() || stockCpu.isBlank() || Integer.parseInt(stockCpu) < 0)
+                if (nameCpu.isBlank() || priceCpu.isBlank() || socketCpu.isBlank() || integratedGpu.isBlank() || !(integratedGpu.equals("true") || integratedGpu.equals("false")) || consumptionCpu.isBlank() || stockCpu.isBlank() || Integer.parseInt(stockCpu) < 0) {
                     resp.setStatus(500);
+                    return;
+                }
                 cpu.setName(nameCpu);
                 cpu.setPrice(Float.parseFloat(priceCpu));
                 cpu.setSocket(socketCpu);
@@ -137,8 +141,10 @@ public class ModifyDB extends HttpServlet {
                 String stockPsu = req.getParameter("stock");
                 Part filePartPsu = req.getPart("image");
                 String fileNamePsu = Paths.get(filePartPsu.getSubmittedFileName()).getFileName().toString();
-                if (namePsu.isBlank() || pricePsu.isBlank() || power.isBlank() || stockPsu.isBlank() || Integer.parseInt(stockPsu) < 0)
+                if (namePsu.isBlank() || pricePsu.isBlank() || power.isBlank() || stockPsu.isBlank() || Integer.parseInt(stockPsu) < 0) {
                     resp.setStatus(500);
+                    return;
+                }
                 psu.setName(namePsu);
                 psu.setPrice(Float.parseFloat(pricePsu));
                 psu.setPower(Integer.parseInt(power));
@@ -158,7 +164,10 @@ public class ModifyDB extends HttpServlet {
                 String stockCase = req.getParameter("stock");
                 Part filePartCase = req.getPart("image");
                 String fileNameCase = Paths.get(filePartCase.getSubmittedFileName()).getFileName().toString();
-                if (nameCase.isBlank() || priceCase.isBlank() || formFactorCase.isBlank() || stockCase.isBlank() || Integer.parseInt(stockCase) < 0)
+                if (nameCase.isBlank() || priceCase.isBlank() || formFactorCase.isBlank() || stockCase.isBlank() || Integer.parseInt(stockCase) < 0) {
+                    resp.setStatus(500);
+                    return;
+                }
                     pcCase.setName(nameCase);
                 pcCase.setPrice(Float.parseFloat(priceCase));
                 pcCase.setFormFactor(formFactorCase);
@@ -185,7 +194,11 @@ public class ModifyDB extends HttpServlet {
                 Part filePartMobo = req.getPart("image");
                 String fileNameMobo = Paths.get(filePartMobo.getSubmittedFileName()).getFileName().toString();
                 if (nameMobo.isBlank() || priceMobo.isBlank() || consumptionMobo.isBlank() || formFactorMobo.isBlank() || amountSlotNvme.isBlank() || Integer.parseInt(amountSlotNvme) < 0 || amountSlotRam.isBlank() || Integer.parseInt(amountSlotRam) < 0 || amountSlotSata.isBlank() || Integer.parseInt(amountSlotSata) < 0 || cpuSocket.isBlank() || ramSocket.isBlank() || stockMobo.isBlank() || Integer.parseInt(stockMobo) < 0)
-                    mobo.setName(nameMobo);
+                {
+                    resp.setStatus(500);
+                    return;
+                }
+                mobo.setName(nameMobo);
                 mobo.setPrice(Float.parseFloat(priceMobo));
                 mobo.setConsumption(Integer.parseInt(consumptionMobo));
                 mobo.setFormFactor(formFactorMobo);
@@ -213,8 +226,11 @@ public class ModifyDB extends HttpServlet {
                 String stockMemory = req.getParameter("stock");
                 Part filePartMemory = req.getPart("image");
                 String fileNameMemory = Paths.get(filePartMemory.getSubmittedFileName()).getFileName().toString();
-                if (!nameMemory.isBlank() || socketMemory.isBlank() || mType.isBlank() || !(mType.equals("true") || mType.equals("false")) || priceMemory.isBlank() || consumptionMemory.isBlank() || amountMemories.isBlank() || Integer.parseInt(amountMemories) < 0 || stockMemory.isBlank() || Integer.parseInt(stockMemory) < 0)
-                    memory.setName(nameMemory);
+                if (!nameMemory.isBlank() || socketMemory.isBlank() || mType.isBlank() || !(mType.equals("true") || mType.equals("false")) || priceMemory.isBlank() || consumptionMemory.isBlank() || amountMemories.isBlank() || Integer.parseInt(amountMemories) < 0 || stockMemory.isBlank() || Integer.parseInt(stockMemory) < 0){
+                    resp.setStatus(500);
+                    return;
+            }
+                memory.setName(nameMemory);
                 memory.setSocket(socketMemory);
                 memory.setmType(Boolean.parseBoolean(mType));
                 memory.setPrice(Float.parseFloat(priceMemory));
