@@ -50,6 +50,7 @@ public class PsuDao implements IPsuDao <SQLException> {
                 ps.setInt(1,id);
                 ResultSet rs = ps.executeQuery();
                     Psu psu = new Psu();
+                rs.next();
                     psu.setName(rs.getString("name"));
                     psu.setId(rs.getInt("id"));
                     psu.setPower(rs.getInt("power"));

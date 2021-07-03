@@ -80,6 +80,7 @@ public class CpuDao implements ICpuDao<SQLException> {
                 ps.setInt(1,id);
                 ResultSet rs = ps.executeQuery();
                 Cpu cpu = new Cpu();
+                rs.next();
                 cpu.setName(rs.getString("name"));
                 cpu.setId(rs.getInt("id"));
                 cpu.setIntegratedgpu(rs.getBoolean("integratedgpu"));

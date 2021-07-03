@@ -43,7 +43,7 @@ public class GpuDao implements IGpuDao<SQLException> {
             try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Gpus WHERE id=?;")) {
                 ps.setInt(1,id);
                 ResultSet rs = ps.executeQuery();
-                ArrayList<Gpu> list = new ArrayList<Gpu>();
+                rs.next();
                     Gpu gpu = new Gpu();
                     gpu.setName(rs.getString("name"));
                     gpu.setId(rs.getInt("id"));
@@ -51,7 +51,6 @@ public class GpuDao implements IGpuDao<SQLException> {
                     gpu.setPrice(rs.getFloat("price"));
                     gpu.setStock(rs.getInt("stock"));
                     gpu.setImagePath(rs.getString("imagepath"));
-                    list.add(gpu);
                 rs.close();
                 return gpu;
             }

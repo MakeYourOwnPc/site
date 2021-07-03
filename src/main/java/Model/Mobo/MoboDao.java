@@ -46,15 +46,15 @@ public class MoboDao implements IMoboDao<SQLException>{
         try(Connection conn = ConnPool.getConnection()){
             try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motherboards WHERE id=?;")){
                 ps.setInt(1,id);
-                ArrayList<Mobo> list = new ArrayList<Mobo>();
                 ResultSet rs = ps.executeQuery();
                 Mobo mobo = new Mobo();
+                rs.next();
+                mobo.setId(rs.getInt("id"));
                 mobo.setConsumption(rs.getInt("consumption"));
                 mobo.setAmountSlotNvme(rs.getInt("amountslotnvme"));
                 mobo.setAmountSlotRam(rs.getInt("amountslotram"));
                 mobo.setAmountSlotSata(rs.getInt("amountslotsata"));
                 mobo.setFormFactor(rs.getString("formfactor"));
-                mobo.setId(rs.getInt("id"));
                 mobo.setPrice(rs.getFloat("price"));
                 mobo.setName(rs.getString("name"));
                 mobo.setCpuSocket(rs.getString("cpusocket"));

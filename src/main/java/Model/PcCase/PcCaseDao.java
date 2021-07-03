@@ -78,6 +78,7 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
                 ps.setInt(1,id);
                 ResultSet rs = ps.executeQuery();
                     PcCase pcCase = new PcCase();
+                rs.next();
                     pcCase.setName(rs.getString("name"));
                     pcCase.setId(rs.getInt("id"));
                     pcCase.setFormFactor(rs.getString("formfactor"));
