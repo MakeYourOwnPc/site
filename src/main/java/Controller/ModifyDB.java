@@ -37,6 +37,8 @@ public class ModifyDB extends HttpServlet {
             resp.setStatus(403);
         String option = req.getParameter("option");
         String requestedItem = req.getParameter("requestedItem");
+        resp.setContentType("plain/text");
+        resp.setCharacterEncoding("UTF-8");
         if(option.equals("insert")) {
             try {
                 insert(requestedItem,req,resp);
@@ -53,7 +55,7 @@ public class ModifyDB extends HttpServlet {
         }
 
     }
-    public boolean insert(String requestedItem, HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
+    public void insert(String requestedItem, HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
         switch (requestedItem) {
            /* case "users":
                 PasswordHasher passwordHasher = new PasswordHasher();
@@ -98,7 +100,7 @@ public class ModifyDB extends HttpServlet {
                     gpu.setImagePath(fileNameGpu + uploadPath);
                 else
                     gpu.setImagePath(uploadPath + "none");
-                return gpuDao.doSave(gpu);
+                resp.getWriter().print(gpuDao.doSave(gpu));
             }
             case "cpus" -> {
                 CpuDao cpuDao = new CpuDao();
@@ -123,7 +125,7 @@ public class ModifyDB extends HttpServlet {
                     cpu.setImagePath(fileNameCpu + uploadPath);
                 else
                     cpu.setImagePath(uploadPath + "none");
-                return cpuDao.doSave(cpu);
+                resp.getWriter().print(cpuDao.doSave(cpu));
             }
             case "psus" -> {
                 PsuDao psuDao = new PsuDao();
@@ -144,7 +146,7 @@ public class ModifyDB extends HttpServlet {
                     psu.setImagePath(fileNamePsu + uploadPath);
                 else
                     psu.setImagePath(uploadPath + "none");
-                return psuDao.doSave(psu);
+                resp.getWriter().print(psuDao.doSave(psu));
             }
             case "cases" -> {
                 PcCaseDao pcCaseDao = new PcCaseDao();
@@ -164,7 +166,7 @@ public class ModifyDB extends HttpServlet {
                     pcCase.setImagePath(fileNameCase + uploadPath);
                 else
                     pcCase.setImagePath(uploadPath + "none");
-                return pcCaseDao.doSave(pcCase);
+                resp.getWriter().print(pcCaseDao.doSave(pcCase));
             }
             case "mobos" -> {
                 MoboDao moboDao = new MoboDao();
@@ -196,7 +198,7 @@ public class ModifyDB extends HttpServlet {
                     mobo.setImagePath(fileNameMobo + uploadPath);
                 else
                     mobo.setImagePath(uploadPath + "none");
-                return moboDao.doSave(mobo);
+                resp.getWriter().print(moboDao.doSave(mobo));
             }
             case "memories" -> {
                 MemoryDao memoryDao = new MemoryDao();
@@ -222,12 +224,11 @@ public class ModifyDB extends HttpServlet {
                     memory.setImagePath(fileNameMemory + uploadPath);
                 else
                     memory.setImagePath(uploadPath + "none");
-                return memoryDao.doSave(memory);
+                resp.getWriter().print(memoryDao.doSave(memory));
             }
         }
-        return false;
     }
-    public boolean update(String requestedItem, HttpServletRequest req, HttpServletResponse resp) throws SQLException, NoSuchAlgorithmException, ServletException, IOException {
+    public void update(String requestedItem, HttpServletRequest req, HttpServletResponse resp) throws SQLException, NoSuchAlgorithmException, ServletException, IOException {
         switch (requestedItem) {
             case "users" -> {
                 PasswordHasher passwordHasher = new PasswordHasher();
@@ -252,7 +253,7 @@ public class ModifyDB extends HttpServlet {
                     user.setLastName(lastName);
                 if (!admin.isBlank())
                     user.setAdmin(Boolean.parseBoolean(admin));
-                return userDao.doUpdate(user);
+                resp.getWriter().print(userDao.doUpdate(user));
             }
             case "gpus" -> {
                 String idGpu = req.getParameter("id");
@@ -274,7 +275,7 @@ public class ModifyDB extends HttpServlet {
                     gpu.setStock(Integer.parseInt(stockGpu));
                 if (!fileNameGpu.isBlank())
                     gpu.setImagePath(fileNameGpu + uploadPath);
-                return gpuDao.doUpdate(gpu);
+                resp.getWriter().print(gpuDao.doUpdate(gpu));
             }
             case "cpus" -> {
                 String idCpu = req.getParameter("id");
@@ -302,7 +303,7 @@ public class ModifyDB extends HttpServlet {
                     cpu.setStock(Integer.parseInt(stockCpu));
                 if (!fileNameCpu.isBlank())
                     cpu.setImagePath(fileNameCpu + uploadPath);
-                return cpuDao.doUpdate(cpu);
+                resp.getWriter().print(cpuDao.doUpdate(cpu));
             }
             case "psus" -> {
                 String idPsu = req.getParameter("id");
@@ -324,7 +325,7 @@ public class ModifyDB extends HttpServlet {
                     psu.setStock(Integer.parseInt(stockPsu));
                 if (!fileNamePsu.isBlank())
                     psu.setImagePath(fileNamePsu + uploadPath);
-                return psuDao.doUpdate(psu);
+                resp.getWriter().print(psuDao.doUpdate(psu));
             }
             case "cases" -> {
                 String idCase = req.getParameter("id");
@@ -346,7 +347,7 @@ public class ModifyDB extends HttpServlet {
                     pcCase.setStock(Integer.parseInt(stockCase));
                 if (!fileNameCase.isBlank())
                     pcCase.setImagePath(fileNameCase + uploadPath);
-                return pcCaseDao.doUpdate(pcCase);
+                resp.getWriter().print(pcCaseDao.doUpdate(pcCase));
             }
             case "mobos" -> {
                 String idMobo = req.getParameter("id");
@@ -386,7 +387,7 @@ public class ModifyDB extends HttpServlet {
                     mobo.setStock(Integer.parseInt(stockMobo));
                 if (!fileNameMobo.isBlank())
                     mobo.setImagePath(fileNameMobo + uploadPath);
-                return moboDao.doUpdate(mobo);
+                resp.getWriter().print(moboDao.doUpdate(mobo));
             }
             case "memories" -> {
                 String idMemory = req.getParameter("id");
@@ -417,9 +418,8 @@ public class ModifyDB extends HttpServlet {
                     memory.setStock(Integer.parseInt(stockMemory));
                 if (!fileNameMemory.isBlank())
                     memory.setImagePath(fileNameMemory + uploadPath);
-                return memoryDao.doUpdate(memory);
+                resp.getWriter().print(memoryDao.doUpdate(memory));
             }
         }
-        return false;
     }
 }
