@@ -30,11 +30,15 @@ input[type=text], select, input[type=email],input[type=password],input[type=numb
     border-radius: 4px;
     box-sizing: border-box;
 }
-
+.navbar{
+    z-index: 50;
+}
 .hidden{
     display: none;
 }
-
+button{
+    display: inline-block;
+}
 .centered-box{
     width: 45%;
     position: absolute;
@@ -45,13 +49,6 @@ input[type=text], select, input[type=email],input[type=password],input[type=numb
     border-radius: 5px;
 }
 
-.centered-box tbody{
-    width: 100%
-}
-
-.centered-box tbody tr td{
-    width: 50%;
-}
 
 
 .header{
@@ -196,9 +193,9 @@ table tbody{
     border-radius: 5px;
 }
 .registration-box tbody td {
-    padding-left: 20px;
-    padding-right: 20px;
+    text-align: left;
 }
+
 
 .overlayElement{
     position: fixed;
