@@ -193,7 +193,7 @@
 
                     "<tr><tr><td><label for='formFactor'>Form Factor</label></td>" +
                     "<td><select type='number' id='formFActor' name='formFactor'>" +
-                    "<option>All</option>" +
+                    "<option value=''>All</option>" +
                     "<option value='mini-itx'>Mini-ITX</option>" +
                     "<option value='micro-atx'>Micro-ATX</option>" +
                     "<option value='atx'>ATX</option>" +
@@ -252,7 +252,7 @@
 
                     "<tr><td><label for='formFactor'>Form Factor</label></td>" +
                     "<td><select id='formFActor' name='formFactor'>" +
-                    "<option>All</option>" +
+                    "<option value=''>All</option>" +
                     "<option value='mini-itx'>Mini-ITX</option>" +
                     "<option value='micro-atx'>Micro-ATX</option>" +
                     "<option value='atx'>ATX</option>" +
