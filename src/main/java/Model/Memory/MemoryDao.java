@@ -41,10 +41,11 @@ public class MemoryDao implements IMemoryDao<SQLException>{
     @Override
     public Memory doRetrieveById(int id) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM memories WHERE id=?;")){
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Memories WHERE id=?;")){
                 ps.setInt(1,id);
                 ResultSet rs = ps.executeQuery();
                 Memory memory = new Memory();
+                rs.next();
                 memory.setConsumption(rs.getInt("consumption"));
                 memory.setAmountMemories(rs.getInt("amountmemories"));
                 memory.setName(rs.getString("name"));
@@ -66,10 +67,9 @@ public class MemoryDao implements IMemoryDao<SQLException>{
     @Override
     public ArrayList<Memory> doRetrieveByName(String name,int limit, int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM memories WHERE name CONTAINS ? ORDER BY name LIMIT ?,?;")){
-                ps.setString(1,name);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM memories WHERE UPPER(name) LIKE UPPER('%"+name+"%') ORDER BY name LIMIT ?,?;")){
+                ps.setInt(1,offset);
+                ps.setInt(2,limit);
                 ArrayList<Memory> list = new ArrayList<Memory>();
                 ResultSet rs = ps.executeQuery();
                 while(rs.next()){
@@ -82,6 +82,7 @@ public class MemoryDao implements IMemoryDao<SQLException>{
                     memory.setStock(rs.getInt("stock"));
                     memory.setmType(rs.getBoolean("mType"));
                     memory.setSocket(rs.getString("socket"));
+                    memory.setImagePath(rs.getString("imagepath"));
                     list.add(memory);
                 }
                 return list;

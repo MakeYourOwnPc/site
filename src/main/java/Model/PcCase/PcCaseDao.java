@@ -100,10 +100,9 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
     @Override
     public ArrayList<PcCase> doRetrieveByName(String name,int limit, int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Pccases WHERE name=? ORDER BY name LIMIT ?,?;")){
-                ps.setString(1,name);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Pccases WHERE UPPER(name) LIKE UPPER('%"+name+"%') ORDER BY name LIMIT ?,?;")){
+                ps.setInt(1,offset);
+                ps.setInt(2,limit);
                 ResultSet rs = ps.executeQuery();
                 ArrayList<PcCase> list = new ArrayList<PcCase>();
                 while(rs.next()){
