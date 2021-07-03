@@ -35,7 +35,7 @@ public class ItemIsPresent extends HttpServlet {
                 try {
                     list = gpuDao.doRetrieveByName(name, 1000, 0);
                     for (Gpu gpu : list) {
-                        if (gpu.getName().equals(name) && gpu.getId() != Integer.parseInt(id)) {
+                        if (gpu.getName().equalsIgnoreCase(name) && gpu.getId() != Integer.parseInt(id)) {
                             resp.getWriter().print("true");
                             return;
                         }
@@ -51,7 +51,7 @@ public class ItemIsPresent extends HttpServlet {
                 try {
                     list = cpuDao.doRetrieveByName(name, 1000, 0);
                     for (Cpu cpu : list) {
-                        if (cpu.getName().equals(name) && cpu.getId() != Integer.parseInt(id)) {
+                        if (cpu.getName().equalsIgnoreCase(name) && cpu.getId() != Integer.parseInt(id)) {
                             resp.getWriter().print("true");
                             return;
                         }
@@ -67,7 +67,7 @@ public class ItemIsPresent extends HttpServlet {
                 try {
                     list = psuDao.doRetrieveByName(name, 1000, 0);
                     for (Psu psu : list) {
-                        if (psu.getName().equals(name) && psu.getId() != Integer.parseInt(id)) {
+                        if (psu.getName().equalsIgnoreCase(name) && psu.getId() != Integer.parseInt(id)) {
                             resp.getWriter().print("true");
                             return;
                         }
@@ -83,7 +83,7 @@ public class ItemIsPresent extends HttpServlet {
                 try {
                     list = moboDao.doRetrieveByName(name, 1000, 0);
                     for (Mobo mobo : list) {
-                        if (mobo.getName().equals(name) && mobo.getId() != Integer.parseInt(id)) {
+                        if (mobo.getName().equalsIgnoreCase(name) && mobo.getId() != Integer.parseInt(id)) {
                             resp.getWriter().print("true");
                             return;
                         }
@@ -99,7 +99,7 @@ public class ItemIsPresent extends HttpServlet {
                 try {
                     list = memoryDao.doRetrieveByName(name, 1000, 0);
                     for (Memory memory : list) {
-                        if (memory.getName().equals(name) && memory.getId() != Integer.parseInt(id)) {
+                        if (memory.getName().equalsIgnoreCase(name) && memory.getId() != Integer.parseInt(id)) {
                             resp.getWriter().print("true");
                             return;
                         }
