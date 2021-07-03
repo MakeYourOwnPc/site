@@ -41,10 +41,11 @@ public class MemoryDao implements IMemoryDao<SQLException>{
     @Override
     public Memory doRetrieveById(int id) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM memories WHERE id=?;")){
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Memories WHERE id=?;")){
                 ps.setInt(1,id);
                 ResultSet rs = ps.executeQuery();
                 Memory memory = new Memory();
+                rs.next();
                 memory.setConsumption(rs.getInt("consumption"));
                 memory.setAmountMemories(rs.getInt("amountmemories"));
                 memory.setName(rs.getString("name"));
