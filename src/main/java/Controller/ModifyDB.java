@@ -37,8 +37,13 @@ public class ModifyDB extends HttpServlet {
             resp.setStatus(403);
         String option = req.getParameter("option");
         String requestedItem = req.getParameter("requestedItem");
-        if(option.equals("insert"))
-            insert(requestedItem,req,resp);
+        if(option.equals("insert")) {
+            try {
+                insert(requestedItem,req,resp);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
         else if (option.equals("update")) {
             try {
                 update(requestedItem,req,resp);
