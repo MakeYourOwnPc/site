@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -102,8 +104,13 @@ public class ModifyDB extends HttpServlet {
                 gpu.setPrice(Float.parseFloat(priceGpu));
                 gpu.setConsumption(Integer.parseInt(consumptionGpu));
                 gpu.setStock(Integer.parseInt(stockGpu));
-                if (!fileNameGpu.isBlank())
-                    gpu.setImagePath(uploadPath+fileNameGpu);
+                if (!fileNameGpu.isBlank()) {
+                    gpu.setImagePath(uploadPath + fileNameGpu);
+                    try(InputStream inputStream = filePartGpu.getInputStream()){
+                        File file = new File(uploadPath+fileNameGpu);
+                        Files.copy(inputStream,file.toPath());
+                    }
+                }
                 else
                     gpu.setImagePath(uploadPath + "none");
                 resp.getWriter().print(gpuDao.doSave(gpu));
@@ -129,8 +136,13 @@ public class ModifyDB extends HttpServlet {
                 cpu.setIntegratedgpu(Boolean.parseBoolean(integratedGpu));
                 cpu.setConsumption(Integer.parseInt(consumptionCpu));
                 cpu.setStock(Integer.parseInt(stockCpu));
-                if (!fileNameCpu.isBlank())
-                    cpu.setImagePath(uploadPath+fileNameCpu);
+                if (!fileNameCpu.isBlank()) {
+                    cpu.setImagePath(uploadPath + fileNameCpu);
+                    try(InputStream inputStream = filePartCpu.getInputStream()){
+                        File file = new File(uploadPath+fileNameCpu);
+                        Files.copy(inputStream,file.toPath());
+                    }
+                }
                 else
                     cpu.setImagePath(uploadPath + "none");
                 resp.getWriter().print(cpuDao.doSave(cpu));
@@ -152,8 +164,13 @@ public class ModifyDB extends HttpServlet {
                 psu.setPrice(Float.parseFloat(pricePsu));
                 psu.setPower(Integer.parseInt(power));
                 psu.setStock(Integer.parseInt(stockPsu));
-                if (!fileNamePsu.isBlank())
-                    psu.setImagePath(uploadPath+fileNamePsu);
+                if (!fileNamePsu.isBlank()) {
+                    psu.setImagePath(uploadPath + fileNamePsu);
+                    try(InputStream inputStream = filePartPsu.getInputStream()){
+                        File file = new File(uploadPath+fileNamePsu);
+                        Files.copy(inputStream,file.toPath());
+                    }
+                }
                 else
                     psu.setImagePath(uploadPath + "none");
                 resp.getWriter().print(psuDao.doSave(psu));
@@ -175,8 +192,13 @@ public class ModifyDB extends HttpServlet {
                 pcCase.setPrice(Float.parseFloat(priceCase));
                 pcCase.setFormFactor(formFactorCase);
                 pcCase.setStock(Integer.parseInt(stockCase));
-                if (!fileNameCase.isBlank())
-                    pcCase.setImagePath(uploadPath+fileNameCase);
+                if (!fileNameCase.isBlank()) {
+                    pcCase.setImagePath(uploadPath + fileNameCase);
+                    try(InputStream inputStream = filePartCase.getInputStream()){
+                        File file = new File(uploadPath+fileNameCase);
+                        Files.copy(inputStream,file.toPath());
+                    }
+                }
                 else
                     pcCase.setImagePath(uploadPath + "none");
                 resp.getWriter().print(pcCaseDao.doSave(pcCase));
@@ -211,8 +233,13 @@ public class ModifyDB extends HttpServlet {
                 mobo.setCpuSocket(cpuSocket);
                 mobo.setRamSocket(ramSocket);
                 mobo.setStock(Integer.parseInt(stockMobo));
-                if (!fileNameMobo.isBlank())
-                    mobo.setImagePath(uploadPath+fileNameMobo);
+                if (!fileNameMobo.isBlank()) {
+                    mobo.setImagePath(uploadPath + fileNameMobo);
+                    try(InputStream inputStream = filePartMobo.getInputStream()){
+                        File file = new File(uploadPath+fileNameMobo);
+                        Files.copy(inputStream,file.toPath());
+                    }
+                }
                 else
                     mobo.setImagePath(uploadPath + "none");
                 resp.getWriter().print(moboDao.doSave(mobo));
@@ -240,8 +267,13 @@ public class ModifyDB extends HttpServlet {
                 memory.setConsumption(Integer.parseInt(consumptionMemory));
                 memory.setAmountMemories(Integer.parseInt(amountMemories));
                 memory.setStock(Integer.parseInt(stockMemory));
-                if (!fileNameMemory.isBlank())
-                    memory.setImagePath(uploadPath+fileNameMemory);
+                if (!fileNameMemory.isBlank()) {
+                    memory.setImagePath(uploadPath + fileNameMemory);
+                    try(InputStream inputStream = filePartMemory.getInputStream()){
+                        File file = new File(uploadPath+fileNameMemory);
+                        Files.copy(inputStream,file.toPath());
+                    }
+                }
                 else
                     memory.setImagePath(uploadPath + "none");
                 resp.getWriter().print(memoryDao.doSave(memory));
