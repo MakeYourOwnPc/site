@@ -295,7 +295,7 @@ public class ModifyDB extends HttpServlet {
                 if (!stockGpu.isBlank() && Integer.parseInt(stockGpu) >= 0)
                     gpu.setStock(Integer.parseInt(stockGpu));
                 if (!fileNameGpu.isBlank())
-                    gpu.setImagePath(fileNameGpu + uploadPath);
+                    gpu.setImagePath(uploadPath+fileNameGpu);
 
                 resp.getWriter().print(gpuDao.doUpdate(gpu));
                 return;
@@ -325,7 +325,7 @@ public class ModifyDB extends HttpServlet {
                 if (!stockCpu.isBlank() && Integer.parseInt(stockCpu) >= 0)
                     cpu.setStock(Integer.parseInt(stockCpu));
                 if (!fileNameCpu.isBlank())
-                    cpu.setImagePath(fileNameCpu + uploadPath);
+                    cpu.setImagePath(uploadPath+fileNameCpu);
                 resp.getWriter().print(cpuDao.doUpdate(cpu));
             }
             case "psus" -> {
@@ -347,7 +347,7 @@ public class ModifyDB extends HttpServlet {
                 if (!stockPsu.isBlank() && Integer.parseInt(stockPsu) >= 0)
                     psu.setStock(Integer.parseInt(stockPsu));
                 if (!fileNamePsu.isBlank())
-                    psu.setImagePath(fileNamePsu + uploadPath);
+                    psu.setImagePath(uploadPath+fileNamePsu);
                 resp.getWriter().print(psuDao.doUpdate(psu));
             }
             case "cases" -> {
@@ -369,7 +369,7 @@ public class ModifyDB extends HttpServlet {
                 if (!stockCase.isBlank() && Integer.parseInt(stockCase) >= 0)
                     pcCase.setStock(Integer.parseInt(stockCase));
                 if (!fileNameCase.isBlank())
-                    pcCase.setImagePath(fileNameCase + uploadPath);
+                    pcCase.setImagePath(uploadPath+fileNameCase );
                 resp.getWriter().print(pcCaseDao.doUpdate(pcCase));
             }
             case "motherboards" -> {
@@ -409,7 +409,7 @@ public class ModifyDB extends HttpServlet {
                 if (!stockMobo.isBlank() && Integer.parseInt(stockMobo) >= 0)
                     mobo.setStock(Integer.parseInt(stockMobo));
                 if (!fileNameMobo.isBlank())
-                    mobo.setImagePath(fileNameMobo + uploadPath);
+                    mobo.setImagePath(uploadPath+fileNameMobo);
                 resp.getWriter().print(moboDao.doUpdate(mobo));
             }
             case "memories" -> {
@@ -440,7 +440,7 @@ public class ModifyDB extends HttpServlet {
                 if (!stockMemory.isBlank() && Integer.parseInt(stockMemory) >= 0)
                     memory.setStock(Integer.parseInt(stockMemory));
                 if (!fileNameMemory.isBlank())
-                    memory.setImagePath(fileNameMemory + uploadPath);
+                    memory.setImagePath(uploadPath+fileNameMemory);
                 resp.getWriter().print(memoryDao.doUpdate(memory));
             }
         }
