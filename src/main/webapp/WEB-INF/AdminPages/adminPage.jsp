@@ -45,30 +45,43 @@
     <h2 class="button">Users</h2>
 </nav>
 <div class="rightBox">
-    <form id="searchForm" >
+    <form id="searchForm">
         <table id="searchFormContainer">
         </table>
 
     </form>
 
-    <button  class='btn active' onclick='submitForm()'>Search</button>
+    <button class='btn active' onclick='submitForm()'>Search</button>
 </div>
+
 <div>
-<table id="searchResult">
-</table>
+    <table id="searchResult">
+    </table>
+</div>
+
+<div id="overlayForm" class="overlayElement" style="display: none">
+<div class="centered-box">
+    <div class="box-container">
+        <h1 id="#updateTitle"></h1>
+        <form id="#updateForm" enctype="multipart/form-data">
+        </form>
     </div>
-<span>
-</span>
+</div>
+</div>
+
 </body>
+
 
 <script>
 
     var selectedElement;
 
+    function toggleOverlay(){
+        $("#overlayForm").fadeToggle();
+    }
     function hideSidebar() {
         $("#sidebar").slideToggle();
     }
-
     function toggleFormContainer() {
         $(".rightBox").slideToggle();
     }
@@ -95,19 +108,19 @@
         let tableHeader;
         let user = false;
         let power = true;
-        let name=true;
+        let name = true;
         switch (text) {
             case "Builds":
-                tableHeader="<tr><th>DataBase Id</th><th>MOBO</th><th>GPU</th><th>CPU</th><th>CASE</th><th>Memories</th><th>Suggested</th><th>Maker</th></tr>"
+                tableHeader = "<tr><th>DataBase Id</th><th>MOBO</th><th>GPU</th><th>CPU</th><th>CASE</th><th>Memories</th><th>Suggested</th><th>Maker</th></tr>"
                 $("#searchResult").addClass("buildsTable");
-                formHTML="<input type='hidden' id='requestedItem' name='requestedItem' value='builds'>"+
+                formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='builds'>" +
                     "<tr><td><label for='CPUname'>CPU Name</label></td><td><input type='text' id='CPUname' name='cpuName'></td></tr>" +
                     "<tr><td><label for='GPUname'>GPU Name</label></td><td><input type='text' id='GPUname' name='gpuName'></td></tr>" +
                     "<tr><td><label for='PSUname'>PSU Name</label></td><td><input type='text' id='PSUname' name='psuName'></td></tr>" +
                     "<tr><td><label for='MOBOname'>MOBO Name</label></td><td><input type='text' id='MOBOname' name='moboName'></td></tr>" +
                     "<tr><td><label for='buildType'>Build Type</label></td><td><input type='text' id='buildType' name='type'></td></tr>" +
                     "<tr><td><label for='maker'>Maker Name</label></td><td><input type='text' id='maker' name='maker'></td></tr>" +
-                    "<tr><td><label for='CASEname'>CASE Name</label></td><td><input type='text' id  ='CASEname' name='caseName'></td></tr>"+
+                    "<tr><td><label for='CASEname'>CASE Name</label></td><td><input type='text' id  ='CASEname' name='caseName'></td></tr>" +
                     "<tr><td><label for='suggested' >Suggested</label></td>" +
                     "<td><input type='radio' id='suggested' name='suggested' value='true'></td></tr>" +
 
@@ -116,31 +129,31 @@
 
                     "<tr><td><label for='notSuggested'>Not Suggested</label></td>" +
                     "<td><input type='radio' id='notSuggested' name='suggested' value='false'></td></tr>"
-                name=false;
-                    break;
+                name = false;
+                break;
             case "Gpus":
-                tableHeader="<tr><th>Product Name</th><th>Database Id</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
+                tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
                 $("#searchResult").addClass("gpusTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='gpus'>";
                 break;
             case "Cpus":
-                tableHeader="<tr><th>Product Name</th><th>Database Id</th><th>Socket</th><th>Integrated Gpu</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
+                tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Socket</th><th>Integrated Gpu</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
                 $("#searchResult").addClass("cpusTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='cpus'>" +
 
                     "<tr><td><label for='CPUsocket' >Socket</label></td>" +
-                    "<td><div class='form'><input type='text' id='CPUsocket' name='CPUsocket' ></td></tr>"+
+                    "<td><div class='form'><input type='text' id='CPUsocket' name='CPUsocket' ></td></tr>" +
 
                     "<tr><td><label for='integratedGpu' >Integrated Gpu</label></td>" +
                     "<td><div class='form'><input type='radio' id='integratedCPU' name='integratedGpu' value='true'></td></tr>" +
                     "<tr><td><label for='noIntegratedGpu' >No Integrated Gpu</label></td>" +
-                "<td><div class='form'><input type='radio' id='noIntegratedGpu' name='integratedGpu' value='false'></td></tr>"+
-                "<tr><td><label for='ignoreIntegratedGpu' >Ignore Integrated Gpu</label></td>" +
-                "<td><input type='radio' id='ignoreIntegratedGpu' name='integratedGpu' value='' checked></td></tr>";
+                    "<td><div class='form'><input type='radio' id='noIntegratedGpu' name='integratedGpu' value='false'></td></tr>" +
+                    "<tr><td><label for='ignoreIntegratedGpu' >Ignore Integrated Gpu</label></td>" +
+                    "<td><input type='radio' id='ignoreIntegratedGpu' name='integratedGpu' value='' checked></td></tr>";
                 break;
 
             case "Memories":
-                tableHeader="<tr><th>Product Name</th><th>Database Id</th><th>Socket</th><th>Memory Type</th><th>Amount Of Memories</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
+                tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Socket</th><th>Memory Type</th><th>Amount Of Memories</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
 
                 $("#searchResult").addClass("memoriesTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='memories'>" +
@@ -162,28 +175,28 @@
                 break;
             case "Cases":
                 $("#searchResult").addClass("casesTable");
-                tableHeader="<tr><th>Product Name</th><th>Database Id</th><th>Form Factor</th><th>Price</th><th>In Stock</th></tr>"
+                tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Form Factor</th><th>Price</th><th>In Stock</th></tr>"
 
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='cases'>" +
 
                     "<tr><tr><td><label for='formFactor'>Form Factor</label></td>" +
-                "<td><select type='number' id='formFActor' name='formFactor'>" +
-                "<option value='mini-itx'>Mini-ITX</option>" +
-                "<option value='micro-atx'>Micro-ATX</option>" +
-                "<option value='atx'>ATX</option>" +
-                "</select></td></tr>";
+                    "<td><select type='number' id='formFActor' name='formFactor'>" +
+                    "<option value='mini-itx'>Mini-ITX</option>" +
+                    "<option value='micro-atx'>Micro-ATX</option>" +
+                    "<option value='atx'>ATX</option>" +
+                    "</select></td></tr>";
                 power = false;
                 break;
             case "Psus":
-                tableHeader="<tr><th>Product Name</th><th>Database Id</th><th>Power</th><th>Price</th><th>In Stock</th></tr>"
+                tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Power</th><th>Price</th><th>In Stock</th></tr>"
 
                 $("#searchResult").addClass("psusTable");
-                formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='psus'>"+
+                formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='psus'>" +
                     "<tr><td><label for='power'>Power</label></td>" +
                     "<td><input type='number' id='power' name='power'></td></tr>";
                 break;
             case "Users":
-                tableHeader="<tr><th>Firstname</th><th>Lastname</th><th>Email</th><th>Is Admin</th></tr>"
+                tableHeader = "<tr><th>Firstname</th><th>Lastname</th><th>Email</th><th>Is Admin</th></tr>"
 
                 $("#searchResult").addClass("usersTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='users'>" +
@@ -204,7 +217,7 @@
                 break;
 
             case "MotherBoards":
-                tableHeader="<tr><th>Product Name</th><th>Database Id</th><th>Form Factor</th><th>Ram Sockets</th><th>Ram Slots</th><th>NVME Slots</th><th>SATA Slots</th><th>Form Factor</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
+                tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Form Factor</th><th>Ram Sockets</th><th>Ram Slots</th><th>NVME Slots</th><th>SATA Slots</th><th>Form Factor</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
 
                 $("#searchResult").addClass("motherboardsTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='motherboards'>" +
@@ -222,7 +235,7 @@
                     "<td><input type='number' id='nSATASockets' name='nSATASockets'></td></tr>" +
 
                     "<tr><td><label for='nNVMESockets'>NVME Sockets</label></td>" +
-                    "<td><input type='number' id='nNVMESockets' name='nNVMESockets'></td></tr>"+
+                    "<td><input type='number' id='nNVMESockets' name='nNVMESockets'></td></tr>" +
 
                     "<tr><td><label for='formFactor'>Form Factor</label></td>" +
                     "<td><select id='formFActor' name='formFactor'>" +
@@ -235,9 +248,8 @@
         }
 
 
-
-        if(name)
-        formHTML += "<tr><td><label for='name'>Name</label></td><td><input type='text' id='name' name='name'></td></tr>" ;
+        if (name)
+            formHTML += "<tr><td><label for='name'>Name</label></td><td><input type='text' id='name' name='name'></td></tr>";
 
         $("#searchFormContainer").html(formHTML);
 
@@ -254,10 +266,9 @@
         xhttp.onreadystatechange = function () {
 
             if (this.readyState == 4 && this.status == 200) {
-                console.log (this.responseText);
+                console.log(this.responseText);
 
                 var results = JSON.parse(this.responseText);
-
 
 
                 switch (selectedElement) {
@@ -291,8 +302,10 @@
 
                         results.forEach(userTabler);
                         break;
-                    default:$("#searchResult").html("Cannot visualize");
+                    default:
+                        $("#searchResult").html("Cannot visualize");
                 }
+
             }
         };
         xhttp.open("POST", "/MYOPSite_war_exploded/adminpage", true);
@@ -305,39 +318,39 @@
 
     }
 
-    function userTabler(value){
+    function userTabler(value) {
         var row;
-        row = "<tr class='removable'>"+
+        row = "<tr class='removable'>" +
             "<td class='firstname>" + value.firstName + "</td>" +
             "<td class='lastname'>" + value.lastName + "</td>" +
-            "<td class='email'>" + value.email + "</td>" ;
+            "<td class='email'>" + value.email + "</td>";
         if (value.admin)
             row += "<td class='isAdmin'>Yes</td>";
         else row += "<td class='isAdmin'>No</td>";
-            row+=buttonAdder(value.email)+"</tr>";
+        row += buttonAdder(value.email) + "</tr>";
         $("#searchResult").append(row);
-
     }
+
     function gpuTabler(value) {
         var row;
-        row = "<tr class='removable'>"+
-        "<td class='productName' >" + value.name + "</td>" +
-        "<td class='databaseId'>" + value.id + "</td>" +
+        row = "<tr class='removable'>" +
+            "<td class='productName' >" + value.name + "</td>" +
+            "<td class='databaseId'>" + value.id + "</td>" +
             "<td class='consumption'>" + value.consumption + "</td>" +
-         "<td class='price'>" + value.price + "$</td>" +
+            "<td class='price'>" + value.price + "$</td>" +
             "<td class='inStock'>" + value.stock + "</td>" +
             "<td><img src=-'" + value.imagePath + "'></td>" +
-            buttonAdder(value.id)+
+            buttonAdder(value.id) +
             "</tr>";
         $("#searchResult").append(row);
     }
 
     function cpuTabler(value) {
         var row;
-        row = "<tr class='removable'>"+
-        "<td class='productName'>" + value.name + "</td>" +
-        "<td class='databaseId'>" + value.id + "</td>" +
-        "<td class='socket'>" + value.socket + "</td>"
+        row = "<tr class='removable'>" +
+            "<td class='productName'>" + value.name + "</td>" +
+            "<td class='databaseId'>" + value.id + "</td>" +
+            "<td class='socket'>" + value.socket + "</td>"
         if (value.integratedgpu)
             row += "<td class='integratedGpu'>Yes</td>"
         else row += "<td class='integratedGpu'>No</td>"
@@ -346,17 +359,17 @@
             "<td class='price'>" + value.price + "$</td>" +
             "<td class='inStock'>" + value.stock + "</td>" +
             "<td><img src=-'" + value.imagePath + "'></td>" +
-            buttonAdder(value.id)+
+            buttonAdder(value.id) +
             "</tr>"
         $("#searchResult").append(row);
     }
 
     function memoryTabler(value) {
         var row;
-        row = "<tr class='removable'>"+
-        "<td class='productName'>" + value.name + "</td>" +
-        "<td class='databaseId'>" + value.id + "</td>" +
-        "<td class='socket'>" + value.socket + "</td>";
+        row = "<tr class='removable'>" +
+            "<td class='productName'>" + value.name + "</td>" +
+            "<td class='databaseId'>" + value.id + "</td>" +
+            "<td class='socket'>" + value.socket + "</td>";
         if (value.mType)
             row += "<td class='memoryType'>Mass Storage</td>"
         else row += "<td class='memoryType'>Ram</td>"
@@ -366,13 +379,14 @@
             "<td class='price'>" + value.price + "$</td>" +
             "<td class='inStock'>" + value.stock + "</td>" +
             "<td><img src=-'" + value.imagePath + "'></td>" +
-            buttonAdder(value.id)+
+            buttonAdder(value.id) +
             "</tr>"
         $("#searchResult").append(row);
     }
+
     function moboTabler(value) {
         var row;
-        row = "<tr class='removable'>"+
+        row = "<tr class='removable'>" +
             "<td class='productName' >" + value.name + "</td>" +
             "<td class='databaseId'>" + value.id + "</td>" +
             "<td class='cpuSocket'>" + value.cpuSocket + "</td>" +
@@ -385,74 +399,134 @@
             "<td class='price'>" + value.price + "$</td>" +
             "<td class='inStock'>" + value.stock + "</td>" +
             "<td><img src=-'" + value.imagePath + "'></td>" +
-            buttonAdder(value.id)+
+            buttonAdder(value.id) +
             "</tr>"
         $("#searchResult").append(row);
     }
 
     function pcCaseTabler(value) {
         var row;
-        row = "<tr class='removable'>"+
+        row = "<tr class='removable'>" +
             "<td class='productName' >" + value.name + "</td>" +
             "<td class='databaseId'>" + value.id + "</td>" +
             "<td class='formFactor'>" + value.formFactor + "</td>" +
             "<td class='price'>" + value.price + "$</td>" +
             "<td class='inStock'>" + value.stock + "</td>" +
             "<td><img src=-'" + value.imagePath + "'></td>" +
-            buttonAdder(value.id)+
+            buttonAdder(value.id) +
             "</tr>"
         $("#searchResult").append(row);
     }
 
     function buildTabler(value) {
         var row;
-        row = "<tr class='removable'>"+
+        row = "<tr class='removable'>" +
             "<td class='databaseId'>" + value.id + "</td>" +
             "<td class='moboName'>" + value.mobo + "</td>" +
             "<td  class='gpuName'>" + value.gpu + "</td>" +
-            "<td class='cpuName'>" + value.cpu + "</td>"+
-             "<td class='caseName'>" + value.pcCase + "</td><td class='memoriesName'>";
-            for(let i in value.memories){
-                row+= i + "<br>";
-            }
-            row+="</td>";
+            "<td class='cpuName'>" + value.cpu + "</td>" +
+            "<td class='caseName'>" + value.pcCase + "</td><td class='memoriesName'>";
+        for (let i in value.memories) {
+            row += i + "<br>";
+        }
+        row += "</td>";
         if (value.suggested)
             row += "<td class='isSuggested'>Yes</td>"
         else row += "<td class='isSuggested'>No</td>"
 
-            row+= "<td class='buildType'>" + value.type + "</td>" +
-                "<td class='maker'>" + value.maker + "</td>" +
-                buttonAdder(value.id)+
+        row += "<td class='buildType'>" + value.type + "</td>" +
+            "<td class='maker'>" + value.maker + "</td>" +
+            buttonAdder(value.id) +
             "</tr>"
         $("#searchResult").append(row);
     }
 
     function psusTabler(value) {
         var row;
-        row = "<tr class='removable'>"+
+        row = "<tr class='removable'>" +
             "<td class='productName' >" + value.name + "</td>" +
             "<td class='databaseId'>" + value.id + "</td>" +
-            "<td class='power'>" + value.power + "</td>"+
+            "<td class='power'>" + value.power + "</td>" +
             "<td class='price'>" + value.price + "$</td>" +
             "<td class='inStock'>" + value.stock + "</td>" +
             "<td><img src=-'" + value.imagePath + "'></td>" +
-            buttonAdder(value.id)+
+            buttonAdder(value.id) +
             "</tr>"
         $("#searchResult").append(row);
     }
 
-    function buttonAdder(id){
+    function buttonAdder(id) {
         let buttonForm;
-        let requestedItem=$("#requestedItem").attr("value");
-        buttonForm="<td><form action='showItem' method='post'><input type='hidden' name='id' value='"+id+"'>" +
+        let requestedItem = $("#requestedItem").attr("value");
+        buttonForm = "<td><form id='"+id+"' onclick='viewItem( "+id+")'>" +
+            "<input type='hidden' name='id' value='" + id + "'>" +
             "<input type='hidden' name='option' value='update'>" +
-            "<input type='hidden'  name='requestedItem' value='"+requestedItem+"'>" +
-            "<input type='submit' class='btn active' value='Modify'></form></td>";
+            "<input type='hidden'  name='requestedItem' value='" + requestedItem + "'>" +
+            "<h1 class='btn active'>Modify</h1></form></td>";
         return buttonForm;
-
     }
 
 
+
+    function viewItem(id){
+            let formData= $("#"+id).serialize()
+            console.log(formData);
+            $.ajax({
+                url:"",
+                type: 'POST',
+                data: formData,
+                success: function (data) {
+                    let item=JSON.parse(data);
+                    prepareFormUpdate(item,false)
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+        });
+    }
+
+    function prepareFormUpdate(item,update){
+        let formHTML;
+
+        switch (selectedElement){
+            case"Gpu":formHTML=' <input type="hidden" id="requestedItem" name="requestedItem" value="gpus">'+ +
+                '<tr><td><label for="id">DataBase Id</label></td>'+
+            '<td><input type="hidden" name="id" value="'+id+' disabled></td></tr>'+
+
+            '<tr><td><label for="productName">Product Name</label></td>' +
+                '<td><input type="text" id="productName" value="'+item.name+'"></td></tr>'+
+
+            '<tr><td><input type="number" id="power" value="'+item.consumption+'"></td></tr>'+
+            '<tr><td><input type="number" id="stock" value="'+item.stock+'"></td></tr>'+
+                '<tr><td><label for="price">Price</label></td>' +
+                '<td><input type="number" step="0.01" value="'+item.price+'}"></td></tr>' +
+                '<tr><td><input type="file" id="image" name="image"></td></tr>'+
+            '<tr><td><img src="'+item.imagePath+'"></td></tr>'
+                break;
+            case"Cpus":formHTML='<tr><td><label for="id">DataBase Id</label></td>' +
+                '<td><input type="hidden" name="id" value="'+item.id+' disabled></td></tr>'+
+                ' <input type="hidden" id="requestedItem" name="requestedItem" value="cpus">'+
+                '<tr><td><label for="productName">Product Name</label></td>' +
+                '<td><input type="text" id="productName" value="'+item.name+'"></td></tr>'+
+                '<tr><td><label for="CPUsocket">Socket</label></td>'+
+                '<td><input type="text" id="CPUsocket" name="CPUsocket" value="'+item.socket+'}"></td></tr>'+
+                '<tr><td><label for="integratedGpu">Integrated Gpu</label></td>'+
+                '<td><input type="radio" id="integratedGpu" name="integratedGpu" value="true"'+ (item.integratedGpu)?'checked':''+'></td></tr>'+
+                '<tr><td><label for="noIntegratedGpu">No Integrated Gpu</label></td>'+
+                '<td><input type="radio" id="noIntegratedGpu" name="integratedGpu" value="false"'+ (!item.integratedGpu)?'checked':''+'></td></tr>'+
+                '<tr><td><label for="consumption">Consumption</label></td>'+
+                '<td><input type="number" id="consumption" value="'+item.consumption+'"></td></tr>'+
+                 '<tr><td><label for="price">Price</label></td>'+
+                  '<td><input type="number" step="0.01" value="'+item.price+'}"></td></tr>'+
+                     '<input type="file" id="image" name="image"><img src="'+item.imagePath+'">';
+                break;
+
+
+        }
+        $("#updateForm").html(formHTML);
+        toggleOverlay();
+
+    }
 
 
 </script>
