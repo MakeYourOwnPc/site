@@ -133,7 +133,5 @@ public class ShowItem extends HttpServlet {
                 break;
             case "builds":;
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/AdminPages/UpdateDatabase.jsp");
-        dispatcher.forward(req,resp);
     }
 }
