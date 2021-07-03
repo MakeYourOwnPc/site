@@ -15,7 +15,6 @@
 <script src="../jslibraries/jQuery.js"></script>
 
 <nav class="topbar">
-
     <div id="icon-container sidebar-icon" onclick="hideSidebar()">
         <%@include file="../../icons/list-ul.svg" %>
     </div>
@@ -44,8 +43,8 @@
     <h2 class="button">Builds</h2>
     <h2 class="button">Users</h2>
 </nav>
-<div class="rightBox">
-    <form id="searchForm">
+<div class="rightBox" style="display: none">
+    <form id="searchForm" >
         <table id="searchFormContainer">
         </table>
 
@@ -60,13 +59,24 @@
 </div>
 
 <div id="overlayForm" class="overlayElement" style="display: none">
-<div class="centered-box">
-    <div class="box-container">
-        <h1 id="#updateTitle"></h1>
-        <form id="#updateForm" enctype="multipart/form-data">
-        </form>
+    <div class="centered-box">
+        <div class="box-container">
+            <table>
+                <tr>
+                    <td><h1 id="updateTitle"></h1></td>
+                    <td>
+                        <button onclick="toggleOverlay()">Chiudi</button>
+                    </td>
+                </tr>
+            </table>
+            <form enctype="multipart/form-data">
+                <table class="registration-box" id="updateForm">
+                </table>
+            </form>
+            <table id="buttonSpace">
+            </table>
+        </div>
     </div>
-</div>
 </div>
 
 </body>
@@ -76,12 +86,14 @@
 
     var selectedElement;
 
-    function toggleOverlay(){
+    function toggleOverlay() {
         $("#overlayForm").fadeToggle();
     }
+
     function hideSidebar() {
         $("#sidebar").slideToggle();
     }
+
     function toggleFormContainer() {
         $(".rightBox").slideToggle();
     }
@@ -276,14 +288,12 @@
                         results.forEach(gpuTabler);
                         break;
                     case "Cpus":
-
                         results.forEach(cpuTabler);
                         break;
                     case "Memories":
                         results.forEach(memoryTabler);
                         break;
                     case "Builds":
-
                         results.forEach(buildTabler);
                         break;
                     case "MotherBoards":
@@ -458,7 +468,7 @@
     function buttonAdder(id) {
         let buttonForm;
         let requestedItem = $("#requestedItem").attr("value");
-        buttonForm = "<td><form id='"+id+"' onclick='viewItem( "+id+")'>" +
+        buttonForm = "<td><form id='" + id + "' onclick='viewItem( " + id + ")'>" +
             "<input type='hidden' name='id' value='" + id + "'>" +
             "<input type='hidden' name='option' value='update'>" +
             "<input type='hidden'  name='requestedItem' value='" + requestedItem + "'>" +
@@ -467,64 +477,245 @@
     }
 
 
-
-    function viewItem(id){
-            let formData= $("#"+id).serialize()
-            console.log(formData);
-            $.ajax({
-                url:"",
-                type: 'POST',
-                data: formData,
-                success: function (data) {
-                    let item=JSON.parse(data);
-                    prepareFormUpdate(item,false)
-                },
-                cache: false,
-                contentType: false,
-                processData: false
+    function viewItem(id) {
+        let formData = $("#" + id).serialize()
+        console.log(formData);
+        $.ajax({
+            url: "./showItem",
+            type: 'POST',
+            data: formData,
+            beforeSend: function (x) {
+                x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            },
+            success: function (data) {
+                console.log(data);
+                let item = JSON.parse(data);
+                prepareFormUpdate(item)
+            },
+            cache: false,
+            contentType: false,
+            processData: false
         });
     }
 
-    function prepareFormUpdate(item,update){
+    function prepareFormUpdate(item) {
         let formHTML;
 
-        switch (selectedElement){
-            case"Gpu":formHTML=' <input type="hidden" id="requestedItem" name="requestedItem" value="gpus">'+ +
-                '<tr><td><label for="id">DataBase Id</label></td>'+
-            '<td><input type="hidden" name="id" value="'+id+' disabled></td></tr>'+
+        switch (selectedElement) {
+            case"Gpus":
+                formHTML = ' <input type="hidden" id="requestedItem" name="requestedItem" value="gpus">' +
 
-            '<tr><td><label for="productName">Product Name</label></td>' +
-                '<td><input type="text" id="productName" value="'+item.name+'"></td></tr>'+
+                    '<tr><td><label for="id">DataBase Id</label></td>' +
+                    '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
 
-            '<tr><td><input type="number" id="power" value="'+item.consumption+'"></td></tr>'+
-            '<tr><td><input type="number" id="stock" value="'+item.stock+'"></td></tr>'+
-                '<tr><td><label for="price">Price</label></td>' +
-                '<td><input type="number" step="0.01" value="'+item.price+'}"></td></tr>' +
-                '<tr><td><input type="file" id="image" name="image"></td></tr>'+
-            '<tr><td><img src="'+item.imagePath+'"></td></tr>'
+                    '<tr><td><label for="productName">Product Name</label></td>' +
+                    '<td><input type="text" id="productName" value="' + item.name + '"></td></tr>' +
+
+                    '<tr><td><label for="consumption">Consumption</label></td>' +
+                    '<td><input type="number" id="consumption" value="' + item.consumption + '"></td></tr>' +
+
+                    '<tr><td><label for="price">Price</label></td>' +
+                    '<td><input type="number" step="0.01" value="' + item.price + '"></td></tr>' +
+
+                    '<tr><td><label for="inStock">In Stock</label></td>' +
+                    '<td><input type="number" id="inStock" value="' + item.stock + '"></td></tr>' +
+
+                    '<tr><td><input type="file" id="image" name="image"></td></tr>' +
+                    '<tr><td><img src="' + item.imagePath + '"></td></tr>'
                 break;
-            case"Cpus":formHTML='<tr><td><label for="id">DataBase Id</label></td>' +
-                '<td><input type="hidden" name="id" value="'+item.id+' disabled></td></tr>'+
-                ' <input type="hidden" id="requestedItem" name="requestedItem" value="cpus">'+
-                '<tr><td><label for="productName">Product Name</label></td>' +
-                '<td><input type="text" id="productName" value="'+item.name+'"></td></tr>'+
-                '<tr><td><label for="CPUsocket">Socket</label></td>'+
-                '<td><input type="text" id="CPUsocket" name="CPUsocket" value="'+item.socket+'}"></td></tr>'+
-                '<tr><td><label for="integratedGpu">Integrated Gpu</label></td>'+
-                '<td><input type="radio" id="integratedGpu" name="integratedGpu" value="true"'+ (item.integratedGpu)?'checked':''+'></td></tr>'+
-                '<tr><td><label for="noIntegratedGpu">No Integrated Gpu</label></td>'+
-                '<td><input type="radio" id="noIntegratedGpu" name="integratedGpu" value="false"'+ (!item.integratedGpu)?'checked':''+'></td></tr>'+
-                '<tr><td><label for="consumption">Consumption</label></td>'+
-                '<td><input type="number" id="consumption" value="'+item.consumption+'"></td></tr>'+
-                 '<tr><td><label for="price">Price</label></td>'+
-                  '<td><input type="number" step="0.01" value="'+item.price+'}"></td></tr>'+
-                     '<input type="file" id="image" name="image"><img src="'+item.imagePath+'">';
+            case"Cpus":
+                let integrated = (item.integratedGpu) ? 'checked' : '';
+                let noIntegrated = (!item.integratedGpu) ? 'checked' : '';
+                formHTML =
+                    '<input type="hidden" id="requestedItem" name="requestedItem" value="cpus">' +
+
+                    '<tr><td><label for="id">DataBase Id</label></td>' +
+                    '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
+
+                    '<tr><td><label for="productName">Product Name</label></td>' +
+                    '<td><input type="text" id="productName" value="' + item.name + '"></td></tr>' +
+
+                    '<tr><td><label for="CPUsocket">Socket</label></td>' +
+                    '<td><input type="text" id="CPUsocket" name="CPUsocket" value="' + item.socket + '"></td></tr>' +
+
+                    '<tr><td><label for="integratedGpu">Integrated Gpu</label></td>' +
+                    '<td><input type="radio" id="integratedGpu" name="integratedGpu" value="true"' + integrated + '></td></tr>' +
+
+                    '<tr><td><label for="noIntegratedGpu">No Integrated Gpu</label></td>' +
+                    '<td><input type="radio" id="noIntegratedGpu" name="integratedGpu" value="false"' + noIntegrated + '></td></tr>' +
+
+                    '<tr><td><label for="consumption">Consumption</label></td>' +
+                    '<td><input type="number" id="consumption" value="' + item.consumption + '"></td></tr>' +
+
+                    '<tr><td><label for="price">Price</label></td>' +
+                    '<td><input type="number" step="0.01" value="' + item.price + '"></td></tr>' +
+
+                    '<tr><td><label for="inStock">In Stock</label></td>' +
+                    '<td><input type="number" id="inStock" value="' + item.stock + '"></td></tr>' +
+
+                    '<tr><td><input type="file" id="image" name="image"></td><td><img src="' + item.imagePath + '"></td></tr>';
                 break;
 
+            case"Memories":
+                let ram = (!item.mType) ? 'checked' : '';
+                let massStorage = (item.mType) ? 'checked' : '';
+                formHTML =
+                    ' <input type="hidden" id="requestedItem" name="requestedItem" value="memories">' +
+
+                    '<tr><td><label for="id">DataBase Id</label></td>' +
+                    '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
+
+                    '<tr><td><label for="productName">Product Name</label></td>' +
+                    '<td><input type="text" id="productName" value="' + item.name + '"></td></tr>' +
+
+                    ' <tr><td><label for="MEMsocket">Memory Socket</label></td>' +
+                    '<td><input type="text" id="MEMsocket" name="MEMsocket" value="' + item.socket + '"></td></tr>' +
+
+                    '<tr><td><label for="Ram">Ram</label></td>' +
+                    '<td><input type="radio" id="Ram" name="mType" value="false"' + Ram + '"></td></tr>' +
+
+                    '<tr><td><label for="MassStorage">MassStorage</label></td>' +
+                    '<td class="form"><input type="radio" id="MassStorage" name="mType" value="true"' + massStorage + '</td></tr>' +
+
+                    '<tr><td><label for="amountMemories">Amount Of Memories</label></td>' +
+                    '<td><input type="number" id="amountMemories" name="amountOfMemories" value=' + item.amountMemories + '></td></tr>' +
+
+
+                    '<tr><td><label for="consumption">Consumption</label></td>' +
+                    '<td><input type="number" id="consumption" value="' + item.consumption + '"></td></tr>' +
+
+                    '<tr><td><label for="price">Price</label></td>' +
+                    '<td><input type="number" step="0.01" value="' + item.price + '"></td></tr>' +
+
+                    '<tr><td><label for="inStock">In Stock</label></td>' +
+                    '<td><input type="number" id="inStock" value="' + item.stock + '"></td></tr>' +
+
+                    '<tr><td><input type="file" id="image" name="image"></td>' +
+                    '<td><img src="' + item.imagePath + '"></td></tr>';
+                break;
+            case"Cases":
+                let miniitx = (item.formFactor == "mini-itx") ? 'selected' : '';
+                let microatx = (item.formFactor == "micro-atx") ? 'selected' : '';
+                let atx = (item.formFactor == "atx") ? 'selected' : '';
+                formHTML = ' <input type="hidden" id="requestedItem" name="requestedItem" value="cases">' +
+
+                    '<tr><td><label for="id">DataBase Id</label></td>' +
+                    '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
+
+                    '<tr><td><label for="productName">Product Name</label></td>' +
+                    '<td><input type="text" id="productName" value="' + item.name + '"></td></tr>' +
+
+                    '<tr><td><label for="formFactor">Form Factor</label></td>' +
+                    '<td><select id="formFActor" name="formFactor">' +
+                    '<option value="mini-itx"' + miniitx + '>Mini-ITX</option>' +
+                    " <option value='micro-atx' " + microatx + ">Micro-ATX</option>" +
+                    "<option value='atx'" + atx + ">ATX</option></select></td></tr>" +
+
+                    '<tr><td><label for="consumption">Consumption</label></td>' +
+                    '<td><input type="number" id="consumption" value="' + item.consumption + '"></td></tr>' +
+
+                    '<tr><td><label for="price">Price</label></td>' +
+                    '<td><input type="number" step="0.01" value="' + item.price + '"></td></tr>' +
+
+                    '<tr><td><label for="inStock">In Stock</label></td>' +
+                    '<td><input type="number" id="inStock" value="' + item.stock + '"></td></tr>' +
+
+                    '<tr><td><input type="file" id="image" name="image"></td>' +
+                    '<td><img src="' + item.imagePath + '"></td></tr>';
+                break;
+            case"MotherBoards":
+                let miniitxm = (item.formFactor == "mini-itx") ? 'selected' : '';
+                let microatxm = (item.formFactor == "micro-atx") ? 'selected' : '';
+                let atxm = (item.formFactor == "atx") ? 'selected' : '';
+                formHTML = ' <input type="hidden" id="requestedItem" name="requestedItem" value="motherboards">' +
+
+                    '<tr><td><label for="id">DataBase Id</label></td>' +
+                    '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
+
+                    '<tr><td><label for="productName">Product Name</label></td>' +
+                    '<td><input type="text" id="productName" value="' + item.name + '"></td></tr>' +
+
+                    "<tr><td><label for='CPUsocket'>CPU Socket</label></td>" +
+                    " <td><input type='text' id='CPUsocket' name='CPUsocket' value='" + item.cpuSocket + "'></td></tr>" +
+
+                    "<tr><td><label for='RAMsocket'>RAM Socket</label></td>" +
+                    " <td><input type='text' id='RAMsocket' name='RAMsocket' value='" + item.ramSocket + "'></td></tr>" +
+
+                    " <tr><td><label for='nRAMSockets'>RAM Slots</label></td>" +
+                    "  <td><input type='number' id='nRAMSockets' name='nRAMSockets' value='" + item.amountSlotRam + "' ></td></tr>" +
+
+                    " <tr><td><label for='nSATASockets'>SATA Slots</label></td>" +
+                    "  <td><input type='number' id='nSATASockets' name='nSATASockets' value='" + item.amountSlotSata + "' ></td></tr>" +
+
+                    " <tr><td><label for='nNVMESockets'>NVME Slots</label></td>" +
+                    "  <td><input type='number' id='nNVMESockets' name='nNVMESockets' value='" + item.amountSlotNvme + "' ></td></tr>" +
+
+                    '<tr><td><label for="formFactor">Form Factor</label></td>' +
+                    '<td><select id="formFActor" name="formFactor">' +
+                    '<option value="mini-itx"' + miniitxm + '>Mini-ITX</option>' +
+                    " <option value='micro-atx' " + microatxm + ">Micro-ATX</option>" +
+                    "<option value='atx'" + atxm + ">ATX</option></select></td></tr>" +
+
+                    '<tr><td><label for="consumption">Consumption</label></td>' +
+                    '<td><input type="number" id="consumption" value="' + item.consumption + '"></td></tr>' +
+
+                    '<tr><td><label for="price">Price</label></td>' +
+                    '<td><input type="number" step="0.01" value="' + item.price + '"></td></tr>' +
+
+                    '<tr><td><label for="inStock">In Stock</label></td>' +
+                    '<td><input type="number" id="inStock" value="' + item.stock + '"></td></tr>' +
+
+                    '<tr><td><input type="file" id="image" name="image"></td>' +
+                    '<td><img src="' + item.imagePath + '"></td></tr>';
+                break
+            case"Psus":
+                formHTML = ' <input type="hidden" id="requestedItem" name="requestedItem" value="psus">' +
+
+                    '<tr><td><label for="id">DataBase Id</label></td>' +
+                    '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
+
+                    '<tr><td><label for="productName">Product Name</label></td>' +
+                    '<td><input type="text" id="productName" value="' + item.name + '"></td></tr>' +
+
+                    '<tr><td><label for="consumption">Power</label></td>' +
+                    '<td><input type="text" id="consumption" value="' + item.power + '"></td></tr>' +
+
+                    '<tr><td><label for="price">Price</label></td>' +
+                    '<td><input type="number" step="0.01" value="' + item.price + '"></td></tr>' +
+
+                    '<tr><td><label for="inStock">In Stock</label></td>' +
+                    '<td><input type="number" id="inStock" value="' + item.stock + '"></td></tr>' +
+
+                    '<tr><td><input type="file" id="image" name="image"></td>' +
+                    '<td><img src="' + item.imagePath + '"></td></tr>';
+                break;
+
+            case"Users":
+                let admin = (item.admin) ? 'checked' : '';
+                formHTML = ' <input type="hidden" id="requestedItem" name="requestedItem" value="users">' +
+
+                    '<tr><td><label for="email">User Email</label></td>' +
+                    '<td><input type="text" name="email" value="' + item.email + '" disabled></td></tr>' +
+
+                    '<tr><td><label for="firstName">Firstname</label></td>' +
+                    '<td><input type="text" name="firstName" value="' + item.firstName + '" ></td></tr>' +
+
+                    '<tr><td><label for="lastName">Lastname</label></td>' +
+                    '<td><input type="text" name="lastName" value="' + item.lastName + '" ></td></tr>' +
+
+                    '<tr><td><label for="admin">Admin</label></td>' +
+                    '<td><input type="checkbox" id="admin" name="admin" value="true"' + admin + '></td></tr>';
+                break;
 
         }
+        let buttonHTML='<tr><td><button type="submit" name="option" value="delete" class="btn btn-danger">Delete</button></td>' +
+            '<td><button type="submit" name="option" value="update"  class="btn btn-success" >Save Changes</button></td></tr>';
+        console.log(formHTML);
+        $("#updateTitle").text("Update Element");
         $("#updateForm").html(formHTML);
+        $("#buttonSpace").html(buttonHTML)
         toggleOverlay();
+
 
     }
 
