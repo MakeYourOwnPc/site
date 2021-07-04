@@ -28,7 +28,7 @@ public class loginMock  extends HttpServlet {
          if(email.equalsIgnoreCase("admin@admin.it")&&password.equalsIgnoreCase("admin"))
          {
              user= new User("admin@admin.it",true,"nomeAdmin","cognomeAdmin","admin");
-             System.out.println(email+"logged in");
+             System.out.println(email+" logged in");
          }else if(email.equalsIgnoreCase("noadmin@noadmin.it")&&password.equalsIgnoreCase("noadmin"))
         {
             user= new User("noadmin@noadmin.it",false,"nomeUtente","cognomeUtente","noadmin");
@@ -40,5 +40,11 @@ public class loginMock  extends HttpServlet {
         }
         RequestDispatcher dispatcher= request.getRequestDispatcher("./WEB-INF/index.jsp");
         dispatcher.forward(request,response);
+    }
+    void boh(){
+        String hr="hello";
+        java.lang.StringBuilder lol= new java.lang.StringBuilder();
+        lol.isEmpty();
+        hr.isEmpty();
     }
 }

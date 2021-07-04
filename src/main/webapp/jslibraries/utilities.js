@@ -45,3 +45,25 @@ function validateUser(){
 
     return submitable;
 }
+
+function existingEmail(){
+    let xhttp = new XMLHttpRequest();
+    let emailalert = document.getElementById("email-alert");
+    let submit = document.getElementById("submit-registration");
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if(this.responseText=="true"){
+                emailalert.innerText="Email Already Present";
+                emailalert.hidden=false;
+                submit.disabled=true;
+                console.log("email rejected");
+            }
+            else
+                submit.disabled=false;
+            emailalert.hidden=true;
+        }
+    };
+    xhttp.open("POST", "/MYOPSite_war_exploded/emailispresent", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("email="+document.getElementById("email").value);
+}

@@ -13,6 +13,7 @@
 <script src="../bootstrap/popper.js" defer></script>
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
 <script src="../jslibraries/jQuery.js"></script>
+<script src="../jslibraries/utilities.js"></script>
 
 <nav class="topbar">
     <div id="icon-container sidebar-icon" onclick="hideSidebar()">
@@ -21,9 +22,8 @@
     <h2 id="selectedFormTitle"> Choose Element</h2>
 
 
-    <form action='showItem' method='post'>
-        <input type='hidden' name='option' value='create'>
-        <input type='submit' class='btn active' value='Add Element'></form>
+
+    <button id ="insertButton" onclick="prepareFormInsert()" class='btn active' style="float:right;" hidden>Add Element</button>
     <div class="icon-container filter-icon" onclick="toggleFormContainer()">
         <%@include file="../../icons/filter_icon.svg" %>
     </div>
@@ -60,19 +60,20 @@
 <div id="overlayForm" class="overlayElement" style="display: none">
     <div class="centered-box">
         <div class="box-container">
-            <table>
-                <tr>
-                    <td><h1 id="updateTitle"></h1></td>
+            <table style="width: 100%">
+                <tr style="vertical-align: middle">
+                    <td><h1 id="updateTitle" style="float: left"></h1></td>
                     <td>
-                        <button onclick="toggleOverlay()">Chiudi</button>
+                        <button onclick="toggleOverlay()" class="btn btn-danger" style="font-size: 26px;font-weight: bolder" >X</button>
                     </td>
                 </tr>
             </table>
             <form id="updateForm" action="./modifyDB" method="post" enctype="multipart/form-data">
                 <table class="registration-box" id="updateFormBox">
                 </table>
+                <div id="imageInput"></div>
 
-            <table id="buttonSpace">
+            <table id="buttonSpace" style="width: 100%">
             </table>
             </form>
 
@@ -122,6 +123,7 @@
         let user = false;
         let power = true;
         let name = true;
+        $("#insertButton").removeAttr("hidden");
         switch (text) {
             case "Builds":
                 tableHeader = "<tr><th>DataBase Id</th><th>MOBO</th><th>GPU</th><th>CPU</th><th>CASE</th><th>Memories</th><th>Suggested</th><th>Maker</th></tr>"
@@ -506,9 +508,10 @@
         switch (selectedElement) {
             case"Gpus":
                 formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="gpus">' +
+                    '<input type="hidden" name="id" value="' + item.id + '" >' +
 
                     '<tr><td><label for="id">DataBase Id</label></td>' +
-                    '<td><input type="hidden" name="id" value="' + item.id + '" >' + item.id + '</td></tr>' +
+                    '<td>'+ item.id + '</td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
                     '<td><input type="text" id="productName" name="name" value="' + item.name + '" onkeyup="checkProductName()">' +
@@ -523,7 +526,7 @@
                     '<tr><td><label for="inStock">In Stock</label></td>' +
                     '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
 
-                    '<tr><td><input type="file" id="image" name="image"></td></tr>' +
+
                     '<tr><td><img src="' + item.imagePath + '"></td></tr>'
                 break;
             case"Cpus":
@@ -557,7 +560,7 @@
                     '<tr><td><label for="inStock">In Stock</label></td>' +
                     '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
 
-                    '<tr><td><input type="file" id="image" name="image"></td><td><img src="' + item.imagePath + '"></td></tr>';
+                    '<tr><img src="' + item.imagePath + '"></td></tr>';
                 break;
 
             case"Memories":
@@ -595,7 +598,7 @@
                     '<tr><td><label for="inStock">In Stock</label></td>' +
                     '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
 
-                    '<tr><td><input type="file" id="image" name="image"></td>' +
+
                     '<td><img src="' + item.imagePath + '"></td></tr>';
                 break;
             case"Cases":
@@ -605,7 +608,7 @@
                 formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="cases">' +
 
                     '<tr><td><label for="id">DataBase Id</label></td>' +
-                    '<td><input type="text" name="id" value="' + item.id + '" disabled  ></td></tr>' +
+                    '<td><input type="text" name="id" value="' + item.id + '"   ></td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
                     '<td><input type="text" id="productName" name="name" value="' + item.name + '" onkeyup="checkProductName()" >' +
@@ -626,7 +629,7 @@
                     '<tr><td><label for="inStock">In Stock</label></td>' +
                     '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
 
-                    '<tr><td><input type="file" id="image" name="image"></td>' +
+
                     '<td><img src="' + item.imagePath + '"></td></tr>';
                 break;
             case"MotherBoards":
@@ -636,7 +639,7 @@
                 formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="motherboards">' +
 
                     '<tr><td><label for="id">DataBase Id</label></td>' +
-                    '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
+                    '<td><input type="text" name="id" value="' + item.id + '" ></td></tr>' +
 
                     '<tr><td><label for="productName">Product Name</label></td>' +
                     '<td><input type="text" id="productName" name="name" value="' + item.name + '" onkeyup="checkProductName()">' +
@@ -672,7 +675,7 @@
                     '<tr><td><label for="inStock">In Stock</label></td>' +
                     '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
 
-                    '<tr><td><input type="file" id="image" name="image"></td>' +
+
                     '<td><img src="' + item.imagePath + '"></td></tr>';
                 break
             case"Psus":
@@ -694,7 +697,6 @@
                     '<tr><td><label for="inStock">In Stock</label></td>' +
                     '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
 
-                    '<tr><td><input type="file" id="image" name="image"></td>' +
                     '<td><img src="' + item.imagePath + '"></td></tr>';
                 break;
 
@@ -718,15 +720,16 @@
         }
         let buttonHTML='<tr><td><input type="radio" name="option" value="delete" class="btn btn-danger" >Delete</input></td>' +
             '<td><input id="saveChanges" type="radio" name="option" value="update"  class="btn btn-success" >Save Changes</input></td>' +
-            '<td><input type="submit"></td></tr>';
+            '<td><input id="submitDBUpdate" type="submit" class="btn active"></td></tr>';
         console.log(formHTML);
+        $("#imageInput").html('<input type="file" id="image" name="image">');
         $("#updateTitle").text("Update Element");
         $("#updateFormBox").html(formHTML);
         $("#buttonSpace").html(buttonHTML)
         toggleOverlay();
     }
 
-    function updateItem(){
+   /* function updateItem(){
         let formData = $("#updateForm").serialize();
 
 
@@ -736,9 +739,9 @@
             type: 'POST',
             data: formData,
             formEnctype:"multipart/form-data",
-            /*beforeSend: function (x) {
+            beforeSend: function (x) {
                 x.setRequestHeader("Content-type", "multipart/form-data");
-            },*/
+            },
             enctype: 'multipart/form-data',
             success: function (data) {
                 if(data=="true"){
@@ -752,29 +755,245 @@
             processData: false
         });
 
-    }
+    }*/
 
 
     function checkProductName(){
         let xhttp = new XMLHttpRequest();
-        let nameAlert = document.getElementById("productName");
+
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                console.log("ItemIsPresent "+this.responseText);
                 if(this.responseText=="true"){
-                    $("#saveChanges").disable();
-                    $("#name-alert").disable();
-                    console.log("email rejected");
+                    $("#name-alert").attr('hidden', false);
+                    document.getElementById("submitDBUpdate").disabled=true;
                 }
                 else
-                    $("#saveChanges").enabled();
-                    $("#name-alert").disable();
+                    $("#name-alert").attr('hidden', true);
+                document.getElementById("submitDBUpdate").disabled=false;
             }
         };
-        xhttp.open("POST", "/MYOPSite_war_exploded/itemispresent", true);
+        xhttp.open("POST", "./itemIsPresent", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        let requestSend="="+document.getElementById("productName").value+"&id="+document.getElementById("id").value+
+        let requestSend="name="+document.getElementById("productName").value+"&id="+document.getElementById("id").value+
             "&requestedItem="+document.getElementById("requestedItemUpdate").value;
         xhttp.send(requestSend);
+    }
+
+    function prepareFormInsert() {
+        let formHTML;
+
+        switch (selectedElement) {
+            case"Gpus":
+                formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="gpus">' +
+                    '<input type="hidden" name="option" value="insert">' +
+                    '<input type="hidden" id="id" name="id" value="-1">' +
+
+                    '<tr><td><label for="productName">Product Name</label></td>' +
+                    '<td><input type="text" id="productName" name="name"  onkeyup="checkProductName()">' +
+                    '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
+
+                    '<tr><td><label for="consumption">Consumption</label></td>' +
+                    '<td><input type="number" name="consumption" id="consumption" ></td></tr>' +
+
+                    '<tr><td><label for="price">Price</label></td>' +
+                    '<td><input type="number" step="0.01" name="price"></td></tr>' +
+
+                    '<tr><td><label for="inStock">In Stock</label></td>' +
+                    '<td><input type="number" id="inStock" name="stock" ></td></tr>'
+
+
+                break;
+            case"Cpus":
+                formHTML =
+                    '<input type="hidden" id="requestedItemUpdate" name="requestedItem" value="cpus">' +
+                    '<input type="hidden" name="option" value="insert">' +
+                    '<input type="hidden" id="id" name="id" value="-1">' +
+
+
+                    '<tr><td><label for="productName">Product Name</label></td>' +
+                    '<td><input name="name" type="text" id="productName" onkeyup="checkProductName()" >' +
+                    '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
+
+                    '<tr><td><label for="CPUsocket">Socket</label></td>' +
+                    '<td><input type="text" id="CPUsocket" name="CPUsocket"></td></tr>' +
+
+                    '<tr><td><label for="integratedGpu">Integrated Gpu</label></td>' +
+                    '<td><input type="radio" id="integratedGpu" name="integratedGpu" ></td></tr>' +
+
+                    '<tr><td><label for="noIntegratedGpu">No Integrated Gpu</label></td>' +
+                    '<td><input type="radio" id="noIntegratedGpu" name="integratedGpu" value="false"></td></tr>' +
+
+                    '<tr><td><label for="consumption">Consumption</label></td>' +
+                    '<td><input type="number" name="consumption" id="consumption"></td></tr>' +
+
+                    '<tr><td><label for="price">Price</label></td>' +
+                    '<td><input type="number" step="0.01" name="price" ></td></tr>' +
+
+                    '<tr><td><label for="inStock">In Stock</label></td>' +
+                    '<td><input type="number" id="inStock" name="stock"></td></tr>'
+
+
+                break;
+
+            case"Memories":
+
+                formHTML =
+                    ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="memories">' +
+                    '<input type="hidden" name="option" value="insert">' +
+                    '<input type="hidden" id="id" name="id" value="-1">' +
+
+
+                    '<tr><td><label for="productName">Product Name</label></td>' +
+                    '<td><input name="name" type="text" id="productName" onkeyup="checkProductName()" >' +
+                    '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
+
+                    ' <tr><td><label for="MEMsocket">Memory Socket</label></td>' +
+                    '<td><input type="text" id="MEMsocket" name="MEMsocket"></td></tr>' +
+
+                    '<tr><td><label for="Ram">Ram</label></td>' +
+                    '<td><input type="radio" id="Ram" name="mType" value="false"></td></tr>' +
+
+                    '<tr><td><label for="MassStorage">MassStorage</label></td>' +
+                    '<td class="form"><input type="radio" id="MassStorage" name="mType" value="true"</td></tr>' +
+
+                    '<tr><td><label for="amountMemories">Amount Of Memories</label></td>' +
+                    '<td><input type="number" id="amountMemories" name="amountOfMemories" ></td></tr>' +
+
+
+                    '<tr><td><label for="consumption">Consumption</label></td>' +
+                    '<td><input type="number" name="consumption" id="consumption" ></td></tr>' +
+
+                    '<tr><td><label for="price">Price</label></td>' +
+                    '<td><input type="number" step="0.01" name="price" ></td></tr>' +
+
+                    '<tr><td><label for="inStock">In Stock</label></td>' +
+                    '<td><input type="number" id="inStock" name="stock"></td></tr>'
+
+
+                break;
+            case"Cases":
+                formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="cases">' +
+                    '<input type="hidden" name="option" value="insert">' +
+                    '<input type="hidden" id="id" name="id" value="-1">' +
+
+                    '<tr><td><label for="productName">Product Name</label></td>' +
+                    '<td><input type="text" id="productName" name="name" onkeyup="checkProductName()" >' +
+                    '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
+
+                    '<tr><td><label for="formFactor">Form Factor</label></td>' +
+                    '<td><select id="formFActor" name="formFactor">' +
+                    '<option value="mini-itx">Mini-ITX</option>' +
+                    " <option value='micro-ATX' >Micro-ATX</option>" +
+                    "<option value='ATX'>ATX</option></select></td></tr>" +
+
+                    '<tr><td><label for="consumption">Consumption</label></td>' +
+                    '<td><input type="number" id="consumption" name="consumption"></td></tr>' +
+
+                    '<tr><td><label for="price">Price</label></td>' +
+                    '<td><input type="number" step="0.01" name="price" ></td></tr>' +
+
+                    '<tr><td><label for="inStock">In Stock</label></td>' +
+                    '<td><input type="number" id="inStock" name="stock" ></td></tr>'
+
+
+                break;
+            case"MotherBoards":
+
+                formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="motherboards">' +
+                    '<input type="hidden" name="option" value="insert">' +
+                    '<input type="hidden" id="id" name="id" value="-1">' +
+
+                    '<tr><td><label for="productName">Product Name</label></td>' +
+                    '<td><input type="text" id="productName" name="name" onkeyup="checkProductName()">' +
+                    '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
+
+                    "<tr><td><label for='CPUsocket'>CPU Socket</label></td>" +
+                    " <td><input type='text' id='CPUsocket' name='CPUsocket' ></td></tr>" +
+
+                    "<tr><td><label for='RAMsocket'>RAM Socket</label></td>" +
+                    " <td><input type='text' id='RAMsocket' name='RAMsocket' ></td></tr>" +
+
+                    " <tr><td><label for='nRAMSockets'>RAM Slots</label></td>" +
+                    "  <td><input type='number' id='nRAMSockets' name='nRAMSockets' ></td></tr>" +
+
+                    " <tr><td><label for='nSATASockets'>SATA Slots</label></td>" +
+                    "  <td><input type='number' id='nSATASockets' name='nSATASockets' ></td></tr>" +
+
+                    " <tr><td><label for='nNVMESockets'>NVME Slots</label></td>" +
+                    "  <td><input type='number' id='nNVMESockets' name='nNVMESockets' ></td></tr>" +
+
+                    '<tr><td><label for="formFactor">Form Factor</label></td>' +
+                    '<td><select id="formFActor" name="formFactor">' +
+                    '<option value="mini-itx">Mini-ITX</option>' +
+                    " <option value='micro-atx'>Micro-ATX</option>" +
+                    "<option value='atx'>ATX</option></select></td></tr>" +
+
+                    '<tr><td><label for="consumption">Consumption</label></td>' +
+                    '<td><input type="number" id="consumption" name="consumption"></td></tr>' +
+
+                    '<tr><td><label for="price">Price</label></td>' +
+                    '<td><input type="number" step="0.01" name="price" ></td></tr>' +
+
+                    '<tr><td><label for="inStock">In Stock</label></td>' +
+                    '<td><input type="number" id="inStock" name="stock"></td></tr>'
+
+
+                break
+            case"Psus":
+                formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="psus">' +
+                    '<input type="hidden" name="option" value="insert">' +
+                    '<input type="hidden" id="id" name="id" value="-1">' +
+
+                    '<tr><td><label for="productName">Product Name</label></td>' +
+                    '<td><input type="text" id="productName"  onkeyup="checkProductName()">' +
+                    '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
+
+                    '<tr><td><label for="power">Power</label></td>' +
+                    '<td><input type="text" id="power" name="power" ></td></tr>' +
+
+                    '<tr><td><label for="price">Price</label></td>' +
+                    '<td><input type="number" step="0.01" name="price" ></td></tr>' +
+
+                    '<tr><td><label for="inStock">In Stock</label></td>' +
+                    '<td><input type="number" id="inStock" name="stock" ></td></tr>'
+
+
+                break;
+
+            case"Users":
+                formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="users">' +
+                    '<input type="hidden" name="option" value="insert">' +
+                '<input type="hidden" id="id" name="id" value="-1">' +
+
+                    '<tr><td><label for="email">User Email</label></td>' +
+                    '<td><input type="email" name="email" id="email" onfocusout="existingEmail()" required>' +
+                    '<span id="email-alert" class="alert-info " hidden> Incorrect Email</span></td></tr>' +
+
+                    '<tr><td><label for="firstName" >Firstname</label></td>' +
+                    '<td><input type="text" name="firstName"required></td></tr>' +
+
+                    '<tr><td><label for="lastName">Lastname</label></td>' +
+                    '<td><input type="text" name="lastName" required></td></tr>' +
+
+                    '<tr><td><label for="admin">Admin</label></td>' +
+                    '<td><input type="checkbox" id="admin" name="admin" required></td></tr>' +
+
+                    '<tr><td><label for="password">Password</label></td>' +
+
+                    '<td><input id="password" type="password" name="password" id="password" onkeyup="testPassword(value)" required>' +
+                    '<span id="password-alert" class="alert-info " hidden>Password Not Inserted</span></td></tr>' +
+                    '<tr><td></td></tr>';
+                break;
+
+        }
+        let buttonHTML='<tr><td><input id="submitDBUpdate" type="submit" class="btn btn-success" value="Insert Element"></td></tr>';
+        console.log(formHTML);
+        $("#imageInput").html('<input type="file" id="image" name="image">');
+        $("#updateTitle").text("Create Element");
+        $("#updateFormBox").html(formHTML);
+        $("#buttonSpace").html(buttonHTML)
+        toggleOverlay();
     }
 
 

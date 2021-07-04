@@ -14,8 +14,7 @@
     <title>MYOP-${option=='insert'}</title>
     <meta name="viewport" content="width=device-witdth, initial-scale=1.0"/>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
-    <link rel="stylesheet" href="../customcss/general.css"/>
-
+    <link rel="stylesheet" href="../customcss/general.css">
 </head>
 <body>
 
