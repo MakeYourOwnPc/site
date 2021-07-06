@@ -9,7 +9,7 @@
         <module name="MYOPSite" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="15">
       <module name="MYOPSite" target="15" />
     </bytecodeTargetLevel>
   </component>

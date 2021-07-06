@@ -32,14 +32,24 @@
                     </td>
                 </tr>
             </table>
-            <form id="updateForm" method="get" enctype="application/x-www-form-urlencoded">
-                <label for="productName"> Check For Compatible Component</label>
-                <input id="productName" type="text" name="name">
-            </form>
-            <label for="compatible">Check For Compatible Component</label>
-            <input type="checkbox" name="compatible" id="compatible" onclick="">
+            <table>
+                <tr><td> <label for="productName"> Search By Name</label></td>
+                    <td> <input id="productName" type="text" name="name"></td></tr>
+                <tr><td><label for="compatible">Check By Compatible Component</label></td>
+                    <td> <input type="checkbox" name="compatible" id="compatible" onclick="submitForm()"></td></tr>
+                <tr id="massStorageOption">
+                    <td>
+                        <label for="sata">SATA</label>
+                        <input type="radio" name="socket" id="sata" value="sata" checked>
+                    </td>
+                    <td>
+                        <label for="nvme">NVME</label>
+                        <input type="radio" name="socket" id="nvme" value="sata">
+                    </td>
+                </tr>
 
-                <table class="registration-box" id="componentList">
+            </table>
+                <table class="registration-box" id="searchResult">
                 </table>
         </div>
     </div>

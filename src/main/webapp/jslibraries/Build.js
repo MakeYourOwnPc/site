@@ -12,12 +12,52 @@ let formFactor;
 let slotSataAvailable;
 let slotNVMEAvailable;
 let slotRamAvailable;
-let powerAvailable;
+let slotRamUsed;
+let slotSataUsed;
+let slotNVMEUsed;
+let powerNeeded;
 let socketRam;
 let socketCpu;
-let compatible;
 let selectedElement;
 let selectedElementObject;
+
+function updateSpecification() {
+    slotNVMEUsed=0;
+    slotRamUsed=0;
+    slotSataUsed=0;
+    powerNeeded=mobo.consumption+gpu.consumption+ram.consumption
+        +massStorage1.consumption+massStorage2.consumption+massStorage3.comsumption+cpu.consumption;
+    slotSataAvailable=mobo.amountSlotSata;
+    slotNVMEAvailable=mobo.amountSlotNvme;
+    slotRamAvailable=mobo.amountSlotRam;
+    slotRamUsed=ram.amountOfMemories;
+
+    socketRam=mobo.ramSocket;
+    socketCpu=mobo.cpuSocket;
+    formFactor=mobo.formFactor;
+    if(massStorage1!=null) {
+        if(massStorage1=="sata"){
+            slotSataAvailable-=1;
+        slotSataUsed+=1;}
+        else {slotNVMEAvailable-=1;
+        slotNVMEUsed+=1}
+    }
+    if(massStorage2!=null) {
+        if(massStorage2=="sata"){
+            slotSataAvailable-=1;
+        slotSataUsed+=1;}
+        else {slotNVMEAvailable-=1;
+            slotNVMEUsed+=1}
+    }
+    if(massStorage3!=null) {
+        if(massStorage3=="sata"){
+            slotSataAvailable-=1;
+            slotSataUsed+=1;}
+        else {slotNVMEAvailable-=1;
+            slotNVMEUsed+=1}
+    }
+
+}
 
 
 
@@ -59,32 +99,37 @@ function  selectPsu(){
 
 }
 
-function toggleCompatible(){
-    compatible=!compatible;
-    askDb();
-}
 
-function askDb(){
-    let formData;
-    powerAvailable=psu.power-mobo.consumption-gpu.consumption-ram.consumption
-        -massStorage1.consumption-massStorage2.consumption-massStorage3.comsumption-cpu.consumption;
-    formData="name='"+$("#productName").val()
-    if(compatible){
-        if(selectedElement=="Ram")
-            formData+="&MEMsocket="+selectedElementObject.socket;
-        if(selectedElement=="MassStorage")
-            formData+="&MEMsocket="+selectedElementObject.socket;
-            formData+="&"
 
-    }
-
-}
 
 function submitForm(item,number) {
 
     let xhttp = new XMLHttpRequest();
-    let formDATA = $("#searchForm").serialize();
     $('tr.removable').remove();
+
+    let formData;
+    updateSpecification();
+
+    formData="name='"+$("#productName").val();
+    let socketEmpty=true;
+    if($("#compatible").prop("checked")){
+        if(selectedElement=="Ram"){
+            socketEmpty=false;
+            formData+="&MEMsocket="+socketRam+"&amountOfMemories="+slotRamAvailable+"&mType=false";}
+
+        if(selectedElement=="MassStorage"){
+            if($("#sata").prop("checked")) {
+                formData += "&socket=sata&amountOfMemories=" + slotSataAvailable;
+                slotNVMEUsed-=1;
+            }
+            else{ formData+="&socket=nvme&amountOfMemories="+slotNVMEAvailable;
+                slotSataUsed-=1;
+            }
+            formData+="&mType=true"
+            socketEmpty=false;
+        }
+        formData+="&power="+powerNeeded+"id=''&formFactor="+formFactor+"&CPUsocket="+socketCpu+"&RAMsocket="+socketRam+"" +
+            "&nRAMSocket='"+ram.amountOfMemories+"'"+"&nSATASockets='"+slotSataUsed+"'&nNVMESockets";
 
     xhttp.onreadystatechange = function () {
 
@@ -127,13 +172,13 @@ function submitForm(item,number) {
             }
 
         }
-    };
+    }};
     xhttp.open("POST", "/MYOPSite_war_exploded/itemLister", true);
 
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    xhttp.send(formDATA);
-    console.log(formDATA);
+    xhttp.send(formData);
+    console.log(formData);
 }
 
 
@@ -321,6 +366,6 @@ function addMassStorage3(id){
     let elem=arrayElements.find(elem=>elem.id==id);
     massStorage3=elem;
     selectedElementObject=elem;
-    html="<option value='id'>"+elem.name+"</option>"
-    $("#massStorage3").html()
+    html="<option value='id'>"+elem.name+"</option>";
+    $("#massStorage3").html();
 }
