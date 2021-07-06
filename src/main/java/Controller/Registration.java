@@ -15,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.Enumeration;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 @WebServlet(name="registration",urlPatterns = "/registration")
@@ -47,7 +48,7 @@ public class Registration extends HttpServlet {
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setEmail(email);
+        user.setEmail(email.toLowerCase());
         user.setPassword(password);
         user.setAdmin(false);
         UserDao userDao = new UserDao();

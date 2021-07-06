@@ -1,21 +1,37 @@
 package Controller;
 
-import java.nio.charset.StandardCharsets;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 
 public class PasswordHasher {
     public String setPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
-        SecureRandom secureRandom = new SecureRandom();
-        byte[] salt = new byte[16];
-        secureRandom.nextBytes(salt);
-        messageDigest.update(salt);
-        byte[] hashedPassword = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
-        StringBuilder stringBuilder = new StringBuilder();
-        for(byte bit:hashedPassword)
-            stringBuilder.append(String.format("%02x",bit));
-        return stringBuilder.toString();
+        try {
+            // getInstance() method is called with algorithm SHA-512
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+
+            // digest() method is called
+            // to calculate message digest of the input string
+            // returned as array of byte
+            byte[] messageDigest = md.digest(password.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+
+            // Add preceding 0s to make it 32 bit
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+
+            // return the HashText
+            return hashtext;
+        }
+        // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

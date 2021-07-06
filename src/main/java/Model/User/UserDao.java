@@ -38,11 +38,13 @@ public class UserDao implements IUserDao<SQLException>{
     @Override
     public User doRetrieveByEmail(String email) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Users WHERE UPPER(email)=UPPER(?);")){
-                ps.setString(1,email);
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Users WHERE email=?;")){
+                ps.setString(1,email.toLowerCase());
                 ResultSet rs = ps.executeQuery();
+                rs.next();
                 User user = new User();
                 user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
                 user.setFirstName(rs.getString("firstname"));
                 user.setLastName(rs.getString("lastname"));
                 user.setAdmin(rs.getBoolean("admin"));
@@ -60,7 +62,7 @@ public class UserDao implements IUserDao<SQLException>{
     public boolean isPresent(String email) throws SQLException{
         try(Connection conn = ConnPool.getConnection()){
             try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Users WHERE email=?;")){
-                ps.setString(1,email);
+                ps.setString(1,email.toLowerCase());
                 ResultSet rs = ps.executeQuery();
                 return rs.isBeforeFirst();
             }catch(SQLException e) {
@@ -74,7 +76,7 @@ public class UserDao implements IUserDao<SQLException>{
     public boolean doSave(User user) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
             try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Users (email,firstname,lastname,password,admin) VALUES (?,?,?,?,?);")){
-                ps.setString(1,user.getEmail());
+                ps.setString(1,user.getEmail().toLowerCase());
                 ps.setString(2,user.getFirstName());
                 ps.setString(3,user.getLastName());
                 ps.setString(4,user.getPassword());
@@ -96,7 +98,7 @@ public class UserDao implements IUserDao<SQLException>{
     public boolean doDelete(String email) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
             try(PreparedStatement ps = conn.prepareStatement("DELETE FROM Users WHERE email=?;")){
-                ps.setString(1,email);
+                ps.setString(1,email.toLowerCase());
                 ps.executeUpdate();
                 return true;
             }
@@ -116,7 +118,7 @@ public class UserDao implements IUserDao<SQLException>{
                 ps.setString(1,user.getFirstName());
                 ps.setString(2,user.getLastName());
                 ps.setString(3,user.getPassword());
-                ps.setString(4,user.getEmail());
+                ps.setString(4,user.getEmail().toLowerCase());
                 ps.executeUpdate();
                 return true;
             }
@@ -133,7 +135,7 @@ public class UserDao implements IUserDao<SQLException>{
             if(admin!=null)
             try(PreparedStatement ps = conn.prepareStatement("UPDATE Users SET admin=? WHERE email=?;")){
                 ps.setBoolean(1,admin);
-                ps.setString(2,email);
+                ps.setString(2,email.toLowerCase());
                 ps.executeUpdate();
                 return true;
             }catch (SQLException e){

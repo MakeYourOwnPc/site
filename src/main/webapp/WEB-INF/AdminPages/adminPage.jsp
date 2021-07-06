@@ -353,7 +353,7 @@
             "<td class='consumption'>" + value.consumption + "</td>" +
             "<td class='price'>" + value.price + "$</td>" +
             "<td class='inStock'>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.imagePath + "'></td>" +
+            "<td><img src=-'" + value.imagePath + "' alt = '"+ value.imagePath+ "'></td>" +
             buttonAdder(value.id) +
             "</tr>";
         $("#searchResult").append(row);
