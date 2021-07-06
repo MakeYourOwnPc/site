@@ -33,8 +33,11 @@ public class ModifyUser extends HttpServlet {
             userDB.setFirstName(firstName);
             userDB.setLastName(lastName);
             boolean result = userDao.doUpdate(userDB);
-            if(result)
-                req.getSession().setAttribute("user",userDao.doRetrieveByEmail(user.getEmail()));
+            if(result) {
+                user = userDao.doRetrieveByEmail(user.getEmail());
+                user.setPassword("");
+                req.getSession().setAttribute("user", user);
+            }
             resp.getWriter().print(result);
         } catch (SQLException | NoSuchAlgorithmException throwables) {
             throwables.printStackTrace();
