@@ -45,7 +45,9 @@ function validateUser(){
 
     return submitable;
 }
-
+function toggleOverlay() {
+    $("#overlayForm").fadeToggle();
+}
 function existingEmail(){
     let xhttp = new XMLHttpRequest();
     let emailalert = document.getElementById("email-alert");
@@ -66,5 +68,6 @@ function existingEmail(){
     xhttp.open("POST", "/MYOPSite_war_exploded/emailispresent", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("email="+document.getElementById("email").value);
+
 }
 
