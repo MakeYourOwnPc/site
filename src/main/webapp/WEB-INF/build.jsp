@@ -18,6 +18,32 @@
 <script src="./bootstrap/popper.js" defer></script>
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
 <script src="./jslibraries/jQuery.js"defer></script>
+<script src="./jslibraries/Build.js"defer></script>
+
+
+<div id="overlayForm" class="overlayElement" style="display: none">
+    <div class="inner-window">
+        <div class="box-container">
+            <table style="width: 100%">
+                <tr>
+                    <td><h1 id="updateTitle" style="float: left"></h1></td>
+                    <td>
+                        <button onclick="toggleOverlay()" class="btn btn-danger" style="font-size: 26px;font-weight: bolder">X</button>
+                    </td>
+                </tr>
+            </table>
+            <form id="updateForm" method="get" enctype="application/x-www-form-urlencoded">
+                <label for="productName"> Check For Compatible Component</label>
+                <input id="productName" type="text" name="name">
+            </form>
+            <label for="compatible">Check For Compatible Component</label>
+            <input type="checkbox" name="compatible" id="compatible" onclick="">
+
+                <table class="registration-box" id="componentList">
+                </table>
+        </div>
+    </div>
+</div>
 
 <div id="pageContenent">
     <div>
@@ -44,10 +70,11 @@
             <option value="none">NONE</option>
         </select>
         <label for="pcCase">Select the Pc Case</label>
-        <select type="select" id="pcCase" onclick="selectPcCase(3)"></select>
+        <select type="select" id="pcCase" onclick="selectPcCase()"></select>
         <label for="psu">Select the Psu</label>
         <select type="select" id="psu" onclick="selectPsu()"></select>
     </div>
+
     <jsp:include page="/WEB-INF/pagecomponents/footer.jsp"></jsp:include>
 </div>
 
