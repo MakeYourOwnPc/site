@@ -138,40 +138,34 @@ public class BuildDao implements IBuildDao<SQLException>{
     }
 
     @Override
-    public ArrayList<Build> doRetrieveSuggested(boolean suggested,int limit,int offset) throws SQLException {
+    public ArrayList<BuildNames> doRetrieveSuggested() throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Builds WHERE suggested=? ORDER BY name LIMIT ?,?;")){
-                ps.setBoolean(1,suggested);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
-                ResultSet rs = ps.executeQuery();
-                ArrayList<Build> list = new ArrayList<Build>();
-                while(rs.next()){
-                    Build build = new Build();
-                    build.setId(rs.getInt("id"));
-                    build.setCpu(rs.getInt("cpu"));
-                    PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=? ORDER BY name;");
-                    ps2.setInt(1,build.getId());
-                    ResultSet rs2 = ps2.executeQuery();
-                    while(rs2.next()){
-                        for(int i = 0; i < rs2.getInt("amountofmemories");i++)
-                            build.addMemory(rs2.getInt("id"));
-                    }
-                    build.setGpu(rs.getInt("gpu"));
-                    build.setPsu(rs.getInt("psu"));
-                    build.setMobo(rs.getInt("mobo"));
-                    build.setPcCase(rs.getInt("pccase"));
-                    build.setType(rs.getString("type"));
-                    build.setSuggested(rs.getBoolean("suggested"));
-                    build.setMaker(rs.getString("maker"));
-                    list.add(build);
+            String query = "SELECT * FROM Builds,Gpus,Cpus,Motherboards WHERE suggested=true;";
+            ResultSet rs = conn.createStatement().executeQuery(query);
+            ArrayList<BuildNames> list = new ArrayList<>();
+            while(rs.next()){
+                BuildNames build = new BuildNames();
+                build.setId(rs.getInt("id"));
+                build.setCpu(rs.getString("cpu"));
+                PreparedStatement ps2 = conn.prepareStatement("Select Memories.name,amountofmemories name FROM Memoriesbuiltin,Memories WHERE idbuild=? AND Memoriesbuiltin.id=Memories.id ORDER BY name;");
+                ps2.setInt(1,build.getId());
+                ResultSet rs2 = ps2.executeQuery();
+                while(rs2.next()){
+                    for(int i = 0; i < rs2.getInt("amountofmemories");i++)
+                        build.addMemory(rs2.getString("name"));
                 }
-                rs.close();
-                return list;
+                build.setGpu(rs.getString("gpu"));
+                build.setPsu(rs.getString("psu"));
+                build.setMobo(rs.getString("mobo"));
+                build.setPcCase(rs.getString("pccase"));
+                build.setType(rs.getString("type"));
+                build.setSuggested(rs.getBoolean("suggested"));
+                build.setMaker(rs.getString("maker"));
+                build.setImagePath(rs.getString("imagepath"));
+                list.add(build);
             }
-            catch(SQLException e){
-                return null;
-            }
+            rs.close();
+            return list;
         }
         catch(SQLException e){
             return null;
