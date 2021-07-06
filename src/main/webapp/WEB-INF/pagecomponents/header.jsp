@@ -14,7 +14,7 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Build</a>
+                    <a class="nav-link" href="/">Build</a>
                 </li>
                 <li class="nav-item dropdown ">
                     <a class="nav-link dropdown-toggle  <%if(user==null){%> disabled <%}%>" <%if(user==null){%> aria-disabled="true" <%}%> href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

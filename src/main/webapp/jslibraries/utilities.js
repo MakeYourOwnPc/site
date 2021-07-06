@@ -67,3 +67,4 @@ function existingEmail(){
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("email="+document.getElementById("email").value);
 }
+

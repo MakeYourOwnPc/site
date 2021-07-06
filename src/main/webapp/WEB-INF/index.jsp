@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="./customcss/general.css"/>
 </head>
     <body>
-           <script src="./bootstrap/js/bootstrap.js" defer></script>
-            <script src="./bootstrap/popper.js" defer></script>
-            <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
-            <script src="./jslibraries/jQuery.js"defer></script>
+    <script src="./bootstrap/js/bootstrap.js" defer></script>
+    <script src="./bootstrap/popper.js" defer></script>
+    <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
+    <script src="./jslibraries/jQuery.js"defer></script>
 
 
            <!--  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">

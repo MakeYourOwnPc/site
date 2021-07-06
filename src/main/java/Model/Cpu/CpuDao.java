@@ -184,6 +184,7 @@ public class CpuDao implements ICpuDao<SQLException> {
                 ResultSet rs = ps.getGeneratedKeys();
                 rs.next();
                 cpu.setId(rs.getInt(1));
+
                 return true;
             }
             catch(SQLException e){

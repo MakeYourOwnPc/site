@@ -79,7 +79,7 @@ public class BuildNames {
     }
 
     private String cpu;
-    private ArrayList<String> memories;
+    private ArrayList<String> memories= new ArrayList<>();
     private int id;
     private String pcCase;
     private String psu;
