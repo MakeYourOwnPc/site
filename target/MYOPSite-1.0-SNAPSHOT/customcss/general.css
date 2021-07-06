@@ -10,9 +10,6 @@
     --bg-tertiary-color:#03070D;
 }
 
-
-
-
 body{
     height: 100%;
     color: white;
@@ -49,7 +46,40 @@ button{
     border-radius: 5px;
 }
 
+/* In linea #2 | http://localhost:8080/MYOPSite_war_exploded/ */
 
+.buildList {
+    max-width: 300px;
+    border:solid #2D83A6;
+    position: relative;
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: var(--bg-default-color);
+}
+
+#builds{
+    text-align: center;
+}
+
+.buildList li {
+    padding:3px;
+    border-bottom: 1px #2D83A6;
+}
+.fullBtn{
+    width: 100%;
+    border-radius: 0px;
+
+}
+
+#pageContenent{
+    margin: auto;
+    max-width: 1317px;
+    width: 100%;
+    background-color: var(--bg-secondary-color);
+}
 
 .header{
     padding: 10px;
@@ -198,6 +228,7 @@ table tbody{
 
 
 .overlayElement{
+    overflow: auto;
     position: fixed;
     background-color: rgba(0, 0, 0, .4);
     z-index: 100;
@@ -208,6 +239,19 @@ table tbody{
 }
 .overlayElement *{
     opacity: 100%;
+}
+footer{
+    background-color:black;
+    bottom:0;
+    text-align: center;
+    width: 100%;
+    border-top: white solid;
+}
+footer div{
+    width: 100%;
+}
+footer div table{
+    width: 100%;
 }
 @media screen and (max-width: 700px) {
     #searchResult * {
@@ -273,6 +317,8 @@ table tbody{
     }
 
     .centered-box{
+
+        position: absolute;
     transform: translate(-50%, -43%);
         width: 95%;
     }

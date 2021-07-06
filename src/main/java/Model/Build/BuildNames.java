@@ -98,4 +98,14 @@ public class BuildNames {
     private boolean suggested;
     private String type;
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    private String imagePath;
+
 }
