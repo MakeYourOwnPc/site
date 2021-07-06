@@ -62,9 +62,7 @@ public class UserDao implements IUserDao<SQLException>{
             try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Users WHERE email=?;")){
                 ps.setString(1,email);
                 ResultSet rs = ps.executeQuery();
-                if(rs.isBeforeFirst())
-                    return true;
-                else return false;
+                return rs.isBeforeFirst();
             }catch(SQLException e) {
                 return false;
             }
@@ -114,18 +112,34 @@ public class UserDao implements IUserDao<SQLException>{
     @Override
     public boolean doUpdate(User user) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("UPDATE Users SET firstname=?, lastname=?, password=?, admin=? WHERE email=?;")){
+            try(PreparedStatement ps = conn.prepareStatement("UPDATE Users SET firstname=?, lastname=?, password=? WHERE email=?;")){
                 ps.setString(1,user.getFirstName());
                 ps.setString(2,user.getLastName());
                 ps.setString(3,user.getPassword());
-                ps.setBoolean(4,user.isAdmin());
-                ps.setString(5,user.getEmail());
+                ps.setString(4,user.getEmail());
                 ps.executeUpdate();
                 return true;
             }
             catch (SQLException e){
                 return false;
             }
+        }catch (SQLException e){
+            return false;
+        }
+    }
+    @Override
+    public boolean doChangeAdmin(String email,Boolean admin){
+        try(Connection conn = ConnPool.getConnection()){
+            if(admin!=null)
+            try(PreparedStatement ps = conn.prepareStatement("UPDATE Users SET admin=? WHERE email=?;")){
+                ps.setBoolean(1,admin);
+                ps.setString(2,email);
+                ps.executeUpdate();
+                return true;
+            }catch (SQLException e){
+                return false;
+            }
+            else return false;
         }catch (SQLException e){
             return false;
         }

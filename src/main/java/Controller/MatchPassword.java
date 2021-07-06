@@ -11,26 +11,42 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @WebServlet(name="matchPassword",urlPatterns = "/matchPassword")
 public class MatchPassword extends HttpServlet {
+    private final int defaultCounter = 3;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String email = req.getParameter("email");
-        String oldPassword = req.getParameter("oldPassword");
-        UserDao userDao = new UserDao();
-        try {
-            User user = userDao.doRetrieveByEmail(email);
-            PasswordHasher passwordHasher = new PasswordHasher();
-            resp.setContentType("plain/text");
-            resp.setCharacterEncoding("UTF-8");
-            if(!passwordHasher.setPassword(oldPassword).equals(user.getPassword()))
-                resp.getWriter().print("true");
-            else
-                resp.getWriter().print("false");
+        int counter;
+        LocalDateTime nextAttempt = (LocalDateTime) req.getSession().getAttribute("nextAttempt");
+        if(nextAttempt==null||LocalDateTime.now().isAfter(nextAttempt))
+            counter = defaultCounter;
+        else
+            counter = (int) req.getSession().getAttribute("attempts");
+        if(counter>0) {
+            User user = (User) req.getSession().getAttribute("user");
+            String oldPassword = req.getParameter("oldPassword");
+            UserDao userDao = new UserDao();
+            try {
+                User userDB = userDao.doRetrieveByEmail(user.getEmail());
+                PasswordHasher passwordHasher = new PasswordHasher();
+                resp.setContentType("plain/text");
+                resp.setCharacterEncoding("UTF-8");
+                if (passwordHasher.setPassword(oldPassword).equals(userDB.getPassword()))
+                    resp.getWriter().print("true");
+                else {
+                    resp.getWriter().print("false");
+                    counter-=1;
+                    req.getSession().setAttribute("attempts",counter);
+                }
 
-        } catch (SQLException | NoSuchAlgorithmException throwables) {
-            throwables.printStackTrace();
+            } catch (SQLException | NoSuchAlgorithmException throwables) {
+                throwables.printStackTrace();
+            }
         }
+        else
+            resp.getWriter().print("false");
     }
 }

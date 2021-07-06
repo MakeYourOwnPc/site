@@ -8,4 +8,5 @@ public interface IUserDao<E extends Exception>{
     boolean doSave(User user)throws E;
     boolean doDelete(String string)throws E;
     boolean doUpdate(User user) throws E;
+    boolean doChangeAdmin(String email,Boolean admin);
 }
