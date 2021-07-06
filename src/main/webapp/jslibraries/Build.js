@@ -15,11 +15,18 @@ let slotRamAvailable;
 let slotRamUsed;
 let slotSataUsed;
 let slotNVMEUsed;
-let powerNeeded;
+let powerNeeded=0;
 let socketRam;
 let socketCpu;
 let selectedElement;
 let selectedElementObject;
+let itemCategory;
+let tableHeader
+
+
+function toggleOverlay() {
+    $("#overlayForm").fadeToggle();
+}
 
 function updateSpecification() {
     slotNVMEUsed=0;
@@ -62,39 +69,65 @@ function updateSpecification() {
 
 
 function selectGPU(){
+    toggleOverlay();
     selectedElement="Gpus";
+
+    itemCategory="gpus";
+    tableHeader= "<tr><th>Product Name</th><th>Power Consumption</th><th>Price</th></tr>"
     submitForm("Gpus");
 
 }
 function selectCPU(){
+    toggleOverlay();
     selectedElement="Cpus";
-    submitForm("Cpus");
 
+    itemCategory="cpus";
+    tableHeader = "<tr><th>Product Name</th><th>Socket</th><th>Integrated Gpu</th><th>Power Consumption</th><th>Price</th></tr>"
+    submitForm("Cpus");
 }
 function selectMOBO(){
+    toggleOverlay();
     selectedElement="Mobo";
+
+    itemCategory="motherboards";
+    tableHeader = "<tr><th>Product Name</th><th>Form Factor</th><th>Ram Sockets</th><th>Ram Slots</th><th>NVME Slots</th><th>SATA Slots</th><th>Form Factor</th><th>Power Consumption</th><th>Price</th></tr>"
     submitForm("Mobo");
 
 }
 
 function selectRAM(){
+    toggleOverlay();
     selectedElement="Ram";
+
+    itemCategory="memories";
+    tableHeader = "<tr><th>Product Name</th><th>Socket</th><th>Number Of Sticks</th><th>Power Consumption</th><th>Price</th></tr>"
     submitForm("Ram");
 
 }
 function selectMassStorage(number){
     selectedElement="MassStorage";
-    submitForm("Gpus",number);
+
+    itemCategory="memories";
+    tableHeader = "<tr><th>Product Name</th><th>Power Consumption</th><th>Price</th></tr>"
+    submitForm("MassStorage",number);
 
 }
 
 function selectPcCase(){
+    toggleOverlay();
     selectedElement="PcCase"
+
+    itemCategory="cases";
+    tableHeader = "<tr><th>Product Name</th><th>Form Factor</th><th>Price</th></tr>"
     submitForm("Cases");
 
 }
 function  selectPsu(){
+    toggleOverlay();
     selectedElement="Psu"
+
+    itemCategory="psus";
+    tableHeader = "<tr><th>Product Name</th><th>Power</th><th>Price</th></tr>"
     submitForm("Psu");
 
 }
@@ -108,28 +141,34 @@ function submitForm(item,number) {
     $('tr.removable').remove();
 
     let formData;
-    updateSpecification();
+    /*updateSpecification();*/
 
-    formData="name='"+$("#productName").val();
+    formData="name="+$("#productName").val();
     let socketEmpty=true;
+
+
+    if(selectedElement=="MassStorage"){
+        if($("#sata").prop("checked")) {
+            formData += "&socket=sata&amountOfMemories=" + slotSataAvailable;
+            slotNVMEUsed-=1;
+        }
+        else{ formData+="&socket=nvme&amountOfMemories="+slotNVMEAvailable;
+            slotSataUsed-=1;
+        }
+        formData+="&mType=true"
+        socketEmpty=false;
+    }
     if($("#compatible").prop("checked")){
         if(selectedElement=="Ram"){
             socketEmpty=false;
             formData+="&MEMsocket="+socketRam+"&amountOfMemories="+slotRamAvailable+"&mType=false";}
 
-        if(selectedElement=="MassStorage"){
-            if($("#sata").prop("checked")) {
-                formData += "&socket=sata&amountOfMemories=" + slotSataAvailable;
-                slotNVMEUsed-=1;
-            }
-            else{ formData+="&socket=nvme&amountOfMemories="+slotNVMEAvailable;
-                slotSataUsed-=1;
-            }
-            formData+="&mType=true"
-            socketEmpty=false;
-        }
-        formData+="&power="+powerNeeded+"id=''&formFactor="+formFactor+"&CPUsocket="+socketCpu+"&RAMsocket="+socketRam+"" +
-            "&nRAMSocket='"+ram.amountOfMemories+"'"+"&nSATASockets='"+slotSataUsed+"'&nNVMESockets";
+        formData+="&power="+powerNeeded+"&id=''&formFactor="+formFactor+"&CPUsocket="+socketCpu+"&RAMsocket="+socketRam+"" +
+            "&nRAMSocket='"+ram.amountOfMemories+"'"+"&nSATASockets='"+slotSataUsed+"'&nNVMESockets="+slotNVMEUsed+"&requestedItem="+itemCategory;
+    }
+    else
+        formData+="&requestedItem="+itemCategory+"&power=&id=&formFactor=&CPUsocket=&RAMsocket=" +
+            "&nRAMSocket="+"&nSATASockets=&nNVMESockets=&requestedItem=&MEMsocket=&amountOfMemories=&mType=false";
 
     xhttp.onreadystatechange = function () {
 
@@ -172,8 +211,8 @@ function submitForm(item,number) {
             }
 
         }
-    }};
-    xhttp.open("POST", "/MYOPSite_war_exploded/itemLister", true);
+    };
+    xhttp.open("POST", "/MYOPSite_war_exploded/itemsLister", true);
 
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 

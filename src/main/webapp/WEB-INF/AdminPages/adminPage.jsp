@@ -5,15 +5,15 @@
 <head>
     <title>MYOP-Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="../customcss/general.css"/>
+    <link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="./customcss/general.css"/>
 </head>
 <body class="default">
-<script src="../bootstrap/js/bootstrap.js" defer></script>
-<script src="../bootstrap/popper.js" defer></script>
+<script src="./bootstrap/js/bootstrap.js" defer></script>
+<script src="./bootstrap/popper.js" defer></script>
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
-<script src="../jslibraries/jQuery.js"></script>
-<script src="../jslibraries/utilities.js"></script>
+<script src="./jslibraries/jQuery.js"></script>
+<script src="./jslibraries/utilities.js"></script>
 
 <nav class="topbar">
     <div id="icon-container sidebar-icon" onclick="hideSidebar()">
@@ -88,9 +88,7 @@
 
     var selectedElement;
 
-    function toggleOverlay() {
-        $("#overlayForm").fadeToggle();
-    }
+
 
     function hideSidebar() {
         $("#sidebar").slideToggle();
