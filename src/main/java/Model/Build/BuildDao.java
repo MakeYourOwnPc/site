@@ -463,9 +463,8 @@ public class BuildDao implements IBuildDao<SQLException>{
                 ps.setString(6,build.getType());
                 ps.setBoolean(7, build.isSuggested());
                 ps.setString(8,build.getMaker());
-                PreparedStatement ps2 = conn.prepareStatement("DELETE FROM memoriesbuiltin WHERE buildid=?;");
+                PreparedStatement ps2 = conn.prepareStatement("INSERT INTO memoriesbuiltin(idbuild,id,amountofmemories) VALUES (?,?,?);");
                 ps2.setInt(1,build.getId());
-                ps2.executeUpdate();
                 ArrayList<Integer> v = build.getMemories();
                 for(int i = 0;i < v.size();i++){
                     int amountMemories = 1;
@@ -474,11 +473,10 @@ public class BuildDao implements IBuildDao<SQLException>{
                             amountMemories++;
                             v.remove(j);
                         }
-                    PreparedStatement ps3 = conn.prepareStatement("INSERT INTO memoriesbuiltin(idbuild,id,amountmemories) VALUES (?,?,?);");
-                    ps3.setInt(1,build.getId());
-                    ps3.setInt(2,v.get(i));
-                    ps3.setInt(3,amountMemories);
-                    ps3.executeUpdate();
+                    ps2.setInt(1,build.getId());
+                    ps2.setInt(2,v.get(i));
+                    ps2.setInt(3,amountMemories);
+                    ps2.executeUpdate();
                 }
                 ps.executeUpdate();
                 ResultSet rs = ps.getGeneratedKeys();
