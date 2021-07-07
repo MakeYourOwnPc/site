@@ -147,7 +147,7 @@
         pcCase = JSON.parse($("#oldPcCase").val());
         $("#pcCase").val(pcCase.name);
         idBuild=$("#idBuild").val();
-        if(idBuild==null) idBuild=0;
+        if(idBuild=="") idBuild=0;
     }
 </script>
 
