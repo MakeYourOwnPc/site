@@ -20,7 +20,7 @@ public class SaveBuild extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
         Gson gson = new Gson();
-        String buildJson = req.getParameter("buildJson");
+        String buildJson = req.getParameter("build");
         BuildDao buildDao = new BuildDao();
         Build build = gson.fromJson(buildJson,Build.class);
         try {

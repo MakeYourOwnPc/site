@@ -158,7 +158,7 @@ function submitForm(number) {
     $('tr.removable').remove();
 
     let formData;
-    updateSpecification();
+ /*   updateSpecification();*/
 
     formData = "name=" + $("#productName").val().replaceAll(" ", "%20");
     let socketEmpty = true;
@@ -442,22 +442,24 @@ function saveBuild() {
         pcCase: pcCase.id,
         psu: psu.id,
         type: "",
-        memories: [massStorage1.id, massStorage2.id, massStorage3.id]
+        memories: [massStorage1.id, massStorage2.id, massStorage3.id],
+        suggested:false
     }
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
 
         if (this.readyState == 4 && this.status == 200) {
-        } else if (this.onreadystatechange() == 4 && this.status == 404) {
+            console.log("server response" +this.responseText);
+        } else if (this.readyState == 4 && this.status == 404) {
             console.log("error");
             $("#searchResult").append("Saving Error");
         }
     };
 
-    xhttp.open("POST", "/MYOPSite_war_exploded/itemsLister", true);
-    xhttp.setRequestHeader("Content-type", "plain/text");
+    xhttp.open("POST", "/MYOPSite_war_exploded/saveBuild", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     let sentData = JSON.stringify(build);
     console.log(sentData);
-    xhttp.send(sentData);
+    xhttp.send("build="+sentData);
 
 }
