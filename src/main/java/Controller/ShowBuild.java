@@ -29,7 +29,7 @@ import java.util.ArrayList;
 @WebServlet(name="showBuild",urlPatterns = "/showBuild")
 public class ShowBuild extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idBuild = Integer.parseInt(req.getParameter("idBuild"));
         BuildDao buildDao = new BuildDao();
         try {
