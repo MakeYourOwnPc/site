@@ -23,7 +23,7 @@ public class BuildDao implements IBuildDao<SQLException>{
                     Build build = new Build();
                     build.setId(rs.getInt("id"));
                     build.setCpu(rs.getInt("cpu"));
-                    PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=?;");
+                    PreparedStatement ps2 = conn.prepareStatement("SELECT * FROM Memoriesbuiltin WHERE idbuild=?;");
                     ps2.setInt(1,build.getId());
                     ResultSet rs2 = ps2.executeQuery();
                     while(rs2.next()){
@@ -59,21 +59,21 @@ public class BuildDao implements IBuildDao<SQLException>{
                 ResultSet rs = ps.executeQuery();
                 rs.next();
                 Build build = new Build();
+                build.setId(id);
                 build.setCpu(rs.getInt("cpu"));
-                PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=?;");
+                build.setGpu(rs.getInt("gpu"));
+                build.setMaker(rs.getString("maker"));
+                build.setMobo(rs.getInt("mobo"));
+                build.setPsu(rs.getInt("psu"));
+                build.setPcCase(rs.getInt("pccase"));
+                build.setSuggested(rs.getBoolean("suggested"));
+                build.setType(rs.getString("type"));
+                PreparedStatement ps2 = conn.prepareStatement("SELECT * FROM Memoriesbuiltin WHERE idbuild=?;");
                 ps2.setInt(1,build.getId());
                 ResultSet rs2 = ps2.executeQuery();
                 while(rs2.next())
                     for(int i = 0; i < rs2.getInt("amountofmemories");i++)
                         build.addMemory(rs2.getInt("id"));
-                build.setGpu(rs.getInt("gpu"));
-                build.setMaker(rs.getString("maker"));
-                build.setMobo(rs.getInt("mobo"));
-                build.setPsu(rs.getInt("psu"));
-                build.setPcCase(rs.getInt("pcCase"));
-                build.setSuggested(rs.getBoolean("suggested"));
-                build.setType(rs.getString("type"));
-                build.setId(id);
                 return build;
             }catch(SQLException e) {
                 return null;
@@ -175,7 +175,7 @@ public class BuildDao implements IBuildDao<SQLException>{
                 BuildNames build = new BuildNames();
                 build.setId(rs.getInt("id"));
                 build.setCpu(rs.getString("cpu"));
-                PreparedStatement ps2 = conn.prepareStatement("Select Memories.name,amountofmemories name FROM Memoriesbuiltin,Memories WHERE idbuild=? AND Memoriesbuiltin.id=Memories.id ORDER BY name;");
+                PreparedStatement ps2 = conn.prepareStatement("SELECT Memories.name name,amountofmemories FROM Memoriesbuiltin,Memories WHERE idbuild=? AND Memoriesbuiltin.id=Memories.id ORDER BY name;");
                 ps2.setInt(1,build.getId());
                 ResultSet rs2 = ps2.executeQuery();
                 while(rs2.next()){
@@ -210,7 +210,7 @@ public class BuildDao implements IBuildDao<SQLException>{
                     BuildNames build = new BuildNames();
                     build.setId(rs.getInt("id"));
                     build.setCpu(rs.getString("cpu"));
-                    PreparedStatement ps2 = conn.prepareStatement("Select Memories.name,amountofmemories name FROM Memoriesbuiltin,Memories WHERE idbuild=? AND Memoriesbuiltin.id=Memories.id ORDER BY name;");
+                    PreparedStatement ps2 = conn.prepareStatement("Select Memories.name name,amountofmemories FROM Memoriesbuiltin,Memories WHERE idbuild=? AND Memoriesbuiltin.id=Memories.id ORDER BY name;");
                     ps2.setInt(1, build.getId());
                     ResultSet rs2 = ps2.executeQuery();
                     while (rs2.next()) {
