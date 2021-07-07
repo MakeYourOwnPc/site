@@ -80,7 +80,7 @@
 
                 </ul>
                     <form action="./showBuild">
-                        <input name="id" value="${build.id}" type="hidden">
+                        <input name="idBuild" value="${build.id}" type="hidden">
                         <input type="submit" class="btn fullBtn btn-success" value="Start ">
                     </form>
                 </div>
