@@ -13,9 +13,17 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AccsessAdminPage</servlet-name>
+        <servlet-class>Controller.adminPage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccsessAdminPage</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
 
     <error-page>
-
         <exception-type>java.lang.Throwable</exception-type>
         <location>/WEB-INF/errors/error.jsp</location>
     </error-page>
