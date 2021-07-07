@@ -20,7 +20,7 @@
 <span id="oldMemories" style="display: none">${memories}</span>
 <input type="hidden" id="oldPsu" value='${psu}'>
 <input type="hidden" id="oldPcCase" value='${pcCase}'>
-<input type="hidden" id="idBuild" value='${id}'>
+<input type="hidden" id="idBuild" value='<%=request.getParameter("id")%>'>
 
 
 <script src="./bootstrap/js/bootstrap.js" defer></script>

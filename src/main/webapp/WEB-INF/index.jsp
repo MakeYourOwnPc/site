@@ -79,7 +79,7 @@
                     <li>${build.maker}</li>
 
                 </ul>
-                    <form action="./build">
+                    <form action="./showBuild">
                         <input name="id" value="${build.id}" type="hidden">
                         <input type="submit" class="btn fullBtn btn-success" value="Start ">
                     </form>

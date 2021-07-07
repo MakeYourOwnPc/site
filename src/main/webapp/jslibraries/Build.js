@@ -436,7 +436,7 @@ function addMassStorage3(id) {
 }
 
 function saveBuild() {
-    if(idBuild=="")
+    if(idBuild==undefined)
         idBuild=0;
     let build = {
         mobo: mobo.id,
@@ -453,14 +453,15 @@ function saveBuild() {
     xhttp.onreadystatechange = function () {
 
         if (this.readyState == 4 && this.status == 200) {
-            console.log("server response" +this.responseText);
+            console.log("server response " +this.responseText);
+            idBuild=parseInt(this.responseText)
         } else if (this.readyState == 4 && this.status == 404) {
             console.log("error");
             $("#searchResult").append("Saving Error");
         }
     };
 
-    xhttp.open("POST", "/MYOPSite_war_exploded/\veBuild", true);
+    xhttp.open("POST", "/MYOPSite_war_exploded/saveBuild", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     let sentData = JSON.stringify(build);
     console.log(sentData);
