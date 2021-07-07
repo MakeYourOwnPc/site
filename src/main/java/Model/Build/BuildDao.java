@@ -14,7 +14,7 @@ public class BuildDao implements IBuildDao<SQLException>{
     @Override
     public ArrayList<Build> doRetrieveAll(int limit,int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Builds ORDER BY name LIMIT ?,?;")){
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Builds LIMIT ?,?;")){
                 ps.setInt(1,offset);
                 ps.setInt(2,limit);
                 ResultSet rs = ps.executeQuery();
