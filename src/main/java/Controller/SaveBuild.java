@@ -2,6 +2,18 @@ package Controller;
 
 import Model.Build.Build;
 import Model.Build.BuildDao;
+import Model.Cpu.Cpu;
+import Model.Cpu.CpuDao;
+import Model.Gpu.Gpu;
+import Model.Gpu.GpuDao;
+import Model.Memory.Memory;
+import Model.Memory.MemoryDao;
+import Model.Mobo.Mobo;
+import Model.Mobo.MoboDao;
+import Model.PcCase.PcCase;
+import Model.PcCase.PcCaseDao;
+import Model.Psu.Psu;
+import Model.Psu.PsuDao;
 import Model.ShoppingCart.ShoppingCart;
 import Model.ShoppingCart.ShoppingCartDao;
 import Model.User.User;
@@ -14,6 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 @WebServlet(name="saveBuild",urlPatterns = "/saveBuild")
 public class SaveBuild extends HttpServlet {
     @Override
@@ -26,12 +40,26 @@ public class SaveBuild extends HttpServlet {
         resp.setContentType("plain/text");
         resp.setCharacterEncoding("UTF-8");
         try {
-            req.getSession().setAttribute("gpu",build.getGpu());
-            req.getSession().setAttribute("cpu",build.getCpu());
-            req.getSession().setAttribute("psu",build.getPsu());
-            req.getSession().setAttribute("mobo",build.getMobo());
-            req.getSession().setAttribute("pcCase",build.getPcCase());
-            req.getSession().setAttribute("memories",build.getMemories());
+            GpuDao gpuDao = new GpuDao();
+            CpuDao cpuDao = new CpuDao();
+            PsuDao psuDao = new PsuDao();
+            MoboDao moboDao = new MoboDao();
+            MemoryDao memoryDao = new MemoryDao();
+            PcCaseDao pcCaseDao = new PcCaseDao();
+            Gpu gpu = gpuDao.doRetrieveById(build.getGpu());
+            Cpu cpu = cpuDao.doRetrieveById(build.getCpu());
+            Mobo mobo = moboDao.doRetrieveById(build.getMobo());
+            Psu psu = psuDao.doRetrieveById(build.getPsu());
+            PcCase pcCase = pcCaseDao.doRetrieveById(build.getPcCase());
+            ArrayList<Memory> memories = new ArrayList<>();
+            for(Integer idMem:build.getMemories())
+                memories.add(memoryDao.doRetrieveById(idMem));
+            req.getSession().setAttribute("gpu",gpu);
+            req.getSession().setAttribute("cpu",cpu);
+            req.getSession().setAttribute("psu",psu);
+            req.getSession().setAttribute("mobo",mobo);
+            req.getSession().setAttribute("pcCase",pcCase);
+            req.getSession().setAttribute("memories",memories);
             req.getSession().setAttribute("type",build.getType());
             req.getSession().setAttribute("suggested",build.isSuggested());
             if(user!=null) {
