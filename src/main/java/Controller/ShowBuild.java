@@ -30,11 +30,11 @@ import java.util.ArrayList;
 public class ShowBuild extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int idBuild = Integer.parseInt(req.getParameter("idBuild"));
+        int id = Integer.parseInt(req.getParameter("id"));
         BuildDao buildDao = new BuildDao();
         try {
             Gson gson = new Gson();
-            Build build = buildDao.doRetrieveById(idBuild);
+            Build build = buildDao.doRetrieveById(id);
             GpuDao gpuDao = new GpuDao();
             CpuDao cpuDao = new CpuDao();
             PsuDao psuDao = new PsuDao();
