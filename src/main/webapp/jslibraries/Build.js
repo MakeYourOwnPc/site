@@ -34,24 +34,25 @@ function updateSpecification() {
     slotNVMEUsed = 0;
     slotRamUsed = 0;
     slotSataUsed = 0;
-    powerNeeded = mobo.consumption + gpu.consumption + ram.consumption
-        + massStorage1.consumption + massStorage2.consumption + massStorage3.comsumption + cpu.consumption;
+    powerNeeded = mobo.consumption + gpu.consumption + ram.consumption + cpu.consumption;
     slotSataAvailable = mobo.amountSlotSata;
     slotNVMEAvailable = mobo.amountSlotNvme;
     slotRamAvailable = mobo.amountSlotRam;
-    slotRamUsed = ram.amountOfMemories;
+    slotRamUsed = ram.amountMemories;
 
     socketRam = mobo.ramSocket;
     socketCpu = mobo.cpuSocket;
     formFactor = mobo.formFactor;
     if (massStorage1 != null) {
         if (massStorage1 == "sata") {
+
             slotSataAvailable -= 1;
             slotSataUsed += 1;
         } else {
             slotNVMEAvailable -= 1;
             slotNVMEUsed += 1
         }
+        powerNeeded+= massStorage1.consumption;
     }
     if (massStorage2 != null) {
         if (massStorage2 == "sata") {
@@ -61,6 +62,7 @@ function updateSpecification() {
             slotNVMEAvailable -= 1;
             slotNVMEUsed += 1
         }
+        powerNeeded+= massStorage2.consumption;
     }
     if (massStorage3 != null) {
         if (massStorage3 == "sata") {
@@ -70,6 +72,7 @@ function updateSpecification() {
             slotNVMEAvailable -= 1;
             slotNVMEUsed += 1
         }
+        powerNeeded+= massStorage3.consumption;
     }
 
 }
@@ -159,7 +162,7 @@ function submitForm(number) {
     $('tr.removable').remove();
 
     let formData;
- /*   updateSpecification();*/
+   updateSpecification();
 
     formData = "name=" + $("#productName").val().replaceAll(" ", "%20");
     let socketEmpty = true;
@@ -183,7 +186,7 @@ function submitForm(number) {
         }
 
         formData += "&power=" + powerNeeded + "&id=&formFactor=" + formFactor + "&CPUsocket=" + socketCpu + "&RAMsocket=" + socketRam + "" +
-            "&nRAMSocket=" + slotRamUsed + "" + "&nSATASockets=" + slotSataUsed + "&nNVMESockets=" + slotNVMEUsed + "&requestedItem=" + itemCategory;
+            "&nRAMSockets=" + slotRamUsed + "" + "&nSATASockets=" + slotSataUsed + "&nNVMESockets=" + slotNVMEUsed + "&requestedItem=" + itemCategory;
     } else
         formData += "&requestedItem=" + itemCategory + "&power=&id=&formFactor=&CPUsocket=&RAMsocket=" +
             "&nRAMSockets=" + "&nSATASockets=&nNVMESockets=&MEMsocket=&amountOfMemories=&mType=false&integratedGpu=";
@@ -435,36 +438,3 @@ function addMassStorage3(id) {
     toggleOverlay();
 }
 
-function saveBuild() {
-    if(idBuild==undefined)
-        idBuild=0;
-    let build = {
-        mobo: mobo.id,
-        gpu: gpu.id,
-        cpu: cpu.id,
-        pcCase: pcCase.id,
-        psu: psu.id,
-        type: "",
-        memories: [ram.id,massStorage1.id, massStorage2.id, massStorage3.id],
-        suggested:false,
-        id:idBuild
-    }
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-
-        if (this.readyState == 4 && this.status == 200) {
-            console.log("server response " +this.responseText);
-            idBuild=parseInt(this.responseText)
-        } else if (this.readyState == 4 && this.status == 404) {
-            console.log("error");
-            $("#searchResult").append("Saving Error");
-        }
-    };
-
-    xhttp.open("POST", "/MYOPSite_war_exploded/saveBuild", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    let sentData = JSON.stringify(build);
-    console.log(sentData);
-    xhttp.send("build="+sentData);
-
-}

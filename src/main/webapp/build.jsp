@@ -20,7 +20,7 @@
 <span id="oldMemories" style="display: none">${memories}</span>
 <input type="hidden" id="oldPsu" value='${psu}'>
 <input type="hidden" id="oldPcCase" value='${pcCase}'>
-<input type="hidden" id="idBuild" value='<%=request.getParameter("id")%>'>
+<input type="hidden" id="idBuild" value='<%=request.getParameter("idBuild")%>'>
 
 
 <script src="./bootstrap/js/bootstrap.js" defer></script>
@@ -106,7 +106,7 @@
         <tr>
             <td><label for="saveBuild">Save Build?</label></td>
             <td>
-                <button id="saveBuild" class="btn btn-success" onclick="saveBuild()">SAVE</button>
+                <button id="saveBuild" class="btn active" style="transition: 1s" onclick="saveBuild()">SAVE</button>
             </td>
         </tr>
         </tbody>
@@ -148,6 +148,44 @@
         $("#pcCase").val(pcCase.name);
         idBuild=$("#idBuild").val();
         if(idBuild=="") idBuild=0;
+    }
+
+    function saveBuild() {
+        if(idBuild==undefined)
+            idBuild=0;
+
+        let build = {
+            mobo: mobo.id,
+            gpu: gpu.id,
+            cpu: cpu.id,
+            pcCase: pcCase.id,
+            psu: psu.id,
+            type: "",
+            memories: [ram.id,massStorage1.id, massStorage2.id, massStorage3.id],
+            suggested:false,
+            id:idBuild
+        }
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("server response " +this.responseText);
+                idBuild=parseInt(this.responseText)
+                $("#saveBuild").text("SAVED").removeClass("active").addClass("btn-success");
+                setTimeout(function(){$("#saveBuild").text("SAVE").addClass("active").removeClass("btn-success")},3000);
+
+            } else if (this.readyState == 4 && this.status == 404) {
+                console.log("error");
+                $("#searchResult").append("Saving Error");
+            }
+        };
+
+        xhttp.open("POST", "/MYOPSite_war_exploded/saveBuild", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        let sentData = JSON.stringify(build);
+        console.log(sentData);
+        xhttp.send("build="+sentData);
+
     }
 </script>
 
