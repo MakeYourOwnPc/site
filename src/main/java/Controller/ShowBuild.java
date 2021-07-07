@@ -47,12 +47,14 @@ public class ShowBuild extends HttpServlet {
             ArrayList<Memory> memories = new ArrayList<>();
             for(Integer idMem:build.getMemories())
                 memories.add(memoryDao.doRetrieveById(idMem));
-            req.setAttribute("gpu",gpu);
-            req.setAttribute("cpu",cpu);
-            req.setAttribute("psu",psu);
-            req.setAttribute("mobo",mobo);
-            req.setAttribute("pcCase",pcCase);
-            req.setAttribute("memories",memories);
+            req.getSession().setAttribute("gpu",build.getGpu());
+            req.getSession().setAttribute("cpu",build.getCpu());
+            req.getSession().setAttribute("psu",build.getPsu());
+            req.getSession().setAttribute("mobo",build.getMobo());
+            req.getSession().setAttribute("pcCase",build.getPcCase());
+            req.getSession().setAttribute("memories",build.getMemories());
+            req.getSession().setAttribute("type",build.getType());
+            req.getSession().setAttribute("suggested",build.isSuggested());
             RequestDispatcher dispatcher=req.getRequestDispatcher("/WEB-INF/build.jsp");
             dispatcher.forward(req,resp);
         } catch (SQLException throwables) {
