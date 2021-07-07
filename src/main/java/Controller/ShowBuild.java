@@ -15,6 +15,7 @@ import Model.PcCase.PcCase;
 import Model.PcCase.PcCaseDao;
 import Model.Psu.Psu;
 import Model.Psu.PsuDao;
+import com.google.gson.Gson;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,6 +33,7 @@ public class ShowBuild extends HttpServlet {
         int idBuild = Integer.parseInt(req.getParameter("idBuild"));
         BuildDao buildDao = new BuildDao();
         try {
+            Gson gson = new Gson();
             Build build = buildDao.doRetrieveById(idBuild);
             GpuDao gpuDao = new GpuDao();
             CpuDao cpuDao = new CpuDao();
@@ -47,14 +49,14 @@ public class ShowBuild extends HttpServlet {
             ArrayList<Memory> memories = new ArrayList<>();
             for(Integer idMem:build.getMemories())
                 memories.add(memoryDao.doRetrieveById(idMem));
-            req.getSession().setAttribute("gpu",gpu);
-            req.getSession().setAttribute("cpu",cpu);
-            req.getSession().setAttribute("psu",psu);
-            req.getSession().setAttribute("mobo",mobo);
-            req.getSession().setAttribute("pcCase",pcCase);
-            req.getSession().setAttribute("memories",memories);
-            req.getSession().setAttribute("type",build.getType());
-            req.getSession().setAttribute("suggested",build.isSuggested());
+            req.setAttribute("gpu",gson.toJson(gpu));
+            req.setAttribute("cpu",gson.toJson(cpu));
+            req.setAttribute("psu",gson.toJson(psu));
+            req.setAttribute("mobo",gson.toJson(mobo));
+            req.setAttribute("pcCase",gson.toJson(pcCase));
+            req.setAttribute("memories",gson.toJson(memories));
+            req.setAttribute("type",gson.toJson(build.getType()));
+            req.setAttribute("suggested",gson.toJson(build.isSuggested()));
             RequestDispatcher dispatcher=req.getRequestDispatcher("/WEB-INF/build.jsp");
             dispatcher.forward(req,resp);
         } catch (SQLException throwables) {

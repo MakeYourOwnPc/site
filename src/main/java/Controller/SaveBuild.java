@@ -54,14 +54,14 @@ public class SaveBuild extends HttpServlet {
             ArrayList<Memory> memories = new ArrayList<>();
             for(Integer idMem:build.getMemories())
                 memories.add(memoryDao.doRetrieveById(idMem));
-            req.getSession().setAttribute("gpu",gpu);
-            req.getSession().setAttribute("cpu",cpu);
-            req.getSession().setAttribute("psu",psu);
-            req.getSession().setAttribute("mobo",mobo);
-            req.getSession().setAttribute("pcCase",pcCase);
-            req.getSession().setAttribute("memories",memories);
-            req.getSession().setAttribute("type",build.getType());
-            req.getSession().setAttribute("suggested",build.isSuggested());
+            req.getSession().setAttribute("gpu",gson.toJson(gpu));
+            req.getSession().setAttribute("cpu",gson.toJson(cpu));
+            req.getSession().setAttribute("psu",gson.toJson(psu));
+            req.getSession().setAttribute("mobo",gson.toJson(mobo));
+            req.getSession().setAttribute("pcCase",gson.toJson(pcCase));
+            req.getSession().setAttribute("memories",gson.toJson(memories));
+            req.getSession().setAttribute("type",gson.toJson(build.getType()));
+            req.getSession().setAttribute("suggested",gson.toJson(build.isSuggested()));
             if(user!=null) {
                 build.setMaker(user.getEmail());
                 resp.getWriter().print(buildDao.doSave(build));
