@@ -23,7 +23,7 @@ public class BuildDao implements IBuildDao<SQLException>{
                     Build build = new Build();
                     build.setId(rs.getInt("id"));
                     build.setCpu(rs.getInt("cpu"));
-                    PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=? ORDER BY name;");
+                    PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=?;");
                     ps2.setInt(1,build.getId());
                     ResultSet rs2 = ps2.executeQuery();
                     while(rs2.next()){
@@ -60,7 +60,7 @@ public class BuildDao implements IBuildDao<SQLException>{
                 rs.next();
                 Build build = new Build();
                 build.setCpu(rs.getInt("cpu"));
-                PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=? ORDER BY name;");
+                PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=?;");
                 ps2.setInt(1,build.getId());
                 ResultSet rs2 = ps2.executeQuery();
                 while(rs2.next())
@@ -96,7 +96,7 @@ public class BuildDao implements IBuildDao<SQLException>{
                     Build build = new Build();
                     build.setId(rs.getInt("id"));
                     build.setCpu(rs.getInt("cpu"));
-                    PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=? ORDER BY name;");
+                    PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=? ;");
                     ps2.setInt(1,build.getId());
                     ResultSet rs2 = ps2.executeQuery();
                     while(rs2.next()){
@@ -127,7 +127,7 @@ public class BuildDao implements IBuildDao<SQLException>{
     @Override
     public ArrayList<Build> doRetrieveByPower(int power,int limit,int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Builds WHERE power=? ORDER BY name LIMIT ?,?;")){
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Builds WHERE power=? LIMIT ?,?;")){
                 ps.setInt(1,power);
                 ps.setInt(2,offset);
                 ps.setInt(3,limit);
@@ -137,7 +137,7 @@ public class BuildDao implements IBuildDao<SQLException>{
                     Build build = new Build();
                     build.setId(rs.getInt("id"));
                     build.setCpu(rs.getInt("cpu"));
-                    PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=? ORDER BY name;");
+                    PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=?;");
                     ps2.setInt(1,build.getId());
                     ResultSet rs2 = ps2.executeQuery();
                     while(rs2.next()){
