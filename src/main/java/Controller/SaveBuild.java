@@ -25,8 +25,10 @@ public class SaveBuild extends HttpServlet {
         Build build = gson.fromJson(buildJson,Build.class);
         try {
             req.getSession().setAttribute("build",build);
-            if(user!=null)
+            if(user!=null) {
+                build.setMaker(user.getEmail());
                 resp.getWriter().print(buildDao.doSave(build));
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
