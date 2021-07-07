@@ -23,6 +23,8 @@ public class SaveBuild extends HttpServlet {
         String buildJson = req.getParameter("build");
         BuildDao buildDao = new BuildDao();
         Build build = gson.fromJson(buildJson,Build.class);
+        resp.setContentType("plain/text");
+        resp.setCharacterEncoding("UTF-8");
         try {
             req.getSession().setAttribute("build",build);
             if(user!=null) {
