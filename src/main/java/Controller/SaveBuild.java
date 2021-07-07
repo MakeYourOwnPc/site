@@ -52,7 +52,8 @@ public class SaveBuild extends HttpServlet {
             Psu psu = psuDao.doRetrieveById(build.getPsu());
             PcCase pcCase = pcCaseDao.doRetrieveById(build.getPcCase());
             ArrayList<Memory> memories = new ArrayList<>();
-            for(Integer idMem:build.getMemories())
+            ArrayList<Integer> memIds = build.getMemories();
+            for(Integer idMem:memIds)
                 memories.add(memoryDao.doRetrieveById(idMem));
             req.getSession().setAttribute("gpu",gson.toJson(gpu));
             req.getSession().setAttribute("cpu",gson.toJson(cpu));

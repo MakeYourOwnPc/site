@@ -47,7 +47,8 @@ public class ShowBuild extends HttpServlet {
             Psu psu = psuDao.doRetrieveById(build.getPsu());
             PcCase pcCase = pcCaseDao.doRetrieveById(build.getPcCase());
             ArrayList<Memory> memories = new ArrayList<>();
-            for(Integer idMem:build.getMemories())
+            ArrayList<Integer> memIds = build.getMemories();
+            for(Integer idMem:memIds)
                 memories.add(memoryDao.doRetrieveById(idMem));
             req.setAttribute("gpu",gson.toJson(gpu));
             req.setAttribute("cpu",gson.toJson(cpu));
