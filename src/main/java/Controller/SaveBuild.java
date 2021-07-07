@@ -37,6 +37,7 @@ public class SaveBuild extends HttpServlet {
         String buildJson = req.getParameter("build");
         BuildDao buildDao = new BuildDao();
         Build build = gson.fromJson(buildJson,Build.class);
+        int idBuild = build.getId();
         resp.setContentType("plain/text");
         resp.setCharacterEncoding("UTF-8");
         try {
@@ -64,8 +65,13 @@ public class SaveBuild extends HttpServlet {
             req.getSession().setAttribute("type",gson.toJson(build.getType()));
             req.getSession().setAttribute("suggested",gson.toJson(build.isSuggested()));
             if(user!=null) {
-                build.setMaker(user.getEmail());
-                resp.getWriter().print(buildDao.doSave(build));
+                if(idBuild!=0)
+                    if(user.getEmail().equals(build.getMaker()))
+                        resp.getWriter().print(buildDao.doUpdate(build));
+                else {
+                        build.setMaker(user.getEmail());
+                        resp.getWriter().print(buildDao.doSave(build));
+                    }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
