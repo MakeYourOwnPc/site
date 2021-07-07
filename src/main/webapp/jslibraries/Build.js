@@ -436,6 +436,8 @@ function addMassStorage3(id) {
 }
 
 function saveBuild() {
+    if(idBuild=="")
+        idBuild=0;
     let build = {
         mobo: mobo.id,
         gpu: gpu.id,
@@ -458,7 +460,7 @@ function saveBuild() {
         }
     };
 
-    xhttp.open("POST", "/MYOPSite_war_exploded/saveBuild", true);
+    xhttp.open("POST", "/MYOPSite_war_exploded/\veBuild", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     let sentData = JSON.stringify(build);
     console.log(sentData);
