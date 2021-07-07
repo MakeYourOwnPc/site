@@ -72,8 +72,8 @@ public class SaveBuild extends HttpServlet {
                 else {
                         build.setMaker(user.getEmail());
                         buildDao.doSave(build);
-                        resp.getWriter().print(build.getId());
                     }
+                resp.getWriter().print(build.getId());
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
