@@ -65,12 +65,14 @@ public class SaveBuild extends HttpServlet {
             req.getSession().setAttribute("type",gson.toJson(build.getType()));
             req.getSession().setAttribute("suggested",gson.toJson(build.isSuggested()));
             if(user!=null) {
-                if(idBuild!=0)
-                    if(user.getEmail().equals(build.getMaker()))
-                        resp.getWriter().print(buildDao.doUpdate(build));
+                if(idBuild!=0) {
+                    if (user.getEmail().equals(build.getMaker()))
+                        buildDao.doUpdate(build);
+                }
                 else {
                         build.setMaker(user.getEmail());
-                        resp.getWriter().print(buildDao.doSave(build));
+                        buildDao.doSave(build);
+                        resp.getWriter().print(build.getId());
                     }
             }
         } catch (SQLException throwables) {
