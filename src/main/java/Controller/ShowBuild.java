@@ -16,6 +16,7 @@ import Model.PcCase.PcCaseDao;
 import Model.Psu.Psu;
 import Model.Psu.PsuDao;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,7 +53,8 @@ public class ShowBuild extends HttpServlet {
             req.setAttribute("mobo",mobo);
             req.setAttribute("pcCase",pcCase);
             req.setAttribute("memories",memories);
-
+            RequestDispatcher dispatcher=req.getRequestDispatcher("/WEB-INF/build.jsp");
+            dispatcher.forward(req,resp);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
