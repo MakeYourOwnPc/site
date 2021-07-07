@@ -14,14 +14,13 @@
     <link rel="stylesheet" href="./customcss/general.css"/>
 </head>
 <body>
-<input type="hidden" id="oldMobo" value="${mobo}">
-<input type="hidden" id="oldGpu" value="${gpu}">
-<input type="hidden" id="oldRam" value="${ram}">
-<input type="hidden" id="oldMassStorage1" value="${massStorage1}">
-<input type="hidden" id="oldMassStorage2" value="${massStorage2}">
-<input type="hidden" id="oldMassStorage3" value="${massStorage3}">
-<input type="hidden" id="oldPsu" value="${psu}">
-<input type="hidden" id="oldPcCase" value="${pcCase}">
+<input type="hidden" id="oldMobo" value='${mobo}'>
+<input type="hidden" id="oldGpu" value='${gpu}'>
+<input type="hidden" id="oldCpu" value='${cpu}'>
+<span id="oldMemories" style="display: none">${memories}</span>
+<input type="hidden" id="oldPsu" value='${psu}'>
+<input type="hidden" id="oldPcCase" value='${pcCase}'>
+<input type="hidden" id="idBuild" value='${id}'>
 
 
 <script src="./bootstrap/js/bootstrap.js" defer></script>
@@ -39,8 +38,7 @@
                     <td><h1 id="updateTitle" style="float: left"></h1></td>
                     <td>
                         <button onclick="toggleOverlay()" class="btn btn-danger"
-                                style="font-size: 26px;font-weight: bolder">X
-                        </button>
+                                style="font-size: 26px;font-weight: bolder; float:right;">X</button>
                     </td>
                 </tr>
             </table>
@@ -79,27 +77,23 @@
     </div>
     <div id="builds">
         <label for="gpu">Select GPU</label>
-        <select type="select" id="gpu" onclick="selectGPU()"></select>
+        <input type="text" id="gpu" onclick="selectGPU()" readonly>
         <label for="cpu">Select CPU</label>
-        <select type="select" id="cpu" onclick="selectCPU()"></select>
+        <input type="text" id="cpu" onclick="selectCPU()">
         <label for="mobo">Select MotherBoard</label>
-        <select type="select" id="mobo" onclick="selectMOBO()"></select>
+        <input type="text" id="mobo" onclick="selectMOBO()">
         <label for="ram">Select RAM</label>
-        <select type="select" id="ram" onclick="selectRAM()"></select>
+        <input type="text" id="ram" onclick="selectRAM()">
         <label for="massStorage1">Select the First Mass Storage</label>
-        <select type="select" id="massStorage1" onclick="selectMassStorage(1)"></select>
+        <input type="text" id="massStorage1" onclick="selectMassStorage(1)">
         <label for="massStorage2">Select the Second Mass Storage</label>
-        <select type="select" id="massStorage2" onclick="selectMassStorage(2)">
-            <option value="none">NONE</option>
-        </select>
+        <input type="text" id="massStorage2" value="NONE" onclick="selectMassStorage(2)">
         <label for="massStorage3">Select the Third Mass Storage</label>
-        <select type="select" id="massStorage3" onclick="selectMassStorage(3)">
-            <option value="none">NONE</option>
-        </select>
+        <input type="text" id="massStorage3" value="NONE" onclick="selectMassStorage(3)">
         <label for="pcCase">Select the Pc Case</label>
-        <select type="select" id="pcCase" onclick="selectPcCase()"></select>
+        <input type="text" id="pcCase" onclick="selectPcCase()">
         <label for="psu">Select the Psu</label>
-        <select type="select" id="psu" onclick="selectPsu()"></select>
+        <input type="text" id="psu" onclick="selectPsu()">
     </div>
     <table>
         <tbody>
@@ -129,13 +123,31 @@
 
     function retrievePrecedentBuild() {
         mobo = JSON.parse($("#oldMobo").val());
+        $("#mobo").val(mobo.name);
         gpu = JSON.parse($("#oldGpu").val());
-        ram = JSON.parse($("#oldRam").val());
-        massStorage1 = JSON.parse($("#oldMassStorage1").val());
-        massStorage2 = JSON.parse($("#oldMassStorage2").val());
-        massStorage3 = JSON.parse($("#oldMassStorage3").val());
+        $("#gpu").val(gpu.name);
+        cpu = JSON.parse($("#oldCpu").val());
+        $("#cpu").val(cpu.name);
+        let memories=JSON.parse($("#oldMemories").text());
+        ram=memories.find(elem=>elem.mType==false);
+        $("#ram").val(ram.name);
+        let massStorages=memories.filter(elem=>elem.mType==true)
+        massStorage1 = massStorages[0];
+        $("#massStorage1").val(massStorage1.name);
+        massStorage2 = massStorages[1];
+        if(massStorage2!=null){
+            $("#massStorage2").val(massStorage2.name);
+        }
+        massStorage3 = massStorages[2];
+        if(massStorage3!=null) {
+            $("#massStorage3").val(massStorage3.name)
+        }
         psu = JSON.parse($("#oldPsu").val());
+        $("#psu").val(psu.name);
         pcCase = JSON.parse($("#oldPcCase").val());
+        $("#pcCase").val(pcCase.name);
+        idBuild=$("#idBuild").val();
+        if(idBuild==null) idBuild=0;
     }
 </script>
 

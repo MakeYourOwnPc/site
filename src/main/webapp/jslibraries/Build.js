@@ -23,6 +23,7 @@ let selectedElementObject;
 let itemCategory;
 let tableHeader;
 let item;
+let idBuild;
 
 
 function toggleOverlay() {
@@ -365,7 +366,7 @@ function addGpu(id) {
     let elem = arrayElements.find(elem => elem.id == id);
     gpu = elem;
     selectedElementObject = elem;
-    $("#gpu").html("<option value='id'>" + elem.name + "</option>")
+    $("#gpu").val( elem.name)
     toggleOverlay();
 
 }
@@ -374,7 +375,7 @@ function addCpu(id) {
     let elem = arrayElements.find(elem => elem.id == id);
     cpu = elem;
     selectedElementObject = elem;
-    $("#cpu").html("<option value='id'>" + elem.name + "</option>")
+    $("#cpu").val( elem.name)
     toggleOverlay();
 }
 
@@ -382,7 +383,7 @@ function addMobo(id) {
     let elem = arrayElements.find(elem => elem.id == id);
     mobo = elem;
     selectedElementObject = elem;
-    $("#mobo").html("<option value='id'>" + elem.name + "</option>")
+    $("#mobo").val( elem.name)
     toggleOverlay();
 }
 
@@ -390,7 +391,7 @@ function addpcCase(id) {
     let elem = arrayElements.find(elem => elem.id == id);
     pcCase = elem;
     selectedElementObject = elem;
-    $("#pcCase").html("<option value='id'>" + elem.name + "</option>")
+    $("#pcCase").val( elem.name)
     toggleOverlay();
 }
 
@@ -398,7 +399,7 @@ function addPsu(id) {
     let elem = arrayElements.find(elem => elem.id == id);
     psu = elem;
     selectedElementObject = elem;
-    $("#psu").html("<option value='id'>" + elem.name + "</option>")
+    $("#psu").val( elem.name)
     toggleOverlay();
 }
 
@@ -406,7 +407,7 @@ function addRam(id) {
     let elem = arrayElements.find(elem => elem.id == id);
     ram = elem;
     selectedElementObject = elem;
-    $("#ram").html("<option value='id'>" + elem.name + "</option>")
+    $("#ram").val( elem.name)
     toggleOverlay();
 }
 
@@ -414,7 +415,7 @@ function addMassStorage1(id) {
     let elem = arrayElements.find(elem => elem.id == id);
     massStorage1 = elem;
     selectedElementObject = elem;
-    $("#massStorage1").html("<option value='id'>" + elem.name + "</option>");
+    $("#massStorage1").val( elem.name)
     toggleOverlay();
 }
 
@@ -422,7 +423,7 @@ function addMassStorage2(id) {
     let elem = arrayElements.find(elem => elem.id == id);
     massStorage2 = elem;
     selectedElementObject = elem;
-    $("#massStorage2").html("<option value='id'>" + elem.name + "</option>")
+    $("#massStorage2").val(elem.name)
     toggleOverlay();
 }
 
@@ -430,7 +431,7 @@ function addMassStorage3(id) {
     let elem = arrayElements.find(elem => elem.id == id);
     massStorage3 = elem;
     selectedElementObject = elem;
-    $("#massStorage3").html("<option value='id'>" + elem.name + "</option>")
+    $("#massStorage3").val( elem.name)
     toggleOverlay();
 }
 
@@ -442,8 +443,9 @@ function saveBuild() {
         pcCase: pcCase.id,
         psu: psu.id,
         type: "",
-        memories: [massStorage1.id, massStorage2.id, massStorage3.id],
-        suggested:false
+        memories: [ram.id,massStorage1.id, massStorage2.id, massStorage3.id],
+        suggested:false,
+        id:idBuild
     }
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {

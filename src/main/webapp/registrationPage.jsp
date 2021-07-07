@@ -23,7 +23,7 @@
 
 
 <div class="centered-box">
-    <div class="box-container">
+    <div class="box-container fullHeightList">
     <h1>Registration Form</h1>
     <form name="registration" action="/MYOPSite_war_exploded/registration" method="post" onsubmit="return validateData()">
         <table  class="registration-box">

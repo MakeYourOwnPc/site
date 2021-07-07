@@ -99,6 +99,7 @@ create table Builds
     foreign key (gpu) references gpus (id) on delete cascade on update no action,
     foreign key (psu) references psus (id) on delete cascade on update no action,
     foreign key (pccase) references pccases (id) on delete cascade on update no action,
+    foreign key (cpu) references Cpus(id) on delete cascade on update no action,
     foreign key (maker) references users (email)
 
 );
