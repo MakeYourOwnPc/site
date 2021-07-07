@@ -26,7 +26,14 @@ public class SaveBuild extends HttpServlet {
         resp.setContentType("plain/text");
         resp.setCharacterEncoding("UTF-8");
         try {
-            req.getSession().setAttribute("build",build);
+            req.getSession().setAttribute("gpu",build.getGpu());
+            req.getSession().setAttribute("cpu",build.getCpu());
+            req.getSession().setAttribute("psu",build.getPsu());
+            req.getSession().setAttribute("mobo",build.getMobo());
+            req.getSession().setAttribute("pcCase",build.getPcCase());
+            req.getSession().setAttribute("memories",build.getMemories());
+            req.getSession().setAttribute("type",build.getType());
+            req.getSession().setAttribute("suggested",build.isSuggested());
             if(user!=null) {
                 build.setMaker(user.getEmail());
                 resp.getWriter().print(buildDao.doSave(build));
