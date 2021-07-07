@@ -5,15 +5,15 @@
 <head>
     <title>MYOP-Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="../customcss/general.css"/>
+    <link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="./customcss/general.css"/>
 </head>
 <body class="default">
-<script src="../bootstrap/js/bootstrap.js" defer></script>
-<script src="../bootstrap/popper.js" defer></script>
+<script src="./bootstrap/js/bootstrap.js" defer></script>
+<script src="./bootstrap/popper.js" defer></script>
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
-<script src="../jslibraries/jQuery.js"></script>
-<script src="../jslibraries/utilities.js"></script>
+<script src="./jslibraries/jQuery.js"></script>
+<script src="./jslibraries/utilities.js"></script>
 
 <nav class="topbar">
     <div id="icon-container sidebar-icon" onclick="hideSidebar()">
@@ -88,9 +88,7 @@
 
     var selectedElement;
 
-    function toggleOverlay() {
-        $("#overlayForm").fadeToggle();
-    }
+
 
     function hideSidebar() {
         $("#sidebar").slideToggle();
@@ -279,8 +277,11 @@
         let formDATA = $("#searchForm").serialize();
         $('tr.removable').remove();
 
-        xhttp.onreadystatechange = function () {
+        if(selectedElement=="Users"){
+            submitFormUsers(formDATA);
+        }
 
+        xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 console.log(this.responseText);
 
@@ -312,24 +313,35 @@
 
                         results.forEach(psusTabler);
                         break;
-                    case"Users":
 
-                        results.forEach(userTabler);
-                        break;
                     default:
                         $("#searchResult").html("Cannot visualize");
                 }
 
             }
         };
-        xhttp.open("POST", "/MYOPSite_war_exploded/adminpage", true);
+        xhttp.open("POST", "/MYOPSite_war_exploded/itemsLister", true);
 
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
         xhttp.send(formDATA);
         console.log(formDATA);
 
+    }
 
+    function submitFormUsers(formData) {
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var results = JSON.parse(this.responseText);
+                results.forEach(userTabler);
+            }
+        }
+        xhttp.open("POST", "/MYOPSite_war_exploded/usersLister", true);
+
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhttp.send(formDATA);
+        console.log(formDATA);
     }
 
     function userTabler(value) {
@@ -781,6 +793,7 @@
     }
 
     function prepareFormInsert() {
+        let user=false;
         let formHTML;
 
         switch (selectedElement) {
@@ -970,24 +983,21 @@
                     '<td><input type="email" name="email" id="email" onfocusout="existingEmail()" required>' +
                     '<span id="email-alert" class="alert-info " hidden> Incorrect Email</span></td></tr>' +
 
-                    '<tr><td><label for="firstName" >Firstname</label></td>' +
-                    '<td><input type="text" name="firstName"required></td></tr>' +
-
-                    '<tr><td><label for="lastName">Lastname</label></td>' +
-                    '<td><input type="text" name="lastName" required></td></tr>' +
 
                     '<tr><td><label for="admin">Admin</label></td>' +
-                    '<td><input type="checkbox" id="admin" name="admin" required></td></tr>' +
-
-                    '<tr><td><label for="password">Password</label></td>' +
-
-                    '<td><input id="password" type="password" name="password" id="password" onkeyup="testPassword(value)" required>' +
-                    '<span id="password-alert" class="alert-info " hidden>Password Not Inserted</span></td></tr>' +
-                    '<tr><td></td></tr>';
+                    '<td><input type="checkbox" id="admin" name="admin" required></td></tr>'
+                user=true;
                 break;
 
         }
+
         let buttonHTML='<tr><td><input id="submitDBUpdate" type="submit" class="btn btn-success" value="Insert Element"></td></tr>';
+        if(user){
+            $("#updateForm").attr("action","./modifyDB");
+        }else{
+            $("#updateForm").attr("action","./modifyDB");
+        }
+
         console.log(formHTML);
         $("#imageInput").html('<input type="file" id="image" name="image">');
         $("#updateTitle").text("Create Element");

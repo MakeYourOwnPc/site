@@ -6,6 +6,7 @@ import Model.Gpu.Gpu;
 import Model.Memory.Memory;
 import Model.Mobo.Mobo;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -52,7 +53,34 @@ public class BuildDao implements IBuildDao<SQLException>{
 
     @Override
     public Build doRetrieveById(int id) throws SQLException {
-        return null;
+        try(Connection conn = ConnPool.getConnection()){
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Builds WHERE id=?;")){
+                ps.setInt(1,id);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                Build build = new Build();
+                build.setCpu(rs.getInt("cpu"));
+                PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=? ORDER BY name;");
+                ps2.setInt(1,build.getId());
+                ResultSet rs2 = ps2.executeQuery();
+                while(rs2.next())
+                    for(int i = 0; i < rs2.getInt("amountofmemories");i++)
+                        build.addMemory(rs2.getInt("id"));
+                build.setGpu(rs.getInt("gpu"));
+                build.setMaker(rs.getString("maker"));
+                build.setMobo(rs.getInt("mobo"));
+                build.setPsu(rs.getInt("psu"));
+                build.setPcCase(rs.getInt("pcCase"));
+                build.setSuggested(rs.getBoolean("suggested"));
+                build.setType(rs.getString("type"));
+                build.setId(id);
+                return build;
+            }catch(SQLException e) {
+                return null;
+            }
+        }catch(SQLException e){
+            return null;
+        }
     }
 
     @Override
@@ -171,7 +199,43 @@ public class BuildDao implements IBuildDao<SQLException>{
             return null;
         }
     }
-
+    @Override
+    public ArrayList<BuildNames> doRetrieveByMaker(String maker) throws SQLException {
+        try(Connection conn = ConnPool.getConnection()) {
+            try (PreparedStatement ps = conn.prepareStatement("SELECT Builds.id id,Gpus.name gpu,Cpus.name cpu,Psus.name psu,Motherboards.name mobo,PcCases.name pccase,Builds.type type,Builds.maker maker,Builds.suggested suggested,PcCases.imagepath imagepath FROM Builds,Gpus,Cpus,Motherboards WHERE maker=? AND Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id;")) {
+                ps.setString(1, maker);
+                ResultSet rs = ps.executeQuery();
+                ArrayList<BuildNames> list = new ArrayList<>();
+                while (rs.next()) {
+                    BuildNames build = new BuildNames();
+                    build.setId(rs.getInt("id"));
+                    build.setCpu(rs.getString("cpu"));
+                    PreparedStatement ps2 = conn.prepareStatement("Select Memories.name,amountofmemories name FROM Memoriesbuiltin,Memories WHERE idbuild=? AND Memoriesbuiltin.id=Memories.id ORDER BY name;");
+                    ps2.setInt(1, build.getId());
+                    ResultSet rs2 = ps2.executeQuery();
+                    while (rs2.next()) {
+                        for (int i = 0; i < rs2.getInt("amountofmemories"); i++)
+                            build.addMemory(rs2.getString("name"));
+                    }
+                    build.setGpu(rs.getString("gpu"));
+                    build.setPsu(rs.getString("psu"));
+                    build.setMobo(rs.getString("mobo"));
+                    build.setPcCase(rs.getString("pccase"));
+                    build.setType(rs.getString("type"));
+                    build.setSuggested(rs.getBoolean("suggested"));
+                    build.setMaker(rs.getString("maker"));
+                    build.setImagePath(rs.getString("imagepath"));
+                    list.add(build);
+                }
+                rs.close();
+                return list;
+            } catch (SQLException e) {
+                return null;
+            }
+        }catch(SQLException e){
+            return null;
+        }
+    }
     @Override
     public ArrayList<Build> doRetrieveByMobo(String name,int limit,int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
@@ -296,7 +360,7 @@ public class BuildDao implements IBuildDao<SQLException>{
     @Override
     public ArrayList<BuildNames> doRetrieveByParameters(String mobo,String cpu,String gpu,String psu,String type,Boolean isSuggested,int limit,int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            String query = "SELECT Builds.id id,Motherboards.name mobo,Cpus.name cpu,Gpus.name gpu,Psus.name psu,Builds.type type,Builds.suggested suggested,Builds.maker maker,PcCases.imagepath imagepath FROM Builds,Gpus,Cpus,Motherboards WHERE Builds.type=? UPPER(Motherboards.name) LIKE UPPER('%"+mobo+"%') AND UPPER(Gpus.name) LIKE UPPER('%"+gpu+"%') AND UPPER(Cpus.name) LIKE UPPER('%"+cpu+"%') AND UPPER(Psus.Name) LIKE UPPER('%"+psu+"%') AND Builds.cpu=Cpus.id AND Builds.gpu=Cpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id";
+            String query = "SELECT Builds.id id,Motherboards.name mobo,Cpus.name cpu,Gpus.name gpu,Psus.name psu,Builds.type type,Builds.suggested suggested,Builds.maker maker,PcCases.imagepath imagepath FROM Builds,Gpus,Cpus,Motherboards WHERE Builds.type=? UPPER(Motherboards.name) LIKE UPPER('%"+mobo+"%') AND UPPER(Gpus.name) LIKE UPPER('%"+gpu+"%') AND UPPER(Cpus.name) LIKE UPPER('%"+cpu+"%') AND UPPER(Psus.Name) LIKE UPPER('%"+psu+"%') AND Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id";
                 String s="";
                 if(isSuggested!=null){
                     s=" AND suggested="+isSuggested;

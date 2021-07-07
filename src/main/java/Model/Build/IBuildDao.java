@@ -14,6 +14,7 @@ public interface IBuildDao<E extends Exception>{
     ArrayList<Build> doRetrieveByType(String type,int limit,int offset)throws E;
     ArrayList<Build> doRetrieveByPower(int power,int limit,int offset) throws E;
     ArrayList<BuildNames> doRetrieveSuggested() throws E;
+    ArrayList<BuildNames> doRetrieveByMaker(String maker) throws E;
     ArrayList<Build> doRetrieveByMobo(String name,int limit,int offset) throws E;
     ArrayList<Build> doRetrieveByCpu(String name,int limit,int offset) throws E;
     ArrayList<Build> doRetrieveByGpu(String name, int limit, int offset) throws E;

@@ -96,6 +96,14 @@ button{
     border-radius: 5px;
 
 }
+
+.inner-window{
+    position: fixed;
+    right: 0;
+    width: 75%;
+    height: 100%;
+}
+
 .active{
     background-color: var(--active-bg);
     color:var(--active-color);
