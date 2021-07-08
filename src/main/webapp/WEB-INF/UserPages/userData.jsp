@@ -1,16 +1,209 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Esterno
-  Date: 07/07/2021
-  Time: 12:56
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<% response.addHeader("Set-Cookie", "Secure; SameSite=strict");%>
+
 <html>
 <head>
     <title>MYOC-YourData</title>
+    <meta name="viewport" content="width=device-witdht, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="customcss/general.css"/>
 </head>
 <body>
+<script src="bootstrap/js/bootstrap.js" defer></script>
+<script src="bootstrap/popper.js" defer></script>
+<jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
+<script src="jslibraries/jQuery.js"></script>
+<script src="jslibraries/utilities.js"></script>
 
+
+<div class="centered-box">
+    <div class="box-container fullHeightList">
+        <h1>Registration Form</h1>
+        <form name="registration" action="/MYOPSite_war_exploded/modifyUser" method="post" onsubmit="return validateData()">
+            <table  class="User-box">
+                <tr><td>
+                    <label for="firstname">Firstname</label>
+                </td><td>
+                    <input type="text" name="firstname" id="firstname" value="${user.firstName}" disabled>
+                </td></tr>
+                <tr><td>
+                    <label for="lastname">LastName</label>
+                    <td>
+                        <input type="text" name="lastname" id="lastname" value="${user.lastName}" disabled>
+                </td></tr>
+                <tr><td>
+                    <label for="email">Email</label>
+                    <td>
+                        <input type="email" name="email" id="email" value="${user.email}"  disabled>
+                    </td></tr>
+                <tr style="display:none" id="newPasswordRow"><td>
+                    <label for="newPassword" >New Password</label>
+                    <td>
+                        <input type="password" name="newPassword" id="newPassword">
+                </td></tr>
+                <tr style="display:none" id="newPasswordTestRow"><td>
+                    <label for="newPasswordTest" >New Password Confirm</label>
+                    <td>
+                        <input type="password" name="newPasswordTest" id="newPasswordTest">
+                    </td></tr>
+                <tr><td>
+                    <input class="btn active" value="Modify Data" onclick=toggleOverlay() id="modify-data">
+                    <input type="submit" class="btn active" id="applyChanges" value="Apply Changes" hidden>
+                </td></tr>
+            </table>
+
+        </form>
+        <div id="overlayForm" class="overlayElement" style="display: none">
+            <div class="centered-box">
+                <div class="box-container">
+                    <table style="width: 100%">
+                        <tr style="vertical-align: middle">
+                            <td><h1 id="updateTitle" style="float: left"></h1></td>
+                            <td>
+                                <button onclick="toggleOverlay()" class="btn btn-danger" style="font-size: 26px;font-weight: bolder" >X</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <tr><td>
+                        <input type="password" placeholder="Insert Password" id="oldPassword" required>
+                        <span id="password-alert" class="alert-info" hidden>Wrong Password</span>
+                    </td></tr>
+                    <tr><td>
+                        <button id="submit-check" onclick="checkPassword()" class="btn active">Submit</button>
+                    </td></tr>
+                        </table>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <p style="text-align: left">
+            The Password Must Contain:<br>
+            -Between 8 And 16 Characters<br>
+            -At Least One Special Character Between &%#.-_<br>
+            -At Least An Uppercase And An Lowercase character<br>
+            -At Least A Number
+        </p>
+    </div>
+
+</div>
 </body>
+
+<script>
+
+    function checkPassword(){
+        let xhttp = new XMLHttpRequest();
+        let oldPassword = document.getElementById("oldPassword")
+        let alert = document.getElementById("password-alert")
+        let submit = document.getElementById("submit-check")
+        let formName = document.getElementById("firstname")
+        let formSurname = document.getElementById("lastname")
+        let applyChanges = document.getElementById("applyChanges")
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                if(attempts<=0){
+                    alert.innerText="Too many attempts. Retry Later."
+                    submit.disabled=true
+                }
+                else if(this.responseText=="false"){
+                    alert.innerText="Wrong Password";
+                    alert.hidden=false;
+                    console.log("Wrong Password");
+                }
+                else{
+                    toggleOverlay()
+                    formName.disabled=false
+                    formSurname.disabled=false
+                    $("newPasswordRow").show()
+                    $("newPasswordTestRow").show()
+                    $("modify-data").hide()
+                    applyChanges.hidden=false
+            }
+        };
+        xhttp.open("POST", "/MYOPSite_war_exploded/matchPassword", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("oldPassword="+oldPassword.value);
+
+    }
+
+    function validateData(){
+        let submitable = true;
+        let emailvalid=true;
+        let passwordvalid=true;
+
+        let email=document.getElementById("email");
+        let emailtest=document.getElementById("emailtest");
+
+        let password=document.getElementById("newPassword");
+        let passwordtest=document.getElementById("newPasswordtest");
+
+        if(!document.getElementById("firstname").checkValidity){
+            submitable =false;
+            document.getElementById("firstname-alert").hidden=false;
+
+        }
+        else document.getElementById("firstname-alert").hidden=true;
+
+        if(!document.getElementById("lastname").checkValidity){
+            submitable =false;
+            document.getElementById("lastname-alert").hidden=false;
+
+        }
+        else document.getElementById("lastname-alert").hidden=true;
+
+        if(!email.checkValidity){
+            submitable =false;
+            emailvalid=false;
+            document.getElementById("email-alert").hidden=false;
+
+        }
+        else document.getElementById("email-alert").hidden=true;
+
+        if(emailvalid&&email.value!=emailtest.value) {
+            submitable = false;
+            document.getElementById("emailtest-alert").innerText="Incorrect Email";
+            document.getElementById("emailtest-alert").hidden=false;
+        }
+        else document.getElementById("emailtest-alert").hidden=true;
+        let passAlert= document.getElementById("password-alert");
+        if(!password==""){
+            testPassword(password)
+            submitable=false;
+            passwordvalid=false;
+            passAlert.innerText="Password Not Inserted";
+            passAlert.hidden=false;
+        }
+        else passAlert.hidden=true;
+
+        if(passwordvalid&&passwordtest.value!=password.value){
+            submitable =false;
+            document.getElementById("passwordtest-alert").hidden=false;
+        }
+        else document.getElementById("passwordtest-alert").hidden=true;
+
+        return submitable;
+    }
+
+    function existingEmail(){
+        let xhttp = new XMLHttpRequest();
+        let emailalert = document.getElementById("email-alert");
+        let submit = document.getElementById("submit-registration");
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                if(this.responseText=="true"){
+                    emailalert.innerText="Email Already Present";
+                    emailalert.hidden=false;
+                    submit.disabled=true;
+                    console.log("email rejected");
+                }
+                else
+                    submit.disabled=false;
+                emailalert.hidden=true;
+            }
+        };
+        xhttp.open("POST", "/MYOPSite_war_exploded/emailispresent", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("email="+document.getElementById("email").value);
+    }
+</script>
 </html>

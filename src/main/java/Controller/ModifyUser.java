@@ -24,11 +24,13 @@ public class ModifyUser extends HttpServlet {
             String firstName = req.getParameter("firstName");
             String lastName = req.getParameter("lastName");
             String newPassword = req.getParameter("newPassword");
-            PasswordHasher passwordHasher = new PasswordHasher();
-            String hashedPassword = passwordHasher.setPassword(newPassword);
-            Pattern patternPassword = Pattern.compile("^(?=.*[a-z])(?=.*\\d)(?=.*[@#$._%-])(?=.*[A-Z]).{8,16}$");
-            if(patternPassword.matcher(newPassword).matches()&&!hashedPassword.equals(userDB.getPassword())){
-                userDB.setPassword(hashedPassword);
+            if(!newPassword.isBlank()) {
+                PasswordHasher passwordHasher = new PasswordHasher();
+                String hashedPassword = passwordHasher.setPassword(newPassword);
+                Pattern patternPassword = Pattern.compile("^(?=.*[a-z])(?=.*\\d)(?=.*[@#$._%-])(?=.*[A-Z]).{8,16}$");
+                if (patternPassword.matcher(newPassword).matches() && !hashedPassword.equals(userDB.getPassword())) {
+                    userDB.setPassword(hashedPassword);
+                }
             }
             userDB.setFirstName(firstName);
             userDB.setLastName(lastName);
