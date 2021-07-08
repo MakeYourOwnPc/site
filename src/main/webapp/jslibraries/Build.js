@@ -18,12 +18,14 @@ let slotNVMEUsed = '';
 let powerNeeded = 0;
 let socketRam = '';
 let socketCpu = '';
+let integratedCpu='';
 let selectedElement;
 let selectedElementObject;
 let itemCategory;
 let tableHeader;
 let item;
 let idBuild;
+let submitable;
 
 
 function toggleOverlay() {
@@ -31,18 +33,33 @@ function toggleOverlay() {
 }
 
 function updateSpecification() {
+    if(mobo==null||gpu==null||cpu==null||ram==null||psu==null||pcCase==null||!(massStorage1!=null || massStorage2!=null || massStorage3!=null)){
+        submitable=false;
+    }
+    else submitable=true;
+
+    powerNeeded =0;
     slotNVMEUsed = 0;
     slotRamUsed = 0;
     slotSataUsed = 0;
-    powerNeeded = mobo.consumption + gpu.consumption + ram.consumption + cpu.consumption;
-    slotSataAvailable = mobo.amountSlotSata;
-    slotNVMEAvailable = mobo.amountSlotNvme;
-    slotRamAvailable = mobo.amountSlotRam;
-    slotRamUsed = ram.amountMemories;
+    if(mobo!=null) {
+        slotSataAvailable = mobo.amountSlotSata;
+        slotNVMEAvailable = mobo.amountSlotNvme;
+        slotRamAvailable = mobo.amountSlotRam;
+        powerNeeded += mobo.consumption;
+        socketRam = mobo.ramSocket;
+        socketCpu = mobo.cpuSocket;
+        formFactor = mobo.formFactor;
+    }
+    if(gpu!=null)
+    powerNeeded+=gpu.consumption
+    if(ram!=null) {
+        powerNeeded += ram.consumption;
+        slotRamUsed = ram.amountMemories;
+    }
+    if(cpu!=null)
+        powerNeeded+=cpu.consumption;
 
-    socketRam = mobo.ramSocket;
-    socketCpu = mobo.cpuSocket;
-    formFactor = mobo.formFactor;
     if (massStorage1 != null) {
         if (massStorage1 == "sata") {
 
@@ -76,15 +93,13 @@ function updateSpecification() {
     }
 
 }
-
-
 function selectGPU() {
     toggleOverlay();
     selectedElement = "Gpus";
     itemCategory = "gpus";
     tableHeader = "<tr><th>Product Name</th><th>Power Consumption</th><th>Price</th></tr>";
     item = "Gpus";
-    submitForm();
+    submitForm(tableHeader);
 
 }
 
@@ -94,7 +109,7 @@ function selectCPU() {
     itemCategory = "cpus";
     tableHeader = "<tr><th>Product Name</th><th>Socket</th><th>Integrated Gpu</th><th>Power Consumption</th><th>Price</th></tr>"
     item = "Cpus";
-    submitForm();
+    submitForm(tableHeader);
 }
 
 function selectMOBO() {
@@ -104,7 +119,7 @@ function selectMOBO() {
     itemCategory = "motherboards";
     tableHeader = "<tr><th>Product Name</th><th>Form Factor</th><th>Ram Sockets</th><th>Ram Slots</th><th>NVME Slots</th><th>SATA Slots</th><th>Form Factor</th><th>Power Consumption</th><th>Price</th></tr>"
     item = "MotherBoards";
-    submitForm();
+    submitForm(tableHeader);
 
 }
 
@@ -113,10 +128,10 @@ function selectRAM() {
     selectedElement = "Ram";
 
     itemCategory = "memories";
-    tableHeader = "<tr><th>Product Name</th><th>Socket</th><th>Number Of Sticks</th><th>Power Consumption</th><th>Price</th></tr>"
+    tableHeader = "<tr><th>Product Name</th><th>Number Of Sticks</th><th>Power Consumption</th><th>Price</th></tr>"
     item = "Ram";
 
-    submitForm();
+    submitForm(tableHeader);
 
 }
 
@@ -125,9 +140,9 @@ function selectMassStorage(number) {
     selectedElement = "MassStorage";
 
     itemCategory = "memories";
-    tableHeader = "<tr><th>Product Name</th><th>Power Consumption</th><th>Price</th></tr>"
+    tableHeader = "<tr><th>Product Name</th><th>Number Of Memories</th><th>Power Consumption</th><th>Price</th></tr>"
     item = "MassStorage";
-    submitForm(number);
+    submitForm(tableHeader,number);
 
 }
 
@@ -138,7 +153,7 @@ function selectPcCase() {
     itemCategory = "cases";
     tableHeader = "<tr><th>Product Name</th><th>Form Factor</th><th>Price</th></tr>"
     item = "Cases";
-    submitForm();
+    submitForm(tableHeader);
 
 }
 
@@ -150,16 +165,18 @@ function selectPsu() {
     tableHeader = "<tr><th>Product Name</th><th>Power</th><th>Price</th></tr>"
     item = "Psu";
 
-    submitForm();
+    submitForm(tableHeader);
 
 }
 
 
-function submitForm(number) {
+function submitForm(headers,number) {
 
 
     let xhttp = new XMLHttpRequest();
-    $('tr.removable').remove();
+    $('#searchResultBuild>tbody').html('');
+    $('#searchResultBuild>thead').html(headers);
+
 
     let formData;
    updateSpecification();
@@ -170,10 +187,10 @@ function submitForm(number) {
 
     if (selectedElement == "MassStorage") {
         if ($("#sata").prop("checked")) {
-            formData += "&socket=sata&amountOfMemories=" + slotSataAvailable;
+            formData += "&MEMsocket=sata&amountOfMemories=" + slotSataAvailable;
             slotNVMEUsed -= 1;
         } else {
-            formData += "&socket=nvme&amountOfMemories=" + slotNVMEAvailable;
+            formData += "&MEMsocket=nvme&amountOfMemories=" + slotNVMEAvailable;
             slotSataUsed -= 1;
         }
         formData += "&mType=true"
@@ -185,11 +202,12 @@ function submitForm(number) {
             formData += "&MEMsocket=" + socketRam + "&amountOfMemories=" + slotRamAvailable + "&mType=false";
         }
 
-        formData += "&power=" + powerNeeded + "&id=&formFactor=" + formFactor + "&CPUsocket=" + socketCpu + "&RAMsocket=" + socketRam + "" +
-            "&nRAMSockets=" + slotRamUsed + "" + "&nSATASockets=" + slotSataUsed + "&nNVMESockets=" + slotNVMEUsed + "&requestedItem=" + itemCategory;
+        formData += "&power=" + powerNeeded +"&id=&formFactor=" + formFactor + "&CPUsocket=" + socketCpu + "&RAMsocket=" + socketRam + "" +
+            "&nRAMSockets=" + slotRamUsed + "&nSATASockets=" + slotSataUsed + "&nNVMESockets=" + slotNVMEUsed + "&requestedItem=" + itemCategory+
+        "&integratedGpu="+integratedCpu;
     } else
         formData += "&requestedItem=" + itemCategory + "&power=&id=&formFactor=&CPUsocket=&RAMsocket=" +
-            "&nRAMSockets=" + "&nSATASockets=&nNVMESockets=&MEMsocket=&amountOfMemories=&mType=false&integratedGpu=";
+            "&nRAMSockets=" + "&nSATASockets=&nNVMESockets=&MEMsocket=&amountOfMemories=&integratedGpu=";
 
     xhttp.onreadystatechange = function () {
 
@@ -229,8 +247,9 @@ function submitForm(number) {
                     results.forEach(psusTabler);
                     break;
                 default:
-                    $("#searchResult").html("Cannot visualize");
+                    $("#searchResultBuild").html("Cannot visualize");
             }
+
 
         }
     };
@@ -252,7 +271,7 @@ function gpuTabler(value) {
         "<td><img src=-'" + value.imagePath + "'></td>" +
         buttonAdder(value.id, "Gpu") +
         "</tr>";
-    $("#searchResult").append(row);
+    $("#searchResultBuild").append(row);
 }
 
 function cpuTabler(value) {
@@ -269,7 +288,7 @@ function cpuTabler(value) {
         "<td><img src=-'" + value.imagePath + "'></td>" +
         buttonAdder(value.id, "Cpu") +
         "</tr>"
-    $("#searchResult").append(row);
+    $("#searchResultBuild").append(row);
 }
 
 function memoryTabler(value) {
@@ -282,7 +301,7 @@ function memoryTabler(value) {
         "<td><img src=-'" + value.imagePath + "'></td>" +
         buttonAdder(value.id, this.type, this.number) +
         "</tr>"
-    $("#searchResult").append(row);
+    $("#searchResultBuild").append(row);
 }
 
 function moboTabler(value) {
@@ -300,7 +319,7 @@ function moboTabler(value) {
         "<td><img src=-'" + value.imagePath + "'></td>" +
         buttonAdder(value.id, "Mobo") +
         "</tr>"
-    $("#searchResult").append(row);
+    $("#searchResultBuild").append(row);
 }
 
 function pcCaseTabler(value) {
@@ -312,7 +331,7 @@ function pcCaseTabler(value) {
         "<td><img src=-'" + value.imagePath + "'></td>" +
         buttonAdder(value.id, "pcCase") +
         "</tr>"
-    $("#searchResult").append(row);
+    $("#searchResultBuild").append(row);
 }
 
 function buildTabler(value) {
@@ -334,7 +353,7 @@ function buildTabler(value) {
         "<td class='maker'>" + value.maker + "</td>" +
         buttonAdder(value.id, "pcCase") +
         "</tr>"
-    $("#searchResult").append(row);
+    $("#searchResultBuild").append(row);
 }
 
 function psusTabler(value) {
@@ -346,7 +365,7 @@ function psusTabler(value) {
         "<td><img src=-'" + value.imagePath + "'></td>" +
         buttonAdder(value.id, "Psu") +
         "</tr>"
-    $("#searchResult").append(row);
+    $("#searchResultBuild").append(row);
 }
 
 
@@ -371,6 +390,7 @@ function addGpu(id) {
     selectedElementObject = elem;
     $("#gpu").val( elem.name)
     toggleOverlay();
+    checkDisableSubmit();
 
 }
 
@@ -380,6 +400,7 @@ function addCpu(id) {
     selectedElementObject = elem;
     $("#cpu").val( elem.name)
     toggleOverlay();
+    checkDisableSubmit();
 }
 
 function addMobo(id) {
@@ -388,6 +409,7 @@ function addMobo(id) {
     selectedElementObject = elem;
     $("#mobo").val( elem.name)
     toggleOverlay();
+    checkDisableSubmit();
 }
 
 function addpcCase(id) {
@@ -396,6 +418,7 @@ function addpcCase(id) {
     selectedElementObject = elem;
     $("#pcCase").val( elem.name)
     toggleOverlay();
+    checkDisableSubmit();
 }
 
 function addPsu(id) {
@@ -404,6 +427,7 @@ function addPsu(id) {
     selectedElementObject = elem;
     $("#psu").val( elem.name)
     toggleOverlay();
+    checkDisableSubmit();
 }
 
 function addRam(id) {
@@ -412,6 +436,7 @@ function addRam(id) {
     selectedElementObject = elem;
     $("#ram").val( elem.name)
     toggleOverlay();
+    checkDisableSubmit();
 }
 
 function addMassStorage1(id) {
@@ -420,6 +445,7 @@ function addMassStorage1(id) {
     selectedElementObject = elem;
     $("#massStorage1").val( elem.name)
     toggleOverlay();
+    checkDisableSubmit();
 }
 
 function addMassStorage2(id) {

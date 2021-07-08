@@ -63,7 +63,9 @@
                 </tr>
 
             </table>
-            <table class="registration-box" id="searchResult">
+            <table class="registration-box" id="searchResultBuild">
+                <thead></thead>
+                <tbody></tbody>
             </table>
         </div>
     </div>
@@ -76,24 +78,26 @@
         </h1>
     </div>
     <div id="builds">
-        <label for="gpu">Select GPU</label>
+
+           <label for="gpu">Select GPU</label>
         <input type="text" id="gpu" onclick="selectGPU()" readonly>
-        <label for="cpu">Select CPU</label>
-        <input type="text" id="cpu" onclick="selectCPU()">
-        <label for="mobo">Select MotherBoard</label>
-        <input type="text" id="mobo" onclick="selectMOBO()">
-        <label for="ram">Select RAM</label>
-        <input type="text" id="ram" onclick="selectRAM()">
-        <label for="massStorage1">Select the First Mass Storage</label>
-        <input type="text" id="massStorage1" onclick="selectMassStorage(1)">
-        <label for="massStorage2">Select the Second Mass Storage</label>
-        <input type="text" id="massStorage2" value="NONE" onclick="selectMassStorage(2)">
-        <label for="massStorage3">Select the Third Mass Storage</label>
-        <input type="text" id="massStorage3" value="NONE" onclick="selectMassStorage(3)">
-        <label for="pcCase">Select the Pc Case</label>
-        <input type="text" id="pcCase" onclick="selectPcCase()">
-        <label for="psu">Select the Psu</label>
-        <input type="text" id="psu" onclick="selectPsu()">
+           <label for="cpu">Select CPU</label>
+        <input type="text" id="cpu" onclick="selectCPU()" readonly>
+             <label for="mobo">Select MotherBoard</label>
+        <input type="text" id="mobo" onclick="selectMOBO()"readonly>
+             <label for="ram">Select RAM</label>
+        <input type="text" id="ram" onclick="selectRAM()"readonly>
+            <label for="massStorage1">Select the First Mass Storage</label>
+        <input type="text" id="massStorage1" onclick="selectMassStorage(1)"readonly>
+             <label for="massStorage2">Select the Second Mass Storage</label>
+        <input type="text" id="massStorage2" value="NONE" onclick="selectMassStorage(2)"readonly>
+             <label for="massStorage3">Select the Third Mass Storage</label>
+        <input type="text" id="massStorage3" value="NONE" onclick="selectMassStorage(3)"readonly>
+            <label for="pcCase">Select the Pc Case</label>
+        <input type="text" id="pcCase" onclick="selectPcCase()"readonly>
+             <label for="psu">Select the Psu</label>
+        <input type="text" id="psu" onclick="selectPsu()"readonly>
+
     </div>
     <table>
         <tbody>
@@ -151,6 +155,9 @@
     }
 
     function saveBuild() {
+        checkDisableSubmit();
+        if(!submitable)
+            return;
         if(idBuild==undefined)
             idBuild=0;
 
@@ -176,7 +183,7 @@
 
             } else if (this.readyState == 4 && this.status == 404) {
                 console.log("error");
-                $("#searchResult").append("Saving Error");
+                $("#searchResultBuild").append("Saving Error");
             }
         };
 
@@ -185,6 +192,15 @@
         let sentData = JSON.stringify(build);
         console.log(sentData);
         xhttp.send("build="+sentData);
+
+    }
+    function checkDisableSubmit(){
+        updateSpecification()
+        if(!submitable){
+            $("#saveBuild").removeClass("active").addClass("disabled-btn");
+        }
+        else
+        $("#saveBuild").removeClass("disabled-btn").addClass("active");
 
     }
 </script>

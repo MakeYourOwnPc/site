@@ -53,7 +53,7 @@
 </div>
 
 <div>
-    <table id="searchResult">
+    <table id="searchResultBuild">
     </table>
 </div>
 
@@ -115,7 +115,7 @@
     function changeForm(text) {
         selectedElement = text;
         $("#selectedFormTitle").text(text);
-        $("#searchResult").removeClass(); /* without attributes removes all classes*/
+        $("#searchResultBuild").removeClass(); /* without attributes removes all classes*/
         let formHTML;
         let tableHeader;
         let user = false;
@@ -125,7 +125,7 @@
         switch (text) {
             case "Builds":
                 tableHeader = "<tr><th>DataBase Id</th><th>MOBO</th><th>GPU</th><th>CPU</th><th>CASE</th><th>Memories</th><th>Suggested</th><th>Maker</th></tr>"
-                $("#searchResult").addClass("buildsTable");
+                $("#searchResultBuild").addClass("buildsTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='builds'>" +
                     "<tr><td><label for='CPUname'>CPU Name</label></td><td><input type='text' id='CPUname' name='cpuName'></td></tr>" +
                     "<tr><td><label for='GPUname'>GPU Name</label></td><td><input type='text' id='GPUname' name='gpuName'></td></tr>" +
@@ -146,12 +146,12 @@
                 break;
             case "Gpus":
                 tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
-                $("#searchResult").addClass("gpusTable");
+                $("#searchResultBuild").addClass("gpusTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='gpus'>";
                 break;
             case "Cpus":
                 tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Socket</th><th>Integrated Gpu</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
-                $("#searchResult").addClass("cpusTable");
+                $("#searchResultBuild").addClass("cpusTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='cpus'>" +
 
                     "<tr><td><label for='CPUsocket' >Socket</label></td>" +
@@ -168,7 +168,7 @@
             case "Memories":
                 tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Socket</th><th>Memory Type</th><th>Amount Of Memories</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
 
-                $("#searchResult").addClass("memoriesTable");
+                $("#searchResultBuild").addClass("memoriesTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='memories'>" +
 
                     "<tr><td><label for='MEMsocket' >Memory Socket</label></td>" +
@@ -187,7 +187,7 @@
                     "<td><input type='number' id='amountMemories' name='amountOfMemories'></td></tr>";
                 break;
             case "Cases":
-                $("#searchResult").addClass("casesTable");
+                $("#searchResultBuild").addClass("casesTable");
                 tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Form Factor</th><th>Price</th><th>In Stock</th></tr>"
 
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='cases'>" +
@@ -204,7 +204,7 @@
             case "Psus":
                 tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Power</th><th>Price</th><th>In Stock</th></tr>"
 
-                $("#searchResult").addClass("psusTable");
+                $("#searchResultBuild").addClass("psusTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='psus'>" +
                     "<tr><td><label for='power'>Power</label></td>" +
                     "<td><input type='number' id='power' name='power'></td></tr>";
@@ -212,7 +212,7 @@
             case "Users":
                 tableHeader = "<tr><th>Firstname</th><th>Lastname</th><th>Email</th><th>Is Admin</th></tr>"
 
-                $("#searchResult").addClass("usersTable");
+                $("#searchResultBuild").addClass("usersTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='users'>" +
                     "<tr><td><label for='email'>Email</label></td>" +
                     "<td><input type='text' id='email' name='email' ></td></tr>" +
@@ -233,7 +233,7 @@
             case "MotherBoards":
                 tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Form Factor</th><th>Ram Sockets</th><th>Ram Slots</th><th>NVME Slots</th><th>SATA Slots</th><th>Form Factor</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
 
-                $("#searchResult").addClass("motherboardsTable");
+                $("#searchResultBuild").addClass("motherboardsTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='motherboards'>" +
 
                     "<tr><td><label for='CPUsocket'>CPU Socket</label></td>" +
@@ -267,7 +267,7 @@
 
         $("#searchFormContainer").html(formHTML);
 
-        $("#searchResult").html(tableHeader);
+        $("#searchResultBuild").html(tableHeader);
         submitForm();
     }
 
@@ -315,7 +315,7 @@
                         break;
 
                     default:
-                        $("#searchResult").html("Cannot visualize");
+                        $("#searchResultBuild").html("Cannot visualize");
                 }
 
             }
@@ -354,7 +354,7 @@
             row += "<td class='isAdmin'>Yes</td>";
         else row += "<td class='isAdmin'>No</td>";
         row += buttonAdder(value.email) + "</tr>";
-        $("#searchResult").append(row);
+        $("#searchResultBuild").append(row);
     }
 
     function gpuTabler(value) {
@@ -368,7 +368,7 @@
             "<td><img src=-'" + value.imagePath + "' alt = '"+ value.imagePath+ "'></td>" +
             buttonAdder(value.id) +
             "</tr>";
-        $("#searchResult").append(row);
+        $("#searchResultBuild").append(row);
     }
 
     function cpuTabler(value) {
@@ -387,7 +387,7 @@
             "<td><img src=-'" + value.imagePath + "'></td>" +
             buttonAdder(value.id) +
             "</tr>"
-        $("#searchResult").append(row);
+        $("#searchResultBuild").append(row);
     }
 
     function memoryTabler(value) {
@@ -407,7 +407,7 @@
             "<td><img src=-'" + value.imagePath + "'></td>" +
             buttonAdder(value.id) +
             "</tr>"
-        $("#searchResult").append(row);
+        $("#searchResultBuild").append(row);
     }
 
     function moboTabler(value) {
@@ -427,7 +427,7 @@
             "<td><img src=-'" + value.imagePath + "'></td>" +
             buttonAdder(value.id) +
             "</tr>"
-        $("#searchResult").append(row);
+        $("#searchResultBuild").append(row);
     }
 
     function pcCaseTabler(value) {
@@ -441,7 +441,7 @@
             "<td><img src=-'" + value.imagePath + "'></td>" +
             buttonAdder(value.id) +
             "</tr>"
-        $("#searchResult").append(row);
+        $("#searchResultBuild").append(row);
     }
 
     function buildTabler(value) {
@@ -464,7 +464,7 @@
             "<td class='maker'>" + value.maker + "</td>" +
             buttonAdder(value.id) +
             "</tr>"
-        $("#searchResult").append(row);
+        $("#searchResultBuild").append(row);
     }
 
     function psusTabler(value) {
@@ -478,7 +478,7 @@
             "<td><img src=-'" + value.imagePath + "'></td>" +
             buttonAdder(value.id) +
             "</tr>"
-        $("#searchResult").append(row);
+        $("#searchResultBuild").append(row);
     }
 
     function buttonAdder(id) {
