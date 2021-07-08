@@ -365,7 +365,7 @@
             "<td class='consumption'>" + value.consumption + "</td>" +
             "<td class='price'>" + value.price + "$</td>" +
             "<td class='inStock'>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.imagePath + "' alt = '"+ value.imagePath+ "'></td>" +
+           "<td><img src='./images/"+value.imagePath+"'></td>" +
             buttonAdder(value.id) +
             "</tr>";
         $("#searchResultBuild").append(row);
@@ -384,7 +384,7 @@
         row += "<td class='consumption'>" + value.consumption + "</td>" +
             "<td class='price'>" + value.price + "$</td>" +
             "<td class='inStock'>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.imagePath + "'></td>" +
+            "<td><img src='./images/"+value.imagePath+"'></td>" +
             buttonAdder(value.id) +
             "</tr>"
         $("#searchResultBuild").append(row);
@@ -404,7 +404,7 @@
             "<td class='consumption'>" + value.consumption + "</td>" +
             "<td class='price'>" + value.price + "$</td>" +
             "<td class='inStock'>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.imagePath + "'></td>" +
+            "<td><img src='./images/"+value.imagePath+"'></td>" +
             buttonAdder(value.id) +
             "</tr>"
         $("#searchResultBuild").append(row);
@@ -424,7 +424,7 @@
             "<td class='consumption'>" + value.consumption + "</td>" +
             "<td class='price'>" + value.price + "$</td>" +
             "<td class='inStock'>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.imagePath + "'></td>" +
+            "<td><img src='./images/"+value.imagePath+"'></td>" +
             buttonAdder(value.id) +
             "</tr>"
         $("#searchResultBuild").append(row);
@@ -438,7 +438,7 @@
             "<td class='formFactor'>" + value.formFactor + "</td>" +
             "<td class='price'>" + value.price + "$</td>" +
             "<td class='inStock'>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.imagePath + "'></td>" +
+            "<td><img src='./images/"+value.imagePath+"'></td>" +
             buttonAdder(value.id) +
             "</tr>"
         $("#searchResultBuild").append(row);
@@ -475,7 +475,7 @@
             "<td class='power'>" + value.power + "</td>" +
             "<td class='price'>" + value.price + "$</td>" +
             "<td class='inStock'>" + value.stock + "</td>" +
-            "<td><img src=-'" + value.imagePath + "'></td>" +
+            "<td><img src='./images/"+value.imagePath+"'></td>" +
             buttonAdder(value.id) +
             "</tr>"
         $("#searchResultBuild").append(row);
