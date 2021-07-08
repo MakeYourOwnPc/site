@@ -1,16 +1,10 @@
-function testPassword(password){
+
+function testRegexPassword(password){
 
     let regex=new RegExp("^(?=.*[a-z])(?=.*\\d)(?=.*[@#$%._-])(?=.*[A-Z]).{8,16}$");
-    let passAlert= document.getElementById("password-alert");
     console.log(regex.test(password));
-    if(!regex.test(password)){
-        passAlert.innerText="Incompatible Password Check The Requirements"
-        passAlert.hidden=false;
-    }
-    else
-        passAlert.hidden=true;
+   return regex.test((password));
 }
-
 function validateUser(){
     let password=document.getElementById("password");
     let passwordtest=document.getElementById("passwordtest");
@@ -45,9 +39,11 @@ function validateUser(){
 
     return submitable;
 }
+
 function toggleOverlay() {
     $("#overlayForm").fadeToggle();
 }
+
 function existingEmail(){
     let xhttp = new XMLHttpRequest();
     let emailalert = document.getElementById("email-alert");
