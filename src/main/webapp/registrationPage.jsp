@@ -176,5 +176,17 @@
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("email="+document.getElementById("email").value);
     }
+    function testPassword(password){
+
+        let regex=new RegExp("^(?=.*[a-z])(?=.*\\d)(?=.*[@#$%._-])(?=.*[A-Z]).{8,16}$");
+        let passAlert= document.getElementById("password-alert");
+        console.log(regex.test(password));
+        if(!regex.test(password)){
+            passAlert.innerText="Incompatible Password Check The Requirements"
+            passAlert.hidden=false;
+        }
+        else
+            passAlert.hidden=true;
+    }
 </script>
 </html>
