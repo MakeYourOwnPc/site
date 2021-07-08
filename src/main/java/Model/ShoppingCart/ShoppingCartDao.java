@@ -29,7 +29,7 @@ public class ShoppingCartDao implements IShoppingCartDao<SQLException>{
     @Override
     public boolean doSave(ShoppingCart shoppingCart) throws SQLException{
         try(Connection connPool = ConnPool.getConnection()){
-            try(PreparedStatement ps = connPool.prepareStatement("INSERT INTO ShoppingCarts VALUES (?,?);")){
+            try(PreparedStatement ps = connPool.prepareStatement("INSERT INTO ShoppingCarts(user,idbuild) VALUES (?,?);")){
                 ps.setString(1,shoppingCart.getUser());
                 ps.setInt(2,shoppingCart.getIdbuild());
                 return ps.executeUpdate()>0;

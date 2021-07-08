@@ -24,6 +24,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class SaveBuild extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
+        HttpSession session = req.getSession();
         Gson gson = new Gson();
         String buildJson = req.getParameter("build");
         BuildDao buildDao = new BuildDao();
@@ -56,14 +58,14 @@ public class SaveBuild extends HttpServlet {
             ArrayList<Integer> memIds = build.getMemories();
             for(Integer idMem:memIds)
                 memories.add(memoryDao.doRetrieveById(idMem));
-            req.getSession().setAttribute("gpu",gson.toJson(gpu));
-            req.getSession().setAttribute("cpu",gson.toJson(cpu));
-            req.getSession().setAttribute("psu",gson.toJson(psu));
-            req.getSession().setAttribute("mobo",gson.toJson(mobo));
-            req.getSession().setAttribute("pcCase",gson.toJson(pcCase));
-            req.getSession().setAttribute("memories",gson.toJson(memories));
-            req.getSession().setAttribute("type",gson.toJson(build.getType()));
-            req.getSession().setAttribute("suggested",gson.toJson(build.isSuggested()));
+            session.setAttribute("gpu",gson.toJson(gpu));
+            session.setAttribute("cpu",gson.toJson(cpu));
+            session.setAttribute("psu",gson.toJson(psu));
+            session.setAttribute("mobo",gson.toJson(mobo));
+            session.setAttribute("pcCase",gson.toJson(pcCase));
+            session.setAttribute("memories",gson.toJson(memories));
+            session.setAttribute("type",gson.toJson(build.getType()));
+            session.setAttribute("suggested",gson.toJson(build.isSuggested()));
             if(user!=null) {
                 if(idBuild!=0) {
                     if (user.getEmail().equals(build.getMaker()))
@@ -73,7 +75,7 @@ public class SaveBuild extends HttpServlet {
                         build.setMaker(user.getEmail());
                         buildDao.doSave(build);
                     }
-                req.getSession().setAttribute("id",build.getId());
+                session.setAttribute("id",build.getId());
                 resp.getWriter().print(build.getId());
             }
         } catch (SQLException throwables) {
