@@ -227,14 +227,14 @@ div.content {
 table tbody{
     padding: 10px;
 }
-.registration-box{
+.User-box{
     width: 100%;
     box-sizing: border-box;
     background-color: var(--bg-secondary-color);
     color:var(--active-color);
     border-radius: 5px;
 }
-.registration-box tbody td {
+.User-box tbody td {
     text-align: left;
 }
 

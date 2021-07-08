@@ -63,7 +63,7 @@
                 </tr>
 
             </table>
-            <table class="registration-box" id="searchResultBuild">
+            <table class="User-box" id="searchResultBuild">
                 <thead></thead>
                 <tbody></tbody>
             </table>
