@@ -134,6 +134,9 @@ button{
     height: inherit;
     color:var(--active-color);
 }
+.disabled-btn{
+    background-color: gray;
+}
 
 .topbar{
     background-color: var(--bs-dark);
@@ -218,20 +221,20 @@ div.content {
     width: 25%;
     right: 0;
 }
-#searchResult{
+#searchResultBuild{
     width: 100%;
 }
 table tbody{
     padding: 10px;
 }
-.registration-box{
+.User-box{
     width: 100%;
     box-sizing: border-box;
     background-color: var(--bg-secondary-color);
     color:var(--active-color);
     border-radius: 5px;
 }
-.registration-box tbody td {
+.User-box tbody td {
     text-align: left;
 }
 
@@ -266,25 +269,28 @@ footer div table{
     width: 100%;
 }
 @media screen and (max-width: 700px) {
-    #searchResult * {
+    .inner-window{
+        width: 85%;
+    }
+    #searchResultBuild * {
         display: block;
     }
 
     /* Hide table headers (but not display: none;, for accessibility) */
-    #searchResult thead tr {
+    #searchResultBuild thead tr {
         position: absolute;
         top: -9999px;
         left: -9999px;
     }
 
-    #searchResult tr{
+    #searchResultBuild tr{
         margin: 10px;
         border-radius: 5px;
         border-style:solid ;
         border-color: #2D83A6;
         border-width: 5px;
     }
-    #searchResult tr td {
+    #searchResultBuild tr td {
         /* Behave  like a "row" */
 
         border: none;
@@ -322,9 +328,9 @@ footer div table{
     .memoriesName:before{ content:"Memories";}
     .isSuggested:before{ content:"Suggested";}
     .memoryType:before{ content:"Memory Type";}
-    .amountOfMemories:before{ content:"Amount Of Memories";}
+    .amountOfMemories:before{ content:"Number Of Memories";}
 
-    #searchResult tr td:last-child{
+    #searchResultBuild tr td:last-child{
         border-style: none;
     }
 

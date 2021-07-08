@@ -14,7 +14,7 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/MYOPSite_war_exploded/build">Build</a>
+                    <a class="nav-link" href="/MYOPSite_war_exploded/build.jsp">Build</a>
                 </li>
                 <li class="nav-item dropdown ">
                     <a class="nav-link dropdown-toggle  <%if(user==null){%> disabled <%}%>" <%if(user==null){%> aria-disabled="true" <%}%> href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -24,7 +24,7 @@
 
                         <li><a class="dropdown-item" href="#">Saved Builds</a></li>
                         <li><a class="dropdown-item" href="#">Old Orders</a></li>
-
+                        <li><a class="dropdown-item" href="/MYOPSite_war_exploded/UserPages/userData.jsp">User Data</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <%if(user!=null&& user.isAdmin()){%>
                         <li><a class="dropdown-item" href="/MYOPSite_war_exploded/admin">Admin Page</a></li>

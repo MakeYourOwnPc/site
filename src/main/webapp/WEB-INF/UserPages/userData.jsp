@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>MYOC-YourData</title>
-    <meta name="viewport" content="width=device-witdht, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="customcss/general.css"/>
 </head>
@@ -91,7 +91,7 @@
 
 <script>
 
-    function checkPassword(){
+    function checkPassword() {
         let xhttp = new XMLHttpRequest();
         let oldPassword = document.getElementById("oldPassword")
         let alert = document.getElementById("password-alert")
@@ -99,111 +99,104 @@
         let formName = document.getElementById("firstname")
         let formSurname = document.getElementById("lastname")
         let applyChanges = document.getElementById("applyChanges")
-        xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                if(attempts<=0){
-                    alert.innerText="Too many attempts. Retry Later."
-                    submit.disabled=true
-                }
-                else if(this.responseText=="false"){
-                    alert.innerText="Wrong Password";
-                    alert.hidden=false;
+                if (attempts <= 0) {
+                    alert.innerText = "Too many attempts. Retry Later."
+                    submit.disabled = true
+                } else if (this.responseText == "false") {
+                    alert.innerText = "Wrong Password";
+                    alert.hidden = false;
                     console.log("Wrong Password");
-                }
-                else{
+                } else {
                     toggleOverlay()
-                    formName.disabled=false
-                    formSurname.disabled=false
+                    formName.disabled = false
+                    formSurname.disabled = false
                     $("newPasswordRow").show()
                     $("newPasswordTestRow").show()
                     $("modify-data").hide()
-                    applyChanges.hidden=false
-            }
-        };
-        xhttp.open("POST", "/MYOPSite_war_exploded/matchPassword", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("oldPassword="+oldPassword.value);
-
-    }
-
-    function validateData(){
-        let submitable = true;
-        let emailvalid=true;
-        let passwordvalid=true;
-
-        let email=document.getElementById("email");
-        let emailtest=document.getElementById("emailtest");
-
-        let password=document.getElementById("newPassword");
-        let passwordtest=document.getElementById("newPasswordtest");
-
-        if(!document.getElementById("firstname").checkValidity){
-            submitable =false;
-            document.getElementById("firstname-alert").hidden=false;
-
-        }
-        else document.getElementById("firstname-alert").hidden=true;
-
-        if(!document.getElementById("lastname").checkValidity){
-            submitable =false;
-            document.getElementById("lastname-alert").hidden=false;
-
-        }
-        else document.getElementById("lastname-alert").hidden=true;
-
-        if(!email.checkValidity){
-            submitable =false;
-            emailvalid=false;
-            document.getElementById("email-alert").hidden=false;
-
-        }
-        else document.getElementById("email-alert").hidden=true;
-
-        if(emailvalid&&email.value!=emailtest.value) {
-            submitable = false;
-            document.getElementById("emailtest-alert").innerText="Incorrect Email";
-            document.getElementById("emailtest-alert").hidden=false;
-        }
-        else document.getElementById("emailtest-alert").hidden=true;
-        let passAlert= document.getElementById("password-alert");
-        if(!password==""){
-            testPassword(password)
-            submitable=false;
-            passwordvalid=false;
-            passAlert.innerText="Password Not Inserted";
-            passAlert.hidden=false;
-        }
-        else passAlert.hidden=true;
-
-        if(passwordvalid&&passwordtest.value!=password.value){
-            submitable =false;
-            document.getElementById("passwordtest-alert").hidden=false;
-        }
-        else document.getElementById("passwordtest-alert").hidden=true;
-
-        return submitable;
-    }
-
-    function existingEmail(){
-        let xhttp = new XMLHttpRequest();
-        let emailalert = document.getElementById("email-alert");
-        let submit = document.getElementById("submit-registration");
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                if(this.responseText=="true"){
-                    emailalert.innerText="Email Already Present";
-                    emailalert.hidden=false;
-                    submit.disabled=true;
-                    console.log("email rejected");
+                    applyChanges.hidden = false
                 }
-                else
-                    submit.disabled=false;
-                emailalert.hidden=true;
             }
-        };
-        xhttp.open("POST", "/MYOPSite_war_exploded/emailispresent", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("email="+document.getElementById("email").value);
+            xhttp.open("POST", "/MYOPSite_war_exploded/matchPassword", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("oldPassword=" + oldPassword.value);
+
+        }
+
+        function validateData() {
+            let submitable = true;
+            let emailvalid = true;
+            let passwordvalid = true;
+
+            let email = document.getElementById("email");
+            let emailtest = document.getElementById("emailtest");
+
+            let password = document.getElementById("newPassword");
+            let passwordtest = document.getElementById("newPasswordtest");
+
+            if (!document.getElementById("firstname").checkValidity) {
+                submitable = false;
+                document.getElementById("firstname-alert").hidden = false;
+
+            } else document.getElementById("firstname-alert").hidden = true;
+
+            if (!document.getElementById("lastname").checkValidity) {
+                submitable = false;
+                document.getElementById("lastname-alert").hidden = false;
+
+            } else document.getElementById("lastname-alert").hidden = true;
+
+            if (!email.checkValidity) {
+                submitable = false;
+                emailvalid = false;
+                document.getElementById("email-alert").hidden = false;
+
+            } else document.getElementById("email-alert").hidden = true;
+
+            if (emailvalid && email.value != emailtest.value) {
+                submitable = false;
+                document.getElementById("emailtest-alert").innerText = "Incorrect Email";
+                document.getElementById("emailtest-alert").hidden = false;
+            } else document.getElementById("emailtest-alert").hidden = true;
+            let passAlert = document.getElementById("password-alert");
+            if (!password == "") {
+                if (!testRegexPassword(password)) {
+                    submitable = false;
+                    passwordvalid = false;
+                    passAlert.innerText = "Invalid password. Check the requirements.";
+                    passAlert.hidden = false;
+                }
+            } else passAlert.hidden = true;
+
+            if (passwordvalid && passwordtest.value != password.value) {
+                submitable = false;
+                document.getElementById("passwordtest-alert").hidden = false;
+            } else document.getElementById("passwordtest-alert").hidden = true;
+
+            return submitable;
+        }
+
+        function existingEmail() {
+            let xhttp = new XMLHttpRequest();
+            let emailalert = document.getElementById("email-alert");
+            let submit = document.getElementById("submit-registration");
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    if (this.responseText == "true") {
+                        emailalert.innerText = "Email Already Present";
+                        emailalert.hidden = false;
+                        submit.disabled = true;
+                        console.log("email rejected");
+                    } else
+                        submit.disabled = false;
+                    emailalert.hidden = true;
+                }
+            };
+            xhttp.open("POST", "/MYOPSite_war_exploded/emailispresent", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("email=" + document.getElementById("email").value);
+        }
     }
 </script>
 </html>
