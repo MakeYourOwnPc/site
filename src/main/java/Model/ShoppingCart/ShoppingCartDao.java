@@ -25,7 +25,21 @@ public class ShoppingCartDao implements IShoppingCartDao<SQLException>{
             return null;
         }
     }
-
+    public boolean isShopCartPresent(String email) throws SQLException {
+        try(Connection connPool = ConnPool.getConnection()){
+            try(PreparedStatement ps = connPool.prepareStatement("SELECT * FROM ShoppingCarts WHERE user=?;")){
+                ps.setString(1,email);
+                ResultSet rs = ps.executeQuery();
+                if(!rs.isBeforeFirst())
+                    return false;
+                return true;
+            }catch(SQLException e){
+                throw new SQLException();
+            }
+            }catch(SQLException e){
+            throw new SQLException();
+        }
+    }
     @Override
     public boolean doSave(ShoppingCart shoppingCart) throws SQLException{
         try(Connection connPool = ConnPool.getConnection()){
