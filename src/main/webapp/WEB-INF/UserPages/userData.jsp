@@ -24,12 +24,14 @@
                 <tr><td>
                     <label for="firstname">Firstname</label>
                 </td><td>
-                    <input type="text" name="firstname" id="firstname" value="${user.firstName}" disabled>
+                    <input type="text" name="firstName" id="firstname" value="${user.firstName}" disabled>
+                    <span id="firstname-alert" class="alert-info " hidden> FirstName not Inserted</span>
                 </td></tr>
                 <tr><td>
                     <label for="lastname">LastName</label>
                     <td>
-                        <input type="text" name="lastname" id="lastname" value="${user.lastName}" disabled>
+                        <input type="text" name="lastName" id="lastname" value="${user.lastName}" disabled>
+                    <span  id="lastname-alert" class="alert-info " hidden> LastName not Inserted</span>
                 </td></tr>
                 <tr><td>
                     <label for="email">Email</label>
@@ -39,12 +41,14 @@
                 <tr style="display:none" id="newPasswordRow"><td>
                     <label for="newPassword" >New Password</label>
                     <td>
-                        <input type="password" name="newPassword" id="newPassword">
+                        <input type="password" name="newPassword" id="newPassword" onkeyup="isPasswordMatching(value)"/>
+                    <span id="newPassword-alert" class="alert-info" hidden>Invalid Password. Check Requirements.</span>
                 </td></tr>
                 <tr style="display:none" id="newPasswordTestRow"><td>
                     <label for="newPasswordTest" >New Password Confirm</label>
                     <td>
                         <input type="password" name="newPasswordTest" id="newPasswordTest">
+                    <span id="newPasswordTest-alert" class="alert-info" hidden>Not The Same Password</span>
                     </td></tr>
                 <tr><td>
                     <input class="btn active" value="Modify Data" onclick=toggleOverlay() id="modify-data">
@@ -66,7 +70,7 @@
                     </table>
                     <tr><td>
                         <input type="password" placeholder="Insert Password" id="oldPassword" required>
-                        <span id="password-alert" class="alert-info" hidden>Wrong Password</span>
+                        <span id="oldpassword-alert" class="alert-info" hidden>Wrong Password</span>
                     </td></tr>
                     <tr><td>
                         <button id="submit-check" onclick="checkPassword()" class="btn active">Submit</button>
@@ -90,113 +94,73 @@
 </body>
 
 <script>
-
+    function isPasswordMatching(password){
+        let alertPass = document.getElementById("newPassword-alert")
+        if(testRegexPassword(password))
+            alertPass.hidden = true
+        else
+            alertPass.hidden = false
+    }
     function checkPassword() {
         let xhttp = new XMLHttpRequest();
         let oldPassword = document.getElementById("oldPassword")
-        let alert = document.getElementById("password-alert")
+        let alert = document.getElementById("oldPassword-alert")
         let submit = document.getElementById("submit-check")
         let formName = document.getElementById("firstname")
         let formSurname = document.getElementById("lastname")
         let applyChanges = document.getElementById("applyChanges")
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                if (attempts <= 0) {
+                let json = JSON.parse(this.responseText)
+                if (json.attempts <= 0) {
                     alert.innerText = "Too many attempts. Retry Later."
                     submit.disabled = true
-                } else if (this.responseText == "false") {
+                } else if (json.result == false) {
                     alert.innerText = "Wrong Password";
                     alert.hidden = false;
-                    console.log("Wrong Password");
                 } else {
                     toggleOverlay()
                     formName.disabled = false
                     formSurname.disabled = false
-                    $("newPasswordRow").show()
-                    $("newPasswordTestRow").show()
-                    $("modify-data").hide()
+                    $("#newPasswordRow").show()
+                    $("#newPasswordTestRow").show()
+                    $("#modify-data").hide()
                     applyChanges.hidden = false
                 }
             }
+        };
             xhttp.open("POST", "/MYOPSite_war_exploded/matchPassword", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("oldPassword=" + oldPassword.value);
-
         }
 
         function validateData() {
             let submitable = true;
-            let emailvalid = true;
-            let passwordvalid = true;
-
-            let email = document.getElementById("email");
-            let emailtest = document.getElementById("emailtest");
 
             let password = document.getElementById("newPassword");
-            let passwordtest = document.getElementById("newPasswordtest");
-
+            let passwordtest = document.getElementById("newPasswordTest");
             if (!document.getElementById("firstname").checkValidity) {
                 submitable = false;
                 document.getElementById("firstname-alert").hidden = false;
-
             } else document.getElementById("firstname-alert").hidden = true;
-
             if (!document.getElementById("lastname").checkValidity) {
                 submitable = false;
                 document.getElementById("lastname-alert").hidden = false;
-
             } else document.getElementById("lastname-alert").hidden = true;
-
-            if (!email.checkValidity) {
-                submitable = false;
-                emailvalid = false;
-                document.getElementById("email-alert").hidden = false;
-
-            } else document.getElementById("email-alert").hidden = true;
-
-            if (emailvalid && email.value != emailtest.value) {
-                submitable = false;
-                document.getElementById("emailtest-alert").innerText = "Incorrect Email";
-                document.getElementById("emailtest-alert").hidden = false;
-            } else document.getElementById("emailtest-alert").hidden = true;
-            let passAlert = document.getElementById("password-alert");
-            if (!password == "") {
-                if (!testRegexPassword(password)) {
+            let passAlert = document.getElementById("newPassword-alert");
+            if (password != "") {
+                if (!testRegexPassword(password.value)) {
                     submitable = false;
-                    passwordvalid = false;
-                    passAlert.innerText = "Invalid password. Check the requirements.";
                     passAlert.hidden = false;
                 }
-            } else passAlert.hidden = true;
-
-            if (passwordvalid && passwordtest.value != password.value) {
+            } else
+                passAlert.hidden = true;
+            if (passwordtest.value != password.value) {
                 submitable = false;
-                document.getElementById("passwordtest-alert").hidden = false;
-            } else document.getElementById("passwordtest-alert").hidden = true;
+                document.getElementById("newPasswordTest-alert").hidden = false;
+            } else document.getElementById("newPasswordTest-alert").hidden = true;
 
             return submitable;
         }
-
-        function existingEmail() {
-            let xhttp = new XMLHttpRequest();
-            let emailalert = document.getElementById("email-alert");
-            let submit = document.getElementById("submit-registration");
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    if (this.responseText == "true") {
-                        emailalert.innerText = "Email Already Present";
-                        emailalert.hidden = false;
-                        submit.disabled = true;
-                        console.log("email rejected");
-                    } else
-                        submit.disabled = false;
-                    emailalert.hidden = true;
-                }
-            };
-            xhttp.open("POST", "/MYOPSite_war_exploded/emailispresent", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("email=" + document.getElementById("email").value);
-        }
-    }
 </script>
 </html>

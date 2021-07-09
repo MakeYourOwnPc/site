@@ -28,9 +28,8 @@ public class ModifyUser extends HttpServlet {
                 PasswordHasher passwordHasher = new PasswordHasher();
                 String hashedPassword = passwordHasher.setPassword(newPassword);
                 Pattern patternPassword = Pattern.compile("^(?=.*[a-z])(?=.*\\d)(?=.*[@#$._%-])(?=.*[A-Z]).{8,16}$");
-                if (patternPassword.matcher(newPassword).matches() && !hashedPassword.equals(userDB.getPassword())) {
+                if (patternPassword.matcher(newPassword).matches() && !hashedPassword.equals(userDB.getPassword()))
                     userDB.setPassword(hashedPassword);
-                }
             }
             userDB.setFirstName(firstName);
             userDB.setLastName(lastName);
