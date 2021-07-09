@@ -35,7 +35,10 @@ public class DeleteBuild extends HttpServlet {
                     return;
                 }
             }
-            resp.getWriter().print(buildDao.doDelete(Integer.parseInt(id)));
+            if(buildDao.doDelete(Integer.parseInt(id)))
+                resp.setStatus(200);
+            else
+                resp.setStatus(500);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
