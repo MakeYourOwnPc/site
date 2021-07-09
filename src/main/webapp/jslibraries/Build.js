@@ -126,14 +126,63 @@ function updateSpecification() {
 
 }
 function checkValidity() {
-    if(powerNeeded<=power&&slotRamUsed<=slotRam&&slotNVMEUsed<=slotNVME&&slotSataUsed<=slotSata&&ramConnector.toLowerCase()==socketRam.toLowerCase()&&
-    socketCpu==cpuConnector){
-        switch (pcCase.getFormFactor().toLowerCase()){
-            case"mini-itx":if(moboFormFactor.equals(("micro"))) throw new BuildException("caseSmallerThanMobo");
-            case"micro-atx":if(moboFormFactor.equals(("atx"))) throw new BuildException("caseSmallerThanMobo");
-            case"atx":if(moboFormFactor.equals("eatx")) throw new BuildException("caseSmallerThanMobo");
-        }
+    updateSpecification();
+    if(!submitable)
+        return;
+    if(powerNeeded<=power){
+        createToast("Build Invalid","PSU too weak:PSU:"+power+"/Consumed:"+powerNeeded);
+        submitable=false;
+        return;
+    }
+    if(slotRamUsed<=slotRam){
+        createToast("Build Invalid","Too many Ram Sticks for Motherboard");
+        submitable=false;
+        return;
+    }
+    if(slotNVMEUsed<=slotNVME){
+        createToast("Build Invalid","Too many NVME Memories for Motherboard");
+        submitable=false;
+        return;
+    }
+    if(slotSataUsed<=slotSata){
+        createToast("Build Invalid","Too many SATA Memories for Motherboard");
+        submitable=false;
+        return;
+    }
+    if(ramConnector.toLowerCase()==socketRam.toLowerCase()){
+        createToast("Build Invalid","Ram incompatible with motherboard"+ramConnector+"/"+socketRam);
+        submitable=false;
+        return;
+    }
+    if(socketCpu==cpuConnector){
+        createToast("Build Invalid","CPU incompatible with motherboard"+cpuConnector+"/"+socketCpu);
+        submitable=false;
+        return;
+    }
 
+    {
+        switch (pcCase.getFormFactor().toLowerCase()){
+            case"mini-itx":if(formFactorMobo.equals(("micro")))
+            {
+                createToast("Build Invalid","Case incompatible with Motherboard");
+                submitable=false;
+                throw new BuildException("caseSmallerThanMobo");
+                return}
+            case"micro-atx":if(formFactorMobo.equals(("atx"))){
+                createToast("Build Invalid","Case incompatible with Motherboard");
+                submitable=false;
+                throw new BuildException("caseSmallerThanMobo");
+                return;
+            }
+            case"atx":if(formFactorMobo.equals("eatx")){
+                createToast("Build Invalid","Case incompatible with Motherboard");
+                submitable=false;
+                throw new BuildException("caseSmallerThanMobo");
+                return;
+            }
+        }
+        submitable=true;
+        return;
     }
 
 }
@@ -310,15 +359,15 @@ function submitForm(headers) {
                 formData += "&mType=false&MEMsocket=";
             }
             if (selectedElement == "MassStorage") {
-                formData+="&mType=false"
+                formData+="&mType=true"
                 $("#massStorageOption").show();
                 if ($("#sata").prop("checked")) {
                     formData += "&MEMsocket=sata"
                     }else formData += "&MEMsocket=nvme"
         }else    $("#massStorageOption").hide();
 
-            formData += "&requestedItem=" + itemCategory + "&power=&id=&formFactor=&CPUsocket=&RAMsocket=" +
-                "&nRAMSockets=" + "&nSATASockets=&nNVMESockets=&amountOfMemories=&integratedGpu=";
+            formData += "&power=&id=&formFactor=&CPUsocket=&RAMsocket=&nRAMSockets=&nSATASockets=&nNVMESockets=&requestedItem=" + itemCategory +
+                "&integratedGpu=";
         }
         let xhttp = new XMLHttpRequest();
 

@@ -137,7 +137,7 @@
 </body>
 <script>
     $(document).ready(function () {
-        $("#builds input").val("");
+        $("#builds input").val("");/* autocomplete=off è inutile quindi meglio*/
         retrievePrecedentBuild()
         updateSpecification()
     });
@@ -197,14 +197,16 @@
 
 
     function purchase(){
+        checkValidity()
+        if(!submitable) return;
         $("#purchaseBuildJson").val(stringifyBuild())
         document.getElementById("purchaseForm").submit();
     }
 
     function saveBuild() {
-        checkDisableSubmit();
-        if(!submitable)
-            return;
+        checkValidity()
+        checkDisableSubmit()
+        if(!submitable) return;
 
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -230,7 +232,6 @@
     }
 
     function checkDisableSubmit(){
-        updateSpecification()
         if(!submitable){
             $("#saveBuild").removeClass("active").addClass("disabled-btn");
         }
