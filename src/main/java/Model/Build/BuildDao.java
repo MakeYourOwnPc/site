@@ -43,11 +43,11 @@ public class BuildDao implements IBuildDao<SQLException>{
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -76,10 +76,10 @@ public class BuildDao implements IBuildDao<SQLException>{
                         build.addMemory(rs2.getInt("id"));
                 return build;
             }catch(SQLException e) {
-                return null;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -116,11 +116,11 @@ public class BuildDao implements IBuildDao<SQLException>{
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -157,11 +157,11 @@ public class BuildDao implements IBuildDao<SQLException>{
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -196,7 +196,7 @@ public class BuildDao implements IBuildDao<SQLException>{
             return list;
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
     @Override
@@ -230,10 +230,10 @@ public class BuildDao implements IBuildDao<SQLException>{
                 rs.close();
                 return list;
             } catch (SQLException e) {
-                return null;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
     @Override
@@ -269,11 +269,11 @@ public class BuildDao implements IBuildDao<SQLException>{
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -310,11 +310,11 @@ public class BuildDao implements IBuildDao<SQLException>{
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
     @Override
@@ -350,11 +350,11 @@ public class BuildDao implements IBuildDao<SQLException>{
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
     @Override
@@ -392,7 +392,7 @@ public class BuildDao implements IBuildDao<SQLException>{
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
     }
     @Override
@@ -403,11 +403,11 @@ public class BuildDao implements IBuildDao<SQLException>{
                 return ps.executeUpdate()>0;
             }
             catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -445,11 +445,11 @@ public class BuildDao implements IBuildDao<SQLException>{
                 return ps.executeUpdate()>0;
             }
             catch(SQLException e) {
-                return false;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -487,11 +487,11 @@ public class BuildDao implements IBuildDao<SQLException>{
                 return true;
             }
             catch(SQLException e) {
-                return false;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 }
