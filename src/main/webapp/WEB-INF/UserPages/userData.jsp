@@ -14,9 +14,8 @@
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
 <script src="jslibraries/jQuery.js"></script>
 <script src="jslibraries/utilities.js"></script>
-<div class="toast-box">
-    <div class="toast-header"><button onclick="closeToast">X</button></div>
-</div>
+
+
 
 <div class="centered-box">
     <div class="box-container fullHeightList">

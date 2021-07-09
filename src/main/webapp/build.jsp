@@ -189,6 +189,7 @@
         xhttp.onreadystatechange = function () {
 
             if (this.readyState == 4 && this.status == 200) {
+
                 console.log("server response " +this.responseText);
                 idBuild=parseInt(this.responseText)
                 $("#saveBuild").text("SAVED").removeClass("active").addClass("btn-success");
