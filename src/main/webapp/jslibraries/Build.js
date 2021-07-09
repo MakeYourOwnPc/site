@@ -362,9 +362,7 @@ function submitForm(headers) {
             }
         }
         xhttp.open("POST", "/MYOPSite_war_exploded/itemsLister", true);
-
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
         setTimeout(xhttp.send(formData),500);
         console.log(formData);
     } while ((selectedElement == "MotherBoards" || selectedElement == "PcCase") && !formFactorEnd);
@@ -485,7 +483,7 @@ function psusTabler(value) {
 function buttonAdder(id, type, number) {
     let buttonForm;
     let action;
-    if (type != null && number != 0)
+    if (type != null && number != 0&&number!=null)
         action = "add" + type + number + "(" + id + ")";
     else {
         action = "add" + type + "(" + id + ")";
