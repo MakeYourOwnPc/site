@@ -102,10 +102,15 @@
     <table>
         <tbody>
         <tr>
+            <td><label for="endPrice">Price</label></td>
+            <td>
+                <h2 id="endPrice"></h2>
+            </td>
             <td><label for="purchase">Ready To Purchase</label></td>
             <td>
                 <button id="purchase" class="btn btn-success">Purchase</button>
             </td>
+
         </tr>
         <tr>
             <td><label for="saveBuild">Save Build?</label></td>
@@ -123,6 +128,7 @@
 <script>
     $(document).ready(function () {
         retrievePrecedentBuild()
+        updateSpecification()
     });
 
     function retrievePrecedentBuild() {

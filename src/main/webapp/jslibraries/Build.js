@@ -12,12 +12,18 @@ let formFactorMobo = '';
 let slotSataAvailable = '';
 let slotNVMEAvailable = '';
 let slotRamAvailable = '';
+let slotRam;
+let slotSata;
+let slotNVME;
 let slotRamUsed = '';
 let slotSataUsed = '';
 let slotNVMEUsed = '';
+let power;
 let powerNeeded = 0;
 let socketRam = '';
 let socketCpu = '';
+let cpuConnector='';
+let ramConnector='';
 let integratedCpu = '';
 let selectedElement;
 let selectedElementObject;
@@ -27,6 +33,7 @@ let idBuild;
 let submitable;
 let formFactorCase="";
 let massStorageNumber=0;/*dichiarato qui per poter richiamare il submit Form anche dai pulsanti*/
+let price;
 
 
 function toggleOverlay() {
@@ -38,32 +45,52 @@ function updateSpecification() {
         submitable = false;
     } else submitable = true;
 
+
+
+    price=0;
     powerNeeded = 0;
     slotNVMEUsed = 0;
     slotRamUsed = 0;
     slotSataUsed = 0;
+
+    if(psu!=null){
+        power=psu.power;
+        price=psu.price;
+    }
     if (mobo != null) {
         slotSataAvailable = mobo.amountSlotSata;
+        slotSata=mobo.amountSlotSata;
         slotNVMEAvailable = mobo.amountSlotNvme;
+        slotNVME=mobo.amountSlotNvme;
         slotRamAvailable = mobo.amountSlotRam;
+        slotRam=mobo.amountSlotRam;
         powerNeeded += mobo.consumption;
         socketRam = mobo.ramSocket;
         socketCpu = mobo.cpuSocket;
         formFactorMobo = mobo.formFactor;
     }
     if (pcCase != null) {
+        price+=pcCase.price;
         formFactorCase = pcCase.formFactor
     }
-    if (gpu != null)
+    if (gpu != null){
+        price+=gpu.price;
         powerNeeded += gpu.consumption
+    }
     if (ram != null) {
+        ramConnector=ram.socket;
+        price+=ram.price;
         powerNeeded += ram.consumption;
         slotRamUsed = ram.amountMemories;
     }
-    if (cpu != null)
-        powerNeeded += cpu.consumption;
+    if (cpu != null){
+        cpuConnector=cpu.socket;
+        price+=cpu.price;
+    powerNeeded += cpu.consumption;
+    }
 
     if (massStorage1 != null) {
+        price+=massStorage1.price;
         if (massStorage1 == "sata") {
 
             slotSataAvailable -= 1;
@@ -75,6 +102,7 @@ function updateSpecification() {
         powerNeeded += massStorage1.consumption;
     }
     if (massStorage2 != null) {
+        price+=massStorage2.price;
         if (massStorage2 == "sata") {
             slotSataAvailable -= 1;
             slotSataUsed += 1;
@@ -85,6 +113,7 @@ function updateSpecification() {
         powerNeeded += massStorage2.consumption;
     }
     if (massStorage3 != null) {
+        price+=massStorage3.price;
         if (massStorage3 == "sata") {
             slotSataAvailable -= 1;
             slotSataUsed += 1;
@@ -93,6 +122,19 @@ function updateSpecification() {
             slotNVMEUsed += 1
         }
         powerNeeded += massStorage3.consumption;
+    }
+    $("#endPrice").text(price);
+
+}
+function checkValidity() {
+    if(powerNeeded<=power&&slotRamUsed<=slotRam&&slotNVMEUsed<=slotNVME&&slotSataUsed<=slotSata&&ramConnector.toLowerCase()==socketRam.toLowerCase()&&
+    socketCpu==cpuConnector){
+        switch (pcCase.getFormFactor().toLowerCase()){
+            case"mini-itx":if(moboFormFactor.equals(("micro"))) throw new BuildException("caseSmallerThanMobo");
+            case"micro-atx":if(moboFormFactor.equals(("atx"))) throw new BuildException("caseSmallerThanMobo");
+            case"atx":if(moboFormFactor.equals("eatx")) throw new BuildException("caseSmallerThanMobo");
+        }
+
     }
 
 }
@@ -143,6 +185,7 @@ function selectMassStorage(number) {
     toggleOverlay();
     selectedElement = "MassStorage";
     massStorageNumber=number;
+
 
     itemCategory = "memories";
     tableHeader = "<tr><th>Product Name</th><th>Number Of Memories</th><th>Power Consumption</th><th>Price</th></tr>"
@@ -215,13 +258,16 @@ function submitForm(headers) {
                 }
                 formData += "&mType=true"
             }
+            else    $("#massStorageOption").hide();
 
 
 
             if (selectedElement == "MotherBoards") {/* scalare i vari formati di schede compatibili con i case*/
 
                 if (formFactorFlag) {
-                    if (formFactor.toLowerCase() == "atx") {
+                    if (formFactor.toLowerCase() == "eatx") {
+                        formFactor = "atx"
+                    }else if (formFactor.toLowerCase() == "atx") {
                         formFactor = "micro-atx"
                     }
                     else if (formFactor.toLowerCase() == "micro-atx") {
@@ -241,8 +287,10 @@ function submitForm(headers) {
                     if (formFactor.toLowerCase()=="mini-itx")
                         formFactor = "micro-atx"
                     else if (formFactor.toLowerCase()=="micro-atx") {
-                        formFactorEnd = true;
                         formFactor = "atx"
+                    } else if (formFactor.toLowerCase()=="atx"){
+                        formFactor = "eatx"
+                        formFactorEnd = true;
                     }
                 } else {
                     formFactorEnd=false;
@@ -257,16 +305,20 @@ function submitForm(headers) {
             formData += "&power=" + powerNeeded + "&id=&formFactor=" + formFactor + "&CPUsocket=" + socketCpu + "&RAMsocket=" + socketRam + "" +
                 "&nRAMSockets=" + slotRamUsed + "&nSATASockets=" + slotSataUsed + "&nNVMESockets=" + slotNVMEUsed + "&requestedItem=" + itemCategory +
                 "&integratedGpu=" + integratedCpu;
-        } else {
+        } else {/* inizio formazione del form senza controlli*/
+            if (selectedElement == "Ram") {
+                formData += "&mType=false&MEMsocket=";
+            }
             if (selectedElement == "MassStorage") {
+                formData+="&mType=false"
                 $("#massStorageOption").show();
                 if ($("#sata").prop("checked")) {
                     formData += "&MEMsocket=sata"
                     }else formData += "&MEMsocket=nvme"
+        }else    $("#massStorageOption").hide();
 
             formData += "&requestedItem=" + itemCategory + "&power=&id=&formFactor=&CPUsocket=&RAMsocket=" +
-                "&nRAMSockets=" + "&nSATASockets=&nNVMESockets=&MEMsocket=&amountOfMemories=&integratedGpu=";
-        }}
+                "&nRAMSockets=" + "&nSATASockets=&nNVMESockets=&amountOfMemories=&integratedGpu=";}
         let xhttp = new XMLHttpRequest();
 
         xhttp.onreadystatechange = function () {
