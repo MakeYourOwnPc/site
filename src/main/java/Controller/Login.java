@@ -35,7 +35,11 @@ public class Login extends HttpServlet {
                 }
             }
             session.setAttribute("failedLogin", failedLogin);
-            resp.sendRedirect(req.getHeader("referer"));
+            String referer = req.getHeader("referer");
+            if(referer.equals("/WEB-INF/UserPages/login.jsp")){
+                resp.sendRedirect("/WEB-INF/UserPages/showCart.jsp");
+            }
+            resp.sendRedirect(referer);
 
         } catch (NoSuchAlgorithmException | SQLException e) {
             e.printStackTrace();
