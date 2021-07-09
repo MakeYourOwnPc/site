@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.Build.Build;
+import Model.Build.BuildDao;
 import Model.Cpu.Cpu;
 import Model.Cpu.CpuDao;
 import Model.Gpu.Gpu;
@@ -18,10 +20,7 @@ import Model.User.UserDao;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +38,7 @@ public class ModifyDB extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
-        if(user==null||!user.isAdmin()) {
+        if (user == null || !user.isAdmin()) {
             resp.setStatus(403);
             return;
         }
@@ -47,21 +46,95 @@ public class ModifyDB extends HttpServlet {
         String requestedItem = req.getParameter("requestedItem");
         resp.setContentType("plain/text");
         resp.setCharacterEncoding("UTF-8");
-        if(option.equals("insert")) {
-            try {
-                insert(requestedItem,req,resp);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+        switch (option) {
+            case "insert" -> {
+                try {
+                    insert(requestedItem, req, resp);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }
-        }
-        else if (option.equals("update")) {
-            try {
-                update(requestedItem,req,resp);
-            } catch (SQLException | NoSuchAlgorithmException throwables) {
-                throwables.printStackTrace();
+            case "update" -> {
+                try {
+                    update(requestedItem, req, resp);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+            case "delete" -> {
+                try {
+                    delete(requestedItem, req, resp);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
 
+        }
+    }
+    public void delete(String requestedItem,HttpServletRequest req,HttpServletResponse resp) throws SQLException,ServletException,IOException{
+        switch (requestedItem) {
+           case "users" -> {
+               String email = req.getParameter("email");
+               UserDao userDao = new UserDao();
+               if(email!=null)
+                   resp.getWriter().print(userDao.doDelete(email));
+           }
+            case "gpus" -> {
+                GpuDao gpuDao = new GpuDao();
+                String id = req.getParameter("id");
+                if(id!=null)
+                    resp.getWriter().print(gpuDao.doDelete(Integer.parseInt(id)));
+            }
+            case "cpus" -> {
+                CpuDao cpuDao = new CpuDao();
+                String id = req.getParameter("id");
+                if(id!=null)
+                    resp.getWriter().print(cpuDao.doDelete(Integer.parseInt(id)));
+            }
+            case "psus" -> {
+                PsuDao psuDao = new PsuDao();
+                String id = req.getParameter("id");
+                if(id!=null)
+                    resp.getWriter().print(psuDao.doDelete(Integer.parseInt(id)));
+            }
+            case "cases" -> {
+                PcCaseDao pcCaseDao = new PcCaseDao();
+                String id = req.getParameter("id");
+                if(id!=null)
+                    resp.getWriter().print(pcCaseDao.doDelete(Integer.parseInt(id)));
+            }
+            case "motherboards" -> {
+                MoboDao moboDao = new MoboDao();
+                String id = req.getParameter("id");
+                if(id!=null)
+                    resp.getWriter().print(moboDao.doDelete(Integer.parseInt(id)));
+            }
+            case "memories" -> {
+                MemoryDao memoryDao = new MemoryDao();
+                String id = req.getParameter("id");
+                if(id!=null)
+                    resp.getWriter().print(memoryDao.doDelete(Integer.parseInt(id)));
+            }
+            case "builds" -> {
+               User user = (User) req.getSession().getAttribute("user");
+               String id = req.getParameter("id");
+               if(id==null){
+                    resp.setStatus(400);
+                    return;
+               }
+               BuildDao buildDao = new BuildDao();
+               if(!user.isAdmin()){
+                   Build build = buildDao.doRetrieveById(Integer.parseInt(id));
+                   if(!build.getMaker().equals(user.getEmail())) {
+                       resp.setStatus(403);
+                       return;
+                   }
+               }
+               resp.getWriter().print(buildDao.doDelete(Integer.parseInt(id)));
+        }
+    }
     }
     public void insert(String requestedItem, HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
         switch (requestedItem) {

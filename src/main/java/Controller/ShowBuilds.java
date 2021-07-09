@@ -3,6 +3,7 @@ package Controller;
 import Model.Build.BuildDao;
 import Model.Build.BuildNames;
 import Model.User.User;
+import com.google.gson.Gson;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,6 +26,8 @@ public class ShowBuilds extends HttpServlet {
         }
         try {
             ArrayList<BuildNames> builds = buildDao.doRetrieveByMaker(user.getEmail());
+            Gson gson = new Gson();
+            System.out.println(gson.toJson(builds));
             req.setAttribute("builds",builds);
             RequestDispatcher dispatcher=req.getRequestDispatcher("/WEB-INF/UserPages/userBuilds.jsp");
             dispatcher.forward(req,resp);
