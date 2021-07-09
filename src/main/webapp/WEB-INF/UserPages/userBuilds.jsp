@@ -70,10 +70,12 @@
         $.ajax({
             url: "/MYOPSite_war_exploded/modifyDB",
             method:"POST",
-            data:"id="+id,
+            data:"id="+id+"&requestedItem=builds&option=delete",
             success:function (id){
                 $("#build"+id).remove();
-            }
+                createToast("Success","Delete finalized")
+            },
+            failed:createToast("Error","Cannot Delete")
         })
     }
 </script>
