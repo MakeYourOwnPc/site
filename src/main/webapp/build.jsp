@@ -9,7 +9,7 @@
 <%
     int id;
     try {
-        id = (int) session.getAttribute("id");
+        id = (int) request.getAttribute("id");
     }catch (RuntimeException e){id=0;}
 
 %>
