@@ -18,6 +18,10 @@ public class ModifyUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
+        if(user==null){
+            resp.setStatus(403);
+            return;
+        }
         UserDao userDao = new UserDao();
         try {
             User userDB = userDao.doRetrieveByEmail(user.getEmail());

@@ -39,7 +39,7 @@ public class ModifyDB extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
-        if(!user.isAdmin()) {
+        if(user==null||!user.isAdmin()) {
             resp.setStatus(403);
             return;
         }

@@ -164,7 +164,7 @@
         checkDisableSubmit();
         if(!submitable)
             return;
-        if(idBuild==undefined)
+        if(idBuild==undefined||idBuild==null)
             idBuild=0;
 
         let build = {
