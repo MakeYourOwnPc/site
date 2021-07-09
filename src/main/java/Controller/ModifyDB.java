@@ -38,12 +38,12 @@ public class ModifyDB extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
-        if (user == null || !user.isAdmin()) {
+        String option = req.getParameter("option");
+        String requestedItem = req.getParameter("requestedItem");
+        if (user == null|| !user.isAdmin()){
             resp.setStatus(403);
             return;
         }
-        String option = req.getParameter("option");
-        String requestedItem = req.getParameter("requestedItem");
         resp.setContentType("plain/text");
         resp.setCharacterEncoding("UTF-8");
         switch (option) {
@@ -119,20 +119,7 @@ public class ModifyDB extends HttpServlet {
             }
             case "builds" -> {
                User user = (User) req.getSession().getAttribute("user");
-               String id = req.getParameter("id");
-               if(id==null){
-                    resp.setStatus(400);
-                    return;
-               }
-               BuildDao buildDao = new BuildDao();
-               if(!user.isAdmin()){
-                   Build build = buildDao.doRetrieveById(Integer.parseInt(id));
-                   if(!build.getMaker().equals(user.getEmail())) {
-                       resp.setStatus(403);
-                       return;
-                   }
-               }
-               resp.getWriter().print(buildDao.doDelete(Integer.parseInt(id)));
+
         }
     }
     }

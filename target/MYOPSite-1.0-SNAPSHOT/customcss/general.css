@@ -239,21 +239,28 @@ table tbody{
 }
 
 .toast-box{
-    display: flex;
+    z-index: 1000;
+
     position: fixed;
     bottom:0;
     right: 0;
     width: 25%;
     box-sizing: border-box;
-    background-color: #14423c;
+    background-color: #004f2a;
     color:var(--active-color);
     border-radius: 5px;
+    border: solid black;
 }
 .toast-header{
+    color: white;
     background-color: var(--bg-secondary-color);
+    width: 100%;
     position: relative;
     top: 0;
 
+}
+.toast-body{
+    display: block;
 }
 
 

@@ -68,9 +68,9 @@
 <script>
     function deleteBuild(id){
         $.ajax({
-            url: "/MYOPSite_war_exploded/modifyDB",
+            url: "/MYOPSite_war_exploded/deleteBuild",
             method:"POST",
-            data:"id="+id+"&requestedItem=builds&option=delete",
+            data:"id="+id,
             success:function (id){
                 $("#build"+id).remove();
                 createToast("Success","Delete finalized")
