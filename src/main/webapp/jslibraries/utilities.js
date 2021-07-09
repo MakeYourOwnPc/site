@@ -64,6 +64,10 @@ function existingEmail(){
     xhttp.open("POST", "/MYOPSite_war_exploded/emailispresent", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("email="+document.getElementById("email").value);
+}
 
+function createToast(Message){
+    let toastHtml;
+    toastHtml="<div>"
 }
 

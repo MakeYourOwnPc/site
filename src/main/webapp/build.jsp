@@ -6,6 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    int id;
+    try {
+        id = (int) session.getAttribute("id");
+    }catch (RuntimeException e){id=0;}
+
+%>
 <html>
 <head>
     <title>MYPO-Building</title>
@@ -20,7 +27,7 @@
 <span id="oldMemories" style="display: none">${memories}</span>
 <input type="hidden" id="oldPsu" value='${psu}'>
 <input type="hidden" id="oldPcCase" value='${pcCase}'>
-<input type="hidden" id="idBuild" value='<%=(Integer)request.getAttribute("id")%>'>
+<input type="hidden" id="idBuild" value='<%=id%>'>
 
 
 <script src="./bootstrap/js/bootstrap.js" defer></script>
