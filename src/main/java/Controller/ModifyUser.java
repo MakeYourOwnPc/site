@@ -39,7 +39,7 @@ public class ModifyUser extends HttpServlet {
                 user.setPassword("");
                 req.getSession().setAttribute("user", user);
             }
-            resp.getWriter().print(result);
+            resp.sendRedirect("/MYOPSite_war_exploded/showUser");
         } catch (SQLException | NoSuchAlgorithmException throwables) {
             throwables.printStackTrace();
         }

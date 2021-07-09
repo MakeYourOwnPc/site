@@ -15,9 +15,19 @@
 <script src="jslibraries/jQuery.js"></script>
 <script src="jslibraries/utilities.js"></script>
 
-
+<div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true" hidden>
+    <div class="toast-header">
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        Update successful.
+    </div>
+</div>
 <div class="centered-box">
     <div class="box-container fullHeightList">
+        <input type="hidden" id="result" value="${result}">
         <h1>Registration Form</h1>
         <form name="registration" action="/MYOPSite_war_exploded/modifyUser" method="post" onsubmit="return validateData()">
             <table  class="User-box">
@@ -81,7 +91,7 @@
                 </div>
             </div>
         </div>
-        <p style="text-align: left">
+        <p id="passwordrequirements" style="text-align: left;display:none">
             The Password Must Contain:<br>
             -Between 8 And 16 Characters<br>
             -At Least One Special Character Between &%#.-_<br>
@@ -94,6 +104,11 @@
 </body>
 
 <script>
+    $(document).ready(function(){
+        let result = document.getElementById("result").value
+        let toast = document.getElementById("toast")
+        toast.hidden=!result
+    })
     function isPasswordMatching(password){
         let alertPass = document.getElementById("newPassword-alert")
         if(testRegexPassword(password))
@@ -125,6 +140,7 @@
                     $("#newPasswordRow").show()
                     $("#newPasswordTestRow").show()
                     $("#modify-data").hide()
+                    $("#passwordrequirements").show()
                     applyChanges.hidden = false
                 }
             }
@@ -136,7 +152,6 @@
 
         function validateData() {
             let submitable = true;
-
             let password = document.getElementById("newPassword");
             let passwordtest = document.getElementById("newPasswordTest");
             if (!document.getElementById("firstname").checkValidity) {
@@ -148,7 +163,7 @@
                 document.getElementById("lastname-alert").hidden = false;
             } else document.getElementById("lastname-alert").hidden = true;
             let passAlert = document.getElementById("newPassword-alert");
-            if (password != "") {
+            if (password.value != "") {
                 if (!testRegexPassword(password.value)) {
                     submitable = false;
                     passAlert.hidden = false;
