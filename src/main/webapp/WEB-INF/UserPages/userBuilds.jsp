@@ -47,8 +47,8 @@
                     </ul>
                     <table>
                         <tbody>
-                      <tr> <td><form action="./build">
-                            <input name="id" value="${build.id}" type="hidden">
+                      <tr> <td><form action="./showBuild">
+                            <input name="idBuild" value="${build.id}" type="hidden">
                             <input type="submit" class="btn btn-success" value="Open">
 
                         </form>
@@ -68,9 +68,9 @@
 <script>
     function deleteBuild(id){
         $.ajax({
-            url: "",
+            url: "/MYOPSite_war_exploded/modifyDB",
             method:"POST",
-            data:"build="+id,
+            data:"id="+id,
             success:function (id){
                 $("#build"+id).remove();
             }

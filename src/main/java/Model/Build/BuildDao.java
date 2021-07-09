@@ -202,7 +202,7 @@ public class BuildDao implements IBuildDao<SQLException>{
     @Override
     public ArrayList<BuildNames> doRetrieveByMaker(String maker) throws SQLException {
         try(Connection conn = ConnPool.getConnection()) {
-            try (PreparedStatement ps = conn.prepareStatement("SELECT Builds.id id,Gpus.name gpu,Cpus.name cpu,Psus.name psu,Motherboards.name mobo,PcCases.name pccase,Builds.type type,Builds.maker maker,Builds.suggested suggested,PcCases.imagepath imagepath FROM Builds,Gpus,Cpus,Motherboards WHERE maker=? AND Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id;")) {
+            try (PreparedStatement ps = conn.prepareStatement("SELECT Builds.id id,Gpus.name gpu,Cpus.name cpu,Psus.name psu,Motherboards.name mobo,PcCases.name pccase,Builds.type type,Builds.maker maker,Builds.suggested suggested,PcCases.imagepath imagepath FROM Builds,Gpus,Cpus,Motherboards,PcCases,Psus WHERE maker=? AND Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id;")) {
                 ps.setString(1, maker);
                 ResultSet rs = ps.executeQuery();
                 ArrayList<BuildNames> list = new ArrayList<>();

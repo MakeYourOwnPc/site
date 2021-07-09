@@ -18,7 +18,7 @@ public class UsersLister extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User caller = (User) req.getSession().getAttribute("user");
-        if(!caller.isAdmin()) {
+        if(caller==null||!caller.isAdmin()) {
             resp.setStatus(403);
             return;
         }
