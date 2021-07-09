@@ -163,8 +163,8 @@
             if (this.readyState == 4 && this.status == 200) {
                 if(this.responseText=="true"){
                     emailalert.innerText="Email Already Present";
-                    emailalert.hidden=false;
                     submit.disabled=true;
+                    emailalert.hidden=false;
                     console.log("email rejected");
                 }
                 else

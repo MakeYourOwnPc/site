@@ -67,12 +67,14 @@
 </body>
 <script>
     function deleteBuild(id){
+        $("#build"+id).addClass("pendingRemoval");
+        let idBuild=id;
         $.ajax({
             url: "/MYOPSite_war_exploded/deleteBuild",
             method:"POST",
             data:"id="+id,
-            success:function (id){
-                $("#build"+id).remove();
+            success:function (){
+                $(".pendingRemoval").remove();
                 createToast("Success","Delete finalized")
             },
             failed:createToast("Error","Cannot Delete")
