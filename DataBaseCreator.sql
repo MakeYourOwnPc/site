@@ -16,7 +16,7 @@ create table Memories
     id             int primary key auto_increment,
     name           char(100) not null unique,
     mtype          boolean   not null,#false= ram true=massStorage
-    socket         char(10)  not null,
+        socket         char(10)  not null,
     consumption    int       not null,
     price          float     not null,
     amountmemories tinyint   not null,
@@ -99,8 +99,7 @@ create table Builds
     foreign key (gpu) references gpus (id) on delete cascade on update no action,
     foreign key (psu) references psus (id) on delete cascade on update no action,
     foreign key (pccase) references pccases (id) on delete cascade on update no action,
-    foreign key (cpu) references Cpus(id) on delete cascade on update no action,
-    foreign key (maker) references users (email)
+    foreign key (maker) references users (email) on delete cascade on update no action
 
 );
 
@@ -110,8 +109,8 @@ create table Memoriesbuiltin
     amountofmemories int not null,
     id               int not null,
     primary key (idbuild, id),
-    foreign key (idbuild) references builds (id),
-    foreign key (id) references memories (id)
+    foreign key (idbuild) references builds (id) on delete cascade on update no action,
+    foreign key (id) references memories (id) on delete cascade on update no action
 );
 
 create table Countries
@@ -132,16 +131,16 @@ create table Purchases
     cap             char(6)  not null,
     email           char(40) not null,
     countryid       char(2)  not null,
-    foreign key (idbuild) references builds (id),
-    foreign key (countryid) references Countries (id)
+    foreign key (idbuild) references builds (id) on delete cascade on update no action,
+    foreign key (countryid) references Countries (id) on delete cascade on update no action
 );
 
 create table ShoppingCarts
 (
     user char(40) primary key,
     idbuild int not null,
-    foreign key(user) references Users(email),
-    foreign key(idbuild) references Builds(id)
+    foreign key(user) references Users(email) on delete cascade on update no action,
+    foreign key(idbuild) references Builds(id) on delete cascade on update no action
 )
 
 
