@@ -48,7 +48,7 @@
                     <table>
                         <tbody>
                       <tr> <td><form action="./showBuild">
-                            <input name="idBuild" value="${build.id}" type="hidden">
+                            <input name="id" value="${build.id}" type="hidden">
                             <input type="submit" class="btn btn-success" value="Open">
 
                         </form>
