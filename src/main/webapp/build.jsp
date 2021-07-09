@@ -115,8 +115,11 @@
             </td>
             <td><label for="purchase">Ready To Purchase</label></td>
             <td>
-                <button id="purchase" class="btn btn-success">Purchase</button>
+                <button id="purchase" class="btn btn-success" onclick="purchase()">Purchase</button>
             </td>
+            <form id="purchaseForm" method="post" action="">
+                <input id="purchaseBuildJson" type="hidden" name="build">
+            </form>
 
         </tr>
         <tr>
@@ -134,6 +137,7 @@
 </body>
 <script>
     $(document).ready(function () {
+        $("#builds input").val("");
         retrievePrecedentBuild()
         updateSpecification()
     });
@@ -167,10 +171,7 @@
         if(idBuild=="null") idBuild=0;
     }
 
-    function saveBuild() {
-        checkDisableSubmit();
-        if(!submitable)
-            return;
+    function stringifyBuild(){
         if(idBuild==undefined||idBuild==null)
             idBuild=0;
 
@@ -181,10 +182,30 @@
             pcCase: pcCase.id,
             psu: psu.id,
             type: "",
-            memories: [ram.id,massStorage1.id, massStorage2.id, massStorage3.id],
+            memories: [ram.id,massStorage1.id],
             suggested:false,
             id:idBuild
         }
+        if(massStorage2!=null){
+            build.memories=massStorage2.id;
+        }
+        if(massStorage3!=null){
+            build.memories=massStorage3.id;
+        }
+        return JSON.stringify(build);
+    }
+
+
+    function purchase(){
+        $("#purchaseBuildJson").val(stringifyBuild())
+        document.getElementById("purchaseForm").submit();
+    }
+
+    function saveBuild() {
+        checkDisableSubmit();
+        if(!submitable)
+            return;
+
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
 
@@ -197,17 +218,17 @@
 
             } else if (this.readyState == 4 && this.status == 404) {
                 console.log("error");
-                $("#searchResultBuild").append("Saving Error");
+                createToast("Error","Cannot Save")
             }
         };
 
         xhttp.open("POST", "/MYOPSite_war_exploded/saveBuild", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        let sentData = JSON.stringify(build);
+        let sentData = stringifyBuild();
         console.log(sentData);
         xhttp.send("build="+sentData);
-
     }
+
     function checkDisableSubmit(){
         updateSpecification()
         if(!submitable){
