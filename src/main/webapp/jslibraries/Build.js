@@ -230,8 +230,8 @@ function submitForm(headers) {
 
     let compatibilityCheck = $("#compatible").prop("checked")
     let formFactorFlag = false /*Verifica che durante la ricerca per pc Case sia stata cercata la form factor salvata una volta*/
-    let formFactor = "";
-    let formFactorEnd = true;
+    let formFactor = formFactorMobo;
+    let formFactorEnd = true/* flag che gestisce il loop per la ricerca dei form factor*/
     arrayElements=[];
 
     do {/*il ciclo viene ripetuto solo con pcCase e Motherboards*/
@@ -250,27 +250,35 @@ function submitForm(headers) {
                 formData += "&mType=true"
             }
             else    $("#massStorageOption").hide();
+            console.log(selectedElement)
 
 
             if (selectedElement == "MotherBoards") {/* scalare i vari formati di schede compatibili con i case*/
+                console.log(formFactorEnd + formFactor)
                 if (formFactorFlag) {
                     if (formFactor.toLowerCase() == "eatx") {
                         formFactor = "atx"
                     }else if (formFactor.toLowerCase() == "atx") {
                         formFactor = "micro-atx"
+
                     }
                     else if (formFactor.toLowerCase() == "micro-atx") {
                         formFactorEnd = true;/*flag per interrompere il ciclo*/
                         formFactor = "mini-itx"
+
                     }
                 } else {
+                    formFactor = (formFactorCase=='')?"eatx":formFactorCase;   /*alla prima chiamata di motherboard viene ricercato il form factor stesso del case che lo deve contenere
+                    se non è stato ancora selezionato parte dal più grande*/
+
                     formFactorEnd=false;/*abilito il ciclo do while*/
-                    formFactor = formFactorCase;/*alla prima chiamata di motherboard viene ricercato il form factor stesso del case che lo deve contenere*/
+
                     formFactorFlag = true;
                 }
             }
 
             if (selectedElement == "PcCase")
+
 
                 if (formFactorFlag) {
                     if (formFactor.toLowerCase()=="mini-itx")
@@ -283,7 +291,7 @@ function submitForm(headers) {
                     }
                 } else {
                     formFactorEnd=false;
-                    formFactor = formFactorMobo;
+                    formFactor = (formFactorMobo=='')?"mini-itx":formFactorMobo;
                     formFactorFlag = true;
                 }
 
@@ -295,6 +303,8 @@ function submitForm(headers) {
                 "&nRAMSockets=" + slotRamUsed + "&nSATASockets=" + slotSataUsed + "&nNVMESockets=" + slotNVMEUsed + "&requestedItem=" + itemCategory +
                 "&integratedGpu=" + integratedCpu;
         } else {/* inizio formazione del form senza controlli*/
+
+            formFactorEnd = true;
             if (selectedElement == "Ram") {
                 massStorageNumber=0;
                 formData += "&mType=false&MEMsocket=";

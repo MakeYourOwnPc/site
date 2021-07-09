@@ -100,7 +100,7 @@ create table Builds
     foreign key (psu) references psus (id) on delete cascade on update no action,
     foreign key (pccase) references pccases (id) on delete cascade on update no action,
     foreign key (cpu) references Cpus(id) on delete cascade on update no action,
-    foreign key (maker) references users (email)
+    foreign key (maker) references users (email) on delete cascade on update no action
 
 );
 
