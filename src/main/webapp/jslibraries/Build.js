@@ -45,8 +45,6 @@ function updateSpecification() {
         submitable = false;
     } else submitable = true;
 
-
-
     price=0;
     powerNeeded = 0;
     slotNVMEUsed = 0;
@@ -58,6 +56,7 @@ function updateSpecification() {
         price=psu.price;
     }
     if (mobo != null) {
+        price+=mobo.price;
         slotSataAvailable = mobo.amountSlotSata;
         slotSata=mobo.amountSlotSata;
         slotNVMEAvailable = mobo.amountSlotNvme;
@@ -217,21 +216,16 @@ function selectPsu() {
 
 }
 
-massStorageNumber
+
+
+
 function submitForm(headers) {
+
     $("#ComponentTitle").text(selectedElement);
-
-
-
     $('#searchResultBuild>tbody').html('');
     $('#searchResultBuild>thead').html(headers);
-
-
     let formData;
     updateSpecification();
-
-
-
 
 
     let compatibilityCheck = $("#compatible").prop("checked")
@@ -243,10 +237,7 @@ function submitForm(headers) {
     do {/*il ciclo viene ripetuto solo con pcCase e Motherboards*/
         formData = "name=" + $("#productName").val().replaceAll(" ", "%20");
 
-
-
-
-        if (compatibilityCheck) {
+        if (compatibilityCheck) {/*form con i controlli*/
             if (selectedElement == "MassStorage") {
                 $("#massStorageOption").show();
                 if ($("#sata").prop("checked")) {
@@ -261,9 +252,7 @@ function submitForm(headers) {
             else    $("#massStorageOption").hide();
 
 
-
             if (selectedElement == "MotherBoards") {/* scalare i vari formati di schede compatibili con i case*/
-
                 if (formFactorFlag) {
                     if (formFactor.toLowerCase() == "eatx") {
                         formFactor = "atx"
@@ -318,7 +307,8 @@ function submitForm(headers) {
         }else    $("#massStorageOption").hide();
 
             formData += "&requestedItem=" + itemCategory + "&power=&id=&formFactor=&CPUsocket=&RAMsocket=" +
-                "&nRAMSockets=" + "&nSATASockets=&nNVMESockets=&amountOfMemories=&integratedGpu=";}
+                "&nRAMSockets=" + "&nSATASockets=&nNVMESockets=&amountOfMemories=&integratedGpu=";
+        }
         let xhttp = new XMLHttpRequest();
 
         xhttp.onreadystatechange = function () {
@@ -495,7 +485,7 @@ function psusTabler(value) {
 function buttonAdder(id, type, number) {
     let buttonForm;
     let action;
-    if (type != null && number != null)
+    if (type != null && number != 0)
         action = "add" + type + number + "(" + id + ")";
     else {
         action = "add" + type + "(" + id + ")";
