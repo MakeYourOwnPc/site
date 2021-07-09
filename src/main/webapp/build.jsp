@@ -20,7 +20,7 @@
 <span id="oldMemories" style="display: none">${memories}</span>
 <input type="hidden" id="oldPsu" value='${psu}'>
 <input type="hidden" id="oldPcCase" value='${pcCase}'>
-<input type="hidden" id="idBuild" value='<%=request.getParameter("idBuild")%>'>
+<input type="hidden" id="idBuild" value='<%=(Integer)request.getAttribute("id")%>'>
 
 
 <script src="./bootstrap/js/bootstrap.js" defer></script>
@@ -157,7 +157,7 @@
         pcCase = JSON.parse($("#oldPcCase").val());
         $("#pcCase").val(pcCase.name);
         idBuild=$("#idBuild").val();
-        if(idBuild=="") idBuild=0;
+        if(idBuild=="null") idBuild=0;
     }
 
     function saveBuild() {

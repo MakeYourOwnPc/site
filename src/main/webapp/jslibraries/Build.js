@@ -296,6 +296,7 @@ function submitForm(headers) {
                 "&integratedGpu=" + integratedCpu;
         } else {/* inizio formazione del form senza controlli*/
             if (selectedElement == "Ram") {
+                massStorageNumber=0;
                 formData += "&mType=false&MEMsocket=";
             }
             if (selectedElement == "MassStorage") {
