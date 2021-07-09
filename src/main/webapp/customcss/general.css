@@ -238,6 +238,24 @@ table tbody{
     text-align: left;
 }
 
+.toast-box{
+    display: flex;
+    position: fixed;
+    bottom:0;
+    right: 0;
+    width: 25%;
+    box-sizing: border-box;
+    background-color: #14423c;
+    color:var(--active-color);
+    border-radius: 5px;
+}
+.toast-header{
+    background-color: var(--bg-secondary-color);
+    position: relative;
+    top: 0;
+
+}
+
 
 .overlayElement{
     overflow: auto;

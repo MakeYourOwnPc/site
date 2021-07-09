@@ -14,22 +14,16 @@
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
 <script src="jslibraries/jQuery.js"></script>
 <script src="jslibraries/utilities.js"></script>
-
-<div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true" hidden>
-    <div class="toast-header">
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="toast-body">
-        Update successful.
-    </div>
+<div class="toast-box">
+    <div class="toast-header"><button onclick="closeToast">X</button></div>
 </div>
+
 <div class="centered-box">
     <div class="box-container fullHeightList">
         <input type="hidden" id="result" value="${result}">
         <h1>Registration Form</h1>
         <form name="registration" action="/MYOPSite_war_exploded/modifyUser" method="post" onsubmit="return validateData()">
+
             <table  class="User-box">
                 <tr><td>
                     <label for="firstname">Firstname</label>
