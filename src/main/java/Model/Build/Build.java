@@ -200,7 +200,7 @@ public class Build {
         consumption+= cpu.getConsumption();
         String moboFormFactor=mobo.getFormFactor();
         switch (pcCase.getFormFactor().toLowerCase()){
-            case"mini-atx":if(moboFormFactor.equals(("micro"))) throw new BuildException("caseSmallerThanMobo");
+            case"mini-itx":if(moboFormFactor.equals(("micro"))) throw new BuildException("caseSmallerThanMobo");
             case"micro-atx":if(moboFormFactor.equals(("atx"))) throw new BuildException("caseSmallerThanMobo");
             case"atx":if(moboFormFactor.equals("eatx")) throw new BuildException("caseSmallerThanMobo");
         }

@@ -35,7 +35,7 @@
         <div class="box-container">
             <table style="width: 100%">
                 <tr>
-                    <td><h1 id="updateTitle" style="float: left"></h1></td>
+                    <td><h1 id="ComponentTitle" style="float: left"></h1></td>
                     <td>
                         <button onclick="toggleOverlay()" class="btn btn-danger"
                                 style="font-size: 26px;font-weight: bolder; float:right;">X</button>
@@ -51,14 +51,14 @@
                     <td><label for="compatible">Check By Compatible Component</label></td>
                     <td><input type="checkbox" name="compatible" id="compatible" onclick="submitForm()"></td>
                 </tr>
-                <tr id="massStorageOption">
+                <tr id="massStorageOption" style="display: none">
                     <td>
                         <label for="sata">SATA</label>
-                        <input type="radio" name="socket" id="sata" value="sata" checked>
+                        <input type="radio" name="socket" id="sata" value="sata" onclick="submitForm()" checked>
                     </td>
                     <td>
                         <label for="nvme">NVME</label>
-                        <input type="radio" name="socket" id="nvme" value="sata">
+                        <input type="radio" name="socket" id="nvme" onclick="submitForm()" value="sata">
                     </td>
                 </tr>
 
