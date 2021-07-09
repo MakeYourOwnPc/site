@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class ShowBuild extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int idBuild = Integer.parseInt(req.getParameter("idBuild"));
+        int idBuild = Integer.parseInt(req.getParameter("id"));
         BuildDao buildDao = new BuildDao();
         try {
             Gson gson = new Gson();
@@ -58,6 +58,7 @@ public class ShowBuild extends HttpServlet {
             req.setAttribute("memories",gson.toJson(memories));
             req.setAttribute("type",gson.toJson(build.getType()));
             req.setAttribute("suggested",gson.toJson(build.isSuggested()));
+            req.setAttribute("id",build.getId());
             RequestDispatcher dispatcher=req.getRequestDispatcher("/build.jsp");
             dispatcher.forward(req,resp);
         } catch (SQLException throwables) {

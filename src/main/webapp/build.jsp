@@ -117,7 +117,7 @@
             <td>
                 <button id="purchase" class="btn btn-success" onclick="purchase()">Purchase</button>
             </td>
-            <form id="purchaseForm" method="post" action="">
+            <form id="purchaseForm" method="post" action="/MYOPSite_war_exploded/addToCart" enctype="application/x-www-form-urlencoded">
                 <input id="purchaseBuildJson" type="hidden" name="build">
             </form>
 
@@ -169,6 +169,8 @@
         $("#pcCase").val(pcCase.name);
         idBuild=$("#idBuild").val();
         if(idBuild=="null") idBuild=0;
+        else
+            idBuild=parseInt(idBuild,10)
     }
 
     function stringifyBuild(){
@@ -187,10 +189,10 @@
             id:idBuild
         }
         if(massStorage2!=null){
-            build.memories=massStorage2.id;
+            build.memories.push(massStorage2.id);
         }
         if(massStorage3!=null){
-            build.memories=massStorage3.id;
+            build.memories.push(massStorage3.id);
         }
         return JSON.stringify(build);
     }
