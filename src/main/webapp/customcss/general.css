@@ -240,7 +240,6 @@ table tbody{
 
 .toast-box{
     z-index: 1000;
-
     position: fixed;
     bottom:0;
     right: 0;
@@ -294,6 +293,9 @@ footer div table{
     width: 100%;
 }
 @media screen and (max-width: 700px) {
+    .toast-box{
+        width: 100%;
+    }
     .inner-window{
         width: 85%;
     }

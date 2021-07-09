@@ -75,6 +75,7 @@ function createToast(title,message){
         "    <div class=\"toast-body\"><span id=\"toastMessage\">"+message+"</span></div>\n" +
         "</div>";
     $("body").append(toastHtml);
+    setTimeout(closeToast,5000)
 }
 function closeToast(){
     $("#toast").remove();
