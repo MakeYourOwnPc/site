@@ -255,7 +255,7 @@ public class PurchaseDao implements IPurchaseDao<SQLException>{
     @Override
     public ArrayList<Purchase> doRetrieveByEmail(String email,int limit, int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT Purchases.id id,Purchases.idbuild idbuild,Purchases.creationdate creationdate,Purchases.cellphonenumber cellphone,Purchases.country country,Purchases.price price,Purchases.address address,Purchases.cap cap,Purchases.city city,Purchases.email email FROM Purchases WHERE email=? LIMIT ?,?;")){
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Purchases WHERE email=? LIMIT ?,?;")){
                 ps.setString(1,email);
                 ps.setInt(2,offset);
                 ps.setInt(3,limit);
