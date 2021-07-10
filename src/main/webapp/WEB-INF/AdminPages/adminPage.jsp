@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 
 <html>
@@ -351,12 +351,47 @@
             "<td class='firstname'>" + value.firstName + "</td>" +
             "<td class='lastname'>" + value.lastName + "</td>" +
             "<td class='email'>" + value.email + "</td>";
-        if (value.admin)
-            row += "<td class='isAdmin'>Yes</td>";
-        else row += "<td class='isAdmin'>No</td>";
-        row += buttonAdder(value.email) + "</tr>";
+        row += checkAdminAdder(value) + "</tr>";
         $("#searchResultItem").append(row);
     }
+    function checkAdminAdder(value){
+        let checked= (value.admin)?"checked":""
+        let button="<td><input type='checkbox' name='admin' id='isAdmin"+value.email+"' onclick='adminModifier('"+value.email+"')' "+checked+"></td>"
+        return button;
+    }
+    function adminModifier(email){
+        let formData="email="+email+"&requestedItem=users";
+
+        if($("#isAdmin"+email).prop("checked"))
+            formData+="&admin=true"
+        else formData+="&admin=false"
+        formData.replaceAll("@","%40");
+        updateAdmin(formData)
+    }
+
+    function updateAdmin(formData){
+        $.ajax({
+            url: "./admin/modifyDB",
+            type: 'POST',
+            data: formData,
+            beforeSend: function (x) {
+                x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            },
+            success: function (data) {
+                console.log(data);
+                if(data=="true")
+                    createToast("Success","Change Successful")
+
+            },
+            failed:createToast("Error","Cannot Change Admin Status"),
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+
+
+    }
+
 
     function gpuTabler(value) {
         var row;
@@ -510,15 +545,11 @@
 
 
     function viewItem(id) {
-        let servletCalled;
-        if(selectedElement=="User"){
-            servletCalled="./admin/viewUser"
-        }
-        servletCalled="./admin/showItem"
+
         let formData = $("#" + id).serialize()
         console.log(formData);
         $.ajax({
-            url: servletCalled,
+            url: "./admin/showItem",
             type: 'POST',
             data: formData,
             beforeSend: function (x) {
@@ -527,8 +558,10 @@
             success: function (data) {
                 console.log(data);
                 let item = JSON.parse(data);
+
                 prepareFormUpdate(item)
             },
+            failed:createToast("Error","Cannot Retrieve Item"),
             cache: false,
             contentType: false,
             processData: false

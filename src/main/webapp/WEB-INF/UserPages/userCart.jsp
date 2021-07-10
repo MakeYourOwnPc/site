@@ -21,7 +21,7 @@
             Your Shopping Cart
         </h1>
     </div>
-    <div id="builds">
+
         <div class="buildList">
             <img src="${build.imagePath}">
             <ul>
@@ -38,12 +38,9 @@
                 <li>${build.maker}</li>
 
             </ul>
-            <form action="./showBuild">
-                <input name="idBuild" value="${build.id}" type="hidden">
-                <input type="submit" class="btn fullBtn btn-success" value="Start ">
-            </form>
+
         </div>
-    </div>
+
 
 </div>
 

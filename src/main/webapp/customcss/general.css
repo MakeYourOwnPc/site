@@ -285,6 +285,7 @@ footer{
     text-align: center;
     width: 100%;
     border-top: white solid;
+    position: absolute;
 }
 footer div{
     width: 100%;
