@@ -84,7 +84,7 @@ public class SaveBuild extends HttpServlet {
                         buildDao.doSave(build);
                     }
                 if(referer.equals("admin"))
-                    resp.sendRedirect("/MYOPSite_war_exploded/AdminPages/adminPage.jsp");
+                    resp.sendRedirect("/MYOPSite_war_exploded/admin");
                 session.setAttribute("id",build.getId());
             }
             resp.getWriter().print(build.getId());
