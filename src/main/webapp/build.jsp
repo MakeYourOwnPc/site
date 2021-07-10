@@ -71,7 +71,7 @@
                 </tr>
 
             </table>
-            <table class="User-box" id="searchResultBuild">
+            <table class="User-box searchResult" id="searchResultBuild">
                 <thead></thead>
                 <tbody></tbody>
             </table>
