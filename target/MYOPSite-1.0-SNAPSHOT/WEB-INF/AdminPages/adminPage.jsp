@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 
 <html>
@@ -16,7 +16,7 @@
 <script src="./jslibraries/utilities.js"></script>
 
 <nav class="topbar">
-    <div id="icon-container sidebar-icon" onclick="hideSidebar()">
+    <div class="icon-container sidebar-icon" onclick="hideSidebar()">
         <%@include file="../../icons/list-ul.svg" %>
     </div>
     <h2 id="selectedFormTitle"> Choose Element</h2>
@@ -68,7 +68,7 @@
                     </td>
                 </tr>
             </table>
-            <form id="updateForm" action="./modifyDB" method="post" enctype="multipart/form-data">
+            <form id="updateForm" action="./admin/modifyDB" method="post" enctype="multipart/form-data">
                 <table class="User-box" id="updateFormBox">
                 </table>
                 <div id="imageInput"></div>
@@ -351,12 +351,54 @@
             "<td class='firstname'>" + value.firstName + "</td>" +
             "<td class='lastname'>" + value.lastName + "</td>" +
             "<td class='email'>" + value.email + "</td>";
-        if (value.admin)
-            row += "<td class='isAdmin'>Yes</td>";
-        else row += "<td class='isAdmin'>No</td>";
-        row += buttonAdder(value.email) + "</tr>";
+        row += checkAdminAdder(value) + "</tr>";
         $("#searchResultItem").append(row);
     }
+    function checkAdminAdder(value){
+        let checked= (value.admin)?'checked':'';
+        let email=value.email.replaceAll(".","\\\\.");/*una coppia di slash per questa stinga*/
+        email=email.replaceAll("@","\\\\@");
+        let button="<td><form onclick=\"adminModifier('"+email+"')\">" +
+           /* "<input type=\"hidden\" name=\"admin\" value=\""+value.email+"\"   >" +*/
+            "<input id=\""+value.email+"\" type=\"checkbox\" name=\"admin\" value=\"true\" "+checked+ ">" +
+            "</form></td>";
+        return button;
+    }
+    function adminModifier(email){
+
+        let formData="email="+$("#"+email).attr("id").replaceAll("@","%40").replaceAll(".","%2E")/*La seconda coppia di slash serve per cercare l'elemento*/
+        console.log(formData)
+
+           /* email formattata per il form*/
+        formData+=($("#"+email).prop("checked"))?"&admin=true":"&admin=false";
+        formData+="&requestedItem=users&option=update";
+        console.log(formData);
+        updateAdmin(formData);
+    }
+
+    function updateAdmin(formData){
+        $.ajax({
+            url: "./admin/modifyDB",
+            type: 'POST',
+            data: formData,
+            beforeSend: function (x) {
+                x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            },
+            success: function (data) {
+                console.log(data);
+                if(data=="true")
+                    createToast("Success","Change Successful")
+
+            },
+            failed:createToast("Error","Cannot Change Admin Status"),
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+
+
+    }
+
 
     function gpuTabler(value) {
         var row;
@@ -510,15 +552,11 @@
 
 
     function viewItem(id) {
-        let servletCalled;
-        if(selectedElement=="User"){
-            servletCalled="./admin/viewUser"
-        }
-        servletCalled="./admin/showItem"
+
         let formData = $("#" + id).serialize()
         console.log(formData);
         $.ajax({
-            url: servletCalled,
+            url: "./admin/showItem",
             type: 'POST',
             data: formData,
             beforeSend: function (x) {
@@ -527,8 +565,10 @@
             success: function (data) {
                 console.log(data);
                 let item = JSON.parse(data);
+
                 prepareFormUpdate(item)
             },
+            failed:createToast("Error","Cannot Retrieve Item"),
             cache: false,
             contentType: false,
             processData: false

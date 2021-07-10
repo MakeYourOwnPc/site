@@ -350,6 +350,7 @@ public class ModifyDB extends HttpServlet {
                 boolean admin = Boolean.parseBoolean(req.getParameter("admin"));
                 synchronized (userDao) {
                     resp.getWriter().print(userDao.doChangeAdmin(email, admin));
+                    return;
                 }
             }
             case "gpus" -> {
