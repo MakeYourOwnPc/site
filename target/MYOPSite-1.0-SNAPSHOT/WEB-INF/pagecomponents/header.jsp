@@ -2,9 +2,16 @@
 <% User user= (User) session.getAttribute("user");
 %>
 
+<script>
+    document.onload= function (){
+        if($("#failedLogin").val()==true) createToast("Login Error","Email or Password incorrect");
+    }
+
+</script>
+
 <nav class="navbar navbar-expand-lg navbar-dark  header">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Make Your Own Pc</a>
+        <a class="navbar-brand" href="/MYOPSite_war_exploded/">Make Your Own Pc</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,6 +39,9 @@
                     </ul>
                 </li>
             </ul>
+            <a class="icon-container" style="height: 3rem">
+                <%@include file="/icons/cart.svg"%>
+            </a>
             <%if(user==null){%>
             <form class="d-flex" method="post" action="login">
                 <input class="form-control" type="email" placeholder="Email" name="email">
@@ -40,24 +50,19 @@
                 <a class="btn optional" href="/MYOPSite_war_exploded/registrationPage.jsp">Register Now</a>
             </form>
             <%}else{%>
-            <span class="navbar-text"> Welcome <%=user.fullName()%>
+            <div>
+            <span class="navbar-text"> Welcome <%=user.fullName()%></span>
                  <form action="/MYOPSite_war_exploded/logout" style="display: inline-block;height: 3rem;">
                    <button class="icon-container"  ><%@include file="/icons/exit_door.svg"%> </button>
                  </form>
-            </span>
+            </div>
+
             <%}%>
         </div>
     </div>
-    <%if (request.getAttribute("loginError")!=null&&(boolean)request.getAttribute("loginError")) {%>
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto">Login Error</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            Email Or Password Is Incorrect
-        </div>
-    </div>
-
+    <%if (request.getAttribute("failedLogin")!=null&&(boolean)request.getAttribute("failedLogin")) {%>
+    <input type="hidden" id="failedLogin" value="true">
+    <%}else{%>
+    <input type="hidden" id="failedLogin" value="false">
     <%}%>
 </nav>

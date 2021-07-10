@@ -69,7 +69,7 @@
                 </tr>
             </table>
             <form id="updateForm" action="./modifyDB" method="post" enctype="multipart/form-data">
-                <table class="registration-box" id="updateFormBox">
+                <table class="User-box" id="updateFormBox">
                 </table>
                 <div id="imageInput"></div>
 
@@ -124,8 +124,7 @@
         $("#insertButton").removeAttr("hidden");
         switch (text) {
             case "Builds":
-                tableHeader = "<tr><th>DataBase Id</th><th>MOBO</th><th>GPU</th><th>CPU</th><th>CASE</th><th>Memories</th><th>Suggested</th><th>Maker</th></tr>"
-                $("#searchResultBuild").addClass("buildsTable");
+                tableHeader = "<tr><th>Maker</th><th>Database Id</th><th>MotherBoard</th><th>Gpu</th><th>Cpu</th><th>Ram</th><th>Memories</th></tr>"
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='builds'>" +
                     "<tr><td><label for='CPUname'>CPU Name</label></td><td><input type='text' id='CPUname' name='cpuName'></td></tr>" +
                     "<tr><td><label for='GPUname'>GPU Name</label></td><td><input type='text' id='GPUname' name='gpuName'></td></tr>" +
@@ -146,7 +145,6 @@
                 break;
             case "Gpus":
                 tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
-                $("#searchResultBuild").addClass("gpusTable");
                 formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='gpus'>";
                 break;
             case "Cpus":
@@ -259,6 +257,7 @@
                     "<option value='atx'>ATX</option>" +
                     "</select></td></tr>";
                 break;
+
         }
 
 
@@ -497,7 +496,7 @@
         let formData = $("#" + id).serialize()
         console.log(formData);
         $.ajax({
-            url: "./showItem",
+            url: "./admin/showItem",
             type: 'POST',
             data: formData,
             beforeSend: function (x) {
@@ -632,8 +631,6 @@
                     " <option value='micro-ATX' " + microatx + ">Micro-ATX</option>" +
                     "<option value='ATX'" + atx + ">ATX</option></select></td></tr>" +
 
-                    '<tr><td><label for="consumption">Consumption</label></td>' +
-                    '<td><input type="number" id="consumption" name="consumption" value="' + item.consumption + '"></td></tr>' +
 
                     '<tr><td><label for="price">Price</label></td>' +
                     '<td><input type="number" step="0.01" name="price" value="' + item.price + '"></td></tr>' +

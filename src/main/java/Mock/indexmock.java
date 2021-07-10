@@ -30,8 +30,6 @@ public class indexmock extends HttpServlet {
         ArrayList<BuildNames> builds=new ArrayList<>();
         builds.add(build);
         request.setAttribute("builds",builds);
-
-
         RequestDispatcher dispatcher= request.getRequestDispatcher("/WEB-INF/index.jsp");
         dispatcher.forward(request,response);
     }

@@ -76,8 +76,8 @@ public class SaveBuild extends HttpServlet {
                         buildDao.doSave(build);
                     }
                 session.setAttribute("id",build.getId());
-                resp.getWriter().print(build.getId());
             }
+            resp.getWriter().print(build.getId());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
