@@ -430,7 +430,7 @@ public class BuildDao implements IBuildDao<SQLException>{
                             v.remove(j);
                             j--;
                         }
-                    PreparedStatement ps3 = conn.prepareStatement("INSERT INTO memoriesbuiltin(idbuild,id,amountmemories) VALUES (?,?,?);");
+                    PreparedStatement ps3 = conn.prepareStatement("INSERT INTO memoriesbuiltin(idbuild,id,amountofmemories) VALUES (?,?,?);");
                     ps3.setInt(1,build.getId());
                     ps3.setInt(2,v.get(i));
                     ps3.setInt(3,amountMemories);
