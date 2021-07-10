@@ -43,6 +43,9 @@ function validateUser(){
 function toggleOverlayModify() {
     $("#overlayFormModify").fadeToggle();
 }
+function toggleOverlayPassword() {
+    $("#overlayFormPassword").fadeToggle();
+}
 function toggleOverlayBuild() {
     $("#overlayFormBuild").fadeToggle();
 }
