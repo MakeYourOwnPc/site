@@ -38,14 +38,14 @@
 <script src="jslibraries/utilities.js"></script>
 
 
-<div id="overlayForm" class="overlayElement" style="display: none">
+<div id="overlayFormBuild" class="overlayElement" style="display: none">
     <div class="inner-window">
         <div class="box-container">
             <table style="width: 100%">
                 <tr>
                     <td><h1 id="ComponentTitle" style="float: left"></h1></td>
                     <td>
-                        <button onclick="toggleOverlay()" class="btn btn-danger"
+                        <button onclick="toggleOverlayBuild()" class="btn btn-danger"
                                 style="font-size: 26px;font-weight: bolder; float:right;">X</button>
                     </td>
                 </tr>

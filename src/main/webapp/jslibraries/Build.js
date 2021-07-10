@@ -36,7 +36,7 @@ let massStorageNumber=0;/*dichiarato qui per poter richiamare il submit Form anc
 let price;
 
 
-function toggleOverlay() {
+function toggleOverlayModify() {
     $("#overlayForm").fadeToggle();
 }
 
@@ -199,7 +199,7 @@ function checkValidity() {
 }
 
 function selectGPU() {
-    toggleOverlay();
+    toggleOverlayBuild();
     selectedElement = "Gpus";
     itemCategory = "gpus";
     tableHeader = "<tr><th>Product Name</th><th>Power Consumption</th><th>Price</th></tr>";
@@ -209,7 +209,7 @@ function selectGPU() {
 }
 
 function selectCPU() {
-    toggleOverlay();
+    toggleOverlayBuild();
     selectedElement = "Cpus";
     itemCategory = "cpus";
     tableHeader = "<tr><th>Product Name</th><th>Socket</th><th>Integrated Gpu</th><th>Power Consumption</th><th>Price</th></tr>"
@@ -218,7 +218,7 @@ function selectCPU() {
 }
 
 function selectMOBO() {
-    toggleOverlay();
+    toggleOverlayBuild();
     selectedElement = "MotherBoards";
 
     itemCategory = "motherboards";
@@ -229,7 +229,7 @@ function selectMOBO() {
 }
 
 function selectRAM() {
-    toggleOverlay();
+    toggleOverlayBuild();
     selectedElement = "Ram";
 
     itemCategory = "memories";
@@ -241,7 +241,7 @@ function selectRAM() {
 }
 
 function selectMassStorage(number) {
-    toggleOverlay();
+    toggleOverlayBuild();
     selectedElement = "MassStorage";
     massStorageNumber=number;
 
@@ -254,7 +254,7 @@ function selectMassStorage(number) {
 }
 
 function selectPcCase() {
-    toggleOverlay();
+    toggleOverlayBuild();
     selectedElement = "PcCase"
 
     itemCategory = "cases";
@@ -265,7 +265,7 @@ function selectPcCase() {
 }
 
 function selectPsu() {
-    toggleOverlay();
+    toggleOverlayBuild();
     selectedElement = "Psu"
 
     itemCategory = "psus";
@@ -571,7 +571,7 @@ function addGpu(id) {
     gpu = elem;
     selectedElementObject = elem;
     $("#gpu").val(elem.name)
-    toggleOverlay();
+    toggleOverlayBuild();
     checkDisableSubmit();
 
 }
@@ -581,7 +581,7 @@ function addCpu(id) {
     cpu = elem;
     selectedElementObject = elem;
     $("#cpu").val(elem.name)
-    toggleOverlay();
+    toggleOverlayBuild();
     checkDisableSubmit();
 }
 
@@ -590,7 +590,7 @@ function addMotherBoards(id) {
     mobo = elem;
     selectedElementObject = elem;
     $("#mobo").val(elem.name)
-    toggleOverlay();
+    toggleOverlayBuild();
     checkDisableSubmit();
 }
 
@@ -599,7 +599,7 @@ function addPcCase(id) {
     pcCase = elem;
     selectedElementObject = elem;
     $("#pcCase").val(elem.name)
-    toggleOverlay();
+    toggleOverlayBuild();
     checkDisableSubmit();
 }
 
@@ -608,7 +608,7 @@ function addPsu(id) {
     psu = elem;
     selectedElementObject = elem;
     $("#psu").val(elem.name)
-    toggleOverlay();
+    toggleOverlayBuild();
     checkDisableSubmit();
 }
 
@@ -617,7 +617,7 @@ function addRam(id) {
     ram = elem;
     selectedElementObject = elem;
     $("#ram").val(elem.name)
-    toggleOverlay();
+    toggleOverlayBuild();
     checkDisableSubmit();
 }
 
@@ -627,7 +627,7 @@ function addMassStorage1(id) {
     selectedElementObject = elem;
     $("#massStorage1").val(elem.name)
 
-    toggleOverlay();
+    toggleOverlayBuild();
     checkDisableSubmit();
 }
 
@@ -637,7 +637,7 @@ function addMassStorage2(id) {
     selectedElementObject = elem;
     $("#massStorage2").val(elem.name)
 
-    toggleOverlay();
+    toggleOverlayBuild();
 }
 
 function addMassStorage3(id) {
@@ -646,6 +646,6 @@ function addMassStorage3(id) {
     selectedElementObject = elem;
     $("#massStorage3").val(elem.name)
 
-    toggleOverlay();
+    toggleOverlayBuild();
 }
 

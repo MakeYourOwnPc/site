@@ -57,14 +57,14 @@
     </table>
 </div>
 
-<div id="overlayForm" class="overlayElement" style="display: none">
+<div id="overlayFormModify" class="overlayElement" style="display: none">
     <div class="centered-box">
         <div class="box-container">
             <table style="width: 100%">
                 <tr style="vertical-align: middle">
                     <td><h1 id="updateTitle" style="float: left"></h1></td>
                     <td>
-                        <button onclick="toggleOverlay()" class="btn btn-danger" style="font-size: 26px;font-weight: bolder" >X</button>
+                        <button onclick="toggleOverlayModify()" class="btn btn-danger" style="font-size: 26px;font-weight: bolder" >X</button>
                     </td>
                 </tr>
             </table>
@@ -737,7 +737,7 @@
         $("#updateTitle").text("Update Element");
         $("#updateFormBox").html(formHTML);
         $("#buttonSpace").html(buttonHTML)
-        toggleOverlay();
+        toggleOverlayModify();
     }
 
    /* function updateItem(){
@@ -1002,7 +1002,7 @@
         $("#updateTitle").text("Create Element");
         $("#updateFormBox").html(formHTML);
         $("#buttonSpace").html(buttonHTML)
-        toggleOverlay();
+        toggleOverlayModify();
     }
 
 

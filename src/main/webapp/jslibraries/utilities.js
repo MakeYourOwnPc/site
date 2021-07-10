@@ -40,8 +40,11 @@ function validateUser(){
     return submitable;
 }
 
-function toggleOverlay() {
-    $("#overlayForm").fadeToggle();
+function toggleOverlayModify() {
+    $("#overlayFormModify").fadeToggle();
+}
+function toggleOverlayBuild() {
+    $("#overlayFormBuild").fadeToggle();
 }
 
 function existingEmail(){
