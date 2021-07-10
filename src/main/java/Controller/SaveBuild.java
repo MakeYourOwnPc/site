@@ -60,7 +60,7 @@ public class SaveBuild extends HttpServlet {
             ArrayList<Integer> memIds = build.getMemories();
             for(Integer idMem:memIds)
                 memories.add(memoryDao.doRetrieveById(idMem));
-            if(!referer.equals("admin")) {
+            if(referer.equals("noAdmin")) {
                 session.setAttribute("gpu", gson.toJson(gpu));
                 session.setAttribute("cpu", gson.toJson(cpu));
                 session.setAttribute("psu", gson.toJson(psu));
