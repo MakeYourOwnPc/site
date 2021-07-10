@@ -26,12 +26,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+
 @WebServlet(name="showBuild",urlPatterns = "/showBuild")
 public class ShowBuild extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idBuild = Integer.parseInt(req.getParameter("id"));
         String referer = req.getHeader("referer");
+        Pattern pattern = Pattern.compile("/admin$");
+        req.setAttribute("referer", pattern.matcher(referer).matches() ? "Admin" : "noAdmin");
         BuildDao buildDao = new BuildDao();
         try {
             Gson gson = new Gson();
