@@ -42,8 +42,7 @@ public class AddtoCart extends HttpServlet {
                 if (shoppingCartDao.isShopCartPresent(user.getEmail()))
                     shoppingCartDao.doDelete(user.getEmail());
                 resp.getWriter().print(shoppingCartDao.doSave(shoppingCart));
-                RequestDispatcher requestDispatcher = req.getRequestDispatcher("/showCart");
-                requestDispatcher.forward(req,resp);
+                resp.sendRedirect("/MYOPSite_war_exploded/showCart");
             }
 
         } catch (SQLException throwables) {
