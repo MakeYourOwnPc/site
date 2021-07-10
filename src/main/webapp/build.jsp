@@ -28,6 +28,7 @@
 <input type="hidden" id="oldPsu" value='${psu}'>
 <input type="hidden" id="oldPcCase" value='${pcCase}'>
 <input type="hidden" id="idBuild" value='<%=id%>'>
+<input type="hidden" id="referer" value='<%=request.getHeader("referer")%>'>
 
 
 <script src="./bootstrap/js/bootstrap.js" defer></script>
@@ -231,7 +232,25 @@
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         let sentData = stringifyBuild();
         console.log(sentData);
-        xhttp.send("build="+sentData);
+        let referer
+       if( checkReferer()){/* per capire se deve salvare la build in sessione e se deve rimandare alla pagina di Admin*/
+           referer="admin";
+       }else(referer="noAdmin");
+        xhttp.send("build="+sentData+"&refer="+referer);
+    }
+
+    function checkReferer(){
+        let referer;
+        let regex= new RegExp("\/admin$");
+        referer= $("#referer").val()
+        if(referer=""||referer==null){
+            return false
+        }
+        else
+        {
+            return regex.test(referer);
+        }
+
     }
 
     function checkDisableSubmit(){

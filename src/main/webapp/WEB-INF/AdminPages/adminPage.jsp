@@ -465,7 +465,7 @@
 
         row += "<td class='buildType'>" + value.type + "</td>" +
 
-            buttonAdder(value.id) +
+            buttonAdderBuild(value.id) +
             "</tr>"
         $("#searchResultItem").append(row);
     }
@@ -482,6 +482,18 @@
             buttonAdder(value.id) +
             "</tr>"
         $("#searchResultItem").append(row);
+    }
+
+    function buttonAdderBuild(id) {
+        let buttonForm;
+        let requestedItem = $("#requestedItem").attr("value");
+        buttonForm = "<td><form id='" + id + "' action='/showBuild'>" +
+            "<input type='hidden' name='id' value='" + id + "'>" +
+            "<h1 class='btn active'>Modify</h1></form></td>"+
+            "<td><form id='" + id + "' action='/deleteBuild'>" +
+            "<input type='hidden' name='id' value='" + id + "'>" +
+            "<h1 class='btn btn-danger'>Delete</h1></form></td>";
+        return buttonForm;
     }
 
     function buttonAdder(id) {
