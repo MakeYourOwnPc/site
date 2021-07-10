@@ -390,7 +390,9 @@
                     createToast("Success","Change Successful")
 
             },
-            failed:createToast("Error","Cannot Change Admin Status"),
+            failed:function(data){
+                createToast("Error","Cannot Change Admin Status")
+            },
             cache: false,
             contentType: false,
             processData: false
