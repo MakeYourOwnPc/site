@@ -46,6 +46,9 @@ function updateSpecification() {
         submitable = false;
     } else submitable = true;
 
+    slotSataAvailable=0;
+    slotNVMEAvailable=0;
+    slotRamAvailable=0;
     price=0;
     powerNeeded = 0;
     slotNVMEUsed = 0;
@@ -91,7 +94,7 @@ function updateSpecification() {
 
     if (massStorage1 != null) {
         price+=massStorage1.price;
-        if (massStorage1 == "sata") {
+        if (massStorage1.socket == "sata") {
 
             slotSataAvailable -= 1;
             slotSataUsed += 1;
@@ -103,7 +106,7 @@ function updateSpecification() {
     }
     if (massStorage2 != null) {
         price+=massStorage2.price;
-        if (massStorage2 == "sata") {
+        if (massStorage2.socket == "sata") {
             slotSataAvailable -= 1;
             slotSataUsed += 1;
         } else {
@@ -114,7 +117,7 @@ function updateSpecification() {
     }
     if (massStorage3 != null) {
         price+=massStorage3.price;
-        if (massStorage3 == "sata") {
+        if (massStorage3.socket == "sata") {
             slotSataAvailable -= 1;
             slotSataUsed += 1;
         } else {
