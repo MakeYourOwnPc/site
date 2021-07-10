@@ -366,7 +366,7 @@
     }
     function adminModifier(email){
 
-        let formData="name="+$("#"+email).attr("id").replaceAll("@","%40").replaceAll(".","%2E")/*La seconda coppia di slash serve per cercare l'elemento*/
+        let formData="email="+$("#"+email).attr("id").replaceAll("@","%40").replaceAll(".","%2E")/*La seconda coppia di slash serve per cercare l'elemento*/
         console.log(formData)
 
            /* email formattata per il form*/
