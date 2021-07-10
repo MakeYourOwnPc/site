@@ -278,6 +278,7 @@
 
         if(selectedElement=="Users"){
             submitFormUsers(formDATA);
+            return;
         }
 
         xhttp.onreadystatechange = function () {
@@ -301,7 +302,6 @@
                         results.forEach(buildTabler);
                         break;
                     case "MotherBoards":
-
                         results.forEach(moboTabler);
                         break;
                     case "Cases":
@@ -329,24 +329,26 @@
     }
 
     function submitFormUsers(formData) {
+        let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var results = JSON.parse(this.responseText);
+                console.log(this.responseText)
                 results.forEach(userTabler);
             }
         }
-        xhttp.open("POST", "/MYOPSite_war_exploded/usersLister", true);
+        xhttp.open("POST", "/MYOPSite_war_exploded/admin/usersLister", true);
 
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-        xhttp.send(formDATA);
-        console.log(formDATA);
+        xhttp.send(formData);
+        console.log(formData);
     }
 
     function userTabler(value) {
         var row;
         row = "<tr class='removable'>" +
-            "<td class='firstname>" + value.firstName + "</td>" +
+            "<td class='firstname'>" + value.firstName + "</td>" +
             "<td class='lastname'>" + value.lastName + "</td>" +
             "<td class='email'>" + value.email + "</td>";
         if (value.admin)
