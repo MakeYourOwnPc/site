@@ -1,12 +1,15 @@
 <%@ page import="Model.User.User" %>
-<% User user= (User) session.getAttribute("user");
-%>
-
+<% User user= (User) session.getAttribute("user");%>
 <script>
     document.onload= function (){
         if($("#failedLogin").val()==true) createToast("Login Error","Email or Password incorrect");
     }
-
+    function loggedToEnterCart(){
+        if($("#loggedHeader").val()=="")
+            createToast("Not Logged In","Cannot Visualize Cart If Not Logged In")
+        else
+            window.location.href="/MYOPSite_war_exploded/showCart"
+    }
 </script>
 
 <nav class="navbar navbar-expand-lg navbar-dark  header">
@@ -39,9 +42,10 @@
                     </ul>
                 </li>
             </ul>
-            <a class="icon-container" style="height: 3rem">
+            <button class="icon-container" onclick=" loggedToEnterCart()" style="height: 3rem">
                 <%@include file="/icons/cart.svg"%>
-            </a>
+                <input type="hidden" name="loggedHeader" id="loggedHeader" value="${user.email}">
+            </button>
             <%if(user==null){%>
             <form class="d-flex" method="post" action="login">
                 <input class="form-control" type="email" placeholder="Email" name="email">

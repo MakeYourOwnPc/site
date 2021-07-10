@@ -12,6 +12,7 @@
     <body>
     <script src="./bootstrap/js/bootstrap.js" defer></script>
     <script src="./bootstrap/popper.js" defer></script>
+    <script src="jslibraries/utilities.js"></script>
     <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
     <script src="./jslibraries/jQuery.js"defer></script>
 
