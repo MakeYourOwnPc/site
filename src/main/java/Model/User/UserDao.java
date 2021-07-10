@@ -130,20 +130,17 @@ public class UserDao implements IUserDao<SQLException>{
         }
     }
     @Override
-    public boolean doChangeAdmin(String email,Boolean admin){
-        try(Connection conn = ConnPool.getConnection()){
-            if(admin!=null)
-            try(PreparedStatement ps = conn.prepareStatement("UPDATE Users SET admin=? WHERE email=?;")){
-                ps.setBoolean(1,admin);
-                ps.setString(2,email.toLowerCase());
-                ps.executeUpdate();
-                return true;
-            }catch (SQLException e){
-                return false;
-            }
-            else return false;
-        }catch (SQLException e){
-            return false;
+    public boolean doChangeAdmin(String email,Boolean admin) throws SQLException {
+        try (Connection conn = ConnPool.getConnection()) {
+                try (PreparedStatement ps = conn.prepareStatement("UPDATE Users SET admin=? WHERE email=?;")) {
+                    ps.setBoolean(1, admin);
+                    ps.setString(2, email.toLowerCase());
+                    return ps.executeUpdate() > 0;
+                } catch (SQLException e) {
+                    throw new SQLException();
+                }
+        } catch (SQLException e) {
+            throw new SQLException();
         }
     }
 }

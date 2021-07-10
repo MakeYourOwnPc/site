@@ -345,29 +345,10 @@ public class ModifyDB extends HttpServlet {
     public void update(String requestedItem, HttpServletRequest req, HttpServletResponse resp) throws SQLException, NoSuchAlgorithmException, ServletException, IOException {
         switch (requestedItem) {
             case "users" -> {
-                PasswordHasher passwordHasher = new PasswordHasher();
-                Pattern patternPassword = Pattern.compile("^(?=.*[a-z])(?=.*\\d)(?=.*[@#$._%-])(?=.*[A-Z]).{8,16}$");
-                String email = req.getParameter("email");
-                String oldPassword = req.getParameter("oldPassword");
-                String newPassword = req.getParameter("newPassword");
-                String firstName = req.getParameter("firstName");
-                String lastName = req.getParameter("lastName");
-                String admin = req.getParameter("admin");
                 UserDao userDao = new UserDao();
-                User user = userDao.doRetrieveByEmail(email);
-                if (!passwordHasher.setPassword(oldPassword).equals(user.getPassword()) || !patternPassword.matcher(newPassword).matches())
-                    resp.setStatus(400);
-                if (!newPassword.isBlank()) {
-                    newPassword = passwordHasher.setPassword(newPassword);
-                    user.setPassword(newPassword);
-                }
-                if (!firstName.isBlank())
-                    user.setFirstName(firstName);
-                if (!lastName.isBlank())
-                    user.setLastName(lastName);
-                if (!admin.isBlank())
-                    user.setAdmin(Boolean.parseBoolean(admin));
-                resp.getWriter().print(userDao.doUpdate(user));
+                String email = req.getParameter("email");
+                boolean admin = Boolean.parseBoolean(req.getParameter("admin"));
+                resp.getWriter().print(userDao.doChangeAdmin(email,admin));
             }
             case "gpus" -> {
                 String idGpu = req.getParameter("id");
@@ -395,7 +376,6 @@ public class ModifyDB extends HttpServlet {
                     }
                 }
                 resp.getWriter().print(gpuDao.doUpdate(gpu));
-                return;
             }
             case "cpus" -> {
                 String idCpu = req.getParameter("id");
