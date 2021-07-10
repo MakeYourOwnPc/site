@@ -2,6 +2,7 @@ package Model.ShoppingCart;
 
 import Model.Build.Build;
 import Model.Build.BuildDao;
+import Model.Build.BuildNames;
 import Model.ConnPool;
 
 import java.sql.Connection;
@@ -11,13 +12,13 @@ import java.sql.SQLException;
 
 public class ShoppingCartDao implements IShoppingCartDao<SQLException>{
     @Override
-    public Build doRetrieveByEmail(String email) throws SQLException {
+    public BuildNames doRetrieveByEmail(String email) throws SQLException {
         try(Connection connPool = ConnPool.getConnection()){
             try(PreparedStatement ps = connPool.prepareStatement("SELECT * FROM ShoppingCarts WHERE user=?;")){
                 ps.setString(1,email);
                 ResultSet rs = ps.executeQuery();
                 BuildDao buildDao = new BuildDao();
-                return buildDao.doRetrieveById(rs.getInt("idbuild"));
+                return buildDao.doRetrieveNamesById(rs.getInt("idbuild"));
             }catch (SQLException e){
                 return null;
             }

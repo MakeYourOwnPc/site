@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Build.Build;
+import Model.Build.BuildNames;
 import Model.ShoppingCart.ShoppingCartDao;
 import Model.User.User;
 
@@ -23,7 +24,7 @@ public class ShowCart extends HttpServlet {
         }
         ShoppingCartDao shoppingCartDao = new ShoppingCartDao();
         try {
-            Build build = shoppingCartDao.doRetrieveByEmail(user.getEmail());
+            BuildNames build = shoppingCartDao.doRetrieveByEmail(user.getEmail());
             req.setAttribute("build",build);
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/showCart.jsp");
             requestDispatcher.forward(req,resp);

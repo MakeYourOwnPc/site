@@ -21,7 +21,7 @@ public class BuildDao implements IBuildDao<SQLException>{
                 BuildNames build = new BuildNames();
                 build.setId(rs.getInt("id"));
                 build.setCpu(rs.getString("cpu"));
-                PreparedStatement ps2 = conn.prepareStatement("Select Memories.name name,amountofmemories FROM Memoriesbuiltin,Memories WHERE idbuild=? AND Memoriesbuiltin.id=Memories.id ORDER BY name;");
+                PreparedStatement ps2 = conn.prepareStatement("SELECT Memories.name name,amountofmemories FROM Memoriesbuiltin,Memories WHERE idbuild=? AND Memoriesbuiltin.id=Memories.id ORDER BY name;");
                 ps2.setInt(1, build.getId());
                 ResultSet rs2 = ps2.executeQuery();
                 while (rs2.next()) {
@@ -76,7 +76,37 @@ public class BuildDao implements IBuildDao<SQLException>{
             throw new SQLException();
         }
     }
-
+    @Override
+    public BuildNames doRetrieveNamesById(int id) throws SQLException {
+        try(Connection conn = ConnPool.getConnection()){
+            try(PreparedStatement ps = conn.prepareStatement("SELECT Builds.id id,Motherboards.name mobo,Cpus.name cpu,Gpus.name gpu,Psus.name psu,Builds.type type,Builds.suggested suggested,Builds.maker maker,PcCases.imagepath imagepath,PcCases.name pccase FROM Builds,Gpus,Cpus,Motherboards,PcCases,Psus WHERE Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id;")){
+                ps.setInt(1,id);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                BuildNames build = new BuildNames();
+                build.setId(id);
+                build.setCpu(rs.getString("cpu"));
+                build.setGpu(rs.getString("gpu"));
+                build.setMaker(rs.getString("maker"));
+                build.setMobo(rs.getString("mobo"));
+                build.setPsu(rs.getString("psu"));
+                build.setPcCase(rs.getString("pccase"));
+                build.setSuggested(rs.getBoolean("suggested"));
+                build.setType(rs.getString("type"));
+                PreparedStatement ps2 = conn.prepareStatement("Select Memories.name name,amountofmemories FROM Memoriesbuiltin,Memories WHERE idbuild=? AND Memoriesbuiltin.id=Memories.id ORDER BY name;");
+                ps2.setInt(1,build.getId());
+                ResultSet rs2 = ps2.executeQuery();
+                while(rs2.next())
+                    for(int i = 0; i < rs2.getInt("amountofmemories");i++)
+                        build.addMemory(rs2.getString("name"));
+                return build;
+            }catch(SQLException e) {
+                throw new SQLException();
+            }
+        }catch(SQLException e){
+            throw new SQLException();
+        }
+    }
     @Override
     public ArrayList<Build> doRetrieveByType(String type,int limit, int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public interface IBuildDao<E extends Exception>{
     ArrayList<BuildNames> doRetrieveAll(int limit,int offset) throws E;
     Build doRetrieveById(int id) throws E;
+    BuildNames doRetrieveNamesById(int id) throws E;
     ArrayList<Build> doRetrieveByType(String type,int limit,int offset)throws E;
     ArrayList<Build> doRetrieveByPower(int power,int limit,int offset) throws E;
     ArrayList<BuildNames> doRetrieveSuggested() throws E;
