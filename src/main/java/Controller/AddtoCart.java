@@ -38,10 +38,12 @@ public class AddtoCart extends HttpServlet {
         shoppingCart.setUser(user.getEmail());
         shoppingCart.setIdbuild(idBuild);
         try {
-            if(shoppingCartDao.isShopCartPresent(user.getEmail()))
-                shoppingCartDao.doDelete(user.getEmail());
-            resp.getWriter().print(shoppingCartDao.doSave(shoppingCart));
-            doGet(req,resp);
+            synchronized (shoppingCartDao) {
+                if (shoppingCartDao.isShopCartPresent(user.getEmail()))
+                    shoppingCartDao.doDelete(user.getEmail());
+                resp.getWriter().print(shoppingCartDao.doSave(shoppingCart));
+                doGet(req, resp);
+            }
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

@@ -498,6 +498,7 @@
 
     function buttonAdder(id) {
         let buttonForm;
+
         let requestedItem = $("#requestedItem").attr("value");
         buttonForm = "<td><form id='" + id + "' onclick='viewItem( " + id + ")'>" +
             "<input type='hidden' name='id' value='" + id + "'>" +
@@ -509,10 +510,15 @@
 
 
     function viewItem(id) {
+        let servletCalled;
+        if(selectedElement=="User"){
+            servletCalled="./admin/viewUser"
+        }
+        servletCalled="./admin/showItem"
         let formData = $("#" + id).serialize()
         console.log(formData);
         $.ajax({
-            url: "./admin/showItem",
+            url: servletCalled,
             type: 'POST',
             data: formData,
             beforeSend: function (x) {

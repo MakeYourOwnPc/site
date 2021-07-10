@@ -23,8 +23,6 @@ public class Index extends HttpServlet {
         BuildDao buildDao = new BuildDao();
         try {
             ArrayList<BuildNames> builds = buildDao.doRetrieveSuggested();
-            Gson gson = new Gson();
-            System.out.println(gson.toJson(builds));
             req.setAttribute("builds",builds);
             RequestDispatcher dispatcher=req.getRequestDispatcher("/WEB-INF/index.jsp");
             dispatcher.forward(req,resp);

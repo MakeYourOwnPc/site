@@ -16,14 +16,11 @@ public class EmailIsPresent extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserDao dao= new UserDao();
         String email= request.getParameter("email");
-
-
         response.setContentType("plain/text");
         response.setCharacterEncoding("UTF-8");
         try {
             if(dao.isPresent(email))
                 response.getWriter().print("true");
-
             else
                 response.getWriter().print("false");
         } catch (SQLException throwables) {

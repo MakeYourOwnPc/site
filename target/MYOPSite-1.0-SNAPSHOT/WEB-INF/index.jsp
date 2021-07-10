@@ -61,7 +61,7 @@
             </h1>
         </div>
         <div id="builds">
-            <c:forEach begin="0" end="9" var="lol">
+
             <c:forEach items="${builds}" var="build">
                 <div class="buildList">
                     <img src="${build.imagePath}">
@@ -84,7 +84,6 @@
                         <input type="submit" class="btn fullBtn btn-success" value="Start ">
                     </form>
                 </div>
-            </c:forEach>
             </c:forEach>
         </div>
 

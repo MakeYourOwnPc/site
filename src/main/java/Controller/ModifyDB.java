@@ -348,7 +348,9 @@ public class ModifyDB extends HttpServlet {
                 UserDao userDao = new UserDao();
                 String email = req.getParameter("email");
                 boolean admin = Boolean.parseBoolean(req.getParameter("admin"));
-                resp.getWriter().print(userDao.doChangeAdmin(email,admin));
+                synchronized (userDao) {
+                    resp.getWriter().print(userDao.doChangeAdmin(email, admin));
+                }
             }
             case "gpus" -> {
                 String idGpu = req.getParameter("id");
@@ -375,7 +377,9 @@ public class ModifyDB extends HttpServlet {
                         Files.copy(inputStream,file.toPath());
                     }
                 }
-                resp.getWriter().print(gpuDao.doUpdate(gpu));
+                synchronized (gpuDao) {
+                    resp.getWriter().print(gpuDao.doUpdate(gpu));
+                }
             }
             case "cpus" -> {
                 String idCpu = req.getParameter("id");
@@ -408,7 +412,9 @@ public class ModifyDB extends HttpServlet {
                         Files.copy(inputStream,file.toPath());
                     }
                 }
-                resp.getWriter().print(cpuDao.doUpdate(cpu));
+                synchronized (cpuDao) {
+                    resp.getWriter().print(cpuDao.doUpdate(cpu));
+                }
             }
             case "psus" -> {
                 String idPsu = req.getParameter("id");
@@ -435,7 +441,9 @@ public class ModifyDB extends HttpServlet {
                         Files.copy(inputStream,file.toPath());
                     }
                 }
-                resp.getWriter().print(psuDao.doUpdate(psu));
+                synchronized (psuDao) {
+                    resp.getWriter().print(psuDao.doUpdate(psu));
+                }
             }
             case "cases" -> {
                 String idCase = req.getParameter("id");
@@ -462,7 +470,9 @@ public class ModifyDB extends HttpServlet {
                         Files.copy(inputStream,file.toPath());
                     }
                 }
-                resp.getWriter().print(pcCaseDao.doUpdate(pcCase));
+                synchronized (pcCaseDao) {
+                    resp.getWriter().print(pcCaseDao.doUpdate(pcCase));
+                }
             }
             case "motherboards" -> {
                 String idMobo = req.getParameter("id");
@@ -507,7 +517,9 @@ public class ModifyDB extends HttpServlet {
                         Files.copy(inputStream,file.toPath());
                     }
                 }
-                resp.getWriter().print(moboDao.doUpdate(mobo));
+                synchronized (moboDao) {
+                    resp.getWriter().print(moboDao.doUpdate(mobo));
+                }
             }
             case "memories" -> {
                 String idMemory = req.getParameter("id");
@@ -543,7 +555,9 @@ public class ModifyDB extends HttpServlet {
                         Files.copy(inputStream,file.toPath());
                     }
                 }
-                resp.getWriter().print(memoryDao.doUpdate(memory));
+                synchronized (memoryDao) {
+                    resp.getWriter().print(memoryDao.doUpdate(memory));
+                }
             }
         }
         resp.sendRedirect("/MYOPSite_war_exploded/admin/");

@@ -53,14 +53,16 @@ public class Registration extends HttpServlet {
         user.setAdmin(false);
         UserDao userDao = new UserDao();
         try {
-            if (!userDao.isPresent(email)) {
-                userDao.doSave(user);
-                user.setPassword("");
-                session.setAttribute("user", user);
-                resp.sendRedirect(req.getHeader("referer"));
-            } else {
-                req.setAttribute("errorDescription", "Email already used.");
-                throw new Exception();
+            synchronized (userDao) {
+                if (!userDao.isPresent(email)) {
+                    userDao.doSave(user);
+                    user.setPassword("");
+                    session.setAttribute("user", user);
+                    resp.sendRedirect(req.getHeader("referer"));
+                } else {
+                    req.setAttribute("errorDescription", "Email already used.");
+                    throw new Exception();
+                }
             }
         } catch (Exception throwables) {
             resp.setStatus(500);
