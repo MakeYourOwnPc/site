@@ -54,20 +54,20 @@
                     <span id="newPasswordTest-alert" class="alert-info" hidden>Not The Same Password</span>
                     </td></tr>
                 <tr><td>
-                    <input class="btn active" value="Modify Data" onclick=toggleOverlay() id="modify-data">
+                    <input class="btn active" value="Modify Data" onclick=toggleOverlayPassword() id="modify-data">
                     <input type="submit" class="btn active" id="applyChanges" value="Apply Changes" hidden>
                 </td></tr>
             </table>
 
         </form>
-        <div id="overlayForm" class="overlayElement" style="display: none">
+        <div id="overlayFormPassword" class="overlayElement" style="display: none">
             <div class="centered-box">
                 <div class="box-container">
                     <table style="width: 100%">
                         <tr style="vertical-align: middle">
                             <td><h1 id="updateTitle" style="float: left"></h1></td>
                             <td>
-                                <button onclick="toggleOverlay()" class="btn btn-danger" style="font-size: 26px;font-weight: bolder" >X</button>
+                                <button onclick="toggleOverlayPassword()" class="btn btn-danger" style="font-size: 26px;font-weight: bolder" >X</button>
                             </td>
                         </tr>
                     </table>
@@ -127,7 +127,7 @@
                     alert.innerText = "Wrong Password";
                     alert.hidden = false;
                 } else {
-                    toggleOverlay()
+                    toggleOverlayPassword()
                     formName.disabled = false
                     formSurname.disabled = false
                     $("#newPasswordRow").show()
