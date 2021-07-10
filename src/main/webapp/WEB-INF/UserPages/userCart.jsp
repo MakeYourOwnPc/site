@@ -21,8 +21,10 @@
             Your Shopping Cart
         </h1>
     </div>
+    <div class="halfPage">
 
         <div class="buildList">
+
             <img src="${build.imagePath}">
             <ul>
                 <li>${build.type}</li>
@@ -38,15 +40,34 @@
                 <li>${build.maker}</li>
 
             </ul>
+            </div>
+            <div class="halfPage">
+                <form id="purchaseForm"><table><tbody>
+                <tr> <td><label for="telephoneNumber">Insert Telephone Number</label></td></tr>
+                <tr> <td><input type="tel" id="telephoneNumber" name="tel"></td></tr>
+                <tr> <td><label for="address">Insert Address</label></td></tr>
+                <tr> <td><input type="text" id="address" name="address"></td></tr>
+                <tr> <td><label for="city">Insert City</label></td></tr>
+                <tr> <td> <input type="text" id="city" name="city"></td></tr>
+                <tr> <td> <label for="CAP">Insert CAP</label></td></tr>
+                <tr><td> <input type="text" id="CAP" name="cap"></td></tr>
+                <tr><td> <label for="country">Select Your Country</label></td></tr>
+                <tr><td> <select id="country"></select></td></tr>
+                    <c:forEach var="country" items="${contries}">
+                        <option value="${country.id}"> ${country.name}</option>
+                    </c:forEach></td></tr>
+                <tr><td></td></tr>
+                <tr><td><input type="submit" value="Complete Purchase"></td></tr>
+                </tbody>
+                </table>
+                </form>
+
+            </div>
 
         </div>
 
 
 </div>
-
-
-
-
 <jsp:include page="/WEB-INF/pagecomponents/footer.jsp"></jsp:include>
 </body>
 <script>
