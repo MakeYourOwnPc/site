@@ -191,11 +191,20 @@ function checkValidity() {
                 throw new BuildException("caseSmallerThanMobo");
                 return;
             }
+
         }
         submitable=true;
-        return;
+        updateBuildSubmitButton();
+        return true;
     }
 
+}
+function updateBuildSubmitButton(){
+    if(!submitable){
+        $("#saveBuild").removeClass("active").addClass("disabled-btn");
+    }
+    else
+        $("#saveBuild").removeClass("disabled-btn").addClass("active");
 }
 
 function selectGPU() {
@@ -572,7 +581,6 @@ function addGpu(id) {
     selectedElementObject = elem;
     $("#gpu").val(elem.name)
     toggleOverlayBuild();
-    checkDisableSubmit();
 
 }
 
@@ -582,7 +590,6 @@ function addCpu(id) {
     selectedElementObject = elem;
     $("#cpu").val(elem.name)
     toggleOverlayBuild();
-    checkDisableSubmit();
 }
 
 function addMotherBoards(id) {
@@ -591,7 +598,6 @@ function addMotherBoards(id) {
     selectedElementObject = elem;
     $("#mobo").val(elem.name)
     toggleOverlayBuild();
-    checkDisableSubmit();
 }
 
 function addPcCase(id) {
@@ -600,7 +606,6 @@ function addPcCase(id) {
     selectedElementObject = elem;
     $("#pcCase").val(elem.name)
     toggleOverlayBuild();
-    checkDisableSubmit();
 }
 
 function addPsu(id) {
@@ -609,7 +614,6 @@ function addPsu(id) {
     selectedElementObject = elem;
     $("#psu").val(elem.name)
     toggleOverlayBuild();
-    checkDisableSubmit();
 }
 
 function addRam(id) {
@@ -618,7 +622,6 @@ function addRam(id) {
     selectedElementObject = elem;
     $("#ram").val(elem.name)
     toggleOverlayBuild();
-    checkDisableSubmit();
 }
 
 function addMassStorage1(id) {
@@ -628,7 +631,6 @@ function addMassStorage1(id) {
     $("#massStorage1").val(elem.name)
 
     toggleOverlayBuild();
-    checkDisableSubmit();
 }
 
 function addMassStorage2(id) {

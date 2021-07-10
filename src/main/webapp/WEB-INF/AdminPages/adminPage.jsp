@@ -487,12 +487,12 @@
     function buttonAdderBuild(id) {
         let buttonForm;
         let requestedItem = $("#requestedItem").attr("value");
-        buttonForm = "<td><form id='" + id + "' action='/showBuild'>" +
+        buttonForm = "<td><form id='" + id + "' action='/MYOPSite_war_exploded/showBuild'>" +
             "<input type='hidden' name='id' value='" + id + "'>" +
-            "<h1 class='btn active'>Modify</h1></form></td>"+
-            "<td><form id='" + id + "' action='/deleteBuild'>" +
+            "<input type='submit' class='btn active' value='Modify'></form></td>"+
+            "<td><form id='" + id + "' action='/MYOPSite_war_exploded/deleteBuild'>" +
             "<input type='hidden' name='id' value='" + id + "'>" +
-            "<h1 class='btn btn-danger'>Delete</h1></form></td>";
+            "<input type='submit' class='btn btn-danger' value='Delete'></form></td>";
         return buttonForm;
     }
 

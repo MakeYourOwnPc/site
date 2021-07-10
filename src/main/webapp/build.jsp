@@ -10,7 +10,7 @@
     int id;
     try {
         id = (int) request.getAttribute("id");
-    }catch (RuntimeException e){id=0;}
+    }catch (RuntimeException e){id=0;}/*per necessità della servlet di salvataggio è stata fatta la conversione in 0 di eventuali valori null*/
 
 %>
 <html>
@@ -28,7 +28,7 @@
 <input type="hidden" id="oldPsu" value='${psu}'>
 <input type="hidden" id="oldPcCase" value='${pcCase}'>
 <input type="hidden" id="idBuild" value='<%=id%>'>
-<input type="hidden" id="referer" value='<%=request.getHeader("referer")%>'>
+<input type="hidden" id="refererAdmin" value='${referer}'>
 
 
 <script src="./bootstrap/js/bootstrap.js" defer></script>
@@ -82,7 +82,7 @@
 
 <div id="pageContenent">
     <div>
-        <h1 style="padding: 10px;background-color: rgba(0,0,0,0.3); text-align: center">
+        <h1 id="" style="padding: 10px;background-color: rgba(0,0,0,0.3); text-align: center">
             Build Your Computer
         </h1>
     </div>
@@ -109,7 +109,7 @@
 
     </div>
     <table>
-        <tbody>
+        <tbody id="submitButtons">
         <tr>
             <td><label for="endPrice">Price</label></td>
             <td>
@@ -126,7 +126,7 @@
         </tr>
         <tr>
             <td><label for="saveBuild">Save Build?</label></td>
-            <td>
+            <td id="saveButtonPlace">
                 <button id="saveBuild" class="btn active" style="transition: 1s" onclick="saveBuild()">SAVE</button>
             </td>
         </tr>
@@ -141,8 +141,22 @@
     $(document).ready(function () {
         $("#builds input").val("");/* autocomplete=off è inutile quindi meglio*/
         retrievePrecedentBuild()
+        adminModifiedPage()
         updateSpecification()
     });
+    function adminModifiedPage(){
+        let referFlag=$("#refererAdmin").val();
+        if(referFlag=="NoAdmin") return;
+        $("purchase").remove();
+        $("purchaseForm").remove();
+        $("saveBuild").remove();
+        let formButton="<form action='/MYOPSite_war_exploded/saveBuild' method='post' onclick='return checkValidity()'>" +
+            "<input type='hidden' name='build' value='"+idBuild+"'>" +
+            "<input type='hidden' name='referer' value='admin'>" +
+            "<input id='saveBuild' type='submit' value='Save'></form>"
+        $("saveButtonPlace").html(formButton);
+
+    }
 
     function retrievePrecedentBuild() {
         mobo = JSON.parse($("#oldMobo").val());
@@ -209,7 +223,6 @@
 
     function saveBuild() {
         checkValidity()
-        checkDisableSubmit()
         if(!submitable) return;
 
         let xhttp = new XMLHttpRequest();
@@ -232,35 +245,12 @@
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         let sentData = stringifyBuild();
         console.log(sentData);
-        let referer
-       if( checkReferer()){/* per capire se deve salvare la build in sessione e se deve rimandare alla pagina di Admin*/
-           referer="admin";
-       }else(referer="noAdmin");
-        xhttp.send("build="+sentData+"&refer="+referer);
+
+        xhttp.send("build="+sentData);
     }
 
-    function checkReferer(){
-        let referer;
-        let regex= new RegExp("\/admin$");
-        referer= $("#referer").val()
-        if(referer=""||referer==null){
-            return false
-        }
-        else
-        {
-            return regex.test(referer);
-        }
 
-    }
 
-    function checkDisableSubmit(){
-        if(!submitable){
-            $("#saveBuild").removeClass("active").addClass("disabled-btn");
-        }
-        else
-        $("#saveBuild").removeClass("disabled-btn").addClass("active");
-
-    }
 </script>
 
 </html>
