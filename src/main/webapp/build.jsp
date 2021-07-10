@@ -146,15 +146,16 @@
     });
     function adminModifiedPage(){
         let referFlag=$("#refererAdmin").val();
-        if(referFlag=="NoAdmin") return;
-        $("purchase").remove();
-        $("purchaseForm").remove();
-        $("saveBuild").remove();
+        if(referFlag!="admin") return;
+        $("#purchase").remove();
+        $("#purchaseForm").remove();
+        $("#saveBuild").remove();
         let formButton="<form action='/MYOPSite_war_exploded/saveBuild' method='post' onclick='return checkValidity()'>" +
-            "<input type='hidden' name='build' value='"+idBuild+"'>" +
+            "<input type='hidden' name='build' value='"+stringifyBuild()+"'>" +
             "<input type='hidden' name='referer' value='admin'>" +
             "<input id='saveBuild' type='submit' value='Save'></form>"
-        $("saveButtonPlace").html(formButton);
+        $("#saveButtonPlace").html(formButton);
+
 
     }
 

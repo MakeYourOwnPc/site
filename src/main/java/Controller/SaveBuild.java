@@ -42,7 +42,7 @@ public class SaveBuild extends HttpServlet {
         BuildDao buildDao = new BuildDao();
         Build build = gson.fromJson(buildJson,Build.class);
         int idBuild = build.getId();
-        resp.setCharacterEncoding("UTF-8");
+
         try {
             GpuDao gpuDao = new GpuDao();
             CpuDao cpuDao = new CpuDao();
@@ -82,8 +82,12 @@ public class SaveBuild extends HttpServlet {
                         build.setMaker(user.getEmail());
                         buildDao.doSave(build);
                     }
-                if(referer.equals("admin"))
+                if(referer.equals("admin")) {
                     resp.sendRedirect("/MYOPSite_war_exploded/admin");
+                    return;
+                }
+                resp.setContentType("plain/text");
+                resp.setCharacterEncoding("UTF-8");
                 session.setAttribute("id",build.getId());
             }
             resp.getWriter().print(build.getId());
