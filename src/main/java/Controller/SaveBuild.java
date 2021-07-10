@@ -19,6 +19,7 @@ import Model.ShoppingCart.ShoppingCartDao;
 import Model.User.User;
 import com.google.gson.Gson;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +38,7 @@ public class SaveBuild extends HttpServlet {
         HttpSession session = req.getSession();
         Gson gson = new Gson();
         String buildJson = req.getParameter("build");
+        String referer = req.getParameter("referer");
         BuildDao buildDao = new BuildDao();
         Build build = gson.fromJson(buildJson,Build.class);
         int idBuild = build.getId();
@@ -58,23 +60,31 @@ public class SaveBuild extends HttpServlet {
             ArrayList<Integer> memIds = build.getMemories();
             for(Integer idMem:memIds)
                 memories.add(memoryDao.doRetrieveById(idMem));
-            session.setAttribute("gpu",gson.toJson(gpu));
-            session.setAttribute("cpu",gson.toJson(cpu));
-            session.setAttribute("psu",gson.toJson(psu));
-            session.setAttribute("mobo",gson.toJson(mobo));
-            session.setAttribute("pcCase",gson.toJson(pcCase));
-            session.setAttribute("memories",gson.toJson(memories));
-            session.setAttribute("type",gson.toJson(build.getType()));
-            session.setAttribute("suggested",gson.toJson(build.isSuggested()));
+            if(!referer.equals("admin")) {
+                session.setAttribute("gpu", gson.toJson(gpu));
+                session.setAttribute("cpu", gson.toJson(cpu));
+                session.setAttribute("psu", gson.toJson(psu));
+                session.setAttribute("mobo", gson.toJson(mobo));
+                session.setAttribute("pcCase", gson.toJson(pcCase));
+                session.setAttribute("memories", gson.toJson(memories));
+                session.setAttribute("type", gson.toJson(build.getType()));
+                session.setAttribute("suggested", gson.toJson(build.isSuggested()));
+            }
             if(user!=null) {
                 if(idBuild!=0) {
-                    if (user.getEmail().equals(build.getMaker()))
-                        buildDao.doUpdate(build);
+                    if(!user.isAdmin())
+                     if (!user.getEmail().equals(build.getMaker())) {
+                         resp.setStatus(403);
+                         return;
+                     }
+                    buildDao.doUpdate(build);
                 }
                 else {
                         build.setMaker(user.getEmail());
                         buildDao.doSave(build);
                     }
+                if(referer.equals("admin"))
+                    resp.sendRedirect("/MYOPSite_war_exploded/AdminPages/adminPage.jsp");
                 session.setAttribute("id",build.getId());
             }
             resp.getWriter().print(build.getId());
