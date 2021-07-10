@@ -79,7 +79,7 @@ public class BuildDao implements IBuildDao<SQLException>{
     @Override
     public BuildNames doRetrieveNamesById(int id) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT Builds.id id,Motherboards.name mobo,Cpus.name cpu,Gpus.name gpu,Psus.name psu,Builds.type type,Builds.suggested suggested,Builds.maker maker,PcCases.imagepath imagepath,PcCases.name pccase FROM Builds,Gpus,Cpus,Motherboards,PcCases,Psus WHERE Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id;")){
+            try(PreparedStatement ps = conn.prepareStatement("SELECT Builds.id id,Motherboards.name mobo,Cpus.name cpu,Gpus.name gpu,Psus.name psu,Builds.type type,Builds.suggested suggested,Builds.maker maker,PcCases.imagepath imagepath,PcCases.name pccase FROM Builds,Gpus,Cpus,Motherboards,PcCases,Psus WHERE Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id AND Builds.id=?;")){
                 ps.setInt(1,id);
                 ResultSet rs = ps.executeQuery();
                 rs.next();

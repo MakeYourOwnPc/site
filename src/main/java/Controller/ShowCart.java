@@ -26,10 +26,15 @@ public class ShowCart extends HttpServlet {
         ShoppingCartDao shoppingCartDao = new ShoppingCartDao();
         try {
             int idBuild = shoppingCartDao.doRetrieveByEmail(user.getEmail());
+            System.out.println(idBuild);
             BuildDao buildDao = new BuildDao();
-            BuildNames build = buildDao.doRetrieveNamesById(idBuild);
+            BuildNames build = new BuildNames();
+            if(idBuild==0)
+                build.setId(0);
+            else
+                build = buildDao.doRetrieveNamesById(idBuild);
             req.setAttribute("build",build);
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/showCart.jsp");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/userCart.jsp");
             requestDispatcher.forward(req,resp);
         } catch (SQLException throwables) {
             throwables.printStackTrace();

@@ -17,6 +17,9 @@ public class ShoppingCartDao implements IShoppingCartDao<SQLException>{
             try(PreparedStatement ps = connPool.prepareStatement("SELECT * FROM ShoppingCarts WHERE user=?;")){
                 ps.setString(1,email);
                 ResultSet rs = ps.executeQuery();
+                if(!rs.isBeforeFirst())
+                    return 0;
+                rs.next();
                 return rs.getInt("idbuild");
             }catch (SQLException e){
                 throw new SQLException();
