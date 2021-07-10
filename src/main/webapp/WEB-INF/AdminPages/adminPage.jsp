@@ -448,11 +448,13 @@
     function buildTabler(value) {
         var row;
         row = "<tr class='removable'>" +
+            "<td class='maker'>" + value.maker + "</td>" +
             "<td class='databaseId'>" + value.id + "</td>" +
             "<td class='moboName'>" + value.mobo + "</td>" +
             "<td  class='gpuName'>" + value.gpu + "</td>" +
             "<td class='cpuName'>" + value.cpu + "</td>" +
-            "<td class='caseName'>" + value.pcCase + "</td><td class='memoriesName'>";
+            "<td class='caseName'>" + value.pcCase + "</td>" +
+            "<td class='memoriesName'>";
         for (let i in value.memories) {
             row += i + "<br>";
         }
@@ -462,7 +464,7 @@
         else row += "<td class='isSuggested'>No</td>"
 
         row += "<td class='buildType'>" + value.type + "</td>" +
-            "<td class='maker'>" + value.maker + "</td>" +
+
             buttonAdder(value.id) +
             "</tr>"
         $("#searchResultBuild").append(row);
