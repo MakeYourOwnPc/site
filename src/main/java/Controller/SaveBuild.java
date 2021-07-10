@@ -42,7 +42,10 @@ public class SaveBuild extends HttpServlet {
         BuildDao buildDao = new BuildDao();
         Build build = gson.fromJson(buildJson,Build.class);
         int idBuild = build.getId();
-
+        if(build.isSuggested()&&!user.isAdmin()){
+            resp.setStatus(403);
+            return;
+        }
         try {
             GpuDao gpuDao = new GpuDao();
             CpuDao cpuDao = new CpuDao();
