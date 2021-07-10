@@ -31,6 +31,7 @@ public class ShowBuild extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idBuild = Integer.parseInt(req.getParameter("id"));
+        String referer = req.getHeader("referer");
         BuildDao buildDao = new BuildDao();
         try {
             Gson gson = new Gson();

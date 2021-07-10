@@ -354,7 +354,7 @@ public class BuildDao implements IBuildDao<SQLException>{
     @Override
     public ArrayList<BuildNames> doRetrieveByParameters(String mobo,String cpu,String gpu,String psu,String type,Boolean isSuggested,int limit,int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            String query = "SELECT Builds.id id,Motherboards.name mobo,Cpus.name cpu,Gpus.name gpu,Psus.name psu,Builds.type type,Builds.suggested suggested,Builds.maker maker,PcCases.imagepath imagepath,PcCases.name pccase FROM Builds,Gpus,Cpus,Motherboards,PcCases,Psus WHERE UPPER(type) LIKE UPPER('%"+type+"%') AND UPPER(mobo) LIKE UPPER('%"+mobo+"%') AND UPPER(gpu) LIKE UPPER('%"+gpu+"%') AND UPPER(cpu) LIKE UPPER('%"+cpu+"%') AND UPPER(psu) LIKE UPPER('%"+psu+"%') AND Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id";
+            String query = "SELECT Builds.id id,Motherboards.name mobo,Cpus.name cpu,Gpus.name gpu,Psus.name psu,Builds.type type,Builds.suggested suggested,Builds.maker maker,PcCases.imagepath imagepath,PcCases.name pccase FROM Builds,Gpus,Cpus,Motherboards,PcCases,Psus WHERE UPPER(Builds.type) LIKE UPPER('%"+type+"%') AND UPPER(Motherboards.name) LIKE UPPER('%"+mobo+"%') AND UPPER(Gpus.name) LIKE UPPER('%"+gpu+"%') AND UPPER(Cpus.name) LIKE UPPER('%"+cpu+"%') AND UPPER(Psus.name) LIKE UPPER('%"+psu+"%') AND Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id";
                 String s="";
                 if(isSuggested!=null){
                     s=" AND suggested="+isSuggested;
