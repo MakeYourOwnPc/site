@@ -14,7 +14,7 @@ public class BuildDao implements IBuildDao<SQLException>{
     @Override
     public ArrayList<BuildNames> doRetrieveAll(int limit,int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            String query = "SELECT Builds.id id,Motherboards.name mobo,Cpus.name cpu,Gpus.name gpu,Psus.name psu,Builds.type type,Builds.suggested suggested,Builds.maker maker,PcCases.imagepath imagepath FROM Builds,Gpus,Cpus,Motherboards WHERE AND Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id LIMIT "+offset+","+limit;
+            String query = "SELECT Builds.id id,Motherboards.name mobo,Cpus.name cpu,Gpus.name gpu,Psus.name psu,Builds.type type,Builds.suggested suggested,Builds.maker maker,PcCases.imagepath imagepath,PcCases.name pccase FROM Builds,Gpus,Cpus,Motherboards,PcCases,Psus WHERE Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id LIMIT "+offset+","+limit+";";
                 ResultSet rs = conn.createStatement().executeQuery(query);
             ArrayList<BuildNames> list = new ArrayList<>();
             while (rs.next()) {
@@ -162,7 +162,7 @@ public class BuildDao implements IBuildDao<SQLException>{
     @Override
     public ArrayList<BuildNames> doRetrieveSuggested() throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            String query = "SELECT * FROM Builds,Gpus,Cpus,Motherboards WHERE suggested=true;";
+            String query = "SELECT Builds.id id,Motherboards.name mobo,Cpus.name cpu,Gpus.name gpu,Psus.name psu,Builds.type type,Builds.suggested suggested,Builds.maker maker,PcCases.imagepath imagepath,PcCases.name pccase FROM Builds,Gpus,Cpus,Motherboards,PcCases,Psus WHERE suggested=true AND Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id";
             ResultSet rs = conn.createStatement().executeQuery(query);
             ArrayList<BuildNames> list = new ArrayList<>();
             while(rs.next()){
@@ -196,7 +196,7 @@ public class BuildDao implements IBuildDao<SQLException>{
     @Override
     public ArrayList<BuildNames> doRetrieveByMaker(String maker) throws SQLException {
         try(Connection conn = ConnPool.getConnection()) {
-            try (PreparedStatement ps = conn.prepareStatement("SELECT Builds.id id,Gpus.name gpu,Cpus.name cpu,Psus.name psu,Motherboards.name mobo,PcCases.name pccase,Builds.type type,Builds.maker maker,Builds.suggested suggested,PcCases.imagepath imagepath FROM Builds,Gpus,Cpus,Motherboards,PcCases,Psus WHERE maker=? AND Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id;")) {
+            try (PreparedStatement ps = conn.prepareStatement("SELECT Builds.id id,Gpus.name gpu,Cpus.name cpu,Psus.name psu,Motherboards.name mobo,PcCases.name pccase,Builds.type type,Builds.maker maker,Builds.suggested suggested,PcCases.imagepath imagepath,PcCases.name pccase FROM Builds,Gpus,Cpus,Motherboards,PcCases,Psus WHERE maker=? AND Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id;")) {
                 ps.setString(1, maker);
                 ResultSet rs = ps.executeQuery();
                 ArrayList<BuildNames> list = new ArrayList<>();
@@ -354,18 +354,18 @@ public class BuildDao implements IBuildDao<SQLException>{
     @Override
     public ArrayList<BuildNames> doRetrieveByParameters(String mobo,String cpu,String gpu,String psu,String type,Boolean isSuggested,int limit,int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            String query = "SELECT Builds.id id,Motherboards.name mobo,Cpus.name cpu,Gpus.name gpu,Psus.name psu,Builds.type type,Builds.suggested suggested,Builds.maker maker,PcCases.imagepath imagepath FROM Builds,Gpus,Cpus,Motherboards WHERE Builds.type=? UPPER(Motherboards.name) LIKE UPPER('%"+mobo+"%') AND UPPER(Gpus.name) LIKE UPPER('%"+gpu+"%') AND UPPER(Cpus.name) LIKE UPPER('%"+cpu+"%') AND UPPER(Psus.Name) LIKE UPPER('%"+psu+"%') AND Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id";
+            String query = "SELECT Builds.id id,Motherboards.name mobo,Cpus.name cpu,Gpus.name gpu,Psus.name psu,Builds.type type,Builds.suggested suggested,Builds.maker maker,PcCases.imagepath imagepath,PcCases.name pccase FROM Builds,Gpus,Cpus,Motherboards,PcCases,Psus WHERE UPPER(type) LIKE UPPER('%"+type+"%') AND UPPER(mobo) LIKE UPPER('%"+mobo+"%') AND UPPER(gpu) LIKE UPPER('%"+gpu+"%') AND UPPER(cpu) LIKE UPPER('%"+cpu+"%') AND UPPER(psu) LIKE UPPER('%"+psu+"%') AND Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id";
                 String s="";
                 if(isSuggested!=null){
                     s=" AND suggested="+isSuggested;
                 }
-                ResultSet rs = conn.createStatement().executeQuery(query+s+"ORDER BY id LIMIT "+offset+","+limit+";");
+                ResultSet rs = conn.createStatement().executeQuery(query+s+" ORDER BY id LIMIT "+offset+","+limit+";");
                 ArrayList<BuildNames> list = new ArrayList<>();
                 while(rs.next()){
                     BuildNames build = new BuildNames();
                     build.setId(rs.getInt("id"));
                     build.setCpu(rs.getString("cpu"));
-                    PreparedStatement ps2 = conn.prepareStatement("Select Memories.name,amountofmemories name FROM Memoriesbuiltin,Memories WHERE idbuild=? AND Memoriesbuiltin.id=Memories.id ORDER BY name;");
+                    PreparedStatement ps2 = conn.prepareStatement("Select Memories.name name,amountofmemories FROM Memoriesbuiltin,Memories WHERE idbuild=? AND Memoriesbuiltin.id=Memories.id ORDER BY name;");
                     ps2.setInt(1,build.getId());
                     ResultSet rs2 = ps2.executeQuery();
                     while(rs2.next()){

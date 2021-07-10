@@ -40,6 +40,7 @@ public class UsersLister extends HttpServlet {
             User user = null;
             try {
                 user = userDao.doRetrieveByEmail(email);
+                user.setPassword("");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
