@@ -29,6 +29,7 @@
 <input type="hidden" id="oldPcCase" value='${pcCase}'>
 <input type="hidden" id="idBuild" value='<%=id%>'>
 <input type="hidden" id="refererAdmin" value='${referer}'>
+<input type="hidden" id="isAdmin" value='${user.admin}'>
 
 
 <script src="./bootstrap/js/bootstrap.js" defer></script>
@@ -141,10 +142,20 @@
     $(document).ready(function () {
         $("#builds input").val("");/* autocomplete=off è inutile quindi meglio*/
         retrievePrecedentBuild()
-        adminModifiedPage()
+        adminModifyBuild()
+        if($("#isAdmin").val()=="true")
+         addSuggestedButtons()
         updateSpecification()
     });
-    function adminModifiedPage(){
+    function addSuggestedButtons(){
+        let formButton="<tr><td><label for=suggested>Suggested</label></td>" +
+            "<td><input type=radio id=suggested name=suggested value='true'></td> " +
+            "<td><label for=notSuggested>Not Suggested</label></td>" +
+            "<td><input type=radio id=notSuggested name=suggested value='false'></td></tr>";
+        $("#submitButtons").prepend(formButton);
+
+    }
+    function adminModifyBuild(){
         let referFlag=$("#refererAdmin").val();
         if(referFlag!="admin") return;
         $("#purchase").remove();
@@ -153,20 +164,32 @@
         let formButton="<form action='/MYOPSite_war_exploded/saveBuild' method='post' onclick='return checkValidity()'>" +
             "<input type='hidden' name='build' value='"+stringifyBuild()+"'>" +
             "<input type='hidden' name='referer' value='admin'>" +
-            "<input id='saveBuild' type='submit' value='Save'></form>"
+            "<input id='saveBuild' type='submit' value='Save' class='btn active'></form>";
         $("#saveButtonPlace").html(formButton);
+
 
 
     }
 
     function retrievePrecedentBuild() {
-        mobo = JSON.parse($("#oldMobo").val());
+
+        let oldmobo=$("#oldMobo").val()
+        let oldGpu=$("#oldGpu").val()
+        let oldCpu=$("#oldCpu").val()
+        let oldMemories=$("#oldMemories").text()
+        let oldPsu=$("#oldPsu").val()
+        let oldPcCase=$("#oldPcCase").val()
+        if(oldmobo===""||oldGpu===""||oldCpu===""||oldMemories===""||oldPsu===""||oldPcCase===""){
+            return;
+        }
+        mobo = JSON.parse(oldmobo);
+
         $("#mobo").val(mobo.name);
-        gpu = JSON.parse($("#oldGpu").val());
+        gpu = JSON.parse(oldGpu);
         $("#gpu").val(gpu.name);
-        cpu = JSON.parse($("#oldCpu").val());
+        cpu = JSON.parse(oldCpu);
         $("#cpu").val(cpu.name);
-        let memories=JSON.parse($("#oldMemories").text());
+        let memories=JSON.parse(oldMemories);
         ram=memories.find(elem=>elem.mType==false);
         $("#ram").val(ram.name);
         let massStorages=memories.filter(elem=>elem.mType==true)
@@ -180,9 +203,9 @@
         if(massStorage3!=null) {
             $("#massStorage3").val(massStorage3.name)
         }
-        psu = JSON.parse($("#oldPsu").val());
+        psu = JSON.parse(oldPsu);
         $("#psu").val(psu.name);
-        pcCase = JSON.parse($("#oldPcCase").val());
+        pcCase = JSON.parse(oldPcCase);
         $("#pcCase").val(pcCase.name);
         idBuild=$("#idBuild").val();
         if(idBuild=="null") idBuild=0;
@@ -191,8 +214,12 @@
     }
 
     function stringifyBuild(){
-        if(idBuild==undefined||idBuild==null)
+        let suggested;
+        if(idBuild === undefined)
             idBuild=0;
+        try {
+            suggested = !!$("#suggested").prop("checked");
+        }catch (e){suggested=false};
 
         let build = {
             mobo: mobo.id,
@@ -202,7 +229,7 @@
             psu: psu.id,
             type: "",
             memories: [ram.id,massStorage1.id],
-            suggested:false,
+            suggested:suggested,
             id:idBuild
         }
         if(massStorage2!=null){
@@ -247,7 +274,7 @@
         let sentData = stringifyBuild();
         console.log(sentData);
 
-        xhttp.send("build="+sentData);
+        xhttp.send("build="+sentData+"&referer=");
     }
 
 
