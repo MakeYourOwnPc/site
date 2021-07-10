@@ -16,7 +16,7 @@
 <script src="./jslibraries/utilities.js"></script>
 
 <nav class="topbar">
-    <div id="icon-container sidebar-icon" onclick="hideSidebar()">
+    <div class="icon-container sidebar-icon" onclick="hideSidebar()">
         <%@include file="../../icons/list-ul.svg" %>
     </div>
     <h2 id="selectedFormTitle"> Choose Element</h2>
@@ -68,7 +68,7 @@
                     </td>
                 </tr>
             </table>
-            <form id="updateForm" action="./modifyDB" method="post" enctype="multipart/form-data">
+            <form id="updateForm" action="./admin/modifyDB" method="post" enctype="multipart/form-data">
                 <table class="User-box" id="updateFormBox">
                 </table>
                 <div id="imageInput"></div>
@@ -355,18 +355,25 @@
         $("#searchResultItem").append(row);
     }
     function checkAdminAdder(value){
-        let checked= (value.admin)?"checked":""
-        let button="<td><input type='checkbox' name='admin' id='isAdmin"+value.email+"' onclick='adminModifier('"+value.email+"')' "+checked+"></td>"
+        let checked= (value.admin)?'checked':'';
+        let email=value.email.replaceAll(".","\\\\.");/*una coppia di slash per questa stinga*/
+        email=email.replaceAll("@","\\\\@");
+        let button="<td><form onclick=\"adminModifier('"+email+"')\">" +
+           /* "<input type=\"hidden\" name=\"admin\" value=\""+value.email+"\"   >" +*/
+            "<input id=\""+value.email+"\" type=\"checkbox\" name=\"admin\" value=\"true\" "+checked+ ">" +
+            "</form></td>";
         return button;
     }
     function adminModifier(email){
-        let formData="email="+email+"&requestedItem=users";
 
-        if($("#isAdmin"+email).prop("checked"))
-            formData+="&admin=true"
-        else formData+="&admin=false"
-        formData.replaceAll("@","%40");
-        updateAdmin(formData)
+        let formData="name="+$("#"+email).attr("id").replaceAll("@","%40").replaceAll(".","%2E")/*La seconda coppia di slash serve per cercare l'elemento*/
+        console.log(formData)
+
+           /* email formattata per il form*/
+        formData+=($("#"+email).prop("checked"))?"&admin=true":"&admin=false";
+        formData+="&requestedItem=users&option=update";
+        console.log(formData);
+        updateAdmin(formData);
     }
 
     function updateAdmin(formData){
