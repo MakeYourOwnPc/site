@@ -42,17 +42,12 @@ public class AddtoCart extends HttpServlet {
                 if (shoppingCartDao.isShopCartPresent(user.getEmail()))
                     shoppingCartDao.doDelete(user.getEmail());
                 resp.getWriter().print(shoppingCartDao.doSave(shoppingCart));
-                doGet(req, resp);
+                RequestDispatcher requestDispatcher = req.getRequestDispatcher("/showCart");
+                requestDispatcher.forward(req,resp);
             }
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/index.html");
-        requestDispatcher.forward(req,resp);
     }
 }

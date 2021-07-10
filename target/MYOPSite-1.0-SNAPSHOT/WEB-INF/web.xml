@@ -15,7 +15,7 @@
 
     <servlet>
         <servlet-name>AccsessAdminPage</servlet-name>
-        <servlet-class>Controller.adminPage</servlet-class>
+        <servlet-class>Controller.AdminPage</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AccsessAdminPage</servlet-name>
