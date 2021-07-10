@@ -42,6 +42,7 @@ function toggleOverlay() {
 
 function updateSpecification() {
     if (mobo == null || gpu == null || cpu == null || ram == null || psu == null || pcCase == null || !(massStorage1 != null || massStorage2 != null || massStorage3 != null)) {
+
         submitable = false;
     } else submitable = true;
 
@@ -127,55 +128,62 @@ function updateSpecification() {
 }
 function checkValidity() {
     updateSpecification();
-    if(!submitable)
+
+    if(!(massStorage1 != null || massStorage2 != null || massStorage3 != null))/* Nessuna Mass Storage è selezionata*/
+    {
+        createToast("Invalid Build","No Mass Storage Selected");
+    }
+    if(!submitable) {
+        createToast("Invalid Build","No Important Component Selected");
         return;
-    if(powerNeeded<=power){
-        createToast("Build Invalid","PSU too weak:PSU:"+power+"/Consumed:"+powerNeeded);
+    }
+    if(powerNeeded>=power){
+        createToast("Invalid Build","PSU too weak:PSU:"+power+"/Consumed:"+powerNeeded);
         submitable=false;
         return;
     }
-    if(slotRamUsed<=slotRam){
-        createToast("Build Invalid","Too many Ram Sticks for Motherboard");
+    if(slotRamUsed>=slotRam){
+        createToast("Invalid Build","Too many Ram Sticks for Motherboard");
         submitable=false;
         return;
     }
-    if(slotNVMEUsed<=slotNVME){
-        createToast("Build Invalid","Too many NVME Memories for Motherboard");
+    if(slotNVMEUsed>=slotNVME){
+        createToast("Invalid Build","Too many NVME Memories for Motherboard");
         submitable=false;
         return;
     }
-    if(slotSataUsed<=slotSata){
-        createToast("Build Invalid","Too many SATA Memories for Motherboard");
+    if(slotSataUsed>=slotSata){
+        createToast("Invalid Build","Too many SATA Memories for Motherboard");
         submitable=false;
         return;
     }
-    if(ramConnector.toLowerCase()==socketRam.toLowerCase()){
-        createToast("Build Invalid","Ram incompatible with motherboard"+ramConnector+"/"+socketRam);
+    if(ramConnector.toLowerCase()!=socketRam.toLowerCase()){
+        createToast("Invalid Build","Ram incompatible with motherboard"+ramConnector+"/"+socketRam);
         submitable=false;
         return;
     }
-    if(socketCpu==cpuConnector){
-        createToast("Build Invalid","CPU incompatible with motherboard"+cpuConnector+"/"+socketCpu);
+    if(socketCpu!=cpuConnector){
+        createToast("Invalid Build","CPU incompatible with motherboard"+cpuConnector+"/"+socketCpu);
         submitable=false;
         return;
     }
 
     {
-        switch (pcCase.getFormFactor().toLowerCase()){
-            case"mini-itx":if(formFactorMobo.equals(("micro")))
+        switch (formFactorCase.toLowerCase()){
+            case"mini-itx":if(formFactorMobo.toLowerCase()==("micro"))
             {
-                createToast("Build Invalid","Case incompatible with Motherboard");
+                createToast("Invalid Build","Case incompatible with Motherboard");
                 submitable=false;
                 throw new BuildException("caseSmallerThanMobo");
                 return}
-            case"micro-atx":if(formFactorMobo.equals(("atx"))){
-                createToast("Build Invalid","Case incompatible with Motherboard");
+            case"micro-atx":if(formFactorMobo.toLowerCase()==("atx")){
+                createToast("Invalid Build","Case incompatible with Motherboard");
                 submitable=false;
                 throw new BuildException("caseSmallerThanMobo");
                 return;
             }
-            case"atx":if(formFactorMobo.equals("eatx")){
-                createToast("Build Invalid","Case incompatible with Motherboard");
+            case"atx":if(formFactorMobo.toLowerCase()==("eatx")){
+                createToast("Invalid Build","Case incompatible with Motherboard");
                 submitable=false;
                 throw new BuildException("caseSmallerThanMobo");
                 return;

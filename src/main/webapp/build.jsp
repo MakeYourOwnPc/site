@@ -35,6 +35,7 @@
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
 <script src="./jslibraries/jQuery.js"></script>
 <script src="./jslibraries/Build.js"></script>
+<script src="jslibraries/utilities.js"></script>
 
 
 <div id="overlayForm" class="overlayElement" style="display: none">
