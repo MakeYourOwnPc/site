@@ -227,7 +227,7 @@ public class ItemsLister extends HttpServlet {
                 String type = req.getParameter("type");
                 if (mobo.isBlank() && cpu.isBlank() && gpu.isBlank() && psu.isBlank() && pcCase.isBlank() && maker.isBlank() && suggested.isBlank() && type.isBlank()) {
                     try {
-                        ArrayList<Build> list = buildDao.doRetrieveAll(50, 0);
+                        ArrayList<BuildNames> list = buildDao.doRetrieveAll(50, 0);
                         Gson gson = new Gson();
                         String json = gson.toJson(list);
                         resp.setContentType("plain/text");
