@@ -42,7 +42,6 @@ public class SaveBuild extends HttpServlet {
         BuildDao buildDao = new BuildDao();
         Build build = gson.fromJson(buildJson,Build.class);
         int idBuild = build.getId();
-        resp.setContentType("plain/text");
         resp.setCharacterEncoding("UTF-8");
         try {
             GpuDao gpuDao = new GpuDao();

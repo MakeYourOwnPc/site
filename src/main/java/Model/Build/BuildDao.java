@@ -418,7 +418,7 @@ public class BuildDao implements IBuildDao<SQLException>{
                 ps.setBoolean(7, build.isSuggested());
                 ps.setInt(8,build.getId());
                 ps.executeUpdate();
-                PreparedStatement ps2 = conn.prepareStatement("DELETE FROM memoriesbuiltin WHERE buildid=?;");
+                PreparedStatement ps2 = conn.prepareStatement("DELETE FROM memoriesbuiltin WHERE idbbuild=?;");
                 ps2.setInt(1,build.getId());
                 ps2.executeUpdate();
                 ArrayList<Integer> v = build.getMemories();
