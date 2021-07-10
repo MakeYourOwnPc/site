@@ -12,18 +12,17 @@ import java.sql.SQLException;
 
 public class ShoppingCartDao implements IShoppingCartDao<SQLException>{
     @Override
-    public BuildNames doRetrieveByEmail(String email) throws SQLException {
+    public int doRetrieveByEmail(String email) throws SQLException {
         try(Connection connPool = ConnPool.getConnection()){
             try(PreparedStatement ps = connPool.prepareStatement("SELECT * FROM ShoppingCarts WHERE user=?;")){
                 ps.setString(1,email);
                 ResultSet rs = ps.executeQuery();
-                BuildDao buildDao = new BuildDao();
-                return buildDao.doRetrieveNamesById(rs.getInt("idbuild"));
+                return rs.getInt("idbuild");
             }catch (SQLException e){
-                return null;
+                throw new SQLException();
             }
         }catch (SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
     public boolean isShopCartPresent(String email) throws SQLException {
