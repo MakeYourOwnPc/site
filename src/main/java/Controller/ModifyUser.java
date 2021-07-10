@@ -37,13 +37,15 @@ public class ModifyUser extends HttpServlet {
             }
             userDB.setFirstName(firstName);
             userDB.setLastName(lastName);
-            boolean result = userDao.doUpdate(userDB);
-            if(result) {
-                user = userDao.doRetrieveByEmail(user.getEmail());
-                user.setPassword("");
-                req.getSession().setAttribute("user", user);
+            synchronized (userDao) {
+                boolean result = userDao.doUpdate(userDB);
+                if (result) {
+                    user = userDao.doRetrieveByEmail(user.getEmail());
+                    user.setPassword("");
+                    req.getSession().setAttribute("user", user);
+                }
+                resp.sendRedirect("/MYOPSite_war_exploded/showUser");
             }
-            resp.sendRedirect("/MYOPSite_war_exploded/showUser");
         } catch (SQLException | NoSuchAlgorithmException throwables) {
             throwables.printStackTrace();
         }

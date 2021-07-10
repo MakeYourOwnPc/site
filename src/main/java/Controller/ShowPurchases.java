@@ -25,8 +25,7 @@ public class ShowPurchases extends HttpServlet {
         try {
             PurchaseDao purchaseDao = new PurchaseDao();
             ArrayList<Purchase> list = purchaseDao.doRetrieveByEmail(user.getEmail(), 50,0);
-            Gson gson = new Gson();
-            req.setAttribute("purchases",gson.toJson(list));
+            req.setAttribute("purchases",list);
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/showPurchases");
             requestDispatcher.forward(req,resp);
         } catch (SQLException throwables) {

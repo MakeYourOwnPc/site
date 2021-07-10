@@ -62,16 +62,6 @@ public class SaveBuild extends HttpServlet {
             ArrayList<Integer> memIds = build.getMemories();
             for(Integer idMem:memIds)
                 memories.add(memoryDao.doRetrieveById(idMem));
-            if(!referer.equals("admin")) {
-                session.setAttribute("gpu", gson.toJson(gpu));
-                session.setAttribute("cpu", gson.toJson(cpu));
-                session.setAttribute("psu", gson.toJson(psu));
-                session.setAttribute("mobo", gson.toJson(mobo));
-                session.setAttribute("pcCase", gson.toJson(pcCase));
-                session.setAttribute("memories", gson.toJson(memories));
-                session.setAttribute("type", gson.toJson(build.getType()));
-                session.setAttribute("suggested", gson.toJson(build.isSuggested()));
-            }
             if(user!=null) {
                 if(idBuild!=0) {
                     if(!user.isAdmin())
@@ -91,7 +81,17 @@ public class SaveBuild extends HttpServlet {
                 }
                 resp.setContentType("plain/text");
                 resp.setCharacterEncoding("UTF-8");
-                session.setAttribute("id",build.getId());
+                synchronized (session) {
+                    session.setAttribute("gpu", gson.toJson(gpu));
+                    session.setAttribute("cpu", gson.toJson(cpu));
+                    session.setAttribute("psu", gson.toJson(psu));
+                    session.setAttribute("mobo", gson.toJson(mobo));
+                    session.setAttribute("pcCase", gson.toJson(pcCase));
+                    session.setAttribute("memories", gson.toJson(memories));
+                    session.setAttribute("type", gson.toJson(build.getType()));
+                    session.setAttribute("suggested", gson.toJson(build.isSuggested()));
+                    session.setAttribute("id", build.getId());
+                }
             }
             resp.getWriter().print(build.getId());
         } catch (SQLException throwables) {

@@ -23,24 +23,25 @@ public class Login extends HttpServlet {
         String password = req.getParameter("password");
         PasswordHasher passwordHasher = new PasswordHasher();
         try {
-            String hashedPassword = passwordHasher.setPassword(password);
-            boolean failedLogin = true;
-            UserDao userDao = new UserDao();
-            User user = userDao.doRetrieveByEmail(email);
-            if(user!=null) {
-                if (hashedPassword.equals(user.getPassword())) {
-                    failedLogin = false;
-                    user.setPassword("");
-                    session.setAttribute("user", user);
+            synchronized (session) {
+                String hashedPassword = passwordHasher.setPassword(password);
+                boolean failedLogin = true;
+                UserDao userDao = new UserDao();
+                User user = userDao.doRetrieveByEmail(email);
+                if (user != null) {
+                    if (hashedPassword.equals(user.getPassword())) {
+                        failedLogin = false;
+                        user.setPassword("");
+                        session.setAttribute("user", user);
+                    }
                 }
+                session.setAttribute("failedLogin", failedLogin);
+                String referer = req.getHeader("referer");
+                if (referer.equals("/WEB-INF/UserPages/login.jsp")) {
+                    resp.sendRedirect("/WEB-INF/UserPages/showCart.jsp");
+                }
+                resp.sendRedirect(referer);
             }
-            session.setAttribute("failedLogin", failedLogin);
-            String referer = req.getHeader("referer");
-            if(referer.equals("/WEB-INF/UserPages/login.jsp")){
-                resp.sendRedirect("/WEB-INF/UserPages/showCart.jsp");
-            }
-            resp.sendRedirect(referer);
-
         } catch (NoSuchAlgorithmException | SQLException e) {
             e.printStackTrace();
         }
