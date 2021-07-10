@@ -21,7 +21,6 @@ public class adminPage extends HttpServlet {
             dispatcher.forward(request,response);
             return;
         }
-        System.out.println(request.getRequestURL());
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/AdminPages/adminPage.jsp");
         dispatcher.forward(request,response);
     }

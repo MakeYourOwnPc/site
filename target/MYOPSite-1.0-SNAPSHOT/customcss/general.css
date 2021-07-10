@@ -221,7 +221,7 @@ div.content {
     width: 25%;
     right: 0;
 }
-#searchResultBuild{
+.searchResult{
     width: 100%;
 }
 table tbody{
@@ -299,25 +299,25 @@ footer div table{
     .inner-window{
         width: 85%;
     }
-    #searchResultBuild * {
+    .searchResult * {
         display: block;
     }
 
     /* Hide table headers (but not display: none;, for accessibility) */
-    #searchResultBuild thead tr {
+    .searchResult thead tr {
         position: absolute;
         top: -9999px;
         left: -9999px;
     }
 
-    #searchResultBuild tr{
+    .searchResult tr{
         margin: 10px;
         border-radius: 5px;
         border-style:solid ;
         border-color: #2D83A6;
         border-width: 5px;
     }
-    #searchResultBuild tr td {
+    .searchResult tr td {
         /* Behave  like a "row" */
 
         border: none;
@@ -357,7 +357,7 @@ footer div table{
     .memoryType:before{ content:"Memory Type";}
     .amountOfMemories:before{ content:"Number Of Memories";}
 
-    #searchResultBuild tr td:last-child{
+    .searchResult tr td:last-child{
         border-style: none;
     }
 

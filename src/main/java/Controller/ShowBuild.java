@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URI;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -34,8 +35,10 @@ public class ShowBuild extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idBuild = Integer.parseInt(req.getParameter("id"));
         String referer = req.getHeader("referer");
-        Pattern pattern = Pattern.compile("/admin$");
-        req.setAttribute("referer", pattern.matcher(referer).matches() ? "Admin" : "noAdmin");
+        URI uri = URI.create(referer);
+        String path = uri.getPath();
+        referer = path.substring(path.lastIndexOf('/') + 1);
+        req.setAttribute("referer", referer);
         BuildDao buildDao = new BuildDao();
         try {
             Gson gson = new Gson();

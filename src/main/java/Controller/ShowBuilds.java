@@ -26,7 +26,6 @@ public class ShowBuilds extends HttpServlet {
         }
         try {
             ArrayList<BuildNames> builds = buildDao.doRetrieveByMaker(user.getEmail());
-            Gson gson = new Gson();
             req.setAttribute("builds",builds);
             RequestDispatcher dispatcher=req.getRequestDispatcher("/WEB-INF/UserPages/userBuilds.jsp");
             dispatcher.forward(req,resp);

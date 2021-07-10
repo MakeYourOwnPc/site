@@ -230,7 +230,6 @@ public class ItemsLister extends HttpServlet {
                         ArrayList<BuildNames> list = buildDao.doRetrieveAll(50, 0);
                         Gson gson = new Gson();
                         String json = gson.toJson(list);
-                        System.out.println(json);
                         resp.setContentType("plain/text");
                         resp.setCharacterEncoding("UTF-8");
                         resp.getWriter().print(json);
