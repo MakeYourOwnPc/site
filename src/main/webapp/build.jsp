@@ -108,7 +108,7 @@
              <label for="psu">Select the Psu</label>
         <input type="text" id="psu" onclick="selectPsu()"readonly>
         <label for="buildType">Build Type</label>
-        <input type="text" id="buildType" onclick="selectPsu()" >
+        <input type="text" id="buildType" >
 
     </div>
     <table>
@@ -235,7 +235,7 @@
             cpu: cpu.id,
             pcCase: pcCase.id,
             psu: psu.id,
-            type: $("#buildType"),
+            type: $("#buildType").val(),
             memories: [ram.id,massStorage1.id],
             suggested:suggested,
             id:idBuild
