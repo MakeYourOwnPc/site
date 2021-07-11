@@ -32,7 +32,7 @@ public class CountryDao implements ICountryDao<SQLException>{
     }
     public String doRetrieveByName(String name) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Countries WHERE name=?")){
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Countries WHERE label=?")){
                 ps.setString(1,name);
                 ResultSet rs = ps.executeQuery();
                 rs.next();
@@ -48,7 +48,7 @@ public class CountryDao implements ICountryDao<SQLException>{
     @Override
     public boolean doSave(Country country) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Countries (name,id) VALUES (?,?);", Statement.RETURN_GENERATED_KEYS)){
+            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Countries (label,id) VALUES (?,?);", Statement.RETURN_GENERATED_KEYS)){
                 ps.setString(1,country.getName());
                 ps.setString(2,country.getId());
                 return ps.executeUpdate()>0;
