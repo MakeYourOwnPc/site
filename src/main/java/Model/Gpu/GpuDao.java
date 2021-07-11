@@ -29,11 +29,11 @@ public class GpuDao implements IGpuDao<SQLException> {
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -55,11 +55,11 @@ public class GpuDao implements IGpuDao<SQLException> {
                 return gpu;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -85,11 +85,11 @@ public class GpuDao implements IGpuDao<SQLException> {
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -108,11 +108,11 @@ public class GpuDao implements IGpuDao<SQLException> {
                 return true;
             }
             catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -129,10 +129,10 @@ public class GpuDao implements IGpuDao<SQLException> {
                 return ps.executeUpdate()>0;
             }
             catch (SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch (SQLException e) {
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -145,10 +145,10 @@ public class GpuDao implements IGpuDao<SQLException> {
                 return ps.executeUpdate()>0;
             }
             catch (SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch (SQLException e) {
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -162,11 +162,11 @@ public class GpuDao implements IGpuDao<SQLException> {
                 return ps.executeUpdate()>0;
             }
             catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 }

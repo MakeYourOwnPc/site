@@ -15,6 +15,8 @@ import Model.PcCase.PcCase;
 import Model.PcCase.PcCaseDao;
 import Model.Psu.Psu;
 import Model.Psu.PsuDao;
+import Model.Purchase.Purchase;
+import Model.Purchase.PurchaseDao;
 import Model.User.User;
 import Model.User.UserDao;
 import com.google.gson.Gson;
@@ -26,7 +28,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.*;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -61,13 +65,14 @@ public class ItemsLister extends HttpServlet {
                     ArrayList<Cpu> list = null;
                     try {
                         list = cpuDao.doRetrieveByParameters(nameCpu, socketCpu, integratedGpu, 50, 0);
+                        Gson gson = new Gson();
+                        resp.setContentType("plain/text");
+                        resp.setCharacterEncoding("UTF-8");
+                        resp.getWriter().print(gson.toJson(list));
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-                    Gson gson = new Gson();
-                    resp.setContentType("plain/text");
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.getWriter().print(gson.toJson(list));
+
                 }
             }
             case "gpus" -> {
@@ -88,13 +93,14 @@ public class ItemsLister extends HttpServlet {
                     ArrayList<Gpu> list = null;
                     try {
                         list = gpuDao.doRetrieveByName(nameGpu, 50, 0);
+                        Gson gson = new Gson();
+                        resp.setContentType("plain/text");
+                        resp.setCharacterEncoding("UTF-8");
+                        resp.getWriter().print(gson.toJson(list));
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-                    Gson gson = new Gson();
-                    resp.setContentType("plain/text");
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.getWriter().print(gson.toJson(list));
+
                 }
             }
             case "memories" -> {
@@ -117,13 +123,14 @@ public class ItemsLister extends HttpServlet {
                     ArrayList<Memory> list = null;
                     try {
                         list = memoryDao.doRetrieveByParameters(nameMemory, socketMemory, testType.isBlank() ? null : Boolean.valueOf(testType), 50, 0);
+                        Gson gson = new Gson();
+                        resp.setContentType("plain/text");
+                        resp.setCharacterEncoding("UTF-8");
+                        resp.getWriter().print(gson.toJson(list));
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-                    Gson gson = new Gson();
-                    resp.setContentType("plain/text");
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.getWriter().print(gson.toJson(list));
+
                 }
             }
             case "motherboards" -> {
@@ -150,13 +157,14 @@ public class ItemsLister extends HttpServlet {
                     ArrayList<Mobo> list = null;
                     try {
                         list = moboDao.doRetrieveByParameters(nameMobo, socketRamMobo, socketCpuMobo, formFactor, numSlotNvme.isBlank() ? 0 : Integer.parseInt(numSlotNvme), numSlotSata.isBlank() ? 0 : Integer.parseInt(numSlotSata), numSlotRam.isBlank() ? 0 : Integer.parseInt(numSlotRam), 50, 0);
+                        Gson gson = new Gson();
+                        resp.setContentType("plain/text");
+                        resp.setCharacterEncoding("UTF-8");
+                        resp.getWriter().print(gson.toJson(list));
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-                    Gson gson = new Gson();
-                    resp.setContentType("plain/text");
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.getWriter().print(gson.toJson(list));
+
                 }
             }
             case "psus" -> {
@@ -178,13 +186,13 @@ public class ItemsLister extends HttpServlet {
                     ArrayList<Psu> list = null;
                     try {
                         list = psuDao.doRetrieveByParameters(namePsu, power.isBlank() ? 0 : Integer.parseInt(power), 50, 0);
+                        Gson gson = new Gson();
+                        resp.setContentType("plain/text");
+                        resp.setCharacterEncoding("UTF-8");
+                        resp.getWriter().print(gson.toJson(list));
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-                    Gson gson = new Gson();
-                    resp.setContentType("plain/text");
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.getWriter().print(gson.toJson(list));
                 }
             }
             case "cases" -> {
@@ -206,13 +214,13 @@ public class ItemsLister extends HttpServlet {
                     ArrayList<PcCase> list = null;
                     try {
                         list = pcCaseDao.doRetrieveByParameters(namePcCase, formFactorCase, 50, 0);
+                        Gson gson = new Gson();
+                        resp.setContentType("plain/text");
+                        resp.setCharacterEncoding("UTF-8");
+                        resp.getWriter().print(gson.toJson(list));
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-                    Gson gson = new Gson();
-                    resp.setContentType("plain/text");
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.getWriter().print(gson.toJson(list));
                 }
             }
             case "builds" -> {
@@ -240,13 +248,42 @@ public class ItemsLister extends HttpServlet {
                     ArrayList<BuildNames> list = null;
                     try {
                         list = buildDao.doRetrieveByParameters(mobo, cpu, gpu, psu, type, suggested.isBlank() ? null : Boolean.valueOf(suggested), 50, 0);
+                        Gson gson = new Gson();
+                        resp.setContentType("plain/text");
+                        resp.setCharacterEncoding("UTF-8");
+                        resp.getWriter().print(gson.toJson(list));
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-                    Gson gson = new Gson();
-                    resp.setContentType("plain/text");
-                    resp.setCharacterEncoding("UTF-8");
-                    resp.getWriter().print(gson.toJson(list));
+                }
+            }
+            case "purchases" -> {
+                PurchaseDao purchaseDao = new PurchaseDao();
+                String email = req.getParameter("email");
+                String startingDate = req.getParameter("startingDate");
+                String endingDate = req.getParameter("endingDate");
+                if (email.isBlank() && startingDate.isBlank() && endingDate.isBlank()) {
+                    try {
+                        ArrayList<Purchase> list = purchaseDao.doRetrieveAll(50, 0);
+                        Gson gson = new Gson();
+                        String json = gson.toJson(list);
+                        resp.setContentType("plain/text");
+                        resp.setCharacterEncoding("UTF-8");
+                        resp.getWriter().print(json);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                } else {
+                    ArrayList<Purchase> list = null;
+                    try {
+                        list = purchaseDao.doRetrieveByParameters(email,startingDate.isBlank()?new Date(0):Date.valueOf(startingDate),endingDate.isBlank()? Date.valueOf(LocalDate.now()):Date.valueOf(endingDate), 50, 0);
+                        Gson gson = new Gson();
+                        resp.setContentType("plain/text");
+                        resp.setCharacterEncoding("UTF-8");
+                        resp.getWriter().print(gson.toJson(list));
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
                 }
             }
         }

@@ -33,43 +33,11 @@ public class CpuDao implements ICpuDao<SQLException> {
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
-        }
-    }
-
-    @Override
-    public ArrayList<Cpu> doRetrieveBySocket(String cpuSocket,int limit,int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Cpus WHERE socket=? ORDER BY name LIMIT ?,?;")){
-                ps.setString(1,cpuSocket);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
-                ResultSet rs = ps.executeQuery();
-                ArrayList<Cpu> list = new ArrayList<Cpu>();
-                while(rs.next()){
-                    Cpu cpu = new Cpu();
-                    cpu.setName(rs.getString("name"));
-                    cpu.setId(rs.getInt("id"));
-                    cpu.setIntegratedgpu(rs.getBoolean("integratedgpu"));
-                    cpu.setSocket(rs.getString("socket"));
-                    cpu.setConsumption(rs.getInt("consumption"));
-                    cpu.setPrice(rs.getFloat("price"));
-                    cpu.setStock(rs.getInt("stock"));
-                    list.add(cpu);
-                }
-                rs.close();
-                return list;
-            }
-            catch(SQLException e){
-                return null;
-            }
-        }
-        catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -91,11 +59,11 @@ public class CpuDao implements ICpuDao<SQLException> {
                 return cpu;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -123,11 +91,11 @@ public class CpuDao implements ICpuDao<SQLException> {
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
     @Override
@@ -167,7 +135,7 @@ public class CpuDao implements ICpuDao<SQLException> {
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
     }
     @Override
@@ -188,11 +156,11 @@ public class CpuDao implements ICpuDao<SQLException> {
                 return true;
             }
             catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -210,11 +178,11 @@ public class CpuDao implements ICpuDao<SQLException> {
                 return ps.executeUpdate()>0;
             }
             catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -227,10 +195,10 @@ public class CpuDao implements ICpuDao<SQLException> {
                 return ps.executeUpdate()>0;
             }
             catch (SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch (SQLException e) {
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -244,11 +212,11 @@ public class CpuDao implements ICpuDao<SQLException> {
                 return ps.executeUpdate()>0;
             }
             catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 }
