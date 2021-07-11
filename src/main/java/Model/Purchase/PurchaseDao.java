@@ -128,7 +128,7 @@ public class PurchaseDao implements IPurchaseDao<SQLException>{
     @Override
     public boolean doSave(Purchase purchase) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Purchases (idbuild,creationdate,cellphone,countryid,price,address,cap,city,email) VALUES (?,?,?,?,?,?,?,?,?)")){
+            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Purchases (idbuild,creationdate,cellphone,countryid,price,address,cap,city,email) VALUES (?,?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS)){
                 ps.setInt(1,purchase.getIdBuild());
                 ps.setDate(2, Date.valueOf(purchase.getCreationDate()));
                 ps.setString(3, purchase.getCellphonenumber());
@@ -138,7 +138,11 @@ public class PurchaseDao implements IPurchaseDao<SQLException>{
                 ps.setString(7, purchase.getCap());
                 ps.setString(8, purchase.getCity());
                 ps.setString(9, purchase.getEmail());
-                return ps.executeUpdate()>0;
+                ps.executeUpdate();
+                ResultSet rs = ps.getGeneratedKeys();
+                rs.next();
+                purchase.setId(rs.getInt(1));
+                return true;
             }catch(SQLException e){
                 throw new SQLException();
             }

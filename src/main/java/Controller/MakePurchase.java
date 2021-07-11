@@ -1,14 +1,17 @@
 package Controller;
 
 import Model.Build.BuildDao;
+import Model.Country.Country;
 import Model.Country.CountryDao;
 import Model.Purchase.IPurchaseDao;
 import Model.Purchase.Purchase;
 import Model.Purchase.PurchaseDao;
 import Model.ShoppingCart.ShoppingCartDao;
 import Model.User.User;
+import com.google.gson.Gson;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +21,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+
 @WebServlet(name="makePurchase",urlPatterns = "/makePurchase")
 public class MakePurchase extends HttpServlet {
     @Override
@@ -34,30 +39,32 @@ public class MakePurchase extends HttpServlet {
         int idBuild;
         try {
             idBuild = shoppingCartDao.doRetrieveByEmail(email);
-            String address = req.getParameter("address");
-            String cellphone = req.getParameter("cellphone");
-            LocalDate creationDate = LocalDate.now();
-            String city = req.getParameter("city");
-            String cap = req.getParameter("cap");
-            String country = req.getParameter("country");
-            if(email==null||idBuild==0||address==null||cellphone==null||city==null||cap==null||country==null){
-                resp.setStatus(400);
-                return;
+            String json = req.getParameter("purchase");
+            Gson gson = new Gson();
+            Purchase purchase = gson.fromJson(json,Purchase.class);
+            ServletContext servletContext = req.getServletContext();
+            synchronized (servletContext) {
+                ArrayList<Country> countries = (ArrayList<Country>) servletContext.getAttribute("countries");
+                boolean result = false;
+                for (Country c : countries)
+                    if (c.getId().equals(purchase.getCountry()))
+                        result = true;
+                if (!result) {
+                    resp.setStatus(403);
+                    return;
+                }
             }
+            purchase.setCreationDate(LocalDate.now());
             Float price = buildDao.doRetrieveById(idBuild).price();
             try {
                 PurchaseDao purchaseDao = new PurchaseDao();
-                Purchase purchase = new Purchase();
                 purchase.setIdBuild(idBuild);
-                purchase.setCountry(country);
                 purchase.setEmail(email);
-                purchase.setCity(city);
-                purchase.setCap(cap);
                 purchase.setPrice(price);
-                purchase.setAddress(address);
-                purchase.setCellphonenumber(cellphone);
-                purchase.setCreationDate(creationDate);
                 purchaseDao.doSave(purchase);
+                resp.setContentType("plain/text");
+                resp.setCharacterEncoding("UTF-8");
+                resp.getWriter().print(purchase.getId());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
