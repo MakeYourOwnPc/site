@@ -6,6 +6,7 @@ import Model.Purchase.IPurchaseDao;
 import Model.Purchase.Purchase;
 import Model.Purchase.PurchaseDao;
 import Model.ShoppingCart.ShoppingCartDao;
+import Model.User.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -20,7 +22,13 @@ import java.time.LocalDate;
 public class MakePurchase extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String email = req.getParameter("email");
+        HttpSession session = req.getSession();
+        User user = (User)session.getAttribute("user");
+        if(user==null){
+            resp.setStatus(403);
+            return;
+        }
+        String email = user.getEmail();
         ShoppingCartDao shoppingCartDao = new ShoppingCartDao();
         BuildDao buildDao = new BuildDao();
         int idBuild;
