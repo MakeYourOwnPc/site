@@ -353,9 +353,11 @@ public class ModifyDB extends HttpServlet {
                     country.setId(countryId);
                     country.setName(countryLabel);
                     countryDao.doSave(country);
-                    ArrayList<Country> countries = (ArrayList<Country>) servletContext.getAttribute("countries");
-                    countries.add(country);
-                    servletContext.setAttribute("countries",countries);
+                    synchronized (servletContext) {
+                        ArrayList<Country> countries = (ArrayList<Country>) servletContext.getAttribute("countries");
+                        countries.add(country);
+                        servletContext.setAttribute("countries", countries);
+                    }
                 }
             }
         }
