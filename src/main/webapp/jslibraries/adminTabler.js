@@ -183,7 +183,7 @@ function psusTabler(value) {
 }
 function purchaseTabler(value){
     row='<tr class="removable">'+
-        '<td className="creationDate">'+value.creationDate+'</td>'+
+        '<td className="creationDate">'+value.creationDate.year+'-'+value.creationDate.month+'-'+value.creationDate.day+'</td>'+
        ' <td className="email">'+value.email+'</td>'+
         '<td className="country">'+value.country+'</td>'+
         '<td className="cap">'+value.cap+'</td>'+

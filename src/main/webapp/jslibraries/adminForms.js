@@ -144,6 +144,7 @@ function changeForm(text) {
                 "</select></td></tr>";
             break;
         case "Purchases":
+            name=false;
             formHTML="<input type='hidden' id='requestedItem' name='requestedItem' value='purchases'>"+
                 "<tr><td><label for='startingDate'>Starting Date</label></td>"+
                 "<td><input type='date' id='startingDate' name='startingDate'></td></tr>"+

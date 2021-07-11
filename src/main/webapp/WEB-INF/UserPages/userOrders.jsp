@@ -27,31 +27,50 @@
         </h1>
     </div>
     <div id="builds">
+        <c:set var="lenght" value="${fn:lenght(builds)}"/>
 
-        <c:forEach items="${builds}" var="build">
+        <c:forEach begin="0" end="lenght" var="i">
+            <div class="box-container">
             <div class="buildList">
-                <img src="${build.imagePath}">
+                <img src="${build[i].imagePath}">
                 <ul>
-                    <li>${build.type}</li>
-                    <li>${build.gpu}</li>
-                    <li>${build.cpu}</li>
-                    <li>${build.mobo}</li>
+                    <li>${build[i].type}</li>
+                    <li>${build[i].gpu}</li>
+                    <li>${build[i].cpu}</li>
+                    <li>${build[i].mobo}</li>
                     <li><ul>
-                        <c:forEach items="${build.memories}" var="memory">
+                        <c:forEach items="${build[i].memories}" var="memory">
                             ${memory}
                         </c:forEach></ul></li>
-                    <li>${build.pcCase}</li>
-                    <li>${build.psu}</li>
-                    <li>${build.maker}</li>
-
+                    <li>${build[i].pcCase}</li>
+                    <li>${build[i].psu}</li>
+                    <li>${build[i].maker}</li>
                 </ul>
-                <form action="./showBuild">
-                    <input name="id" value="${build.id}" type="hidden">
-                    <input type="submit" class="btn fullBtn btn-success" value="Start ">
-                </form>
             </div>
-        </c:forEach>
+                <div class="User-box">
+                    <table>
+                        <tbody>
+                        <tr><td><h6>Order date</h6></td>
+                            <td><span>${purchase[i].creationDate.year}-${purchase[i].creationDate.month}-${purchase[i].creationDate.day}</span></td></tr>
+                        <tr><td><h6>Country</h6></td>
+                            <td><span>${purchase[i].country}</span></td></tr>
+                        <tr><td><h6>Postal Code</h6></td>
+                            <td><span>${purchase[i].cap}</span></td></tr>
+                        <tr><td><h6>City</h6></td>
+                            <td><span>${purchase[i].city}</span></td></tr>
+                        <tr><td><h6>Address</h6></td>
+                            <td><span>${purchase[i].address}</span></td></tr>
+                        <tr><td><h6>Telephone Number</h6></td>
+                            <td><span>${purchase[i].cellphonenumber}</span></td></tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+
     </div>
+    </div>
+    </c:forEach>
 
 </div>
 
