@@ -31,10 +31,10 @@ public class MemoryDao implements IMemoryDao<SQLException>{
                 }
                 return list;
             }catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }catch (SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -57,10 +57,10 @@ public class MemoryDao implements IMemoryDao<SQLException>{
                 memory.setImagePath(rs.getString("imagepath"));
                 return memory;
             }catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }catch (SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -87,72 +87,13 @@ public class MemoryDao implements IMemoryDao<SQLException>{
                 }
                 return list;
             }catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }catch (SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
-    @Override
-    public ArrayList<Memory> doRetrieveBySocket(String socket,int limit, int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM memories WHERE socket=? ORDER BY name LIMIT ?,?;")){
-                ps.setString(1,socket);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
-                ArrayList<Memory> list = new ArrayList<Memory>();
-                ResultSet rs = ps.executeQuery();
-                while(rs.next()){
-                    Memory memory = new Memory();
-                    memory.setConsumption(rs.getInt("consumption"));
-                    memory.setAmountMemories(rs.getInt("amountmemories"));
-                    memory.setName(rs.getString("name"));
-                    memory.setPrice(rs.getFloat("price"));
-                    memory.setId(rs.getInt("id"));
-                    memory.setStock(rs.getInt("stock"));
-                    memory.setmType(rs.getBoolean("mType"));
-                    memory.setSocket(rs.getString("socket"));
-                    list.add(memory);
-                }
-                return list;
-            }catch(SQLException e){
-                return null;
-            }
-        }catch (SQLException e){
-            return null;
-        }
-    }
-
-    @Override
-    public ArrayList<Memory> doRetrieveByMType(Boolean mType,int limit, int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM memories WHERE mType=? ORDER BY name LIMIT ?,?;")){
-                ps.setBoolean(1,mType);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
-                ArrayList<Memory> list = new ArrayList<Memory>();
-                ResultSet rs = ps.executeQuery();
-                while(rs.next()){
-                    Memory memory = new Memory();
-                    memory.setConsumption(rs.getInt("consumption"));
-                    memory.setAmountMemories(rs.getInt("amountmemories"));
-                    memory.setName(rs.getString("name"));
-                    memory.setPrice(rs.getFloat("price"));
-                    memory.setId(rs.getInt("id"));
-                    memory.setStock(rs.getInt("stock"));
-                    memory.setmType(rs.getBoolean("mType"));
-                    memory.setSocket(rs.getString("socket"));
-                    list.add(memory);
-                }
-                return list;
-            }catch(SQLException e){
-                return null;
-            }
-        }catch (SQLException e){
-            return null;
-        }
-    }
     @Override
     public ArrayList<Memory> doRetrieveByParameters(String name,String socket, Boolean mType, int limit, int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
@@ -189,7 +130,7 @@ public class MemoryDao implements IMemoryDao<SQLException>{
             }
             return list;
             }catch(SQLException e){
-                return null;
+            throw new SQLException();
             }
     }
     @Override
@@ -223,10 +164,10 @@ public class MemoryDao implements IMemoryDao<SQLException>{
                 ps.setInt(9,memory.getId());
                 return ps.executeUpdate()>0;
             }catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -239,10 +180,10 @@ public class MemoryDao implements IMemoryDao<SQLException>{
                 return ps.executeUpdate()>0;
             }
             catch (SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch (SQLException e) {
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -263,10 +204,10 @@ public class MemoryDao implements IMemoryDao<SQLException>{
                 memory.setId(rs.getInt(1));
                 return true;
             }catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 }

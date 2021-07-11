@@ -32,41 +32,11 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
-        }
-    }
-
-    @Override
-    public ArrayList<PcCase> doRetrieveByFormFactor(String formFactor,int limit, int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Pccases WHERE UPPER(formfactor) LIKE UPPER('"+formFactor+"%') ORDER BY name LIMIT ?,?;")){
-                ps.setInt(1,offset);
-                ps.setInt(2,limit);
-                ResultSet rs = ps.executeQuery();
-                ArrayList<PcCase> list = new ArrayList<PcCase>();
-                while(rs.next()){
-                    PcCase pcCase = new PcCase();
-                    pcCase.setName(rs.getString("name"));
-                    pcCase.setId(rs.getInt("id"));
-                    pcCase.setFormFactor(rs.getString("formfactor"));
-                    pcCase.setPrice(rs.getFloat("price"));
-                    pcCase.setStock(rs.getInt("stock"));
-                    pcCase.setImagePath(rs.getString("imagepath"));
-                    list.add(pcCase);
-                }
-                rs.close();
-                return list;
-            }
-            catch(SQLException e){
-                return null;
-            }
-        }
-        catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -88,11 +58,11 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
                 return pcCase;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -118,11 +88,11 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
     @Override
@@ -146,10 +116,10 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
                 rs.close();
                 return list;
             } catch (SQLException e) {
-                return null;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
 
     }
@@ -168,10 +138,10 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
                 pcCase.setId(rs.getInt(1));
                 return true;
             }catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -187,10 +157,10 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
                 ps.setInt(6, pcCase.getId());
                 return ps.executeUpdate()>0;
             }catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -202,10 +172,10 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
                 ps.setInt(2, pcCase.getId());
                 return ps.executeUpdate()>0;
             }catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -218,10 +188,10 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
                 file.delete();
                 return ps.executeUpdate()>0;
             }catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 }

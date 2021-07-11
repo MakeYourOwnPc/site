@@ -107,19 +107,18 @@ public class BuildDao implements IBuildDao<SQLException>{
             throw new SQLException();
         }
     }
+    /*
     @Override
-    public ArrayList<Build> doRetrieveByType(String type,int limit, int offset) throws SQLException {
+    public ArrayList<BuildNames> doRetrieveByType(String type) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Builds WHERE type=? ORDER BY name LIMIT ?,?;")){
+            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Builds WHERE type=? ORDER BY name;")){
                 ps.setString(1,type);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
                 ResultSet rs = ps.executeQuery();
                 ArrayList<Build> list = new ArrayList<Build>();
                 while(rs.next()){
-                    Build build = new Build();
+                    BuildNames build = new BuildNames();
                     build.setId(rs.getInt("id"));
-                    build.setCpu(rs.getInt("cpu"));
+                    build.setCpu(rs.getString("cpu"));
                     PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=? ;");
                     ps2.setInt(1,build.getId());
                     ResultSet rs2 = ps2.executeQuery();
@@ -146,49 +145,7 @@ public class BuildDao implements IBuildDao<SQLException>{
         catch(SQLException e){
             throw new SQLException();
         }
-    }
-
-    @Override
-    public ArrayList<Build> doRetrieveByPower(int power,int limit,int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Builds WHERE power=? LIMIT ?,?;")){
-                ps.setInt(1,power);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
-                ResultSet rs = ps.executeQuery();
-                ArrayList<Build> list = new ArrayList<Build>();
-                while(rs.next()){
-                    Build build = new Build();
-                    build.setId(rs.getInt("id"));
-                    build.setCpu(rs.getInt("cpu"));
-                    PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=?;");
-                    ps2.setInt(1,build.getId());
-                    ResultSet rs2 = ps2.executeQuery();
-                    while(rs2.next()){
-                        for(int i = 0; i < rs2.getInt("amountofmemories");i++)
-                            build.addMemory(rs2.getInt("id"));
-                    }
-                    build.setGpu(rs.getInt("gpu"));
-                    build.setPsu(rs.getInt("psu"));
-                    build.setMobo(rs.getInt("mobo"));
-                    build.setPcCase(rs.getInt("pccase"));
-                    build.setType(rs.getString("type"));
-                    build.setSuggested(rs.getBoolean("suggested"));
-                    build.setMaker(rs.getString("maker"));
-                    list.add(build);
-                }
-                rs.close();
-                return list;
-            }
-            catch(SQLException e){
-                throw new SQLException();
-            }
-        }
-        catch(SQLException e){
-            throw new SQLException();
-        }
-    }
-
+    }*/
     @Override
     public ArrayList<BuildNames> doRetrieveSuggested() throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
@@ -257,127 +214,6 @@ public class BuildDao implements IBuildDao<SQLException>{
                 throw new SQLException();
             }
         }catch(SQLException e){
-            throw new SQLException();
-        }
-    }
-    @Override
-    public ArrayList<Build> doRetrieveByMobo(String name,int limit,int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Builds WHERE mobo=? ORDER BY name LIMIT ?,?;")){
-                ps.setString(1,name);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
-                ResultSet rs = ps.executeQuery();
-                ArrayList<Build> list = new ArrayList<Build>();
-                while(rs.next()){
-                    Build build = new Build();
-                    build.setId(rs.getInt("id"));
-                    build.setCpu(rs.getInt("cpu"));
-                    PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=? ORDER BY name;");
-                    ps2.setInt(1,build.getId());
-                    ResultSet rs2 = ps2.executeQuery();
-                    while(rs2.next()){
-                        for(int i = 0; i < rs2.getInt("amountofmemories");i++)
-                            build.addMemory(rs2.getInt("id"));
-                    }
-                    build.setGpu(rs.getInt("gpu"));
-                    build.setPsu(rs.getInt("psu"));
-                    build.setMobo(rs.getInt("mobo"));
-                    build.setPcCase(rs.getInt("pccase"));
-                    build.setType(rs.getString("type"));
-                    build.setSuggested(rs.getBoolean("suggested"));
-                    build.setMaker(rs.getString("maker"));
-                    list.add(build);
-                }
-                rs.close();
-                return list;
-            }
-            catch(SQLException e){
-                throw new SQLException();
-            }
-        }
-        catch(SQLException e){
-            throw new SQLException();
-        }
-    }
-
-    @Override
-    public ArrayList<Build> doRetrieveByCpu(String name,int limit,int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Builds WHERE cpu LIKE %?% ORDER BY name LIMIT ?,?;")){
-                ps.setString(1,name);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
-                ResultSet rs = ps.executeQuery();
-                ArrayList<Build> list = new ArrayList<Build>();
-                while(rs.next()){
-                    Build build = new Build();
-                    build.setId(rs.getInt("id"));
-                    build.setCpu(rs.getInt("cpu"));
-                    PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=? ORDER BY name;");
-                    ps2.setInt(1,build.getId());
-                    ResultSet rs2 = ps2.executeQuery();
-                    while(rs2.next()){
-                        for(int i = 0; i < rs2.getInt("amountofmemories");i++)
-                            build.addMemory(rs2.getInt("id"));
-                    }
-                    build.setGpu(rs.getInt("gpu"));
-                    build.setPsu(rs.getInt("psu"));
-                    build.setMobo(rs.getInt("mobo"));
-                    build.setPcCase(rs.getInt("pccase"));
-                    build.setType(rs.getString("type"));
-                    build.setSuggested(rs.getBoolean("suggested"));
-                    build.setMaker(rs.getString("maker"));
-                    list.add(build);
-                }
-                rs.close();
-                return list;
-            }
-            catch(SQLException e){
-                throw new SQLException();
-            }
-        }
-        catch(SQLException e){
-            throw new SQLException();
-        }
-    }
-    @Override
-    public ArrayList<Build> doRetrieveByGpu(String name,int limit,int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Builds WHERE gpu=? ORDER BY name LIMIT ?,?;")){
-                ps.setString(1,name);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
-                ResultSet rs = ps.executeQuery();
-                ArrayList<Build> list = new ArrayList<Build>();
-                while(rs.next()){
-                    Build build = new Build();
-                    build.setId(rs.getInt("id"));
-                    build.setCpu(rs.getInt("cpu"));
-                    PreparedStatement ps2 = conn.prepareStatement("Select * FROM Memoriesbuiltin WHERE idbuild=? ORDER BY name;");
-                    ps2.setInt(1,build.getId());
-                    ResultSet rs2 = ps2.executeQuery();
-                    while(rs2.next()){
-                        for(int i = 0; i < rs2.getInt("amountofmemories");i++)
-                            build.addMemory(rs2.getInt("id"));
-                    }
-                    build.setGpu(rs.getInt("gpu"));
-                    build.setPsu(rs.getInt("psu"));
-                    build.setMobo(rs.getInt("mobo"));
-                    build.setPcCase(rs.getInt("pccase"));
-                    build.setType(rs.getString("type"));
-                    build.setSuggested(rs.getBoolean("suggested"));
-                    build.setMaker(rs.getString("maker"));
-                    list.add(build);
-                }
-                rs.close();
-                return list;
-            }
-            catch(SQLException e){
-                throw new SQLException();
-            }
-        }
-        catch(SQLException e){
             throw new SQLException();
         }
     }

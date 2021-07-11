@@ -23,11 +23,11 @@ public class CountryDao implements ICountryDao<SQLException>{
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
     public String doRetrieveByName(String name) throws SQLException {
@@ -54,11 +54,11 @@ public class CountryDao implements ICountryDao<SQLException>{
                 return ps.executeUpdate()>0;
             }
             catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -70,19 +70,14 @@ public class CountryDao implements ICountryDao<SQLException>{
                 return ps.executeUpdate()>0;
             }
             catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
-/*
-    @Override
-    public boolean doUpdate(Country country) throws SQLException {
-        return false;
-    }
-*/
+
     @Override
     public boolean doCheckByLabel(String label) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
@@ -91,11 +86,11 @@ public class CountryDao implements ICountryDao<SQLException>{
                 return rs.isBeforeFirst();
             }
             catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -107,11 +102,11 @@ public class CountryDao implements ICountryDao<SQLException>{
                 return rs.isBeforeFirst();
             }
             catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 }

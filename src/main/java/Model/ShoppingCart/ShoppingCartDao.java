@@ -51,10 +51,10 @@ public class ShoppingCartDao implements IShoppingCartDao<SQLException>{
                 ps.setInt(2,shoppingCart.getIdbuild());
                 return ps.executeUpdate()>0;
             }catch (SQLException e){
-                return true;
+                throw new SQLException();
             }
         }catch (SQLException e){
-            return true;
+            throw new SQLException();
         }
     }
 
@@ -65,10 +65,10 @@ public class ShoppingCartDao implements IShoppingCartDao<SQLException>{
                 ps.setString(1,email);
                 return ps.executeUpdate()>0;
             }catch (SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch (SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 }

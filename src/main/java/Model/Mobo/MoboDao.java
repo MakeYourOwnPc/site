@@ -34,10 +34,10 @@ public class MoboDao implements IMoboDao<SQLException>{
                 }
                 return list;
             }catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }catch (SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -62,10 +62,10 @@ public class MoboDao implements IMoboDao<SQLException>{
                 mobo.setStock(rs.getInt("stock"));
                 return mobo;
             }catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }catch (SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -94,210 +94,13 @@ public class MoboDao implements IMoboDao<SQLException>{
                 }
                 return list;
             }catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }catch (SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
-    @Override
-    public ArrayList<Mobo> doRetrieveByCpuSocket(String socket,int limit, int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motherboards WHERE cpusocket=? ORDER BY name LIMIT ?,?;")){
-                ps.setString(1,socket);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
-                ArrayList<Mobo> list = new ArrayList<Mobo>();
-                ResultSet rs = ps.executeQuery();
-                while(rs.next()){
-                    Mobo mobo = new Mobo();
-                    mobo.setConsumption(rs.getInt("consumption"));
-                    mobo.setAmountSlotNvme(rs.getInt("amountslotnvme"));
-                    mobo.setAmountSlotRam(rs.getInt("amountslotram"));
-                    mobo.setAmountSlotSata(rs.getInt("amountslotsata"));
-                    mobo.setFormFactor(rs.getString("formfactor"));
-                    mobo.setId(rs.getInt("id"));
-                    mobo.setPrice(rs.getFloat("price"));
-                    mobo.setName(rs.getString("name"));
-                    mobo.setCpuSocket(rs.getString("cpusocket"));
-                    mobo.setRamSocket(rs.getString("ramsocket"));
-                    mobo.setStock(rs.getInt("stock"));
-                    list.add(mobo);
-                }
-                return list;
-            }catch(SQLException e){
-                return null;
-            }
-        }catch (SQLException e){
-            return null;
-        }
-    }
-
-    @Override
-    public ArrayList<Mobo> doRetrieveByRamSocket(String socket,int limit, int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motherboards WHERE ramsocket=? ORDER BY name LIMIT ?,?;")){
-                ps.setString(1,socket);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
-                ArrayList<Mobo> list = new ArrayList<Mobo>();
-                ResultSet rs = ps.executeQuery();
-                while(rs.next()){
-                    Mobo mobo = new Mobo();
-                    mobo.setConsumption(rs.getInt("consumption"));
-                    mobo.setAmountSlotNvme(rs.getInt("amountslotnvme"));
-                    mobo.setAmountSlotRam(rs.getInt("amountslotram"));
-                    mobo.setAmountSlotSata(rs.getInt("amountslotsata"));
-                    mobo.setFormFactor(rs.getString("formfactor"));
-                    mobo.setId(rs.getInt("id"));
-                    mobo.setPrice(rs.getFloat("price"));
-                    mobo.setName(rs.getString("name"));
-                    mobo.setCpuSocket(rs.getString("cpusocket"));
-                    mobo.setRamSocket(rs.getString("ramsocket"));
-                    mobo.setStock(rs.getInt("stock"));
-                    list.add(mobo);
-                }
-                return list;
-            }catch(SQLException e){
-                return null;
-            }
-        }catch (SQLException e){
-            return null;
-        }
-    }
-
-    @Override
-    public ArrayList<Mobo> doRetrieveByFormFactor(String formFactor,int limit, int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motherboards WHERE formfactor=? ORDER BY name LIMIT ?,?;")){
-                ps.setString(1,formFactor);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
-                ArrayList<Mobo> list = new ArrayList<Mobo>();
-                ResultSet rs = ps.executeQuery();
-                while(rs.next()){
-                    Mobo mobo = new Mobo();
-                    mobo.setConsumption(rs.getInt("consumption"));
-                    mobo.setAmountSlotNvme(rs.getInt("amountslotnvme"));
-                    mobo.setAmountSlotRam(rs.getInt("amountslotram"));
-                    mobo.setAmountSlotSata(rs.getInt("amountslotsata"));
-                    mobo.setFormFactor(rs.getString("formfactor"));
-                    mobo.setId(rs.getInt("id"));
-                    mobo.setPrice(rs.getFloat("price"));
-                    mobo.setName(rs.getString("name"));
-                    mobo.setCpuSocket(rs.getString("cpusocket"));
-                    mobo.setRamSocket(rs.getString("ramsocket"));
-                    mobo.setStock(rs.getInt("stock"));
-                    list.add(mobo);
-                }
-                return list;
-            }catch(SQLException e){
-                return null;
-            }
-        }catch (SQLException e){
-            return null;
-        }
-    }
-
-    @Override
-    public ArrayList<Mobo> doRetrieveByAmountOfSlotNvme(int slot,int limit, int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motherboards WHERE amountslotnvme>=? ORDER BY name LIMIT ?,?;")){
-                ps.setInt(1,slot);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
-                ArrayList<Mobo> list = new ArrayList<Mobo>();
-                ResultSet rs = ps.executeQuery();
-                while(rs.next()){
-                    Mobo mobo = new Mobo();
-                    mobo.setConsumption(rs.getInt("consumption"));
-                    mobo.setAmountSlotNvme(rs.getInt("amountslotnvme"));
-                    mobo.setAmountSlotRam(rs.getInt("amountslotram"));
-                    mobo.setAmountSlotSata(rs.getInt("amountslotsata"));
-                    mobo.setFormFactor(rs.getString("formfactor"));
-                    mobo.setId(rs.getInt("id"));
-                    mobo.setPrice(rs.getFloat("price"));
-                    mobo.setName(rs.getString("name"));
-                    mobo.setCpuSocket(rs.getString("cpusocket"));
-                    mobo.setRamSocket(rs.getString("ramsocket"));
-                    mobo.setStock(rs.getInt("stock"));
-                    list.add(mobo);
-                }
-                return list;
-            }catch(SQLException e){
-                return null;
-            }
-        }catch (SQLException e){
-            return null;
-        }
-    }
-
-    @Override
-    public ArrayList<Mobo> doRetrieveByAmountOfSlotRam(int slot,int limit, int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motherboards WHERE amountslotram>=? ORDER BY name LIMIT ?,?;")){
-                ps.setInt(1,slot);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
-                ArrayList<Mobo> list = new ArrayList<Mobo>();
-                ResultSet rs = ps.executeQuery();
-                while(rs.next()){
-                    Mobo mobo = new Mobo();
-                    mobo.setConsumption(rs.getInt("consumption"));
-                    mobo.setAmountSlotNvme(rs.getInt("amountslotnvme"));
-                    mobo.setAmountSlotRam(rs.getInt("amountslotram"));
-                    mobo.setAmountSlotSata(rs.getInt("amountslotsata"));
-                    mobo.setFormFactor(rs.getString("formfactor"));
-                    mobo.setId(rs.getInt("id"));
-                    mobo.setPrice(rs.getFloat("price"));
-                    mobo.setName(rs.getString("name"));
-                    mobo.setCpuSocket(rs.getString("cpusocket"));
-                    mobo.setRamSocket(rs.getString("ramsocket"));
-                    mobo.setStock(rs.getInt("stock"));
-                    list.add(mobo);
-                }
-                return list;
-            }catch(SQLException e){
-                return null;
-            }
-        }catch (SQLException e){
-            return null;
-        }
-    }
-
-    @Override
-    public ArrayList<Mobo> doRetrieveByAmountOfSlotSata(int slot,int limit, int offset) throws SQLException {
-        try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motherboards WHERE amountslotsata>=? ORDER BY name LIMIT ?,?;")){
-                ps.setInt(1,slot);
-                ps.setInt(2,offset);
-                ps.setInt(3,limit);
-                ArrayList<Mobo> list = new ArrayList<Mobo>();
-                ResultSet rs = ps.executeQuery();
-                while(rs.next()){
-                    Mobo mobo = new Mobo();
-                    mobo.setConsumption(rs.getInt("consumption"));
-                    mobo.setAmountSlotNvme(rs.getInt("amountslotnvme"));
-                    mobo.setAmountSlotRam(rs.getInt("amountslotram"));
-                    mobo.setAmountSlotSata(rs.getInt("amountslotsata"));
-                    mobo.setFormFactor(rs.getString("formfactor"));
-                    mobo.setId(rs.getInt("id"));
-                    mobo.setPrice(rs.getFloat("price"));
-                    mobo.setName(rs.getString("name"));
-                    mobo.setCpuSocket(rs.getString("cpusocket"));
-                    mobo.setRamSocket(rs.getString("ramsocket"));
-                    mobo.setStock(rs.getInt("stock"));
-                    list.add(mobo);
-                }
-                return list;
-            }catch(SQLException e){
-                return null;
-            }
-        }catch (SQLException e){
-            return null;
-        }
-    }
 
     @Override
     public ArrayList<Mobo> doRetrieveByParameters(String name,String ramSocket, String cpuSocket, String formFactor, int nvmeSlot, int sataSlot,int ramSlot,int limit, int offset) throws SQLException {
@@ -328,10 +131,10 @@ public class MoboDao implements IMoboDao<SQLException>{
                 }
                 return list;
             } catch (SQLException e) {
-                return null;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -344,10 +147,10 @@ public class MoboDao implements IMoboDao<SQLException>{
                 file.delete();
                 return ps.executeUpdate()>0;
             }catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -370,26 +173,26 @@ public class MoboDao implements IMoboDao<SQLException>{
                 return ps.executeUpdate()>0;
             }
             catch (SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch (SQLException e) {
-            return false;
+            throw new SQLException();
         }
     }
 
     @Override
     public boolean doUpdateStock(Mobo mobo) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("UPDATE Motherboards SET stock=? WHERE sn=?;")){
+            try(PreparedStatement ps = conn.prepareStatement("UPDATE Motherboards SET stock=? WHERE id=?;")){
                 ps.setInt(1,mobo.getStock());
                 ps.setInt(2,mobo.getId());
                 return ps.executeUpdate()>0;
             }
             catch (SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch (SQLException e) {
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -414,10 +217,10 @@ public class MoboDao implements IMoboDao<SQLException>{
                 return true;
             }
             catch (SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch (SQLException e) {
-            return false;
+            throw new SQLException();
         }
     }
 }

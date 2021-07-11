@@ -35,11 +35,11 @@ public class PsuDao implements IPsuDao <SQLException> {
                     return list;
                 }
                 catch(SQLException e){
-                    return null;
+                    throw new SQLException();
                 }
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
     }
 
@@ -60,11 +60,11 @@ public class PsuDao implements IPsuDao <SQLException> {
                     return psu;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -90,43 +90,12 @@ public class PsuDao implements IPsuDao <SQLException> {
                 return list;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
-    }
-
-    @Override
-    public ArrayList<Psu> doRetrieveByPower(int power,int limit, int offset) throws SQLException {
-            try(Connection conn = ConnPool.getConnection()){
-                try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Psus WHERE power=? ORDER BY name LIMIT ?,?;")){
-                    ps.setInt(1,power);
-                    ps.setInt(2,offset);
-                    ps.setInt(3,limit);
-                    ResultSet rs = ps.executeQuery();
-                    ArrayList<Psu> list = new ArrayList<Psu>();
-                    while(rs.next()){
-                        Psu psu = new Psu();
-                        psu.setName(rs.getString("name"));
-                        psu.setId(rs.getInt("id"));
-                        psu.setPower(rs.getInt("power"));
-                        psu.setPrice(rs.getFloat("price"));
-                        psu.setStock(rs.getInt("stock"));
-                        psu.setImagePath(rs.getString("imagepath"));
-                        list.add(psu);
-                    }
-                    rs.close();
-                    return list;
-                }
-                catch(SQLException e){
-                    return null;
-                }
-            }
-            catch(SQLException e){
-                return null;
-            }
     }
     @Override
     public ArrayList<Psu> doRetrieveByParameters(String name,int power,int limit, int offset) throws SQLException {
@@ -136,7 +105,7 @@ public class PsuDao implements IPsuDao <SQLException> {
                 ps.setInt(2, offset);
                 ps.setInt(3, limit);
                 ResultSet rs = ps.executeQuery();
-                ArrayList<Psu> list = new ArrayList<Psu>();
+                ArrayList<Psu> list = new ArrayList<>();
                 while (rs.next()) {
                     Psu psu = new Psu();
                     psu.setName(rs.getString("name"));
@@ -150,10 +119,10 @@ public class PsuDao implements IPsuDao <SQLException> {
                 rs.close();
                 return list;
             } catch (SQLException e) {
-                return null;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -166,10 +135,10 @@ public class PsuDao implements IPsuDao <SQLException> {
                 file.delete();
                 return ps.executeUpdate()>0;
             }catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -185,10 +154,10 @@ public class PsuDao implements IPsuDao <SQLException> {
                 ps.setInt(6, psu.getId());
                 return ps.executeUpdate()>0;
             }catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -201,10 +170,10 @@ public class PsuDao implements IPsuDao <SQLException> {
                 return ps.executeUpdate()>0;
             }
             catch (SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch (SQLException e) {
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -223,10 +192,10 @@ public class PsuDao implements IPsuDao <SQLException> {
                 psu.setId(rs.getInt(1));
                 return true;
             }catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 

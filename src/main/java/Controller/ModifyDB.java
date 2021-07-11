@@ -28,7 +28,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.regex.Pattern;
 
 @WebServlet(name="modifyDB",urlPatterns = "/admin/modifyDB")
 @MultipartConfig
@@ -561,6 +560,6 @@ public class ModifyDB extends HttpServlet {
                 }
             }
         }
-        resp.sendRedirect("/MYOPSite_war_exploded/admin/");
+        resp.sendRedirect("/MYOPSite_war_exploded/admin");
     }
 }

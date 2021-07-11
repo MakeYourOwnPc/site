@@ -27,11 +27,11 @@ public class UserDao implements IUserDao<SQLException>{
                 return list;
             }
             catch(SQLException e) {
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
 
@@ -52,11 +52,11 @@ public class UserDao implements IUserDao<SQLException>{
                 return user;
             }
             catch(SQLException e){
-                return null;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return null;
+            throw new SQLException();
         }
     }
     public boolean isPresent(String email) throws SQLException{
@@ -66,10 +66,10 @@ public class UserDao implements IUserDao<SQLException>{
                 ResultSet rs = ps.executeQuery();
                 return rs.isBeforeFirst();
             }catch(SQLException e) {
-                return false;
+                throw new SQLException();
             }
         }catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
     @Override
@@ -85,12 +85,12 @@ public class UserDao implements IUserDao<SQLException>{
             }
             catch(SQLException e){
                 e.printStackTrace();
-                return false;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
             e.printStackTrace();
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -99,15 +99,14 @@ public class UserDao implements IUserDao<SQLException>{
         try(Connection conn = ConnPool.getConnection()){
             try(PreparedStatement ps = conn.prepareStatement("DELETE FROM Users WHERE email=?;")){
                 ps.setString(1,email.toLowerCase());
-                ps.executeUpdate();
-                return true;
+                return ps.executeUpdate()>0;
             }
             catch(SQLException e){
-                return false;
+                throw new SQLException();
             }
         }
         catch(SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
 
@@ -119,14 +118,13 @@ public class UserDao implements IUserDao<SQLException>{
                 ps.setString(2,user.getLastName());
                 ps.setString(3,user.getPassword());
                 ps.setString(4,user.getEmail().toLowerCase());
-                ps.executeUpdate();
-                return true;
+                return ps.executeUpdate()>0;
             }
             catch (SQLException e){
-                return false;
+                throw new SQLException();
             }
         }catch (SQLException e){
-            return false;
+            throw new SQLException();
         }
     }
     @Override
