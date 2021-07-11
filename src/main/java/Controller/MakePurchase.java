@@ -49,7 +49,7 @@ public class MakePurchase extends HttpServlet {
                 PurchaseDao purchaseDao = new PurchaseDao();
                 CountryDao countryDao = new CountryDao();
                 Purchase purchase = new Purchase();
-                purchase.setCountry(countryDao.doRetrieveByName(country));
+                purchase.setCountry(country);
                 purchase.setEmail(email);
                 purchase.setCity(city);
                 purchase.setCap(cap);
