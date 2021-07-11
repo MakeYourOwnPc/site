@@ -28,7 +28,7 @@ public class ShowPurchases extends HttpServlet {
             PurchaseDao purchaseDao = new PurchaseDao();
             ArrayList<Purchase> list = purchaseDao.doRetrieveByEmail(user.getEmail(), 50,0);
             req.setAttribute("purchases",list);
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/showOrders");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/userOrders.jsp");
             requestDispatcher.forward(req,resp);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
