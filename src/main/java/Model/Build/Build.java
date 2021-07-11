@@ -75,14 +75,14 @@ public class Build {
         this.memories = new ArrayList<>();
     }
 
-    public Build(int mobo, int gpu, ArrayList<Integer> memories, int pcCase, int psu, String maker) throws BuildException {
+    public Build(int mobo, int gpu, ArrayList<Integer> memories, int pcCase, int psu, String maker) throws BuildException, SQLException {
         this.mobo = mobo;
         this.gpu = gpu;
         this.memories = memories;
         this.pcCase = pcCase;
         this.psu = psu;
         this.maker = maker;
-        //verifier();
+        verifier();
     }
     public int getMobo() {
         return mobo;
