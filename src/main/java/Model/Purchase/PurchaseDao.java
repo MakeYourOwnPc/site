@@ -26,7 +26,7 @@ public class PurchaseDao implements IPurchaseDao<SQLException>{
                     purchase.setIdBuild(rs.getInt("idbuild"));
                     purchase.setCreationDate(rs.getDate("creationdate").toLocalDate());
                     purchase.setCellphonenumber(rs.getString("cellphone"));
-                    purchase.setCountry(rs.getString("country"));
+                    purchase.setCountry(rs.getString("countryid"));
                     purchase.setPrice(rs.getFloat("price"));
                     purchase.setAddress(rs.getString("address"));
                     purchase.setCap(rs.getString("cap"));
