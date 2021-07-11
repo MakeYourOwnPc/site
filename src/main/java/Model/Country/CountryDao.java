@@ -15,7 +15,7 @@ public class CountryDao implements ICountryDao<SQLException>{
                 ArrayList<Country> list = new ArrayList<Country>();
                 while(rs.next()){
                     Country country = new Country();
-                    country.setName(rs.getString("name"));
+                    country.setName(rs.getString("label"));
                     country.setId(rs.getString("id"));
                     list.add(country);
                 }
