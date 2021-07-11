@@ -47,7 +47,6 @@ public class MakePurchase extends HttpServlet {
             Float price = buildDao.doRetrieveById(idBuild).price();
             try {
                 PurchaseDao purchaseDao = new PurchaseDao();
-                CountryDao countryDao = new CountryDao();
                 Purchase purchase = new Purchase();
                 purchase.setCountry(country);
                 purchase.setEmail(email);
@@ -58,7 +57,7 @@ public class MakePurchase extends HttpServlet {
                 purchase.setCellphonenumber(cellphone);
                 purchase.setCreationDate(creationDate);
                 purchaseDao.doSave(purchase);
-                RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/showCart.jsp");
+                RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/userCart.jsp");
                 requestDispatcher.forward(req,resp);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
