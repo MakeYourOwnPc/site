@@ -46,7 +46,7 @@ body{
 td{
     padding: 3px;
 }
-input[type=text], select, input[type=email],input[type=password],input[type=number],input[type=date],label.fakeInput{
+input[type=text], select, input[type=email],input[type=password],input[type=number],input[type=date]{
     width: 100%;
     padding: 0.4rem 0.5rem;
     margin: 8px 0;

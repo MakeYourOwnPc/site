@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Created by IntelliJ IDEA.
   User: Esterno
@@ -27,12 +28,12 @@
         </h1>
     </div>
     <div id="builds">
-        <c:set var="lenght" value="${fn:lenght(builds)}"/>
+        <c:set var="length" value="${fn:length(builds)}"/>
 
-        <c:forEach begin="0" end="lenght" var="i">
+        <c:forEach begin="0" end="length" var="i">
             <div class="box-container">
             <div class="buildList">
-                <img src="${build[i].imagePath}">
+                <img src="${builds[i].imagePath}">
                 <ul>
                     <li>${builds[i].type}</li>
                     <li>${builds[i].gpu}</li>
@@ -51,7 +52,7 @@
                     <table>
                         <tbody>
                         <tr><td><h6>Order date</h6></td>
-                            <td><span>${purchases[i].creationDate.year}-${purchase[i].creationDate.month}-${purchase[i].creationDate.day}</span></td></tr>
+                            <td><span>${purchases[i].creationDate.year}-${purchases[i].creationDate.month}-${purchases[i].creationDate.day}</span></td></tr>
                         <tr><td><h6>Country</h6></td>
                             <td><span>${purchases[i].country}</span></td></tr>
                         <tr><td><h6>Postal Code</h6></td>
