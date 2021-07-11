@@ -10,16 +10,25 @@
    Throwable exceptionType = (Throwable) request.getAttribute("javax.servlet.error.exception");
    Integer statusCode=(Integer) request.getAttribute("javax.servlet.error.status_code");
    String servletName= (String) request.getAttribute("javax.servlet.error.servlet_name");
-   String requestUri=(String) request.getAttribute("javax.servlet.error.request_uri")
+   String requestUri=(String) request.getAttribute("javax.servlet.error.request_uri");
 %>
 <html>
 <head>
     <title>MYOP-<%=statusCode%></title>
+    <meta name="viewport" content="width=device-witdht, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="customcss/general.css"/>
 </head>
+<script src="bootstrap/js/bootstrap.js" defer></script>
+<script src="bootstrap/popper.js" defer></script>
+<jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
+<script src="jslibraries/jQuery.js"></script>
+<script src="jslibraries/utilities.js"></script>
 <body>
-<h1><%=exceptionType%></h1>
-<h1><%=statusCode%></h1>
-<h1><%=servletName%></h1>
-<h1><%=requestUri%></h1>
+<h1>Error Type:<%=exceptionType%></h1>
+<h1>Error Code:<%=statusCode%></h1>
+<h1>Servlet who gived the error:<%=servletName%></h1>
+<h1>The Uri who caused the error:<%=requestUri%></h1>
+<jsp:include page="/WEB-INF/pagecomponents/footer.jsp"></jsp:include>
 </body>
 </html>

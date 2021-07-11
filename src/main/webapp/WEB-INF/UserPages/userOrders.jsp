@@ -33,7 +33,7 @@
             Old Orders
         </h1>
     </div>
-    <div class="buildContainer" style="display: flex">
+    <div class="buildContainer">
   <%ArrayList<BuildNames> builds= (ArrayList<BuildNames>) request.getAttribute("builds");
   ArrayList<Purchase> purchases= (ArrayList<Purchase>) request.getAttribute("purchases");
   int i=0;
@@ -80,7 +80,7 @@
 
     </div>
 
-    <%}%>
+    <%i++;}%>
     </div>
     </div>
 
@@ -92,10 +92,5 @@
 <jsp:include page="/WEB-INF/pagecomponents/footer.jsp"></jsp:include>
 </body>
 
-<script>
-    window.onload(function (){
-        if($("#new").val()=="true")
-            createToast("Success","Purchase")
-    })
-</script>
+
 </html>

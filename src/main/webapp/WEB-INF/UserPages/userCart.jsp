@@ -44,22 +44,22 @@
             </div>
          </div>
             <div class="halfPage">
-                <form id="purchaseForm" action="/MYOPSite_war_exploded/makePurchase" method="post"><table><tbody>
+                <form id="purchaseForm" method="post" ><table><tbody>
                 <tr> <td><label for="telephoneNumber">Insert Telephone Number</label></td></tr>
-                <tr> <td><input type="tel" id="telephoneNumber" name="cellphone" maxlength="13"></td></tr>
+                <tr> <td><input type="tel" id="telephoneNumber" name="cellphone" maxlength="13" required></td></tr>
                 <tr> <td><label for="address">Insert Address</label></td></tr>
-                <tr> <td><input type="text" id="address" name="address"maxlength="40"></td></tr>
+                <tr> <td><input type="text" id="address" name="address"maxlength="40" required></td></tr>
                 <tr> <td><label for="city">Insert City</label></td></tr>
-                <tr> <td> <input type="text" id="city" name="city" maxlength="40"></td></tr>
+                <tr> <td> <input type="text" id="city" name="city" maxlength="40" required></td></tr>
                 <tr> <td> <label for="CAP">Insert CAP</label></td></tr>
-                <tr><td> <input type="text" id="CAP" name="cap"maxlength="6"></td></tr>
+                <tr><td> <input type="text" id="CAP" name="cap"maxlength="6" required></td></tr>
                 <tr><td> <label for="country">Select Your Country</label></td></tr>
-                <tr><td> <select id="country" name="country">
+                <tr><td> <select id="country" name="country" required>
                     <c:forEach var="country" items="${countries}">
                         <option value="${country.id}"> ${country.name}</option>
                     </c:forEach></select></td></tr>
                 <tr><td></td></tr>
-                <tr><td><input type="submit" value="Complete Purchase"></td></tr>
+                <tr><td><button onclick="purchase()" class="btn active">Complete Purchase</button></td></tr>
                 </tbody>
                 </table>
                 </form>
@@ -79,8 +79,29 @@
 </div>
 <jsp:include page="/WEB-INF/pagecomponents/footer.jsp"></jsp:include>
 </body>
-<script>
+<!--<script>
+    function purchase(){
+        if(document.getElementById("purchaseForm").checkValidity()){
+            let formData=$("#purchaseForm").serialize();
+            $.ajax({
+                contentType:"application/x-www-form-urlencoded",
+                data: formData,
+                url: "/MYOPSite_war_exploded/makePurchase",
+                type: 'POST',
+                success:function (){
+                    createToast("Success","Purchase Complete");
+                    setTimeout(window.document="/MYOPSite_war_exploded/oldOrders",5000);
+                },
+                failed:function (){
+                  createToast("Error","Cannot Complete Purchase")
+                }
+            })
+            }else{
+            createToast("Error","Not All Fields Complete")
+        }
 
-</script>
+    }
+
+</script>-->
 
 </html>

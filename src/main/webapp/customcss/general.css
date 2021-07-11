@@ -332,6 +332,10 @@ footer div{
 footer div table{
     width: 100%;
 }
+
+
+
+
 @media screen and (max-width: 700px) {
     .buildContainer{
         display: block;

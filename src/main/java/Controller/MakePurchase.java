@@ -58,9 +58,6 @@ public class MakePurchase extends HttpServlet {
                 purchase.setCellphonenumber(cellphone);
                 purchase.setCreationDate(creationDate);
                 purchaseDao.doSave(purchase);
-                RequestDispatcher requestDispatcher = req.getRequestDispatcher("/oldOrders");
-                req.setAttribute("purchased",true);
-                requestDispatcher.forward(req,resp);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

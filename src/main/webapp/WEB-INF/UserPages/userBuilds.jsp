@@ -70,7 +70,7 @@
         let idBuild=id;
         $.ajax({
             url: "/MYOPSite_war_exploded/deleteBuild",
-            method:"POST",
+            type:"POST",
             data:"id="+id,
             success:function (){
                 $(".pendingRemoval").remove();
