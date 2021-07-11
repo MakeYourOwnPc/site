@@ -20,10 +20,11 @@
         <h1 style="padding: 10px;background-color: rgba(0,0,0,0.3); text-align: center">
             Your Shopping Cart
         </h1>
-    </div>
-    <div class="halfPage">
-
-        <div class="buildList">
+    </div><c:choose>
+    <c:when test="${build.id!=0}">
+        <div id="cartContainer">
+         <div class="halfPage">
+            <div class="buildList">
 
             <img src="${build.imagePath}">
             <ul>
@@ -33,18 +34,19 @@
                 <li>${build.mobo}</li>
                 <li><ul>
                     <c:forEach items="${build.memories}" var="memory">
-                        ${memory}
+                       <li>${memory}</li>
                     </c:forEach></ul></li>
                 <li>${build.pcCase}</li>
                 <li>${build.psu}</li>
-                <li>${build.maker}</li>
+
 
             </ul>
             </div>
+         </div>
             <div class="halfPage">
-                <form id="purchaseForm"><table><tbody>
+                <form id="purchaseForm" action="/MYOPSite_war_exploded/makePurchase" method="post"><table><tbody>
                 <tr> <td><label for="telephoneNumber">Insert Telephone Number</label></td></tr>
-                <tr> <td><input type="tel" id="telephoneNumber" name="tel"></td></tr>
+                <tr> <td><input type="tel" id="telephoneNumber" name="cellphone"></td></tr>
                 <tr> <td><label for="address">Insert Address</label></td></tr>
                 <tr> <td><input type="text" id="address" name="address"></td></tr>
                 <tr> <td><label for="city">Insert City</label></td></tr>
@@ -52,10 +54,10 @@
                 <tr> <td> <label for="CAP">Insert CAP</label></td></tr>
                 <tr><td> <input type="text" id="CAP" name="cap"></td></tr>
                 <tr><td> <label for="country">Select Your Country</label></td></tr>
-                <tr><td> <select id="country"></select></td></tr>
-                    <c:forEach var="country" items="${contries}">
+                <tr><td> <select id="country" name="country">
+                    <c:forEach var="country" items="${countries}">
                         <option value="${country.id}"> ${country.name}</option>
-                    </c:forEach></td></tr>
+                    </c:forEach></select></td></tr>
                 <tr><td></td></tr>
                 <tr><td><input type="submit" value="Complete Purchase"></td></tr>
                 </tbody>
@@ -65,6 +67,13 @@
             </div>
 
         </div>
+
+    </c:when>
+    <c:when test="${build.id==0}">
+
+        <h1>Empty Cart</h1>
+    </c:when>
+</c:choose>
 
 
 </div>

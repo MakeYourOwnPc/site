@@ -17,6 +17,7 @@ public class InitServlet extends HttpServlet {
         CountryDao countryDao = new CountryDao();
         try {
             ArrayList<Country> countries = countryDao.doRetrieveAll();
+            System.out.println(countries);
             servletContext.setAttribute("countries",countries);
         } catch (SQLException throwables) {
             throwables.printStackTrace();

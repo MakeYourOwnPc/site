@@ -48,6 +48,7 @@ public class MakePurchase extends HttpServlet {
             try {
                 PurchaseDao purchaseDao = new PurchaseDao();
                 Purchase purchase = new Purchase();
+                purchase.setIdBuild(idBuild);
                 purchase.setCountry(country);
                 purchase.setEmail(email);
                 purchase.setCity(city);

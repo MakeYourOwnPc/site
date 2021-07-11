@@ -161,14 +161,20 @@
         $("#purchase").remove();
         $("#purchaseForm").remove();
         $("#saveBuild").remove();
-        let formButton="<form action='/MYOPSite_war_exploded/saveBuild' method='post' onclick='return checkValidity()'>" +
-            "<input type='hidden' name='build' value='"+stringifyBuild()+"'>" +
+        let formButton="<form action='/MYOPSite_war_exploded/saveBuild' method='post' onclick='return updateBuildJson()'>" +
+            "<input type='hidden' name='build' id='sendBuildJson' value=''>" +
             "<input type='hidden' name='referer' value='admin'>" +
             "<input id='saveBuild' type='submit' value='Save' class='btn active'></form>";
         $("#saveButtonPlace").html(formButton);
 
-
-
+    }
+    function updateBuildJson(){
+        if(!checkValidity())
+            return false
+        else{
+            $("#sendBuildJson").val(stringifyBuild())
+            return true;
+        }
     }
 
     function retrievePrecedentBuild() {
