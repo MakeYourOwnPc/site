@@ -179,7 +179,7 @@ function prepareFormUpdate(item) {
                 '<td>'+ item.id + '</td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
-                '<td><input type="text" id="productName" name="name" value="' + item.name + '" onkeyup="checkProductName()">' +
+                '<td><input type="text" id="productName" name="name" value="' + item.name + '" onkeyup="checkProductName()" maxlength="100">' +
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
@@ -204,11 +204,11 @@ function prepareFormUpdate(item) {
                 '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
-                '<td><input name="name" type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()" >' +
+                '<td><input name="name" type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()" maxlength="100">' +
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 '<tr><td><label for="CPUsocket">Socket</label></td>' +
-                '<td><input type="text" id="CPUsocket" name="CPUsocket" value="' + item.socket + '"></td></tr>' +
+                '<td><input type="text" id="CPUsocket" name="CPUsocket" value="' + item.socket + '" maxlength="10"></td></tr>' +
 
                 '<tr><td><label for="integratedGpu">Integrated Gpu</label></td>' +
                 '<td><input type="radio" id="integratedGpu" name="integratedGpu" value="true"' + integrated + '></td></tr>' +
@@ -238,11 +238,11 @@ function prepareFormUpdate(item) {
                 '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
-                '<td><input name="name" type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()" >' +
+                '<td><input name="name" type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()" maxlength="100">' +
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 ' <tr><td><label for="MEMsocket">Memory Socket</label></td>' +
-                '<td><input type="text" id="MEMsocket" name="MEMsocket" value="' + item.socket + '"></td></tr>' +
+                '<td><input type="text" id="MEMsocket" name="MEMsocket" value="' + item.socket + '" maxlength="100"></td></tr>' +
 
                 '<tr><td><label for="Ram">Ram</label></td>' +
                 '<td><input type="radio" id="Ram" name="mType" value="false"' + Ram + '"></td></tr>' +

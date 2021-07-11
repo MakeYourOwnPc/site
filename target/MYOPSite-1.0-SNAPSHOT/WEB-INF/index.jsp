@@ -40,7 +40,7 @@
                     <li>${build.psu}</li>
 
                 </ul>
-                    <form action="./showBuild">
+                    <form action="./showBuild" style="bottom: 0;position: absolute;width: 100%;">
                         <input name="id" value="${build.id}" type="hidden">
                         <input type="submit" class="btn fullBtn btn-success" value="Start ">
                     </form>

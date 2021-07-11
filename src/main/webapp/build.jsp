@@ -55,7 +55,7 @@
             <table>
                 <tr>
                     <td><label for="productName"> Search By Name</label></td>
-                    <td><input id="productName" type="text" name="name" onkeyup="submitForm()"></td>
+                    <td><input id="productName" type="text" name="name" onkeyup="submitForm()" ></td>
                 </tr>
                 <tr>
                     <td><label for="compatible">Check By Compatible Component</label></td>

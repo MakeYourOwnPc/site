@@ -32,7 +32,7 @@
             Old Orders
         </h1>
     </div>
-    <div class="buildContainer">
+    <div class="buildContainer" style="display: flex">
   <%ArrayList<BuildNames> builds= (ArrayList<BuildNames>) request.getAttribute("builds");
   ArrayList<Purchase> purchases= (ArrayList<Purchase>) request.getAttribute("purchases");
   int i=0;
