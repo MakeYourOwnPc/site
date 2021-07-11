@@ -26,6 +26,7 @@
 <script src="jslibraries/utilities.js"></script>
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
 <script src="./jslibraries/jQuery.js"defer></script>
+<input type="hidden" id="new" value="${purchased}">
 <div id="pageContenent">
     <div>
         <h1 style="padding: 10px;background-color: rgba(0,0,0,0.3); text-align: center">
@@ -91,5 +92,10 @@
 <jsp:include page="/WEB-INF/pagecomponents/footer.jsp"></jsp:include>
 </body>
 
-</body>
+<script>
+    window.onload(function (){
+        if($("#new").val()=="true")
+            createToast("Success","Purchase")
+    })
+</script>
 </html>
