@@ -15,6 +15,34 @@ body{
     color: white;
     background-color:var(--bg-default-color) ;
 }
+
+
+/* Elemento | http://localhost:8080/MYOPSite_war_exploded/showCart */
+
+#cartContainer {
+    display: flex;
+    text-align: center;
+    width: 100%;
+}
+
+/* In linea #2 | http://localhost:8080/MYOPSite_war_exploded/showCart */
+
+.halfPage {
+    width: 50%;
+}
+
+/* Elemento | http://localhost:8080/MYOPSite_war_exploded/showCart */
+
+#purchaseForm {
+    width: 100%;
+}
+
+/* Elemento | http://localhost:8080/MYOPSite_war_exploded/showCart */
+
+#purchaseForm > table:nth-child(1) {
+    width: 100%;
+}
+
 td{
     padding: 3px;
 }
@@ -285,7 +313,7 @@ footer{
     text-align: center;
     width: 100%;
     border-top: white solid;
-    position: absolute;
+
 }
 footer div{
     width: 100%;

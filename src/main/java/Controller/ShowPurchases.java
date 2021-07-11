@@ -7,12 +7,14 @@ import com.google.gson.Gson;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+@WebServlet(name="oldOrders",value = "/oldOrders")
 
 public class ShowPurchases extends HttpServlet {
     @Override
@@ -26,7 +28,7 @@ public class ShowPurchases extends HttpServlet {
             PurchaseDao purchaseDao = new PurchaseDao();
             ArrayList<Purchase> list = purchaseDao.doRetrieveByEmail(user.getEmail(), 50,0);
             req.setAttribute("purchases",list);
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/showPurchases");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/showOrders");
             requestDispatcher.forward(req,resp);
         } catch (SQLException throwables) {
             throwables.printStackTrace();

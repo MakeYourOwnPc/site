@@ -499,8 +499,9 @@
             "<td class='cpuName'>" + value.cpu + "</td>" +
             "<td class='caseName'>" + value.pcCase + "</td>" +
             "<td class='memoriesName'>";
+        console.log(value.memories);
         for (let i in value.memories) {
-            row += i + "<br>";
+            row += value.memories[i] + "<br>";
         }
         row += "</td>";
         if (value.suggested)
