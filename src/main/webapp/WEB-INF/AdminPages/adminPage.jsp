@@ -17,6 +17,12 @@
 <script src="./jslibraries/adminTabler.js"></script>
 <script src="./jslibraries/adminForms.js"></script>
 
+<style>
+    tr:nth-child(2n) {
+        background: rgba(0,0,0,0.4);
+    }
+</style>
+
 <nav class="topbar">
     <div class="icon-container sidebar-icon" onclick="hideSidebar()">
         <%@include file="../../icons/list-ul.svg" %>

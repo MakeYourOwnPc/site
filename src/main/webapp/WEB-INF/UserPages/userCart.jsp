@@ -14,6 +14,11 @@
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
 <script src="jslibraries/jQuery.js"></script>
 <script src="jslibraries/utilities.js"></script>
+<style>
+    tr:nth-child(2n) {
+        background: rgba(0,0,0,0.4);
+    }
+</style>
 
 <div id="pageContenent">
     <div>
@@ -79,18 +84,24 @@
 </div>
 <jsp:include page="/WEB-INF/pagecomponents/footer.jsp"></jsp:include>
 </body>
-<!--<script>
+<script>
     function purchase(){
         if(document.getElementById("purchaseForm").checkValidity()){
-            let formData=$("#purchaseForm").serialize();
+           let formData={
+                'address':$("#address").val(),
+                'tel':$("#telephoneNumber").val(),
+                'city':$("#city").val(),
+                'cap':$("#CAP").val,
+                'country':$("#country").val,
+            }
             $.ajax({
                 contentType:"application/x-www-form-urlencoded",
-                data: formData,
+                data: "purchase="+formData,
                 url: "/MYOPSite_war_exploded/makePurchase",
                 type: 'POST',
                 success:function (){
                     createToast("Success","Purchase Complete");
-                    setTimeout(window.document="/MYOPSite_war_exploded/oldOrders",5000);
+                    setTimeout(window.replace("/MYOPSite_war_exploded/oldOrders"),5000);
                 },
                 failed:function (){
                   createToast("Error","Cannot Complete Purchase")
@@ -102,6 +113,7 @@
 
     }
 
-</script>-->
+</script>
+
 
 </html>
