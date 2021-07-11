@@ -33,7 +33,6 @@ public class ShowCart extends HttpServlet {
             else
                 build = buildDao.doRetrieveNamesById(idBuild);
             req.setAttribute("build",build);
-            req.setAttribute("new",false);
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/userCart.jsp");
             requestDispatcher.forward(req,resp);
         } catch (SQLException throwables) {

@@ -35,6 +35,7 @@ public class ShowPurchases extends HttpServlet {
             for(Purchase p:list)
                 buildList.add(buildDao.doRetrieveNamesById(p.getIdBuild()));
             req.setAttribute("builds",buildList);
+            req.setAttribute("new",false);
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/userOrders.jsp");
             requestDispatcher.forward(req,resp);
         } catch (SQLException throwables) {
