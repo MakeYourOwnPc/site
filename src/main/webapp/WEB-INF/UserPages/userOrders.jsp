@@ -26,6 +26,13 @@
 <script src="jslibraries/utilities.js"></script>
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
 <script src="./jslibraries/jQuery.js"defer></script>
+
+<style>
+    tr:nth-child(2n) {
+        background: rgba(0,0,0,0.4);
+    }
+</style>
+
 <input type="hidden" id="new" value="${purchased}">
 <div id="pageContenent">
     <div>

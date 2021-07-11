@@ -15,6 +15,13 @@
     <link rel="stylesheet" type="text/css" href="customcss/general.css"/>
 </head>
 <body>
+
+<style>
+    tr:nth-child(2n) {
+        background: rgba(0,0,0,0.4);
+    }
+</style>
+
 <script src="bootstrap/js/bootstrap.js" defer></script>
 <script src="bootstrap/popper.js" defer></script>
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
