@@ -182,9 +182,18 @@ function psusTabler(value) {
     $("#searchResultItem").append(row);
 }
 function purchaseTabler(value){
-    <tr class="removable">
-        <td></td>
-    </tr>
+    row='<tr class="removable">'+
+        '<td className="creationDate">'+value.creationDate+'</td>'+
+       ' <td className="email">'+value.email+'</td>'+
+        '<td className="country">'+value.country+'</td>'+
+        '<td className="cap">'+value.cap+'</td>'+
+       ' <td className="city">'+value.city+'</td>'+
+       ' <td className="address">'+value.address+'</td>'+
+       ' <td className="cellphonenumber">'+value.cellphonenumber+'</td>'+
+        '<td className="idbuild">'+value.idbuild+'</td>'+
+        '<td className="id">'+value.id+'</td>'+
+        '</tr>'
+    $("#searchResultItem").append(row);
 }
 
 function buttonAdderBuild(id) {
