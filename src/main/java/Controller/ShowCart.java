@@ -20,7 +20,6 @@ public class ShowCart extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
         if(user==null){
-
             return;
         }
         ShoppingCartDao shoppingCartDao = new ShoppingCartDao();
@@ -34,6 +33,7 @@ public class ShowCart extends HttpServlet {
             else
                 build = buildDao.doRetrieveNamesById(idBuild);
             req.setAttribute("build",build);
+            req.setAttribute("new",false);
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/userCart.jsp");
             requestDispatcher.forward(req,resp);
         } catch (SQLException throwables) {
