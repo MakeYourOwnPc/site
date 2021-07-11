@@ -3,6 +3,8 @@ package Controller;
 import Model.Build.Build;
 import Model.Build.BuildDao;
 import Model.Build.BuildNames;
+import Model.Country.Country;
+import Model.Country.CountryDao;
 import Model.Cpu.Cpu;
 import Model.Cpu.CpuDao;
 import Model.Gpu.Gpu;
@@ -285,6 +287,19 @@ public class ItemsLister extends HttpServlet {
                         throwables.printStackTrace();
                     }
                 }
+            }
+            case "countries" ->{
+                CountryDao countryDao = new CountryDao();
+                    try {
+                        ArrayList<Country> list = countryDao.doRetrieveAll();
+                        Gson gson = new Gson();
+                        String json = gson.toJson(list);
+                        resp.setContentType("plain/text");
+                        resp.setCharacterEncoding("UTF-8");
+                        resp.getWriter().print(json);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
             }
         }
     }

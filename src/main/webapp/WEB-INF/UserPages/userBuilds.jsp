@@ -42,7 +42,6 @@
                             </c:forEach></ul></li>
                         <li>${build.pcCase}</li>
                         <li>${build.psu}</li>
-                        <li>${build.maker}</li>
 
                     </ul>
                     <table>

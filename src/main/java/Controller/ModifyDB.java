@@ -2,6 +2,8 @@ package Controller;
 
 import Model.Build.Build;
 import Model.Build.BuildDao;
+import Model.Country.Country;
+import Model.Country.CountryDao;
 import Model.Cpu.Cpu;
 import Model.Cpu.CpuDao;
 import Model.Gpu.Gpu;
@@ -17,6 +19,7 @@ import Model.Psu.PsuDao;
 import Model.User.User;
 import Model.User.UserDao;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -28,6 +31,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @WebServlet(name="modifyDB",urlPatterns = "/admin/modifyDB")
 @MultipartConfig
@@ -338,6 +342,23 @@ public class ModifyDB extends HttpServlet {
                 else
                     memory.setImagePath("none.png");
                 resp.getWriter().print(memoryDao.doSave(memory));
+            }
+            case "countries" -> {
+                ServletContext servletContext = req.getServletContext();
+                CountryDao countryDao = new CountryDao();
+                String countryId = req.getParameter("countryId");
+                String countryLabel = req.getParameter("label");
+                Country country = new Country();
+                if(!countryLabel.isBlank()&&!countryLabel.isBlank()){
+                    country.setId(countryId);
+                    country.setName(countryLabel);
+                    countryDao.doSave(country);
+                    synchronized (servletContext) {
+                        ArrayList<Country> countries = (ArrayList<Country>) servletContext.getAttribute("countries");
+                        countries.add(country);
+                        servletContext.setAttribute("countries", countries);
+                    }
+                }
             }
         }
     }
