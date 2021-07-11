@@ -47,13 +47,13 @@
                     </ul>
                     <table>
                         <tbody>
-                      <tr> <td><form action="./showBuild">
+                      <tr> <td><form action="./showBuild" style="bottom: 0;left:0;position: absolute;width: 50%;">
                             <input name="id" value="${build.id}" type="hidden">
                             <input type="submit" class="btn btn-success" value="Open">
 
                         </form>
                       </td>
-                          <td><button class="btn btn-danger" onclick="deleteBuild(${build.id})">Delete</button></td>
+                          <td><button class="btn btn-danger" onclick="deleteBuild(${build.id})" style="bottom: 0;right:0;position: absolute;width: 50%;">Delete</button></td>
 
                       </tr>
                         </tbody>

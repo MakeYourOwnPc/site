@@ -1,3 +1,8 @@
+<%@ page import="Model.Build.Build" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="Model.Purchase.Purchase" %>
+<%@ page import="Model.Build.BuildNames" %>
+<%@ page import="Model.Memory.Memory" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
@@ -24,45 +29,48 @@
 <div id="pageContenent">
     <div>
         <h1 style="padding: 10px;background-color: rgba(0,0,0,0.3); text-align: center">
-            Welcome to our Site, Start to Build Your New Computer Starting from Our Choices
+            Old Orders
         </h1>
     </div>
-    <div id="builds">
-        <c:set var="length" value="${fn:length(builds)}"/>
+    <div class="buildContainer">
+  <%ArrayList<BuildNames> builds= (ArrayList<BuildNames>) request.getAttribute("builds");
+  ArrayList<Purchase> purchases= (ArrayList<Purchase>) request.getAttribute("purchases");
+  int i=0;
+  for(BuildNames build:builds){%>
 
-        <c:forEach begin="0" end="length" var="i">
+
+
             <div class="box-container">
             <div class="buildList">
-                <img src="${builds[i].imagePath}">
+                <img src="<%=build.getImagePath()%>">
                 <ul>
-                    <li>${builds[i].type}</li>
-                    <li>${builds[i].gpu}</li>
-                    <li>${builds[i].cpu}</li>
-                    <li>${builds[i].mobo}</li>
+                    <li><%=build.getType()%></li>
+                    <li><%=build.getGpu()%></li>
+                    <li><%=build.getCpu()%></li>
+                    <li><%=build.getMobo()%></li>
                     <li><ul>
-                        <c:forEach items="${builds[i].memories}" var="memory">
-                            ${memory}
-                        </c:forEach></ul></li>
-                    <li>${builds[i].pcCase}</li>
-                    <li>${builds[i].psu}</li>
-                    <li>${builds[i].maker}</li>
+                        <%for(String memory:build.getMemories()){%>
+                            <li><%=memory%></li>
+                        <%}%></ul></li>
+                    <li><%=build.getPcCase()%></li>
+                    <li><%=build.getPsu()%></li>
                 </ul>
             </div>
                 <div class="User-box">
                     <table>
                         <tbody>
                         <tr><td><h6>Order date</h6></td>
-                            <td><span>${purchases[i].creationDate.year}-${purchases[i].creationDate.month}-${purchases[i].creationDate.day}</span></td></tr>
+                            <td><span><%=purchases.get(i).getCreationDate()%></span></td></tr>
                         <tr><td><h6>Country</h6></td>
-                            <td><span>${purchases[i].country}</span></td></tr>
+                            <td><span><%=purchases.get(i).getCountry()%></span></td></tr>
                         <tr><td><h6>Postal Code</h6></td>
-                            <td><span>${purchases[i].cap}</span></td></tr>
+                            <td><span><%=purchases.get(i).getCap()%></span></td></tr>
                         <tr><td><h6>City</h6></td>
-                            <td><span>${purchases[i].city}</span></td></tr>
+                            <td><span><%=purchases.get(i).getCity()%></span></td></tr>
                         <tr><td><h6>Address</h6></td>
-                            <td><span>${purchases[i].address}</span></td></tr>
+                            <td><span><%=purchases.get(i).getAddress()%></span></td></tr>
                         <tr><td><h6>Telephone Number</h6></td>
-                            <td><span>${purchases[i].cellphonenumber}</span></td></tr>
+                            <td><span><%=purchases.get(i).getCellphonenumber()%></span></td></tr>
                         </tbody>
                     </table>
 
@@ -70,8 +78,10 @@
 
 
     </div>
+
+    <%}%>
     </div>
-    </c:forEach>
+    </div>
 
 </div>
 
