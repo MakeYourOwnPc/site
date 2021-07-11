@@ -320,7 +320,9 @@ footer{
     border-top: white solid;
 
 }
-tr:nth-child(even){rgba(0,0,0,0.3)}
+tr:nth-child(2n) {
+    background: rgba(0,0,0,0.4);
+}
 footer div{
     width: 100%;
 }
