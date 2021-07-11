@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.Build.BuildDao;
+import Model.Build.BuildNames;
 import Model.Purchase.Purchase;
 import Model.Purchase.PurchaseDao;
 import Model.User.User;
@@ -28,6 +30,11 @@ public class ShowPurchases extends HttpServlet {
             PurchaseDao purchaseDao = new PurchaseDao();
             ArrayList<Purchase> list = purchaseDao.doRetrieveByEmail(user.getEmail(), 50,0);
             req.setAttribute("purchases",list);
+            BuildDao buildDao = new BuildDao();
+            ArrayList<BuildNames> buildList = new ArrayList<>();
+            for(Purchase p:list)
+                buildList.add(buildDao.doRetrieveNamesById(p.getIdBuild()));
+            req.setAttribute("builds",buildList);
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/userOrders.jsp");
             requestDispatcher.forward(req,resp);
         } catch (SQLException throwables) {
