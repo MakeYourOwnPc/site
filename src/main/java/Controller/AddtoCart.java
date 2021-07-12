@@ -31,8 +31,8 @@ public class AddtoCart extends HttpServlet {
         if(idBuild==0){
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/saveBuild");
             requestDispatcher.include(req,resp);
+            idBuild = (int) session.getAttribute("id");
         }
-        idBuild = build.getId();
         ShoppingCartDao shoppingCartDao = new ShoppingCartDao();
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setUser(user.getEmail());
