@@ -384,7 +384,7 @@ function prepareFormUpdate(item) {
     }
     let buttonHTML='<tr><td><input type="radio" name="option" value="delete" class="btn btn-danger" >Delete</input></td>' +
         '<td><input id="saveChanges" type="radio" name="option" value="update"  class="btn btn-success" checked>Save Changes</input></td>' +
-        '<td><input id="submitDBUpdate" type="submit" class="btn active"></td></tr>';
+        '<td><input id="submitDBUpdate" type="submit" class="btn active" onclick="return checkProductName()"></td></tr>';
     console.log(formHTML);
     if(image)
     $("#imageInput").html('<input type="file" id="image" name="image" onchange="checkProductName()">');

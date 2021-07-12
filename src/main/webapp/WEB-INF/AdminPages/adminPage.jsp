@@ -251,14 +251,20 @@
             if (this.readyState == 4 && this.status == 200) {
                 console.log("ItemIsPresent "+this.responseText);
                 if(this.responseText.includes("itemIsPresent")){
+                    console.log("ItemIsPresent "+this.responseText);
                     $("#name-alert").attr('hidden', false);
                     document.getElementById("submitDBUpdate").disabled=true;
+                    return false;
                 }else if(this.responseText.includes("fileIsPresent")){
+                    console.log("ItemIsPresent "+this.responseText);
                     document.getElementById("submitDBUpdate").disabled=true;
-                    createToast("Error","Image Name Already Present,Change Image Name")
-                }else
+                    createToast("Error","Image Name Already Present,Change Image Name");
+                    return false;
+                }else {
                     $("#name-alert").attr('hidden', true);
-                document.getElementById("submitDBUpdate").disabled=false;
+                    document.getElementById("submitDBUpdate").disabled = false;
+                    return true;
+                }
             }
         };
         xhttp.open("POST", ".\/admin\/itemIsPresent", true);
