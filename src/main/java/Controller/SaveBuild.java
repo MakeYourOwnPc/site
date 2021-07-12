@@ -39,6 +39,7 @@ public class SaveBuild extends HttpServlet {
         Gson gson = new Gson();
         String buildJson = req.getParameter("build");
         String referer = req.getParameter("referer");
+        if(referer==null) referer="";
         BuildDao buildDao = new BuildDao();
         Build build = gson.fromJson(buildJson,Build.class);
         int idBuild = build.getId();

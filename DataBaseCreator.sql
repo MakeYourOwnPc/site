@@ -100,7 +100,8 @@ create table Builds
     foreign key (psu) references psus (id) on delete cascade on update no action,
     foreign key (pccase) references pccases (id) on delete cascade on update no action,
     foreign key (maker) references users (email) on delete cascade on update no action,
-    foreign key (cpu) references cpus(id) on delete cascade on update no action
+    foreign key (cpu) references cpus(id) on delete cascade on update no action,
+    CHECK(type="Gaming" OR type="Office" OR type="Terminal" OR type="Workstation")
 
 );
 
