@@ -41,7 +41,7 @@ public class DeleteBuild extends HttpServlet {
             }
             if(buildDao.doDelete(idBuild)) {
                 resp.setStatus(200);
-                int idSessionBuild = (int) session.getAttribute("id");
+                int idSessionBuild = (session.getAttribute("id")==null)?0:(int) session.getAttribute("id");
                 if(idBuild==idSessionBuild)
                     session.removeAttribute("id");
             }
