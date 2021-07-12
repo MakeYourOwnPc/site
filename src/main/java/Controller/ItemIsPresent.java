@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,6 +27,16 @@ public class ItemIsPresent extends HttpServlet {
         String requestedItem = req.getParameter("requestedItem");
         String name = req.getParameter("name");
         String id = req.getParameter("id");
+        String path = req.getParameter("path");
+        char separator = '\\';
+        if(path.lastIndexOf('\\')<path.lastIndexOf('/'))
+            separator='/';
+        path = path.substring(path.lastIndexOf(separator)+1);
+        File file = new File(ImagePaths.uploadPath+path);
+        if(file.exists()){
+            resp.getWriter().print("fileIsPresent");
+            return;
+        }
         resp.setContentType("plain/text");
         resp.setCharacterEncoding("UTF-8");
         switch (requestedItem) {

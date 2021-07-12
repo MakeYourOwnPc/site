@@ -23,6 +23,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
@@ -37,7 +38,7 @@ public class ShowBuild extends HttpServlet {
         String referer = req.getHeader("referer");
         URI uri = URI.create(referer);
         String path = uri.getPath();
-        referer = path.substring(path.lastIndexOf('/') + 1);
+        referer = path.substring(path.lastIndexOf(File.separator) + 1);
         req.setAttribute("referer", referer);
         BuildDao buildDao = new BuildDao();
         try {
