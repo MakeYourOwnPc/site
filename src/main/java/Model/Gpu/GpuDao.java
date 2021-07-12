@@ -97,11 +97,12 @@ public class GpuDao implements IGpuDao<SQLException> {
     @Override
     public boolean doSave(Gpu gpu) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Gpus (name,price,consumption,stock) VALUES (?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
+            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Gpus (name,price,consumption,imagepath,stock) VALUES (?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
                 ps.setString(1,gpu.getName());
                 ps.setFloat(2,gpu.getPrice());
                 ps.setInt(3,gpu.getConsumption());
-                ps.setInt(4,gpu.getStock());
+                ps.setString(4,gpu.getImagePath());
+                ps.setInt(5,gpu.getStock());
                 ps.executeUpdate();
                 ResultSet rs = ps.getGeneratedKeys();
                 rs.next();

@@ -200,7 +200,7 @@ public class MoboDao implements IMoboDao<SQLException>{
     @Override
     public boolean doSave(Mobo mobo) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Motherboards (name,formfactor,amountslotnvme,amountslotram,cpusocket,ramsocket,consumption,price,stock) VALUES(?,?,?,?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
+            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Motherboards (name,formfactor,amountslotnvme,amountslotram,cpusocket,ramsocket,consumption,price,imagepath,stock) VALUES(?,?,?,?,?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
                 ps.setString(1,mobo.getName());
                 ps.setString(2,mobo.getFormFactor());
                 ps.setInt(3,mobo.getAmountSlotNvme());
@@ -210,7 +210,8 @@ public class MoboDao implements IMoboDao<SQLException>{
                 ps.setString(7,mobo.getRamSocket());
                 ps.setInt(8,mobo.getConsumption());
                 ps.setFloat(9,mobo.getPrice());
-                ps.setInt(10,mobo.getStock());
+                ps.setString(10,mobo.getImagePath());
+                ps.setInt(11,mobo.getStock());
                 ps.executeUpdate();
                 ResultSet rs = ps.getGeneratedKeys();
                 rs.next();
