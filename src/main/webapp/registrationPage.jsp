@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <% response.addHeader("Set-Cookie", "Secure; SameSite=strict");%>
+<%String referer=request.getHeader("referer");%>
 
 <html>
 <head>
@@ -21,11 +22,14 @@
 <script src="jslibraries/jQuery.js"></script>
 <script src="jslibraries/utilities.js"></script>
 
+
+
 <div class="fullHeightFooter">
 <div class="centered-box">
     <div class="box-container fullHeightList">
     <h1>Registration Form</h1>
     <form name="registration" action="/MYOPSite_war_exploded/registration" method="post" onsubmit="return validateData()">
+        <input type="hidden" name="referer" value="<%=referer%>">
         <table  class="User-box">
             <tr><td>
             <label for="firstname">Firstname</label>
