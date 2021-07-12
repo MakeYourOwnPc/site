@@ -175,11 +175,13 @@ function changeForm(text) {
 
 function prepareFormUpdate(item) {
     let formHTML;
+    let image=false;
 
     switch (selectedElement) {
         case"Gpus":
+            image=true;
             formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="gpus">' +
-                '<input type="hidden" name="id" value="' + item.id + '" >' +
+                '<input type="hidden" id="id" name="id" value="' + item.id + '" >' +
 
                 '<tr><td><label for="id">DataBase Id</label></td>' +
                 '<td>'+ item.id + '</td></tr>' +
@@ -201,13 +203,14 @@ function prepareFormUpdate(item) {
                 '<tr><td><img src="' + item.imagePath + '"></td></tr>'
             break;
         case"Cpus":
+            image=true;
             let integrated = (item.integratedGpu) ? 'checked' : '';
             let noIntegrated = (!item.integratedGpu) ? 'checked' : '';
             formHTML =
                 '<input type="hidden" id="requestedItemUpdate" name="requestedItem" value="cpus">' +
 
                 '<tr><td><label for="id">DataBase Id</label></td>' +
-                '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
+                '<td><input type="text" id="id" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
                 '<td><input name="name" type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()" maxlength="100">' +
@@ -235,13 +238,14 @@ function prepareFormUpdate(item) {
             break;
 
         case"Memories":
+            image=true;
             let ram = (!item.mType) ? 'checked' : '';
             let massStorage = (item.mType) ? 'checked' : '';
             formHTML =
                 ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="memories">' +
 
                 '<tr><td><label for="id">DataBase Id</label></td>' +
-                '<td><input type="text" name="id" value="' + item.id + '" disabled></td></tr>' +
+                '<td><input type="text" id="id" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
                 '<td><input name="name" type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()" maxlength="100">' +
@@ -273,13 +277,14 @@ function prepareFormUpdate(item) {
                 '<td><img src="' + item.imagePath + '"></td></tr>';
             break;
         case"Cases":
+            image=true;
             let miniitx = (item.formFactor == "mini-itx") ? 'selected' : '';
             let microatx = (item.formFactor == "micro-ATX") ? 'selected' : '';
             let atx = (item.formFactor == "ATX") ? 'selected' : '';
             formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="cases">' +
 
                 '<tr><td><label for="id">DataBase Id</label></td>' +
-                '<td><input type="text" name="id" value="' + item.id + '"   ></td></tr>' +
+                '<td><input type="text" id="id" name="id" value="' + item.id + '"   ></td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
                 '<td><input type="text" id="productName" name="name" value="' + item.name + '" onkeyup="checkProductName()" >' +
@@ -302,13 +307,14 @@ function prepareFormUpdate(item) {
                 '<td><img src="' + item.imagePath + '"></td></tr>';
             break;
         case"MotherBoards":
+            image=true;
             let miniitxm = (item.formFactor == "mini-itx") ? 'selected' : '';
             let microatxm = (item.formFactor == "micro-atx") ? 'selected' : '';
             let atxm = (item.formFactor == "atx") ? 'selected' : '';
             formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="motherboards">' +
 
                 '<tr><td><label for="id">DataBase Id</label></td>' +
-                '<td><input type="text" name="id" value="' + item.id + '" ></td></tr>' +
+                '<td><input type="text" id="id" name="id" value="' + item.id + '" ></td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
                 '<td><input type="text" id="productName" name="name" value="' + item.name + '" onkeyup="checkProductName()">' +
@@ -348,10 +354,11 @@ function prepareFormUpdate(item) {
                 '<td><img src="' + item.imagePath + '"></td></tr>';
             break
         case"Psus":
+            image=true;
             formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="psus">' +
 
                 '<tr><td><label for="id">DataBase Id</label></td>' +
-                '<td><input type="text" name="id" name="name" value="' + item.id + '" disabled></td></tr>' +
+                '<td><input type="text" id="id" name="id" name="name" value="' + item.id + '" disabled></td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
                 '<td><input type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()">' +
@@ -369,21 +376,9 @@ function prepareFormUpdate(item) {
                 '<td><img src="' + item.imagePath + '"></td></tr>';
             break;
 
-        case"Users":
+        case"Users":/*Il modify User è Gestito da Javascript*/
             let admin = (item.admin) ? 'checked' : '';
-            formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="users">' +
-
-                '<tr><td><label for="email">User Email</label></td>' +
-                '<td><input type="text" name="email" value="' + item.email + '" disabled></td></tr>' +
-
-                '<tr><td><label for="firstName">Firstname</label></td>' +
-                '<td><input type="text" name="firstName" value="' + item.firstName + '" ></td></tr>' +
-
-                '<tr><td><label for="lastName">Lastname</label></td>' +
-                '<td><input type="text" name="lastName" value="' + item.lastName + '" ></td></tr>' +
-
-                '<tr><td><label for="admin">Admin</label></td>' +
-                '<td><input type="checkbox" id="admin" name="admin" value="true"' + admin + '></td></tr>';
+            formHTML = '';
             break;
 
     }
@@ -391,7 +386,10 @@ function prepareFormUpdate(item) {
         '<td><input id="saveChanges" type="radio" name="option" value="update"  class="btn btn-success" checked>Save Changes</input></td>' +
         '<td><input id="submitDBUpdate" type="submit" class="btn active"></td></tr>';
     console.log(formHTML);
-    $("#imageInput").html('<input type="file" id="image" name="image">');
+    if(image)
+    $("#imageInput").html('<input type="file" id="image" name="image" onchange="checkProductName()">');
+    else
+        $("#imageInput").html("");
     $("#updateTitle").text("Update Element");
     $("#updateFormBox").html(formHTML);
     $("#buttonSpace").html(buttonHTML)
@@ -399,11 +397,13 @@ function prepareFormUpdate(item) {
 }
 
 function prepareFormInsert() {
+    let image=false;
     let user=false;
     let formHTML;
 
     switch (selectedElement) {
         case"Gpus":
+            image=true;
             formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="gpus">' +
                 '<input type="hidden" name="option" value="insert">' +
                 '<input type="hidden" id="id" name="id" value="-1">' +
@@ -424,6 +424,7 @@ function prepareFormInsert() {
 
             break;
         case"Cpus":
+            image=true;
             formHTML =
                 '<input type="hidden" id="requestedItemUpdate" name="requestedItem" value="cpus">' +
                 '<input type="hidden" name="option" value="insert">' +
@@ -456,6 +457,7 @@ function prepareFormInsert() {
             break;
 
         case"Memories":
+            image=true;
 
             formHTML =
                 ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="memories">' +
@@ -492,6 +494,7 @@ function prepareFormInsert() {
 
             break;
         case"Cases":
+            image=true;
             formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="cases">' +
                 '<input type="hidden" name="option" value="insert">' +
                 '<input type="hidden" id="id" name="id" value="-1">' +
@@ -518,6 +521,7 @@ function prepareFormInsert() {
 
             break;
         case"MotherBoards":
+            image=true;
 
             formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="motherboards">' +
                 '<input type="hidden" name="option" value="insert">' +
@@ -560,6 +564,7 @@ function prepareFormInsert() {
 
             break
         case"Psus":
+            image=true;
             formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="psus">' +
                 '<input type="hidden" name="option" value="insert">' +
                 '<input type="hidden" id="id" name="id" value="-1">' +
@@ -607,6 +612,10 @@ function prepareFormInsert() {
     }
 
     let buttonHTML='<tr><td><input id="submitDBUpdate" type="submit" class="btn btn-success" value="Insert Element"></td></tr>';
+    if(image)
+        $("#imageInput").html('<input type="file" id="image" name="image" onchange="checkProductName()">');
+    else
+        $("#imageInput").html("");
     if(user){
         $("#updateForm").attr("action",".\/admin\/modifyUser");
     }else{
@@ -614,7 +623,6 @@ function prepareFormInsert() {
     }
 
     console.log(formHTML);
-    $("#imageInput").html('<input type="file" id="image" name="image">');
     $("#updateTitle").text("Create Element");
     $("#updateFormBox").html(formHTML);
     $("#buttonSpace").html(buttonHTML)
