@@ -210,7 +210,7 @@ function buttonAdderBuild(id) {
     buttonForm = "<td><form id='" + id + "' action='/MYOPSite_war_exploded/showBuild'>" +
         "<input type='hidden' name='id' value='" + id + "'>" +
         "<input type='submit' class='btn active' value='Modify'></form></td>"+
-        "<td><form id='" + id + "' action='/MYOPSite_war_exploded/deleteBuild'>" +
+        "<td><form id='" + id + "' method='POST' action='/MYOPSite_war_exploded/deleteBuild'>"+
         "<input type='hidden' name='id' value='" + id + "'>" +
         "<input type='submit' class='btn btn-danger' value='Delete'></form></td>";
     return buttonForm;
@@ -226,6 +226,11 @@ function buttonAdder(id) {
         "<input type='hidden' name='id' value='" + id + "'>" +
         "<input type='hidden' name='option' value='update'>" +
         "<input type='hidden'  name='requestedItem' value='" + requestedItem + "'>" +
-        "<h1 class='btn active'>Modify</h1></form></td>";
+        "<h1 class='btn active'>Modify</h1></form></td>"+
+        "<td><form id='"+id+"' method='POST' action='/MYOPSite_war_exploded/admin/modifyDB'>"+
+        "<input type='hidden' name='id' value='"+id+"'>"+
+        "<input type='hidden' name='option' value='delete'>" +
+        "<input type='hidden' name='requestedItem' value='" + requestedItem + "'>" +
+        "<input type='submit' class='btn btn-danger' value='Delete'></form></td>";
     return buttonForm;
 }

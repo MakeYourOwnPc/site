@@ -48,13 +48,9 @@ public class ItemIsPresent extends HttpServlet {
                 ArrayList<Gpu> list = null;
                 try {
                     list = gpuDao.doRetrieveByName(name, 1000, 0);
-                    for (Gpu gpu : list) {
-                        if (gpu.getName().equalsIgnoreCase(name) && gpu.getId() != Integer.parseInt(id)) {
-                            resp.getWriter().print("true");
-                            return;
-                        }
-                    }
-                    resp.getWriter().print("false");
+                    for (Gpu gpu : list)
+                        if (gpu.getName().equalsIgnoreCase(name) && gpu.getId() != Integer.parseInt(id))
+                            resp.getWriter().print("itemIsPresent");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -64,13 +60,9 @@ public class ItemIsPresent extends HttpServlet {
                 ArrayList<Cpu> list = null;
                 try {
                     list = cpuDao.doRetrieveByName(name, 1000, 0);
-                    for (Cpu cpu : list) {
-                        if (cpu.getName().equalsIgnoreCase(name) && cpu.getId() != Integer.parseInt(id)) {
-                            resp.getWriter().print("true");
-                            return;
-                        }
-                    }
-                    resp.getWriter().print("false");
+                    for (Cpu cpu : list)
+                        if (cpu.getName().equalsIgnoreCase(name) && cpu.getId() != Integer.parseInt(id))
+                            resp.getWriter().print("itemIsPresent");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -80,13 +72,9 @@ public class ItemIsPresent extends HttpServlet {
                 ArrayList<Psu> list = null;
                 try {
                     list = psuDao.doRetrieveByName(name, 1000, 0);
-                    for (Psu psu : list) {
-                        if (psu.getName().equalsIgnoreCase(name) && psu.getId() != Integer.parseInt(id)) {
-                            resp.getWriter().print("true");
-                            return;
-                        }
-                        resp.getWriter().print("false");
-                    }
+                    for (Psu psu : list)
+                        if (psu.getName().equalsIgnoreCase(name) && psu.getId() != Integer.parseInt(id))
+                            resp.getWriter().print("itemIsPresent");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -96,13 +84,9 @@ public class ItemIsPresent extends HttpServlet {
                 ArrayList<Mobo> list = null;
                 try {
                     list = moboDao.doRetrieveByName(name, 1000, 0);
-                    for (Mobo mobo : list) {
-                        if (mobo.getName().equalsIgnoreCase(name) && mobo.getId() != Integer.parseInt(id)) {
-                            resp.getWriter().print("true");
-                            return;
-                        }
-                    }
-                    resp.getWriter().print("false");
+                    for (Mobo mobo : list)
+                        if (mobo.getName().equalsIgnoreCase(name) && mobo.getId() != Integer.parseInt(id))
+                            resp.getWriter().print("itemIsPresent");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -112,13 +96,9 @@ public class ItemIsPresent extends HttpServlet {
                 ArrayList<Memory> list = null;
                 try {
                     list = memoryDao.doRetrieveByName(name, 1000, 0);
-                    for (Memory memory : list) {
-                        if (memory.getName().equalsIgnoreCase(name) && memory.getId() != Integer.parseInt(id)) {
-                            resp.getWriter().print("true");
-                            return;
-                        }
-                    }
-                    resp.getWriter().print("false");
+                    for (Memory memory : list)
+                        if (memory.getName().equalsIgnoreCase(name) && memory.getId() != Integer.parseInt(id))
+                            resp.getWriter().print("itemIsPresent");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

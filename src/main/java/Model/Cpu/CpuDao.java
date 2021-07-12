@@ -2,8 +2,6 @@ package Model.Cpu;
 
 import Controller.ImagePaths;
 import Model.ConnPool;
-import Model.Gpu.Gpu;
-import Model.Memory.Memory;
 
 import java.io.File;
 import java.sql.*;
@@ -209,8 +207,7 @@ public class CpuDao implements ICpuDao<SQLException> {
         try(Connection conn = ConnPool.getConnection()){
             try(PreparedStatement ps = conn.prepareStatement("DELETE FROM Cpus WHERE id=?;")){
                 ps.setInt(1,id);
-                File file = new File(ImagePaths.uploadPath+doRetrieveById(id).getImagePath());
-                file.delete();
+                ImagePaths.checkFile(doRetrieveById(id).getImagePath());
                 return ps.executeUpdate()>0;
             }
             catch(SQLException e){

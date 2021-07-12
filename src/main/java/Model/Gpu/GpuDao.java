@@ -159,8 +159,7 @@ public class GpuDao implements IGpuDao<SQLException> {
         try(Connection conn = ConnPool.getConnection()){
             try(PreparedStatement ps = conn.prepareStatement("DELETE FROM Gpus WHERE id=?;")){
                 ps.setInt(1,id);
-                File file = new File(ImagePaths.uploadPath+doRetrieveById(id).getImagePath());
-                file.delete();
+                ImagePaths.checkFile(doRetrieveById(id).getImagePath());
                 return ps.executeUpdate()>0;
             }
             catch(SQLException e){
