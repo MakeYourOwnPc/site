@@ -10,7 +10,7 @@ function changeForm(text) {
     $("#insertButton").removeAttr("hidden");
     switch (text) {
         case "Builds":
-            tableHeader = "<tr><th>Maker</th><th>Database Id</th><th>MotherBoard</th><th>Gpu</th><th>Cpu</th><th>Ram</th><th>Memories</th></tr>"
+            tableHeader = "<thead><tr><th>Maker</th><th>Database Id</th><th>MotherBoard</th><th>Gpu</th><th>Cpu</th><th>Ram</th><th>Memories</th></tr></thead>"
             formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='builds'>" +
                 "<tr><td><label for='CPUname'>CPU Name</label></td><td><input type='text' id='CPUname' name='cpuName'></td></tr>" +
                 "<tr><td><label for='GPUname'>GPU Name</label></td><td><input type='text' id='GPUname' name='gpuName'></td></tr>" +
@@ -34,7 +34,7 @@ function changeForm(text) {
             formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='gpus'>";
             break;
         case "Cpus":
-            tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Socket</th><th>Integrated Gpu</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
+            tableHeader = "<thead><tr><th>Product Name</th><th>Database Id</th><th>Socket</th><th>Integrated Gpu</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr></thead>"
             $("#searchResultItem").addClass("cpusTable");
             formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='cpus'>" +
 
@@ -50,7 +50,7 @@ function changeForm(text) {
             break;
 
         case "Memories":
-            tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Socket</th><th>Memory Type</th><th>Amount Of Memories</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
+            tableHeader = "<thead><tr><th>Product Name</th><th>Database Id</th><th>Socket</th><th>Memory Type</th><th>Amount Of Memories</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr></thead>"
 
             $("#searchResultItem").addClass("memoriesTable");
             formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='memories'>" +
@@ -72,7 +72,7 @@ function changeForm(text) {
             break;
         case "Cases":
             $("#searchResultItem").addClass("casesTable");
-            tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Form Factor</th><th>Price</th><th>In Stock</th></tr>"
+            tableHeader = "<thead><tr><th>Product Name</th><th>Database Id</th><th>Form Factor</th><th>Price</th><th>In Stock</th></tr></thead>"
 
             formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='cases'>" +
 
@@ -86,7 +86,7 @@ function changeForm(text) {
             power = false;
             break;
         case "Psus":
-            tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Power</th><th>Price</th><th>In Stock</th></tr>"
+            tableHeader = "<thead><tr><th>Product Name</th><th>Database Id</th><th>Power</th><th>Price</th><th>In Stock</th></tr></thead>"
 
             $("#searchResultItem").addClass("psusTable");
             formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='psus'>" +
@@ -94,7 +94,7 @@ function changeForm(text) {
                 "<td><input type='number' id='power' name='power'></td></tr>";
             break;
         case "Users":
-            tableHeader = "<tr><th>Firstname</th><th>Lastname</th><th>Email</th><th>Is Admin</th></tr>"
+            tableHeader = "<thead><tr><th>Firstname</th><th>Lastname</th><th>Email</th><th>Is Admin</th></tr>"
 
             $("#searchResultItem").addClass("usersTable");
             formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='users'>" +
@@ -115,7 +115,7 @@ function changeForm(text) {
             break;
 
         case "MotherBoards":
-            tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Form Factor</th><th>Ram Sockets</th><th>Ram Slots</th><th>NVME Slots</th><th>SATA Slots</th><th>Form Factor</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
+            tableHeader = "<thead><tr><th>Product Name</th><th>Database Id</th><th>Form Factor</th><th>Ram Sockets</th><th>Ram Slots</th><th>NVME Slots</th><th>SATA Slots</th><th>Form Factor</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr></thead>"
 
             $("#searchResultItem").addClass("motherboardsTable");
             formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='motherboards'>" +
@@ -144,7 +144,7 @@ function changeForm(text) {
                 "</select></td></tr>";
             break;
         case "Purchases":
-            tableHeader = "<tr><th>Creation Date</th><th>User</th><th>Country</th><th>Postal Code</th><th>City</th><th>Address</th><th>Id Build</th><th>Form Factor</th><th>Purchase Id</th></tr>";
+            tableHeader = "<thead></thead><tr><th>Creation Date</th><th>User</th><th>Country</th><th>Postal Code</th><th>City</th><th>Address</th><th>Id Build</th><th>Form Factor</th><th>Purchase Id</th></tr></thead>";
 
             name=false;
             formHTML="<input type='hidden' id='requestedItem' name='requestedItem' value='purchases'>"+
@@ -156,8 +156,8 @@ function changeForm(text) {
             "<td><input type='text' id='email' name='email' ></td></tr>" ;
             break;
         case "Country":
-            tableHeader = "<tr><th>Creation Date</th><th>User</th><th>Country</th><th>Postal Code</th><th>City</th><th>Address</th><th>Id Build</th><th>Form Factor</th><th>Purchase Id</th></tr>";
-            formHTML="<input type='hidden' id='requestedItem' name='requestedItem' value='purchases'>";
+            tableHeader = "<thead><tr><th>Country Id</th><th>Country Label</th></tr></thead>";
+            formHTML="<input type='hidden' id='requestedItem' name='requestedItem' value='countries'>";
             name=false;
 
     }

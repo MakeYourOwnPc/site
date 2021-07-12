@@ -21,6 +21,15 @@
     tr:nth-child(2n) {
         background: rgba(0,0,0,0.4);
     }
+    @media screen and (max-width: 700px){
+        tr:nth-child(2n) {
+            background: rgba(0,0,0,0);
+        }
+        td:nth-child(2n) {
+            background: rgba(0,0,0,0.4);
+        }
+
+    }
 </style>
 
 <nav class="topbar">

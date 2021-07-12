@@ -199,7 +199,7 @@ function purchaseTabler(value){
 function countryTabler(value){
     row='<tr class="removable">'+
         '<td class="countryId">'+value.id+'</td>'+
-        '<td class="countryLabel">'+value.label+'</td>'+
+        '<td class="countryLabel">'+value.name+'</td>'+
         '</tr>';
     $("#searchResultItem").append(row);
 }
