@@ -28,14 +28,17 @@ public class ItemIsPresent extends HttpServlet {
         String name = req.getParameter("name");
         String id = req.getParameter("id");
         String path = req.getParameter("path");
-        char separator = '\\';
-        if(path.lastIndexOf('\\')<path.lastIndexOf('/'))
-            separator='/';
-        path = path.substring(path.lastIndexOf(separator)+1);
-        File file = new File(ImagePaths.uploadPath+path);
-        if(file.exists()){
-            resp.getWriter().print("fileIsPresent");
-            return;
+        if(!path.isBlank()) {
+            char separator = '\\';
+            if (path.lastIndexOf('\\') < path.lastIndexOf('/'))
+                separator = '/';
+            path = path.substring(path.lastIndexOf(separator) + 1);
+            System.out.println(path);
+            File file = new File(ImagePaths.uploadPath + path);
+            if (file.exists()) {
+                resp.getWriter().print("fileIsPresent");
+                return;
+            }
         }
         resp.setContentType("plain/text");
         resp.setCharacterEncoding("UTF-8");
