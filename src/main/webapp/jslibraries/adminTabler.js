@@ -200,7 +200,7 @@ function countryTabler(value){
     row='<tr class="removable">'+
         '<td class="countryId">'+value.id+'</td>'+
         '<td class="countryLabel">'+value.name+'</td>'+
-        "<td><button onclick='toggleOverlayMakeSure("+value.id+")' class='btn btn-danger'>Delete</button></td>'"+
+        '<td><button onclick="toggleOverlayMakeSure(\''+ value.id +'\')" class="btn btn-danger">Delete</button></td>'+
         '</tr>';
     $("#searchResultItem").append(row);
 }
