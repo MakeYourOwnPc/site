@@ -608,9 +608,9 @@ function prepareFormInsert() {
 
     let buttonHTML='<tr><td><input id="submitDBUpdate" type="submit" class="btn btn-success" value="Insert Element"></td></tr>';
     if(user){
-        $("#updateForm").attr("action",".\/modifyDB");
+        $("#updateForm").attr("action",".\/admin\/modifyUser");
     }else{
-        $("#updateForm").attr("action",".\/modifyDB");
+        $("#updateForm").attr("action",".\/admin\/modifyDB");
     }
 
     console.log(formHTML);

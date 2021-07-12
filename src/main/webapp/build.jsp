@@ -19,6 +19,13 @@
     <meta name="viewport" content="width=device-witdht, initial-scale=1.0"/>
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="./customcss/general.css"/>
+
+    <style>
+        .outOfStock{
+            color: red;
+        }
+        .outOfStock:before{content:"Out Of Stock"}
+    </style>
 </head>
 <body>
 <input type="hidden" id="oldMobo" value='${mobo}'>

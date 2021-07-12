@@ -257,7 +257,7 @@
                 document.getElementById("submitDBUpdate").disabled=false;
             }
         };
-        xhttp.open("POST", "./itemIsPresent", true);
+        xhttp.open("POST", ".\/admin\/itemIsPresent", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         let requestSend="name="+document.getElementById("productName").value+"&id="+document.getElementById("id").value+
             "&requestedItem="+document.getElementById("requestedItemUpdate").value;

@@ -131,6 +131,8 @@ function updateSpecification() {
 function checkValidity() {
     updateSpecification();
 
+
+
     if(!(massStorage1 != null || massStorage2 != null || massStorage3 != null))/* Nessuna Mass Storage è selezionata*/
     {
         createToast("Invalid Build","No Mass Storage Selected");
@@ -194,7 +196,11 @@ function checkValidity() {
 
         }
         if($("#buildType")=="") {
-            createToast("Invalid Build", "Build Type NOt Included")
+            createToast("Invalid Build", "Build Type Not Selected")
+            submitable=false;
+            return submitable;
+        }
+        if(!checkStock()){
             submitable=false;
             return submitable;
         }
@@ -202,6 +208,48 @@ function checkValidity() {
         updateBuildSubmitButton();
         return true;
     }
+
+}
+
+function checkStock(){
+    if(gpu!=undefined&&gpu.stock==0){
+        createToast("Out Of Stock",gpu.name+" Out Of Stock");
+        return false;
+    }
+    if(cpu.stock==0){
+        createToast("Out Of Stock",cpu.name+" Out Of Stock");
+        return false;
+    }
+    if(mobo.stock==0){
+        createToast("Out Of Stock",mobo.name+" Out Of Stock");
+        return false;
+    }
+
+    if(massStorage1!=undefined&&massStorage1.stock==0){
+        createToast("Out Of Stock",massStorage1.name+" Out Of Stock");
+        return false;
+    }
+    if(massStorage2!=undefined&&massStorage2.stock==0){
+        createToast("Out Of Stock",massStorage2.name+" Out Of Stock");
+        return false;
+    }
+    if(massStorage3!=undefined&&massStorage3.stock==0){
+        createToast("Out Of Stock",massStorage3.name+" Out Of Stock");
+        return false;
+    }
+    if(massStorage3!=undefined&&massStorage3.stock==0){
+        createToast("Out Of Stock",massStorage3.name+" Out Of Stock");
+        return false;
+    }
+    if(psu.stock==0){
+        createToast("Out Of Stock",psu.name+" Out Of Stock");
+        return false;
+    }
+    if(ram.stock==0){
+        createToast("Out Of Stock",ram.name+" Out Of Stock");
+        return false;
+    }
+
 
 }
 function updateBuildSubmitButton(){
@@ -234,7 +282,6 @@ function selectCPU() {
 function selectMOBO() {
     toggleOverlayBuild();
     selectedElement = "MotherBoards";
-
     itemCategory = "motherboards";
     tableHeader = "<tr><th>Product Name</th><th>Form Factor</th><th>Ram Sockets</th><th>Ram Slots</th><th>NVME Slots</th><th>SATA Slots</th><th>Form Factor</th><th>Power Consumption</th><th>Price</th></tr>"
 
@@ -460,11 +507,11 @@ function addToResults(value){
 
 function gpuTabler(value) {
     var row;
-    row = "<tr class='removable'>" +
-        "<td class='productName' >" + value.name + "</td>" +
+    row = "<tr class='removable '>" +
+        "<td class='productName"+((value.stock<=0)?"outOfStock":"")+"' >" + value.name + "</td>" +
         "<td class='consumption'>" + value.consumption + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
-        "<td><img src=-'" + value.imagePath + "'></td>" +
+        "<td><img src='" + value.imagePath + "'></td>" +
         buttonAdder(value.id, "Gpu") +
         "</tr>";
     $("#searchResultBuild").append(row);
@@ -473,7 +520,7 @@ function gpuTabler(value) {
 function cpuTabler(value) {
     var row;
     row = "<tr class='removable'>" +
-        "<td class='productName'>" + value.name + "</td>" +
+        "<td class='productName"+((value.stock<=0)?" outOfStock":"")+"'>" + value.name + "</td>" +
         "<td class='socket'>" + value.socket + "</td>"
     if (value.integratedgpu)
         row += "<td class='integratedGpu'>Yes</td>"
@@ -481,7 +528,7 @@ function cpuTabler(value) {
     row += "<td class='consumption'>" + value.consumption + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
         "<td class='inStock'>" + value.stock + "</td>" +
-        "<td><img src=-'" + value.imagePath + "'></td>" +
+        "<td><img src='" + value.imagePath + "'></td>" +
         buttonAdder(value.id, "Cpu") +
         "</tr>"
     $("#searchResultBuild").append(row);
@@ -490,11 +537,11 @@ function cpuTabler(value) {
 function memoryTabler(value) {
     var row;
     row = "<tr class='removable'>" +
-        "<td class='productName'>" + value.name + "</td>" +
+        "<td class='productName"+((value.stock<=0)?" outOfStock":"")+"'>" + value.name + "</td>" +
         "<td class='amountOfMemories'>" + value.amountMemories + "</td>" +
         "<td class='consumption'>" + value.consumption + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
-        "<td><img src=-'" + value.imagePath + "'></td>" +
+        "<td><img src='" + value.imagePath + "'></td>" +
         buttonAdder(value.id, this.type,massStorageNumber) +
         "</tr>"
     $("#searchResultBuild").append(row);
@@ -503,7 +550,7 @@ function memoryTabler(value) {
 function moboTabler(value) {
     var row;
     row = "<tr class='removable'>" +
-        "<td class='productName' >" + value.name + "</td>" +
+        "<td class='productName"+((value.stock<=0)?" outOfStock":"")+"' >" + value.name + "</td>" +
         "<td class='cpuSocket'>" + value.cpuSocket + "</td>" +
         "<td class='ramSocket'>" + value.ramSocket + "</td>" +
         "<td class='ramSlots'>" + value.amountSlotRam + "</td>" +
@@ -512,7 +559,7 @@ function moboTabler(value) {
         "<td class='formFactor'>" + value.formFactor + "</td>" +
         "<td class='consumption'>" + value.consumption + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
-        "<td><img src=-'" + value.imagePath + "'></td>" +
+        "<td><img src='" + value.imagePath + "'></td>" +
         buttonAdder(value.id, "MotherBoards") +
         "</tr>"
     $("#searchResultBuild").append(row);
@@ -521,7 +568,7 @@ function moboTabler(value) {
 function pcCaseTabler(value) {
     var row;
     row = "<tr class='removable'>" +
-        "<td class='productName' >" + value.name + "</td>" +
+        "<td class='productName "+((value.stock<=0)?" outOfStock":"")+"' >" + value.name + "</td>" +
         "<td class='formFactor'>" + value.formFactor + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
         "<td><img src=-'" + value.imagePath + "'></td>" +
@@ -530,35 +577,14 @@ function pcCaseTabler(value) {
     $("#searchResultBuild").append(row);
 }
 
-function buildTabler(value) {
-    var row;
-    row = "<tr class='removable'>" +
-        "<td class='moboName'>" + value.mobo + "</td>" +
-        "<td  class='gpuName'>" + value.gpu + "</td>" +
-        "<td class='cpuName'>" + value.cpu + "</td>" +
-        "<td class='caseName'>" + value.pcCase + "</td><td class='memoriesName'>";
-    for (let i in value.memories) {
-        row += i + "<br>";
-    }
-    row += "</td>";
-    if (value.suggested)
-        row += "<td class='isSuggested'>Yes</td>"
-    else row += "<td class='isSuggested'>No</td>"
-
-    row += "<td class='buildType'>" + value.type + "</td>" +
-        "<td class='maker'>" + value.maker + "</td>" +
-        buttonAdder(value.id, "pcCase") +
-        "</tr>"
-    $("#searchResultBuild").append(row);
-}
 
 function psusTabler(value) {
     var row;
     row = "<tr class='removable'>" +
-        "<td class='productName' >" + value.name + "</td>" +
+        "<td class='productName"+((value.stock<=0)?" outOfStock":"")+"' >" + value.name + "</td>" +
         "<td class='power'>" + value.power + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
-        "<td><img src=-'" + value.imagePath + "'></td>" +
+        "<td><img src='" + value.imagePath + "'></td>" +
         buttonAdder(value.id, "Psu") +
         "</tr>"
     $("#searchResultBuild").append(row);
