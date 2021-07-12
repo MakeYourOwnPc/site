@@ -51,15 +51,18 @@
                         <li>${build.psu}</li>
 
                     </ul>
-                    <table>
+                    <table style="position: absolute;bottom: 0;">
                         <tbody>
-                      <tr> <td><form action="./showBuild" style="bottom: 0;left:0;position: absolute;width: 50%;">
+                      <tr> <td style="width: 50%;height: 100%;">
+                          <form action="./showBuild" style="height: 100%">
                             <input name="id" value="${build.id}" type="hidden">
-                            <input type="submit" class="btn btn-success" value="Open">
+                            <input type="submit" class="btn btn-success" style="height: 100%;width: 100%" value="Open">
 
                         </form>
                       </td>
-                          <td><button class="btn btn-danger" onclick="deleteBuild(${build.id})" style="bottom: 0;right:0;position: absolute;width: 50%;">Delete</button></td>
+                          <td style="width: 50%;height: 100%;">
+                              <button class="btn btn-danger" style="height: 100%;width: 100%" onclick="deleteBuild(${build.id})">Delete</button>
+                          </td>
 
                       </tr>
                         </tbody>

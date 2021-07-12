@@ -320,7 +320,9 @@ footer{
     border-top: white solid;
 
 }
-
+td>img{
+    max-height: 3rem;
+}
 table{
     width: 100%;
 }
@@ -335,6 +337,10 @@ footer div table{
 
 
 @media screen and (max-width: 700px) {
+    td>img{
+        max-height: 100%;
+        max-width: 100%;
+    }
     .buildContainer{
         display: block;
     }

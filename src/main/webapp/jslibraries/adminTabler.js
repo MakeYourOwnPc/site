@@ -176,23 +176,31 @@ function psusTabler(value) {
         "<td class='power'>" + value.power + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
         "<td class='inStock'>" + value.stock + "</td>" +
-        "<td><img src='./images/"+value.imagePath+"'></td>" +
+        "<td><img src='"+value.imagePath+"'></td>" +
         buttonAdder(value.id) +
         "</tr>"
     $("#searchResultItem").append(row);
 }
 function purchaseTabler(value){
     row='<tr class="removable">'+
-        '<td className="creationDate">'+value.creationDate.year+'-'+value.creationDate.month+'-'+value.creationDate.day+'</td>'+
-       ' <td className="email">'+value.email+'</td>'+
-        '<td className="country">'+value.country+'</td>'+
-        '<td className="cap">'+value.cap+'</td>'+
-       ' <td className="city">'+value.city+'</td>'+
-       ' <td className="address">'+value.address+'</td>'+
-       ' <td className="cellphonenumber">'+value.cellphonenumber+'</td>'+
-        '<td className="idbuild">'+value.idbuild+'</td>'+
-        '<td className="id">'+value.id+'</td>'+
+        '<td class="creationDate">'+value.creationDate.year+'-'+value.creationDate.month+'-'+value.creationDate.day+'</td>'+
+       ' <td class="email">'+value.email+'</td>'+
+        '<td class="country">'+value.country+'</td>'+
+        '<td class="cap">'+value.cap+'</td>'+
+       ' <td class="city">'+value.city+'</td>'+
+       ' <td class="address">'+value.address+'</td>'+
+       ' <td class="cellphonenumber">'+value.cellphonenumber+'</td>'+
+        '<td class="idbuild">'+value.idbuild+'</td>'+
+        '<td class="id">'+value.id+'</td>'+
         '</tr>'
+    $("#searchResultItem").append(row);
+}
+
+function countryTabler(value){
+    row='<tr class="removable">'+
+        '<td class="countryId">'+value.id+'</td>'+
+        '<td class="countryLabel">'+value.label+'</td>'+
+        '</tr>';
     $("#searchResultItem").append(row);
 }
 

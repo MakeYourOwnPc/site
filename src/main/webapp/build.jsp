@@ -231,7 +231,7 @@
 
         let build = {
             mobo: mobo.id,
-            gpu: gpu.id,
+            gpu:0,
             cpu: cpu.id,
             pcCase: pcCase.id,
             psu: psu.id,
@@ -239,6 +239,9 @@
             memories: [ram.id,massStorage1.id],
             suggested:suggested,
             id:idBuild
+        }
+        if(gpu!=undefined){
+            build.gpu=gpu.id;
         }
         if(massStorage2!=null){
             build.memories.push(massStorage2.id);

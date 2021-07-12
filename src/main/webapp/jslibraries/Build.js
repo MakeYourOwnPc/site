@@ -41,8 +41,7 @@ function toggleOverlayModify() {
 }
 
 function updateSpecification() {
-    if (mobo == null || gpu == null || cpu == null || ram == null || psu == null || pcCase == null || !(massStorage1 != null || massStorage2 != null || massStorage3 != null)) {
-
+    if (mobo == null  || cpu == null||(gpu==null &&cpu.integratedGpu==null) || ram == null || psu == null || pcCase == null || !(massStorage1 != null || massStorage2 != null || massStorage3 != null)) {
         submitable = false;
     } else submitable = true;
 
@@ -137,6 +136,9 @@ function checkValidity() {
         createToast("Invalid Build","No Mass Storage Selected");
     }
     if(!submitable) {
+        if(gpu==null &&cpu.integratedGpu==null){
+            createToast("Invalid Build","No Gpu Selected With Cpu Without Integrated Gpu ");
+        }
         createToast("Invalid Build","No Important Component Selected");
         return;
     }

@@ -144,6 +144,8 @@ function changeForm(text) {
                 "</select></td></tr>";
             break;
         case "Purchases":
+            tableHeader = "<tr><th>Creation Date</th><th>User</th><th>Country</th><th>Postal Code</th><th>City</th><th>Address</th><th>Id Build</th><th>Form Factor</th><th>Purchase Id</th></tr>";
+
             name=false;
             formHTML="<input type='hidden' id='requestedItem' name='requestedItem' value='purchases'>"+
                 "<tr><td><label for='startingDate'>Starting Date</label></td>"+
@@ -153,6 +155,10 @@ function changeForm(text) {
         "<tr><td><label for='email'>Email</label></td>" +
             "<td><input type='text' id='email' name='email' ></td></tr>" ;
             break;
+        case "Country":
+            tableHeader = "<tr><th>Creation Date</th><th>User</th><th>Country</th><th>Postal Code</th><th>City</th><th>Address</th><th>Id Build</th><th>Form Factor</th><th>Purchase Id</th></tr>";
+            formHTML="<input type='hidden' id='requestedItem' name='requestedItem' value='purchases'>";
+            name=false;
 
     }
 
@@ -588,6 +594,15 @@ function prepareFormInsert() {
                 '<td><input type="checkbox" id="admin" name="admin" required></td></tr>'
             user=true;
             break;
+        case"Country":
+            formHTML= ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="country">' +
+                '<input type="hidden" name="option" value="insert">'+
+                '<tr><td><label for="countryName">Country Name</label></td>' +
+                '<td><input type="text" id="countryName" name="label"required>'+
+                '<tr><td><label for="countryId">Country ID</label></td>' +
+                '<td><input type="text" id="countryId" name="id" required>';
+            break;
+
 
     }
 
