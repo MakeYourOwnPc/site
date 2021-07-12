@@ -33,5 +33,10 @@
         <location>/WEB-INF/errors/error.jsp</location>
     </error-page>
 
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/errors/error.jsp</location>
+    </error-page>
+
 
 </web-app>
