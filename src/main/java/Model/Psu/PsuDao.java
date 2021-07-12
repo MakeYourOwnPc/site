@@ -1,5 +1,6 @@
 package Model.Psu;
 
+import Controller.ImagePaths;
 import Model.ConnPool;
 import Model.Cpu.Cpu;
 import Model.Gpu.Gpu;
@@ -131,7 +132,7 @@ public class PsuDao implements IPsuDao <SQLException> {
         try(Connection conn = ConnPool.getConnection()){
             try(PreparedStatement ps = conn.prepareStatement("DELETE FROM Psus WHERE id=?;")){
                 ps.setInt(1,id);
-                File file = new File(doRetrieveById(id).getImagePath());
+                File file = new File(ImagePaths.uploadPath+doRetrieveById(id).getImagePath());
                 file.delete();
                 return ps.executeUpdate()>0;
             }catch(SQLException e){

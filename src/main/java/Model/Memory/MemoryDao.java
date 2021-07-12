@@ -1,5 +1,6 @@
 package Model.Memory;
 
+import Controller.ImagePaths;
 import Model.ConnPool;
 import Model.Mobo.Mobo;
 
@@ -138,7 +139,7 @@ public class MemoryDao implements IMemoryDao<SQLException>{
         try(Connection conn = ConnPool.getConnection()){
             try(PreparedStatement ps = conn.prepareStatement("DELETE FROM Memories WHERE id=?;")){
                 ps.setInt(1,id);
-                File file = new File(doRetrieveById(id).getImagePath());
+                File file = new File(ImagePaths.uploadPath+doRetrieveById(id).getImagePath());
                 file.delete();
                 return ps.executeUpdate()>0;
             }catch(SQLException e){

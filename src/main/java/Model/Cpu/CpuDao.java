@@ -1,5 +1,6 @@
 package Model.Cpu;
 
+import Controller.ImagePaths;
 import Model.ConnPool;
 import Model.Gpu.Gpu;
 import Model.Memory.Memory;
@@ -167,14 +168,15 @@ public class CpuDao implements ICpuDao<SQLException> {
     @Override
     public boolean doUpdate(Cpu cpu) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("UPDATE Cpus SET name=?,price=?,consumption=?,socket=?,integratedgpu=?,stock=? WHERE id=?;")){
+            try(PreparedStatement ps = conn.prepareStatement("UPDATE Cpus SET name=?,price=?,consumption=?,socket=?,integratedgpu=?,imagepath=?,stock=? WHERE id=?;")){
                 ps.setString(1,cpu.getName());
                 ps.setFloat(2,cpu.getPrice());
                 ps.setInt(3,cpu.getConsumption());
                 ps.setString(4,cpu.getSocket());
                 ps.setBoolean(6,cpu.isIntegratedgpu());
-                ps.setInt(7,cpu.getStock());
-                ps.setInt(8, cpu.getId());
+                ps.setString(7, cpu.getImagePath());
+                ps.setInt(8,cpu.getStock());
+                ps.setInt(9, cpu.getId());
                 return ps.executeUpdate()>0;
             }
             catch(SQLException e){
@@ -207,7 +209,7 @@ public class CpuDao implements ICpuDao<SQLException> {
         try(Connection conn = ConnPool.getConnection()){
             try(PreparedStatement ps = conn.prepareStatement("DELETE FROM Cpus WHERE id=?;")){
                 ps.setInt(1,id);
-                File file = new File(doRetrieveById(id).getImagePath());
+                File file = new File(ImagePaths.uploadPath+doRetrieveById(id).getImagePath());
                 file.delete();
                 return ps.executeUpdate()>0;
             }

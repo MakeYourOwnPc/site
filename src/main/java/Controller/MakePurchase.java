@@ -65,6 +65,9 @@ public class MakePurchase extends HttpServlet {
                 resp.setContentType("plain/text");
                 resp.setCharacterEncoding("UTF-8");
                 resp.getWriter().print(purchase.getId());
+                req.setAttribute("idBuild",idBuild);
+                RequestDispatcher requestDispatcher = req.getRequestDispatcher("/updateStock");
+                requestDispatcher.include(req,resp);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
