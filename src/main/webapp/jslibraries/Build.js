@@ -41,7 +41,8 @@ function toggleOverlayModify() {
 }
 
 function updateSpecification() {
-    if (mobo == null  || cpu == null||(gpu==null &&cpu.integratedGpu==null) || ram == null || psu == null || pcCase == null || !(massStorage1 != null || massStorage2 != null || massStorage3 != null)) {
+
+    if (mobo == null  || cpu == null||(gpu==null &&cpu.integratedGpu==false) || ram == null || psu == null || pcCase == null || !(massStorage1 != null || massStorage2 != null || massStorage3 != null)) {
         submitable = false;
     } else submitable = true;
 
@@ -131,8 +132,6 @@ function updateSpecification() {
 function checkValidity() {
     updateSpecification();
 
-
-
     if(!(massStorage1 != null || massStorage2 != null || massStorage3 != null))/* Nessuna Mass Storage è selezionata*/
     {
         createToast("Invalid Build","No Mass Storage Selected");
@@ -175,7 +174,7 @@ function checkValidity() {
         return;
     }
 
-    {
+
         switch (formFactorCase.toLowerCase()){
             case"mini-itx":if(formFactorMobo.toLowerCase()==("micro"))
             {
@@ -195,6 +194,7 @@ function checkValidity() {
             }
 
         }
+
         if($("#buildType")=="") {
             createToast("Invalid Build", "Build Type Not Selected")
             submitable=false;
@@ -207,7 +207,7 @@ function checkValidity() {
         submitable=true;
         updateBuildSubmitButton();
         return true;
-    }
+
 
 }
 
@@ -249,7 +249,7 @@ function checkStock(){
         createToast("Out Of Stock",ram.name+" Out Of Stock");
         return false;
     }
-
+    return true
 
 }
 function updateBuildSubmitButton(){
