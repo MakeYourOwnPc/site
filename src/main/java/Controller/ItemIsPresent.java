@@ -35,12 +35,9 @@ public class ItemIsPresent extends HttpServlet {
             path = path.substring(path.lastIndexOf(separator) + 1);
             System.out.println(path);
             File file = new File(ImagePaths.uploadPath + path);
-            if (file.exists()) {
+            if (file.exists())
                 resp.getWriter().print("fileIsPresent");
-                return;
-            }
         }
-        resp.setContentType("plain/text");
         resp.setCharacterEncoding("UTF-8");
         switch (requestedItem) {
             case "gpus" -> {

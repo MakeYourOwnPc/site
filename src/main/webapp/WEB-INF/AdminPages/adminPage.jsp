@@ -60,7 +60,7 @@
     <h2 class="button">Builds</h2>
     <h2 class="button">Users</h2>
     <h2 class="button">Purchases</h2>
-    <h2 class="button">Country</h2>
+    <h2 class="button">Countries</h2>
 </nav>
 <div class="rightBox" style="display: none">
     <form id="searchForm" >
@@ -99,13 +99,77 @@
         </div>
     </div>
 </div>
-
+<div id="overlayMakeSure" class="overlayElement" style="display: none">
+    <div class="centered-box">
+        <div class="box-container">
+            <table style="width: 100%">
+                <tr style="vertical-align: middle">
+                    <td><h1 style="float: left">Are you sure?</h1></td>
+                    <td>
+                        <button onclick="toggleOverlayMakeSure()" class="btn btn-danger" style="font-size: 26px;font-weight: bolder" >X</button>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tbody>
+            <tr><td>
+                <form action="/MYOPSite_war_exploded/admin/modifyDB" method="POST">
+                <input id='idToDelete' type='hidden' name='id'>
+                <input type='hidden' name='option' value='delete'>
+                <input id='itemToDelete' type='hidden' name='requestedItem'>
+                <input type="submit" class='btn btn-danger' value='Yes'>
+                </form>
+            </td>
+                <td>
+                    <button onClick='toggleOverlayMakeSure()' class='btn active'>No</button>
+                </td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 
 </body>
 
 
 <script>
+
+    function toggleOverlayMakeSure(id){
+        $("#overlayMakeSure").fadeToggle();
+        var item;
+        switch(selectedElement){
+            case "Gpus":
+                item = "gpus"
+                break
+            case "Cpus":
+                item = "cpus"
+                break
+            case "Psus":
+                item = "psus"
+                break
+            case "MotherBoards":
+                item = "motherboards"
+                break
+            case "Memories":
+                item = "memories"
+                break
+            case "Cases":
+                item = "cases"
+                break
+            case "Builds":
+                item = "builds"
+                break
+            case "Users":
+                item = "users"
+                break
+            case "Countries":
+                item = "countries"
+                break
+        }
+        $("#itemToDelete").val(item)
+        $("#idToDelete").val(id)
+    }
 
     let selectedElement;
 
@@ -178,7 +242,7 @@
                         case "Purchases":
                             results.forEach(purchaseTabler);
                             break;
-                    case "Country":
+                    case "Countries":
                         results.forEach(countryTabler);
                         break;
 

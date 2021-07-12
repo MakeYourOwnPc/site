@@ -47,7 +47,6 @@ public class ModifyDB extends HttpServlet {
             resp.setStatus(403);
             return;
         }
-        resp.setContentType("plain/text");
         resp.setCharacterEncoding("UTF-8");
         switch (option) {
             case "insert" -> {

@@ -309,6 +309,9 @@ table tbody{
     overflow: auto;
     height: 100%;
 }
+.fullHeightFooter{
+    min-height: 83%;
+}
 .overlayElement *{
     opacity: 100%;
 }

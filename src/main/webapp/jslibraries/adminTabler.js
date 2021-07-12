@@ -200,13 +200,13 @@ function countryTabler(value){
     row='<tr class="removable">'+
         '<td class="countryId">'+value.id+'</td>'+
         '<td class="countryLabel">'+value.name+'</td>'+
+        "<td><button onclick='toggleOverlayMakeSure("+value.id+")' class='btn btn-danger'>Delete</button></td>'"+
         '</tr>';
     $("#searchResultItem").append(row);
 }
 
 function buttonAdderBuild(id) {
     let buttonForm;
-    let requestedItem = $("#requestedItem").attr("value");
     buttonForm = "<td><form id='" + id + "' action='/MYOPSite_war_exploded/showBuild'>" +
         "<input type='hidden' name='id' value='" + id + "'>" +
         "<input type='submit' class='btn active' value='Modify'></form></td>"+
@@ -220,17 +220,13 @@ function buttonAdderBuild(id) {
 
 function buttonAdder(id) {
     let buttonForm;
-
     let requestedItem = $("#requestedItem").attr("value");
     buttonForm = "<td><form id='" + id + "' onclick='viewItem( " + id + ")'>" +
         "<input type='hidden' name='id' value='" + id + "'>" +
         "<input type='hidden' name='option' value='update'>" +
         "<input type='hidden'  name='requestedItem' value='" + requestedItem + "'>" +
         "<h1 class='btn active'>Modify</h1></form></td>"+
-        "<td><form id='"+id+"' method='POST' action='/MYOPSite_war_exploded/admin/modifyDB'>"+
-        "<input type='hidden' name='id' value='"+id+"'>"+
-        "<input type='hidden' name='option' value='delete'>" +
-        "<input type='hidden' name='requestedItem' value='" + requestedItem + "'>" +
-        "<input type='submit' class='btn btn-danger' value='Delete'></form></td>";
+        "<td><button onclick='toggleOverlayMakeSure("+id+")' class='btn btn-danger'>Delete</button></td>"
     return buttonForm;
 }
+

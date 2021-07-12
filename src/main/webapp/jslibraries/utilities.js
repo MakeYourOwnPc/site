@@ -49,7 +49,6 @@ function toggleOverlayPassword() {
 function toggleOverlayBuild() {
     $("#overlayFormBuild").fadeToggle();
 }
-
 function existingEmail(){
     let xhttp = new XMLHttpRequest();
     let emailalert = document.getElementById("email-alert");
