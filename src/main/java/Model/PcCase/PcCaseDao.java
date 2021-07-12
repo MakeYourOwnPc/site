@@ -2,9 +2,6 @@ package Model.PcCase;
 
 import Controller.ImagePaths;
 import Model.ConnPool;
-import Model.Gpu.Gpu;
-import Model.Mobo.Mobo;
-import Model.Psu.Psu;
 
 import java.io.File;
 import java.sql.*;
@@ -185,10 +182,7 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
         try(Connection conn = ConnPool.getConnection()){
             try(PreparedStatement ps = conn.prepareStatement("DELETE FROM Pccases WHERE id=?;")){
                 ps.setInt(1,id);
-                String filePath = doRetrieveById(id).getImagePath();
-                String path = filePath.substring(filePath.lastIndexOf(File.separator)+1);
-                File file = new File(ImagePaths.uploadPath+path);
-                file.delete();
+                ImagePaths.checkFile(doRetrieveById(id).getImagePath());
                 return ps.executeUpdate()>0;
             }catch(SQLException e){
                 throw new SQLException();

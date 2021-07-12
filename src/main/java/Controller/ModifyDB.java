@@ -389,12 +389,10 @@ public class ModifyDB extends HttpServlet {
                 if (!stockGpu.isBlank() && Integer.parseInt(stockGpu) >= 0)
                     gpu.setStock(Integer.parseInt(stockGpu));
                 if (!fileNameGpu.isBlank()) {
-                    String path = gpu.getImagePath().substring(gpu.getImagePath().lastIndexOf(File.separator)+1);
-                    File file = new File(ImagePaths.uploadPath+path);
-                    file.delete();
+                    ImagePaths.checkFile(gpu.getImagePath());
                     gpu.setImagePath(ImagePaths.imagePath+fileNameGpu);
                     try(InputStream inputStream = filePartGpu.getInputStream()){
-                        file = new File(ImagePaths.uploadPath+fileNameGpu);
+                        File file = new File(ImagePaths.uploadPath+fileNameGpu);
                         Files.copy(inputStream,file.toPath());
                     }
                 }
@@ -427,12 +425,10 @@ public class ModifyDB extends HttpServlet {
                 if (!stockCpu.isBlank() && Integer.parseInt(stockCpu) >= 0)
                     cpu.setStock(Integer.parseInt(stockCpu));
                 if (!fileNameCpu.isBlank()) {
-                    String path = cpu.getImagePath().substring(cpu.getImagePath().lastIndexOf(File.separator)+1);
-                    File file = new File(ImagePaths.uploadPath+path);
-                    file.delete();
+                    ImagePaths.checkFile(cpu.getImagePath());
                     cpu.setImagePath(ImagePaths.imagePath+fileNameCpu);
                     try(InputStream inputStream = filePartCpu.getInputStream()){
-                        file = new File(ImagePaths.uploadPath+fileNameCpu);
+                        File file = new File(ImagePaths.uploadPath+fileNameCpu);
                         Files.copy(inputStream,file.toPath());
                     }
                 }
@@ -459,12 +455,10 @@ public class ModifyDB extends HttpServlet {
                 if (!stockPsu.isBlank() && Integer.parseInt(stockPsu) >= 0)
                     psu.setStock(Integer.parseInt(stockPsu));
                 if (!fileNamePsu.isBlank()) {
-                    String path = psu.getImagePath().substring(psu.getImagePath().lastIndexOf(File.separator)+1);
-                    File file = new File(ImagePaths.uploadPath+path);
-                    file.delete();
+                    ImagePaths.checkFile(psu.getImagePath());
                     psu.setImagePath(ImagePaths.imagePath+fileNamePsu);
                     try(InputStream inputStream = filePartPsu.getInputStream()){
-                        file = new File(ImagePaths.uploadPath+fileNamePsu);
+                        File file = new File(ImagePaths.uploadPath+fileNamePsu);
                         Files.copy(inputStream,file.toPath());
                     }
                 }
@@ -491,12 +485,10 @@ public class ModifyDB extends HttpServlet {
                 if (!stockCase.isBlank() && Integer.parseInt(stockCase) >= 0)
                     pcCase.setStock(Integer.parseInt(stockCase));
                 if (!fileNameCase.isBlank()) {
-                    String path = pcCase.getImagePath().substring(pcCase.getImagePath().lastIndexOf(File.separator)+1);
-                    File file = new File(ImagePaths.uploadPath+path);
-                    file.delete();
+                    ImagePaths.checkFile(pcCase.getImagePath());
                     pcCase.setImagePath(ImagePaths.imagePath+fileNameCase);
                     try(InputStream inputStream = filePartCase.getInputStream()){
-                        file = new File(ImagePaths.uploadPath+fileNameCase);
+                        File file = new File(ImagePaths.uploadPath+fileNameCase);
                         Files.copy(inputStream,file.toPath());
                     }
                 }
@@ -541,12 +533,10 @@ public class ModifyDB extends HttpServlet {
                 if (!stockMobo.isBlank() && Integer.parseInt(stockMobo) >= 0)
                     mobo.setStock(Integer.parseInt(stockMobo));
                 if (!fileNameMobo.isBlank()) {
-                    String path = mobo.getImagePath().substring(mobo.getImagePath().lastIndexOf(File.separator)+1);
-                    File file = new File(ImagePaths.uploadPath+path);
-                    file.delete();
+                    ImagePaths.checkFile(mobo.getImagePath());
                     mobo.setImagePath(ImagePaths.imagePath+fileNameMobo);
                     try(InputStream inputStream = filePartMobo.getInputStream()){
-                        file = new File(ImagePaths.uploadPath+fileNameMobo);
+                        File file = new File(ImagePaths.uploadPath+fileNameMobo);
                         Files.copy(inputStream,file.toPath());
                     }
                 }
@@ -582,12 +572,10 @@ public class ModifyDB extends HttpServlet {
                 if (!stockMemory.isBlank() && Integer.parseInt(stockMemory) >= 0)
                     memory.setStock(Integer.parseInt(stockMemory));
                 if (!fileNameMemory.isBlank()) {
-                    String path = memory.getImagePath().substring(memory.getImagePath().lastIndexOf(File.separator)+1);
-                    File file = new File(ImagePaths.uploadPath+path);
-                    file.delete();
+                    ImagePaths.checkFile(memory.getImagePath());
                     memory.setImagePath(ImagePaths.imagePath+fileNameMemory);
                     try(InputStream inputStream = filePartMemory.getInputStream()){
-                        file = new File(ImagePaths.uploadPath+fileNameMemory);
+                        File file = new File(ImagePaths.uploadPath+fileNameMemory);
                         Files.copy(inputStream,file.toPath());
                     }
                 }
