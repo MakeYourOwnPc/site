@@ -90,7 +90,7 @@
             document.getElementById("city").checkValidity()||document.getElementById("CAP").checkValidity()||document.getElementById("country").checkValidity()){
            let formData={
                 'address':$("#address").val(),
-                'cellphone':$("#telephoneNumber").val(),
+                'cellphonenumber':$("#telephoneNumber").val(),
                 'city':$("#city").val(),
                 'cap':$("#CAP").val(),
                 'country':$("#country").val(),
