@@ -179,21 +179,24 @@ function checkValidity() {
             {
                 createToast("Invalid Build","Case incompatible with Motherboard");
                 submitable=false;
-                throw new BuildException("caseSmallerThanMobo");
-                return}
+                return submitable;
+            }
             case"micro-atx":if(formFactorMobo.toLowerCase()==("atx")){
                 createToast("Invalid Build","Case incompatible with Motherboard");
                 submitable=false;
-                throw new BuildException("caseSmallerThanMobo");
-                return;
+                return submitable;
             }
             case"atx":if(formFactorMobo.toLowerCase()==("eatx")){
                 createToast("Invalid Build","Case incompatible with Motherboard");
                 submitable=false;
-                throw new BuildException("caseSmallerThanMobo");
-                return;
+                return submitable;
             }
 
+        }
+        if($("#buildType")=="") {
+            createToast("Invalid Build", "Build Type NOt Included")
+            submitable=false;
+            return submitable;
         }
         submitable=true;
         updateBuildSubmitButton();
