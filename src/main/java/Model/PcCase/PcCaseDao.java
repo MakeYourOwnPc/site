@@ -127,7 +127,7 @@ public class PcCaseDao implements IPcCaseDao<SQLException>{
     @Override
     public boolean doSave(PcCase pcCase) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Pccases (name,formfactor,price,stock,imagepath) VALUES (?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
+            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Pccases (name,formfactor,price,imagepath,stock) VALUES (?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
                 ps.setString(1,pcCase.getName());
                 ps.setString(2, pcCase.getFormFactor());
                 ps.setFloat(3,pcCase.getPrice());

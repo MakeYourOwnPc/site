@@ -128,30 +128,6 @@ public class ModifyDB extends HttpServlet {
     }
     public void insert(String requestedItem, HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
         switch (requestedItem) {
-           /* case "users":
-                PasswordHasher passwordHasher = new PasswordHasher();
-                Pattern patternPassword = Pattern.compile("^(?=.*[a-z])(?=.*\\d)(?=.*[@#$._%-])(?=.*[A-Z]).{8,16}$");
-                String email = req.getParameter("email");
-                String oldPassword = req.getParameter("oldPassword");
-                String newPassword = req.getParameter("newPassword");
-                String firstName = req.getParameter("firstName");
-                String lastName = req.getParameter("lastName");
-                String admin = req.getParameter("admin");
-                UserDao userDao = new UserDao();
-                User user = userDao.doRetrieveByEmail(email);
-                if (!passwordHasher.setPassword(oldPassword).equals(user.getPassword()) || !patternPassword.matcher(newPassword).matches())
-                    resp.setStatus(400);
-                if (!newPassword.isBlank()) {
-                    newPassword = passwordHasher.setPassword(newPassword);
-                    user.setPassword(newPassword);
-                }
-                if (!firstName.isBlank())
-                    user.setFirstName(firstName);
-                if (!lastName.isBlank())
-                    user.setLastName(lastName);
-                if (!admin.isBlank())
-                    user.setAdmin(Boolean.valueOf(admin));
-                return userDao.doUpdate(user);*/
             case "gpus" -> {
                 GpuDao gpuDao = new GpuDao();
                 Gpu gpu = new Gpu();
@@ -161,6 +137,7 @@ public class ModifyDB extends HttpServlet {
                 String stockGpu = req.getParameter("stock");
                 Part filePartGpu = req.getPart("image");
                 String fileNameGpu = Paths.get(filePartGpu.getSubmittedFileName()).getFileName().toString();
+                System.out.println(fileNameGpu);
                 if (nameGpu.isBlank() || priceGpu.isBlank() || consumptionGpu.isBlank() || stockGpu.isBlank() || Integer.parseInt(stockGpu) < 0) {
                     resp.setStatus(500);
                     return;
@@ -178,6 +155,7 @@ public class ModifyDB extends HttpServlet {
                 }
                 else
                     gpu.setImagePath(ImagePaths.defaultPath);
+                System.out.println(gpu.getImagePath());
                 resp.getWriter().print(gpuDao.doSave(gpu));
             }
             case "cpus" -> {
@@ -361,6 +339,7 @@ public class ModifyDB extends HttpServlet {
                 }
             }
         }
+        resp.sendRedirect("/MYOPSite_war_exploded/admin");
     }
     public void update(String requestedItem, HttpServletRequest req, HttpServletResponse resp) throws SQLException, NoSuchAlgorithmException, ServletException, IOException {
         switch (requestedItem) {

@@ -181,12 +181,12 @@ public class PsuDao implements IPsuDao <SQLException> {
     @Override
     public boolean doSave(Psu psu) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Psus (name,power,price,stock,imagepath) VALUES (?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
+            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Psus (name,power,price,imagepath,stock) VALUES (?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
                 ps.setString(1,psu.getName());
                 ps.setInt(2,psu.getPower());
                 ps.setFloat(3,psu.getPrice());
-                ps.setInt(4, psu.getStock());
-                ps.setString(5,psu.getImagePath());
+                ps.setString(4,psu.getImagePath());
+                ps.setInt(5, psu.getStock());
                 ps.executeUpdate();
                 ResultSet rs = ps.getGeneratedKeys();
                 rs.next();
