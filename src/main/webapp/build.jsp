@@ -274,6 +274,7 @@
     function purchase(){
         if($("#loggedHeader").val()==""){
             createToast("Not Logged In","Cannot Purchase The Build Without Being Logged In");
+            saveBuild();
             return false;
         }
         checkValidity()
