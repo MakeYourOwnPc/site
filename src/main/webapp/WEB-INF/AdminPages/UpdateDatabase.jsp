@@ -225,7 +225,7 @@
                 <tr>
                 <tr>
                     <td><label for='formFactor'>Form Factor</label></td>
-                    <td><select id='formFActor' name='formFactor'>
+                    <td><select id='formFactor' name='formFactor'>
                         <option value='mini-itx' <c:if test="${item.formFactor=='mini-itx'}">selected</c:if>>Mini-ITX
                         </option>
                         <option value='micro-atx' <c:if test="${item.formFactor=='micro-itx'}">selected</c:if>>
@@ -377,7 +377,7 @@
 
                 <tr>
                     <td><label for='formFactor'>Form Factor</label></td>
-                    <td><select id='formFActor' name='formFactor'>
+                    <td><select id='formFactor' name='formFactor'>
                         <option value='mini-itx' <c:if test="${item.formFactor=='mini-itx'}">selected</c:if>>Mini-ITX
                         </option>
                         <option value='micro-atx' <c:if test="${item.formFactor=='micro-itx'}">selected</c:if>>
