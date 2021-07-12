@@ -144,7 +144,9 @@ public class MoboDao implements IMoboDao<SQLException>{
         try(Connection conn = ConnPool.getConnection()){
             try(PreparedStatement ps = conn.prepareStatement("DELETE FROM Motherboards WHERE id=?;")){
                 ps.setInt(1,id);
-                File file = new File(ImagePaths.uploadPath+doRetrieveById(id).getImagePath());
+                String filePath = doRetrieveById(id).getImagePath();
+                String path = filePath.substring(filePath.lastIndexOf(File.separator)+1);
+                File file = new File(ImagePaths.uploadPath+path);
                 file.delete();
                 return ps.executeUpdate()>0;
             }catch(SQLException e){

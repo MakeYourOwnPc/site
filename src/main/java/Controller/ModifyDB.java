@@ -389,7 +389,8 @@ public class ModifyDB extends HttpServlet {
                 if (!stockGpu.isBlank() && Integer.parseInt(stockGpu) >= 0)
                     gpu.setStock(Integer.parseInt(stockGpu));
                 if (!fileNameGpu.isBlank()) {
-                    File file = new File(gpu.getImagePath());
+                    String path = gpu.getImagePath().substring(gpu.getImagePath().lastIndexOf(File.separator)+1);
+                    File file = new File(ImagePaths.uploadPath+path);
                     file.delete();
                     gpu.setImagePath(ImagePaths.imagePath+fileNameGpu);
                     try(InputStream inputStream = filePartGpu.getInputStream()){
@@ -426,7 +427,8 @@ public class ModifyDB extends HttpServlet {
                 if (!stockCpu.isBlank() && Integer.parseInt(stockCpu) >= 0)
                     cpu.setStock(Integer.parseInt(stockCpu));
                 if (!fileNameCpu.isBlank()) {
-                    File file = new File(cpu.getImagePath());
+                    String path = cpu.getImagePath().substring(cpu.getImagePath().lastIndexOf(File.separator)+1);
+                    File file = new File(ImagePaths.uploadPath+path);
                     file.delete();
                     cpu.setImagePath(ImagePaths.imagePath+fileNameCpu);
                     try(InputStream inputStream = filePartCpu.getInputStream()){
@@ -457,7 +459,8 @@ public class ModifyDB extends HttpServlet {
                 if (!stockPsu.isBlank() && Integer.parseInt(stockPsu) >= 0)
                     psu.setStock(Integer.parseInt(stockPsu));
                 if (!fileNamePsu.isBlank()) {
-                    File file = new File(psu.getImagePath());
+                    String path = psu.getImagePath().substring(psu.getImagePath().lastIndexOf(File.separator)+1);
+                    File file = new File(ImagePaths.uploadPath+path);
                     file.delete();
                     psu.setImagePath(ImagePaths.imagePath+fileNamePsu);
                     try(InputStream inputStream = filePartPsu.getInputStream()){
@@ -488,7 +491,8 @@ public class ModifyDB extends HttpServlet {
                 if (!stockCase.isBlank() && Integer.parseInt(stockCase) >= 0)
                     pcCase.setStock(Integer.parseInt(stockCase));
                 if (!fileNameCase.isBlank()) {
-                    File file = new File(pcCase.getImagePath());
+                    String path = pcCase.getImagePath().substring(pcCase.getImagePath().lastIndexOf(File.separator)+1);
+                    File file = new File(ImagePaths.uploadPath+path);
                     file.delete();
                     pcCase.setImagePath(ImagePaths.imagePath+fileNameCase);
                     try(InputStream inputStream = filePartCase.getInputStream()){
@@ -537,7 +541,8 @@ public class ModifyDB extends HttpServlet {
                 if (!stockMobo.isBlank() && Integer.parseInt(stockMobo) >= 0)
                     mobo.setStock(Integer.parseInt(stockMobo));
                 if (!fileNameMobo.isBlank()) {
-                    File file = new File(mobo.getImagePath());
+                    String path = mobo.getImagePath().substring(mobo.getImagePath().lastIndexOf(File.separator)+1);
+                    File file = new File(ImagePaths.uploadPath+path);
                     file.delete();
                     mobo.setImagePath(ImagePaths.imagePath+fileNameMobo);
                     try(InputStream inputStream = filePartMobo.getInputStream()){
@@ -577,7 +582,8 @@ public class ModifyDB extends HttpServlet {
                 if (!stockMemory.isBlank() && Integer.parseInt(stockMemory) >= 0)
                     memory.setStock(Integer.parseInt(stockMemory));
                 if (!fileNameMemory.isBlank()) {
-                    File file = new File(memory.getImagePath());
+                    String path = memory.getImagePath().substring(memory.getImagePath().lastIndexOf(File.separator)+1);
+                    File file = new File(ImagePaths.uploadPath+path);
                     file.delete();
                     memory.setImagePath(ImagePaths.imagePath+fileNameMemory);
                     try(InputStream inputStream = filePartMemory.getInputStream()){
