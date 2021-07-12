@@ -25,9 +25,9 @@ public class Login extends HttpServlet {
         try {
             synchronized (session) {
                 String hashedPassword = passwordHasher.setPassword(password);
-                boolean failedLogin = true;
                 UserDao userDao = new UserDao();
                 User user = userDao.doRetrieveByEmail(email);
+                boolean failedLogin = true;
                 if (user != null) {
                     if (hashedPassword.equals(user.getPassword())) {
                         failedLogin = false;
