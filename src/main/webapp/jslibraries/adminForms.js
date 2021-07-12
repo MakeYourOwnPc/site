@@ -311,6 +311,7 @@ function prepareFormUpdate(item) {
             let miniitxm = (item.formFactor == "mini-itx") ? 'selected' : '';
             let microatxm = (item.formFactor == "micro-atx") ? 'selected' : '';
             let atxm = (item.formFactor == "atx") ? 'selected' : '';
+            let eatx = (item.formFactor == "eatx") ? 'selected' : '';
             formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="motherboards">' +
 
                 '<tr><td><label for="id">DataBase Id</label></td>' +
@@ -339,7 +340,10 @@ function prepareFormUpdate(item) {
                 '<td><select id="formFActor" name="formFactor">' +
                 '<option value="mini-itx"' + miniitxm + '>Mini-ITX</option>' +
                 " <option value='micro-atx' " + microatxm + ">Micro-ATX</option>" +
-                "<option value='atx'" + atxm + ">ATX</option></select></td></tr>" +
+                "<option value='atx'" + atxm + ">ATX</option>" +
+                "<option value='eatx'" + eatx + ">ATX</option>" +
+                "</select>" +
+                "</td></tr>" +
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
                 '<td><input type="number" id="consumption" name="consumption" value="' + item.consumption + '"></td></tr>' +
@@ -382,8 +386,7 @@ function prepareFormUpdate(item) {
             break;
 
     }
-    let buttonHTML='<tr><td><input type="radio" name="option" value="delete" class="btn btn-danger" >Delete</input></td>' +
-        '<td><input id="saveChanges" type="radio" name="option" value="update"  class="btn btn-success" checked>Save Changes</input></td>' +
+    let buttonHTML='<td><input id="saveChanges" type="hidden" name="option" value="update"></td>' +
         '<td><input id="submitDBUpdate" type="submit" class="btn active" onclick="return checkProductName()"></td></tr>';
     console.log(formHTML);
     if(image)
@@ -550,7 +553,9 @@ function prepareFormInsert() {
                 '<td><select id="formFActor" name="formFactor">' +
                 '<option value="mini-itx">Mini-ITX</option>' +
                 " <option value='micro-atx'>Micro-ATX</option>" +
-                "<option value='atx'>ATX</option></select></td></tr>" +
+                "<option value='atx'>ATX</option>" +
+                " <option value='eatx'>EATX</option>" +
+                "</select></td></tr>" +
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
                 '<td><input type="number" id="consumption" name="consumption"></td></tr>' +
