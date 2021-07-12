@@ -162,6 +162,7 @@ public class GpuDao implements IGpuDao<SQLException> {
                 String filePath = doRetrieveById(id).getImagePath();
                 String path = filePath.substring(filePath.lastIndexOf(File.separator)+1);
                 File file = new File(ImagePaths.uploadPath+path);
+                System.out.println(ImagePaths.uploadPath+path);
                 file.delete();
                 return ps.executeUpdate()>0;
             }
