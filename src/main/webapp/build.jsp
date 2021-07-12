@@ -30,6 +30,7 @@
 <input type="hidden" id="idBuild" value='<%=id%>'>
 <input type="hidden" id="refererAdmin" value='${referer}'>
 <input type="hidden" id="isAdmin" value='${user.admin}'>
+<input type="hidden" id="oldBuildType" value="'${type}'">
 
 
 <script src="./bootstrap/js/bootstrap.js" defer></script>
@@ -108,7 +109,12 @@
              <label for="psu">Select the Psu</label>
         <input type="text" id="psu" onclick="selectPsu()"readonly>
         <label for="buildType">Build Type</label>
-        <input type="text" id="buildType" >
+        <select  id="buildType">
+            <option value="Gaming">Gaming</option>
+            <option value="Office">Office</option>
+            <option value="Terminal">Terminal</option>
+            <option value="Workstation">Workstation</option>
+        </select>
 
     </div>
     <table>
@@ -155,7 +161,7 @@
         let formButton="<tr><td><label for=suggested>Suggested</label></td>" +
             "<td><input type=radio id=suggested name=suggested value='true'></td> " +
             "<td><label for=notSuggested>Not Suggested</label></td>" +
-            "<td><input type=radio id=notSuggested name=suggested value='false'></td></tr>";
+            "<td><input type=radio id=notSuggested name=suggested value='false' checked></td></tr>";
         $("#submitButtons").prepend(formButton);
 
     }
