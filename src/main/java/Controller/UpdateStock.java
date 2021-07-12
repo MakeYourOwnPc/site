@@ -38,7 +38,7 @@ public class UpdateStock extends HttpServlet {
         try {
             Build build = buildDao.doRetrieveById(idBuild);
             Gpu gpu = null;
-            if(build.getGpu()!=0) gpuDao.doRetrieveById(build.getGpu());
+            if(build.getGpu()!=0) gpu = gpuDao.doRetrieveById(build.getGpu());
             Cpu cpu = cpuDao.doRetrieveById(build.getCpu());
             Mobo mobo = moboDao.doRetrieveById(build.getMobo());
             Psu psu = psuDao.doRetrieveById(build.getPsu());

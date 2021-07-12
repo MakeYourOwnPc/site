@@ -17,6 +17,12 @@
 <script src="./jslibraries/adminTabler.js"></script>
 <script src="./jslibraries/adminForms.js"></script>
 
+<style>
+    tr:nth-child(2n) {
+        background: rgba(0,0,0,0.4);
+    }
+</style>
+
 <nav class="topbar">
     <div class="icon-container sidebar-icon" onclick="hideSidebar()">
         <%@include file="../../icons/list-ul.svg" %>
@@ -45,6 +51,7 @@
     <h2 class="button">Builds</h2>
     <h2 class="button">Users</h2>
     <h2 class="button">Purchases</h2>
+    <h2 class="button">Country</h2>
 </nav>
 <div class="rightBox" style="display: none">
     <form id="searchForm" >
@@ -160,6 +167,9 @@
                         case "Purchases":
                             results.forEach(purchaseTabler);
                             break;
+                    case "Country":
+                        results.forEach(countryTabler);
+                        break;
 
                     default:
                         $("#searchResultItem").html("Cannot visualize");

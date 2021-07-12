@@ -46,7 +46,7 @@ body{
 td{
     padding: 3px;
 }
-input[type=text], select, input[type=email],input[type=password],input[type=number],input[type=date]{
+input[type=text], select, input[type=email],input[type=password],input[type=number],input[type=date],input[type=tel]{
     width: 100%;
     padding: 0.4rem 0.5rem;
     margin: 8px 0;
@@ -88,7 +88,7 @@ button{
     height: 655px;
 }
 .buildContainer{
-    display: inline-flex;
+    display: block;
     vertical-align: middle;
 }
 
@@ -320,8 +320,8 @@ footer{
     border-top: white solid;
 
 }
-tr:nth-child(2n) {
-    background: rgba(0,0,0,0.4);
+td>img{
+    max-height: 3rem;
 }
 table{
     width: 100%;
@@ -337,6 +337,10 @@ footer div table{
 
 
 @media screen and (max-width: 700px) {
+    td>img{
+        max-height: 100%;
+        max-width: 100%;
+    }
     .buildContainer{
         display: block;
     }
