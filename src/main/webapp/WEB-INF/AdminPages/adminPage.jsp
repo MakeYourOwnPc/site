@@ -11,12 +11,12 @@
 <body class="default">
 <script src="./bootstrap/js/bootstrap.js" defer></script>
 <script src="./bootstrap/popper.js" defer></script>
-<jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
+
 <script src="./jslibraries/jQuery.js"></script>
 <script src="./jslibraries/utilities.js"></script>
 <script src="./jslibraries/adminTabler.js"></script>
 <script src="./jslibraries/adminForms.js"></script>
-
+<jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
 <style>
     tr:nth-child(2n) {
         background: rgba(0,0,0,0.4);
@@ -99,6 +99,8 @@
         </div>
     </div>
 </div>
+
+
 
 </body>
 

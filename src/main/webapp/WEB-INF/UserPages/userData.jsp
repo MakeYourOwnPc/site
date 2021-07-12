@@ -16,7 +16,7 @@
 <script src="jslibraries/utilities.js"></script>
 
 
-
+<div class="fullHeightFooter">
 <div class="centered-box">
     <div class="box-container fullHeightList">
         <input type="hidden" id="result" value="${result}">
@@ -92,7 +92,7 @@
             -At Least A Number
         </p>
     </div>
-
+</div>
 </div>
 </body>
 

@@ -27,6 +27,7 @@
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
 <script src="jslibraries/jQuery.js"></script>
 <script src="jslibraries/utilities.js"></script>
+<div class="fullHeightFooter">
 <div id="pageContenent">
     <div>
         <h1 style="padding: 10px;background-color: rgba(0,0,0,0.3); text-align: center">
@@ -73,6 +74,9 @@
     </div>
 
 </div>
+</div>
+<jsp:include page="/WEB-INF/pagecomponents/footer.jsp"></jsp:include>
+
 </body>
 <script>
     function deleteBuild(id){

@@ -19,7 +19,7 @@
         background: rgba(0,0,0,0.4);
     }
 </style>
-
+<div class="fullHeightFooter">
 <div id="pageContenent">
     <div>
         <h1 style="padding: 10px;background-color: rgba(0,0,0,0.3); text-align: center">
@@ -81,7 +81,7 @@
 </c:choose>
 
 
-</div>
+</div></div>
 <jsp:include page="/WEB-INF/pagecomponents/footer.jsp"></jsp:include>
 </body>
 <script>

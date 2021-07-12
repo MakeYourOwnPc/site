@@ -34,6 +34,8 @@
 </style>
 
 <input type="hidden" id="new" value="${purchased}">
+<div class="fullHeightFooter">
+    <div>
 <div id="pageContenent">
     <div>
         <h1 style="padding: 10px;background-color: rgba(0,0,0,0.3); text-align: center">
@@ -91,6 +93,7 @@
     </div>
     </div>
 
+</div>
 </div>
 
 

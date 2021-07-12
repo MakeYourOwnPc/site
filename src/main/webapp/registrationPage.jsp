@@ -21,7 +21,7 @@
 <script src="jslibraries/jQuery.js"></script>
 <script src="jslibraries/utilities.js"></script>
 
-
+<div class="fullHeightFooter">
 <div class="centered-box">
     <div class="box-container fullHeightList">
     <h1>Registration Form</h1>
@@ -91,7 +91,7 @@
             -At Least A Number
         </p>
     </div>
-
+</div>
 </div>
 <jsp:include page="/WEB-INF/pagecomponents/footer.jsp"></jsp:include>
 </body>

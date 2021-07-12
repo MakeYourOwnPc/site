@@ -28,6 +28,7 @@
     </style>
 </head>
 <body>
+
 <input type="hidden" id="oldMobo" value='${mobo}'>
 <input type="hidden" id="oldGpu" value='${gpu}'>
 <input type="hidden" id="oldCpu" value='${cpu}'>
@@ -47,7 +48,7 @@
 <script src="./jslibraries/Build.js"></script>
 <script src="jslibraries/utilities.js"></script>
 
-
+<div class="fullHeightFooter">
 <div id="overlayFormBuild" class="overlayElement" style="display: none">
     <div class="inner-window">
         <div class="box-container">
@@ -148,9 +149,11 @@
         </tr>
         </tbody>
     </table>
+</div>
 
     <jsp:include page="/WEB-INF/pagecomponents/footer.jsp"></jsp:include>
 </div>
+
 
 </body>
 
