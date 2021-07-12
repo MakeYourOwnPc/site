@@ -255,7 +255,7 @@ function prepareFormUpdate(item) {
                 '<td><input type="text" id="MEMsocket" name="MEMsocket" value="' + item.socket + '" maxlength="100"></td></tr>' +
 
                 '<tr><td><label for="Ram">Ram</label></td>' +
-                '<td><input type="radio" id="Ram" name="mType" value="false"' + Ram + '"></td></tr>' +
+                '<td><input type="radio" id="Ram" name="mType" value="false"' + ram + '"></td></tr>' +
 
                 '<tr><td><label for="MassStorage">MassStorage</label></td>' +
                 '<td class="form"><input type="radio" id="MassStorage" name="mType" value="true"' + massStorage + '</td></tr>' +
