@@ -86,8 +86,7 @@
 </body>
 <script>
     function purchase(){
-        if(document.getElementById("address").checkValidity()||document.getElementById("telephoneNumber").checkValidity()||
-            document.getElementById("city").checkValidity()||document.getElementById("CAP").checkValidity()||document.getElementById("country").checkValidity()){
+        if($("#address").val()!==""&&$("#telephoneNumber").val()!==""&&$("#city").val()!==""&&$("#CAP").val()!==""&& $("#country").val()!==""){
            let formData={
                 'address':$("#address").val(),
                 'cellphonenumber':$("#telephoneNumber").val(),
