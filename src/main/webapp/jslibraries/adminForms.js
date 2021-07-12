@@ -30,7 +30,7 @@ function changeForm(text) {
             name = false;
             break;
         case "Gpus":
-            tableHeader = "<tr><th>Product Name</th><th>Database Id</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr>"
+            tableHeader = "<thead><tr><th>Product Name</th><th>Database Id</th><th>Power Consumption</th><th>Price</th><th>In Stock</th></tr></thead>"
             formHTML = "<input type='hidden' id='requestedItem' name='requestedItem' value='gpus'>";
             break;
         case "Cpus":
@@ -144,7 +144,7 @@ function changeForm(text) {
                 "</select></td></tr>";
             break;
         case "Purchases":
-            tableHeader = "<thead></thead><tr><th>Creation Date</th><th>User</th><th>Country</th><th>Postal Code</th><th>City</th><th>Address</th><th>Id Build</th><th>Form Factor</th><th>Purchase Id</th></tr></thead>";
+            tableHeader = "<thead><tr><th>Creation Date</th><th>User</th><th>Country</th><th>Postal Code</th><th>City</th><th>Address</th><th>Id Build</th><th>Form Factor</th><th>Purchase Id</th></tr></thead>";
 
             name=false;
             formHTML="<input type='hidden' id='requestedItem' name='requestedItem' value='purchases'>"+

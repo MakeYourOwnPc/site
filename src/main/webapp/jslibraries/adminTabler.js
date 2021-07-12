@@ -11,9 +11,9 @@ function checkAdminAdder(value){
     let checked= (value.admin)?'checked':'';
     let email=value.email.replaceAll(".","\\\\.");/*una coppia di slash per questa stinga*/
     email=email.replaceAll("@","\\\\@");
-    let button="<td><form onclick=\"adminModifier('"+email+"')\">" +
+    let button="<td class='isAdmin'><form >" +
         /* "<input type=\"hidden\" name=\"admin\" value=\""+value.email+"\"   >" +*/
-        "<input id=\""+value.email+"\" type=\"checkbox\" name=\"admin\" value=\"true\" "+checked+ ">" +
+        "<input id=\""+value.email+"\" type=\"checkbox\" name=\"admin\" value=\"true\" onclick=\"adminModifier('"+email+"')\" "+checked+ ">" +
         "</form></td>";
     return button;
 }

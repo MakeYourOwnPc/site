@@ -410,6 +410,24 @@ footer div table{
     .isSuggested:before{ content:"Suggested";}
     .memoryType:before{ content:"Memory Type";}
     .amountOfMemories:before{ content:"Number Of Memories";}
+    .creationDate:before{ content:"Creation Date";}
+    .email:before{ content:"Email";}
+    .country:before{ content:"Country";}
+    .cap:before{ content:"CAP";}
+    .city:before{ content:"City";}
+    .address:before{ content:"Address";}
+    .cellphonenumber:before{ content:"Cellphone Number";}
+    .idbuild:before{ content:"Id Build";}
+    .id:before{ content:"Purchase Id";}
+    .firstname:before{ content:"First Name";}
+    .lastname:before{ content:"Last Name";}
+    .isAdmin:before{ content:"Admin";}
+
+
+
+
+
+
 
     .searchResult tr td:last-child{
         border-style: none;

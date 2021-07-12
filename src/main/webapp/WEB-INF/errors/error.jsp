@@ -25,10 +25,12 @@
 <script src="jslibraries/jQuery.js"></script>
 <script src="jslibraries/utilities.js"></script>
 <body>
-<h1>Error Type:<%=exceptionType%></h1>
-<h1>Error Code:<%=statusCode%></h1>
-<h1>Servlet who gived the error:<%=servletName%></h1>
-<h1>The Uri who caused the error:<%=requestUri%></h1>
+<div class="fullHeightFooter">
+<h1>Error Type:<br><%=exceptionType%></h1>
+<h1>Error Code:<br><%=statusCode%></h1>
+<h1>Servlet who gived the error:<br><%=servletName%></h1>
+<h1>The Uri who caused the error:<br><%=requestUri%></h1>
 <jsp:include page="/WEB-INF/pagecomponents/footer.jsp"></jsp:include>
+</div>
 </body>
 </html>
