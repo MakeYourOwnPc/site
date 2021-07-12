@@ -571,7 +571,7 @@ function pcCaseTabler(value) {
         "<td class='productName "+((value.stock<=0)?" outOfStock":"")+"' >" + value.name + "</td>" +
         "<td class='formFactor'>" + value.formFactor + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
-        "<td><img src=-'" + value.imagePath + "'></td>" +
+        "<td><img src='" + value.imagePath + "'></td>" +
         buttonAdder(value.id, "PcCase") +
         "</tr>"
     $("#searchResultBuild").append(row);
