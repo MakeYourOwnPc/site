@@ -120,7 +120,7 @@
             </td>
             <td><label for="purchase">Ready To Purchase</label></td>
             <td>
-                <button id="purchase" class="btn btn-success" onclick="purchase()">Purchase</button>
+                <button id="purchase" class="btn btn-success" onclick="return purchase()">Purchase</button>
             </td>
             <form id="purchaseForm" method="post" action="/MYOPSite_war_exploded/addToCart" enctype="application/x-www-form-urlencoded">
                 <input id="purchaseBuildJson" type="hidden" name="build">
@@ -140,6 +140,8 @@
 </div>
 
 </body>
+
+
 <script>
     $(document).ready(function () {
         $("#builds input").val("");/* autocomplete=off è inutile quindi meglio*/
@@ -254,6 +256,10 @@
 
 
     function purchase(){
+        if($("#loggedHeader").val()==""){
+            createToast("Not Logged In","Cannot Purchase The Build Without Being Logged In");
+            return false;
+        }
         checkValidity()
         if(!submitable) return;
         $("#purchaseBuildJson").val(stringifyBuild())
