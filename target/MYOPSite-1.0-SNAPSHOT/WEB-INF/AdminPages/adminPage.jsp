@@ -251,8 +251,7 @@
                 if(this.responseText=="itemIsPresent"){
                     $("#name-alert").attr('hidden', false);
                     document.getElementById("submitDBUpdate").disabled=true;
-                }
-                if(this.responseText=="fileIsPresent"){
+                }else if(this.responseText=="fileIsPresent"){
                     document.getElementById("submitDBUpdate").disabled=true;
                     createToast("Error","Image Name Already Present,Change Image Name")
                 }else
