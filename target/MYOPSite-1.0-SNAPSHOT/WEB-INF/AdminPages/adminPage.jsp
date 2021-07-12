@@ -248,11 +248,14 @@
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 console.log("ItemIsPresent "+this.responseText);
-                if(this.responseText=="true"){
+                if(this.responseText=="itemIsPresent"){
                     $("#name-alert").attr('hidden', false);
                     document.getElementById("submitDBUpdate").disabled=true;
                 }
-                else
+                if(this.responseText=="fileIsPresent"){
+                    document.getElementById("submitDBUpdate").disabled=true;
+                    createToast("Error","Image Name Already Present,Change Image Name")
+                }else
                     $("#name-alert").attr('hidden', true);
                 document.getElementById("submitDBUpdate").disabled=false;
             }
@@ -260,9 +263,11 @@
         xhttp.open("POST", ".\/admin\/itemIsPresent", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         let requestSend="name="+document.getElementById("productName").value+"&id="+document.getElementById("id").value+
-            "&requestedItem="+document.getElementById("requestedItemUpdate").value;
+            "&requestedItem="+document.getElementById("requestedItemUpdate").value+"&path="+document.getElementById("image").value;
         xhttp.send(requestSend);
     }
+
+
 
 
 

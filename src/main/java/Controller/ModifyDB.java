@@ -121,10 +121,28 @@ public class ModifyDB extends HttpServlet {
                     resp.getWriter().print(memoryDao.doDelete(Integer.parseInt(id)));
             }
             case "builds" -> {
-               User user = (User) req.getSession().getAttribute("user");
-
+               BuildDao buildDao = new BuildDao();
+               String id = req.getParameter("id");
+               if(id!=null)
+                   resp.getWriter().print(buildDao.doDelete(Integer.parseInt(id)));
+        }
+        case "countries" -> {
+               CountryDao countryDao = new CountryDao();
+               String id = req.getParameter("id");
+               if(id!=null){
+                   ServletContext servletContext = req.getServletContext();
+                   synchronized (servletContext){
+                       ArrayList<Country> countries = (ArrayList<Country>) servletContext.getAttribute("countries");
+                       for(int i=0;i<countries.size();i++)
+                           if(countries.get(i).getId().equals(id))
+                               countries.remove(i);
+                           servletContext.setAttribute("countries",countries);
+                   }
+                   resp.getWriter().print(countryDao.doDelete(id));
+               }
         }
     }
+        resp.sendRedirect("/MYOPSite_war_exploded/admin");
     }
     public void insert(String requestedItem, HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
         switch (requestedItem) {
