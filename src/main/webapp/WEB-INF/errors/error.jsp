@@ -16,8 +16,8 @@
 <head>
     <title>MYOP-<%=statusCode%></title>
     <meta name="viewport" content="width=device-witdht, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="customcss/general.css"/>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/customcss/general.css"/>
 </head>
 <script src="bootstrap/js/bootstrap.js" defer></script>
 <script src="bootstrap/popper.js" defer></script>

@@ -107,7 +107,7 @@
 
 <script>
 
-    var selectedElement;
+    let selectedElement;
 
 
 
@@ -250,10 +250,10 @@
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 console.log("ItemIsPresent "+this.responseText);
-                if(this.responseText=="itemIsPresent"){
+                if(this.responseText.includes("itemIsPresent")){
                     $("#name-alert").attr('hidden', false);
                     document.getElementById("submitDBUpdate").disabled=true;
-                }else if(this.responseText=="fileIsPresent"){
+                }else if(this.responseText.includes("fileIsPresent")){
                     document.getElementById("submitDBUpdate").disabled=true;
                     createToast("Error","Image Name Already Present,Change Image Name")
                 }else
