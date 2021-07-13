@@ -54,6 +54,7 @@ public class CpuDao implements ICpuDao<SQLException> {
                 cpu.setSocket(rs.getString("socket"));
                 cpu.setConsumption(rs.getInt("consumption"));
                 cpu.setPrice(rs.getFloat("price"));cpu.setStock(rs.getInt("stock"));
+                cpu.setImagePath(rs.getString("imagepath"));
                 rs.close();
                 return cpu;
             }
@@ -108,7 +109,7 @@ public class CpuDao implements ICpuDao<SQLException> {
             if(!socket.isBlank()){
                 if(!stringBuilder.isEmpty())
                     stringBuilder.append(" AND ");
-                stringBuilder.append("UPPER(socket) LIKE UPPER('%"+socket+"%')");
+                stringBuilder.append("socket='"+socket+"'");
             }
             if(integratedGpu!=null){
                 if(!stringBuilder.isEmpty())

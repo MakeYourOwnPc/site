@@ -59,6 +59,7 @@ public class MoboDao implements IMoboDao<SQLException>{
                 mobo.setName(rs.getString("name"));
                 mobo.setCpuSocket(rs.getString("cpusocket"));
                 mobo.setRamSocket(rs.getString("ramsocket"));
+                mobo.setImagePath(rs.getString("imagepath"));
                 mobo.setStock(rs.getInt("stock"));
                 return mobo;
             }catch(SQLException e){
@@ -90,6 +91,7 @@ public class MoboDao implements IMoboDao<SQLException>{
                     mobo.setCpuSocket(rs.getString("cpusocket"));
                     mobo.setRamSocket(rs.getString("ramsocket"));
                     mobo.setStock(rs.getInt("stock"));
+                    mobo.setImagePath(rs.getString("imagepath"));
                     list.add(mobo);
                 }
                 return list;
@@ -105,14 +107,13 @@ public class MoboDao implements IMoboDao<SQLException>{
     @Override
     public ArrayList<Mobo> doRetrieveByParameters(String name,String ramSocket, String cpuSocket, String formFactor, int nvmeSlot, int sataSlot,int ramSlot,int limit, int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()) {
-            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motherboards WHERE UPPER(name) LIKE UPPER('%"+name+"%') AND UPPER(ramsocket) LIKE UPPER('%"+ramSocket+"%') AND UPPER(cpusocket) LIKE UPPER('%"+cpuSocket+"%') AND UPPER(formfactor) LIKE UPPER('"+formFactor+"%') AND amountslotnvme>=? AND amountslotsata>=? AND amountslotram>=? ORDER BY name LIMIT ?,?;")) {
-                ps.setInt(1, nvmeSlot);
-                ps.setInt(2, sataSlot);
-                ps.setInt(3, ramSlot);
-                ps.setInt(4, offset);
-                ps.setInt(5, limit);
+            String query="SELECT * FROM Motherboards WHERE UPPER(name) LIKE UPPER('%"+name+"%') AND UPPER(formfactor) LIKE UPPER('"+formFactor+"%') AND amountslotnvme>="+nvmeSlot+" AND amountslotsata>="+sataSlot+" AND amountslotram>="+ramSlot;
+                if(!ramSocket.isBlank())
+                    query+=" AND ramsocket='"+ramSocket+"'";
+                if(!cpuSocket.isBlank())
+                    query+=" AND cpusocket='"+cpuSocket+"'";
                 ArrayList<Mobo> list = new ArrayList<Mobo>();
-                ResultSet rs = ps.executeQuery();
+                ResultSet rs = conn.createStatement().executeQuery(query+" ORDER BY name LIMIT "+offset+","+limit);
                 while (rs.next()) {
                     Mobo mobo = new Mobo();
                     mobo.setConsumption(rs.getInt("consumption"));
@@ -133,9 +134,6 @@ public class MoboDao implements IMoboDao<SQLException>{
             } catch (SQLException e) {
                 throw new SQLException();
             }
-        }catch(SQLException e){
-            throw new SQLException();
-        }
     }
 
     @Override
