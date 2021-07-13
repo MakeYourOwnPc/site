@@ -180,7 +180,7 @@ public class ModifyDB extends HttpServlet {
                 Cpu cpu = new Cpu();
                 String nameCpu = req.getParameter("name");
                 String priceCpu = req.getParameter("price");
-                String socketCpu = req.getParameter("socket");
+                String socketCpu = req.getParameter("CPUsocket");
                 String integratedGpu = req.getParameter("integratedGpu");
                 String consumptionCpu = req.getParameter("consumption");
                 String stockCpu = req.getParameter("stock");
@@ -270,11 +270,11 @@ public class ModifyDB extends HttpServlet {
                 String priceMobo = req.getParameter("price");
                 String consumptionMobo = req.getParameter("consumption");
                 String formFactorMobo = req.getParameter("formFactor");
-                String amountSlotNvme = req.getParameter("amountSlotNvme");
-                String amountSlotRam = req.getParameter("amountSlotRam");
-                String amountSlotSata = req.getParameter("amountSlotSata");
-                String cpuSocket = req.getParameter("cpuSocket");
-                String ramSocket = req.getParameter("ramSocket");
+                String amountSlotNvme = req.getParameter("nNVMESockets");
+                String amountSlotRam = req.getParameter("nRAMSockets");
+                String amountSlotSata = req.getParameter("nSATASockets");
+                String cpuSocket = req.getParameter("CPUsocket");
+                String ramSocket = req.getParameter("RAMsocket");
                 String stockMobo = req.getParameter("stock");
                 Part filePartMobo = req.getPart("image");
                 String fileNameMobo = Paths.get(filePartMobo.getSubmittedFileName()).getFileName().toString();
@@ -309,14 +309,14 @@ public class ModifyDB extends HttpServlet {
                 Memory memory = new Memory();
                 String nameMemory = req.getParameter("name");
                 String priceMemory = req.getParameter("price");
-                String socketMemory = req.getParameter("socket");
+                String socketMemory = req.getParameter("MEMsocket");
                 String mType = req.getParameter("mType");
-                String amountMemories = req.getParameter("amountMemories");
+                String amountMemories = req.getParameter("amountOfMemories");
                 String consumptionMemory = req.getParameter("consumption");
                 String stockMemory = req.getParameter("stock");
                 Part filePartMemory = req.getPart("image");
                 String fileNameMemory = Paths.get(filePartMemory.getSubmittedFileName()).getFileName().toString();
-                if (!nameMemory.isBlank() || socketMemory.isBlank() || mType.isBlank() || !(mType.equals("true") || mType.equals("false")) || priceMemory.isBlank() || consumptionMemory.isBlank() || amountMemories.isBlank() || Integer.parseInt(amountMemories) < 0 || stockMemory.isBlank() || Integer.parseInt(stockMemory) < 0){
+                if (nameMemory.isBlank() || socketMemory.isBlank() || mType.isBlank() || !(mType.equals("true") || mType.equals("false")) || priceMemory.isBlank() || consumptionMemory.isBlank() || amountMemories.isBlank() || Integer.parseInt(amountMemories) < 0 || stockMemory.isBlank() || Integer.parseInt(stockMemory) < 0){
                     resp.setStatus(500);
                     return;
             }
@@ -341,7 +341,7 @@ public class ModifyDB extends HttpServlet {
             case "countries" -> {
                 ServletContext servletContext = req.getServletContext();
                 CountryDao countryDao = new CountryDao();
-                String countryId = req.getParameter("countryId");
+                String countryId = req.getParameter("id");
                 String countryLabel = req.getParameter("label");
                 Country country = new Country();
                 if(!countryLabel.isBlank()&&!countryLabel.isBlank()){
@@ -405,7 +405,7 @@ public class ModifyDB extends HttpServlet {
                 Cpu cpu = cpuDao.doRetrieveById(Integer.parseInt(idCpu));
                 String nameCpu = req.getParameter("name");
                 String priceCpu = req.getParameter("price");
-                String socketCpu = req.getParameter("socket");
+                String socketCpu = req.getParameter("CPUsocket");
                 String integratedGpu = req.getParameter("integratedGpu");
                 String consumptionCpu = req.getParameter("consumption");
                 String stockCpu = req.getParameter("stock");
@@ -503,11 +503,11 @@ public class ModifyDB extends HttpServlet {
                 String priceMobo = req.getParameter("price");
                 String consumptionMobo = req.getParameter("consumption");
                 String formFactorMobo = req.getParameter("formFactor");
-                String amountSlotNvme = req.getParameter("amountSlotNvme");
-                String amountSlotRam = req.getParameter("amountSlotRam");
-                String amountSlotSata = req.getParameter("amountSlotSata");
-                String cpuSocket = req.getParameter("cpuSocket");
-                String ramSocket = req.getParameter("ramSocket");
+                String amountSlotNvme = req.getParameter("nNVMESockets");
+                String amountSlotRam = req.getParameter("nRAMSockets");
+                String amountSlotSata = req.getParameter("nSATASockets");
+                String cpuSocket = req.getParameter("CPUsocket");
+                String ramSocket = req.getParameter("RAMsocket");
                 String stockMobo = req.getParameter("stock");
                 Part filePartMobo = req.getPart("image");
                 String fileNameMobo = Paths.get(filePartMobo.getSubmittedFileName()).getFileName().toString();
@@ -549,9 +549,9 @@ public class ModifyDB extends HttpServlet {
                 Memory memory = memoryDao.doRetrieveById(Integer.parseInt(idMemory));
                 String nameMemory = req.getParameter("name");
                 String priceMemory = req.getParameter("price");
-                String socketMemory = req.getParameter("socket");
+                String socketMemory = req.getParameter("MEMsocket");
                 String mType = req.getParameter("mType");
-                String amountMemories = req.getParameter("amountMemories");
+                String amountMemories = req.getParameter("amountOfMemories");
                 String consumptionMemory = req.getParameter("consumption");
                 String stockMemory = req.getParameter("stock");
                 Part filePartMemory = req.getPart("image");

@@ -41,6 +41,8 @@ public class UserDao implements IUserDao<SQLException>{
             try(PreparedStatement ps = conn.prepareStatement("SELECT * FROM Users WHERE email=?;")){
                 ps.setString(1,email.toLowerCase());
                 ResultSet rs = ps.executeQuery();
+                if(!rs.isBeforeFirst())
+                    return null;
                 rs.next();
                 User user = new User();
                 user.setEmail(rs.getString("email"));

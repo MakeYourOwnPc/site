@@ -210,7 +210,7 @@ function prepareFormUpdate(item) {
                 '<input type="hidden" id="requestedItemUpdate" name="requestedItem" value="cpus">' +
 
                 '<tr><td><label for="id">DataBase Id</label></td>' +
-                '<td><input type="text" id="id" name="id" value="' + item.id + '" disabled></td></tr>' +
+                '<td><input type="text" id="id" name="id" value="' + item.id + '" readonly></td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
                 '<td><input name="name" type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()" maxlength="100"required>' +
@@ -245,7 +245,7 @@ function prepareFormUpdate(item) {
                 ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="memories">' +
 
                 '<tr><td><label for="id">DataBase Id</label></td>' +
-                '<td><input type="text" id="id" name="id" value="' + item.id + '" disabled></td></tr>' +
+                '<td><input type="text" id="id" name="id" value="' + item.id + '" readonly></td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
                 '<td><input name="name" type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()" maxlength="100"required>' +
@@ -362,10 +362,10 @@ function prepareFormUpdate(item) {
             formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="psus">' +
 
                 '<tr><td><label for="id">DataBase Id</label></td>' +
-                '<td><input type="text" id="id" name="id" name="name" value="' + item.id + '" disabled></td></tr>' +
+                '<td><input type="text" id="id" name="id" name="name" value="' + item.id + '" readonly></td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
-                '<td><input type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()"required>' +
+                '<td><input type="text" name="name" id="productName" value="' + item.name + '" onkeyup="checkProductName()"required>' +
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 '<tr><td><label for="power">Power</label></td>' +
@@ -442,7 +442,7 @@ function prepareFormInsert() {
                 '<td><input type="text" id="CPUsocket" name="CPUsocket"required></td></tr>' +
 
                 '<tr><td><label for="integratedGpu">Integrated Gpu</label></td>' +
-                '<td><input type="radio" id="integratedGpu" name="integratedGpu" required></td></tr>' +
+                '<td><input type="radio" id="integratedGpu" name="integratedGpu" value="true" required></td></tr>' +
 
                 '<tr><td><label for="noIntegratedGpu">No Integrated Gpu</label></td>' +
                 '<td><input type="radio" id="noIntegratedGpu" name="integratedGpu" value="false"></td></tr>' +
@@ -575,7 +575,7 @@ function prepareFormInsert() {
                 '<input type="hidden" id="id" name="id" value="-1">' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
-                '<td><input type="text" id="productName"  onkeyup="checkProductName()" required>' +
+                '<td><input type="text" name="name" id="productName"  onkeyup="checkProductName()" required>' +
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 '<tr><td><label for="power">Power</label></td>' +
@@ -605,7 +605,7 @@ function prepareFormInsert() {
             user=true;
             break;
         case"Countries":
-            formHTML= ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="countriesry">' +
+            formHTML= ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="countries">' +
                 '<input type="hidden" name="option" value="insert">'+
                 '<tr><td><label for="countryName">Count Name</label></td>' +
                 '<td><input type="text" id="countryName" name="label"required>'+

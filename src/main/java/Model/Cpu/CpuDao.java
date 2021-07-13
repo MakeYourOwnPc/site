@@ -140,13 +140,14 @@ public class CpuDao implements ICpuDao<SQLException> {
     @Override
     public boolean doSave(Cpu cpu) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Cpus (name,price,consumption,stock,socket,integratedgpu) VALUES (?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
+            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Cpus (name,price,consumption,stock,socket,integratedgpu,imagepath) VALUES (?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
                 ps.setString(1,cpu.getName());
                 ps.setFloat(2,cpu.getPrice());
                 ps.setInt(3,cpu.getConsumption());
                 ps.setInt(4,cpu.getStock());
                 ps.setString(5,cpu.getSocket());
                 ps.setBoolean(6,cpu.isIntegratedgpu());
+                ps.setString(7, cpu.getImagePath());
                 ps.executeUpdate();
                 ResultSet rs = ps.getGeneratedKeys();
                 rs.next();
@@ -171,10 +172,10 @@ public class CpuDao implements ICpuDao<SQLException> {
                 ps.setFloat(2,cpu.getPrice());
                 ps.setInt(3,cpu.getConsumption());
                 ps.setString(4,cpu.getSocket());
-                ps.setBoolean(6,cpu.isIntegratedgpu());
-                ps.setString(7, cpu.getImagePath());
-                ps.setInt(8,cpu.getStock());
-                ps.setInt(9, cpu.getId());
+                ps.setBoolean(5,cpu.isIntegratedgpu());
+                ps.setString(6, cpu.getImagePath());
+                ps.setInt(7,cpu.getStock());
+                ps.setInt(8, cpu.getId());
                 return ps.executeUpdate()>0;
             }
             catch(SQLException e){

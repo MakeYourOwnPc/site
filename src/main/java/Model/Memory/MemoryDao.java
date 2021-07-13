@@ -189,7 +189,7 @@ public class MemoryDao implements IMemoryDao<SQLException>{
     @Override
     public boolean doSave(Memory memory) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Memories (name,mType,socket,amountmemories,consumption,price,imagepath,stock) VALUES (?,?,?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
+            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Memories (name,mType,socket,amountmemories,consumption,price,imagepath,stock) VALUES (?,?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
                 ps.setString(1,memory.getName());
                 ps.setBoolean(2,memory.ismType());
                 ps.setString(3, memory.getSocket());

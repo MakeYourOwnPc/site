@@ -163,7 +163,7 @@ function buildTabler(value) {
 
     row += "<td class='buildType'>" + value.type + "</td>" +
 
-        buttonAdderBuild(value.id) +
+        buttonAdder(value.id) +
         "</tr>"
     $("#searchResultItem").append(row);
 }
@@ -204,17 +204,17 @@ function countryTabler(value){
         '</tr>';
     $("#searchResultItem").append(row);
 }
-
+/*
 function buttonAdderBuild(id) {
     let buttonForm;
     buttonForm = "<td><form id='" + id + "' action='/MYOPSite_war_exploded/showBuild'>" +
         "<input type='hidden' name='id' value='" + id + "'>" +
         "<input type='submit' class='btn active' value='Modify'></form></td>"+
-        "<td><form id='" + id + "' method='POST' action='/MYOPSite_war_exploded/deleteBuild'>"+
+        "<td><form id='" + id + "' method='POST' action='/MYOPSite_war_exploded/admin/modifyDB'>"+
         "<input type='hidden' name='id' value='" + id + "'>" +
         "<input type='submit' class='btn btn-danger' value='Delete'></form></td>";
     return buttonForm;
-}
+}*/
 
 
 

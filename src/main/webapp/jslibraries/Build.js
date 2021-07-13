@@ -89,7 +89,7 @@ function updateSpecification() {
     if (cpu != null){
         cpuConnector=cpu.socket;
         price+=cpu.price;
-    powerNeeded += cpu.consumption;
+        powerNeeded += cpu.consumption;
     }
 
     if (massStorage1 != null) {
@@ -175,38 +175,34 @@ function checkValidity() {
     }
 
 
-        switch (formFactorCase.toLowerCase()){
-            case"mini-itx":if(formFactorMobo.toLowerCase()==("micro"))
-            {
-                createToast("Invalid Build","Case incompatible with Motherboard");
-                submitable=false;
-                return submitable;
-            }
-            case"micro-atx":if(formFactorMobo.toLowerCase()==("atx")){
-                createToast("Invalid Build","Case incompatible with Motherboard");
-                submitable=false;
-                return submitable;
-            }
-            case"atx":if(formFactorMobo.toLowerCase()==("eatx")){
-                createToast("Invalid Build","Case incompatible with Motherboard");
-                submitable=false;
-                return submitable;
-            }
-
-        }
-
-        if($("#buildType")=="") {
-            createToast("Invalid Build", "Build Type Not Selected")
+    switch (formFactorCase.toLowerCase()){
+        case"mini-itx":if(formFactorMobo.toLowerCase()==("micro"))
+        {
+            createToast("Invalid Build","Case incompatible with Motherboard");
             submitable=false;
             return submitable;
         }
-        if(!checkStock()){
+        case"micro-atx":if(formFactorMobo.toLowerCase()==("atx")){
+            createToast("Invalid Build","Case incompatible with Motherboard");
             submitable=false;
             return submitable;
         }
-        submitable=true;
-        updateBuildSubmitButton();
-        return true;
+        case"atx":if(formFactorMobo.toLowerCase()==("eatx")){
+            createToast("Invalid Build","Case incompatible with Motherboard");
+            submitable=false;
+            return submitable;
+        }
+
+    }
+
+    if($("#buildType")=="") {
+        createToast("Invalid Build", "Build Type Not Selected")
+        return submitable=false;
+    }
+    if(!checkStock())
+        return submitable=false;
+    updateBuildSubmitButton();
+    return submitable = true;
 
 
 }
@@ -428,81 +424,79 @@ function submitForm(headers) {
                     "&integratedGpu=" + integratedCpu;
             } else {/* inizio formazione del form senza controlli*/
 
-                formFactorEnd = true;
-                if (selectedElement == "Ram") {
-                    massStorageNumber = 0;
-                    formData += "&mType=false&MEMsocket=";
-                }
-                if (selectedElement == "MassStorage") {
-                    formData += "&mType=true"
-                    $("#massStorageOption").show();
-                    if ($("#sata").prop("checked")) {
-                        formData += "&MEMsocket=sata"
-                    } else formData += "&MEMsocket=nvme"
-                } else $("#massStorageOption").hide();
+            formFactorEnd = true;
+            if (selectedElement == "Ram") {
+                massStorageNumber=0;
+                formData += "&mType=false&MEMsocket=";
+            }
+            if (selectedElement == "MassStorage") {
+                formData+="&mType=true"
+                $("#massStorageOption").show();
+                if ($("#sata").prop("checked")) {
+                    formData += "&MEMsocket=sata"
+                }else formData += "&MEMsocket=nvme"
+            }else    $("#massStorageOption").hide();
 
                 formData += "&power=&id=&formFactor=&CPUsocket=&RAMsocket=&nRAMSockets=&nSATASockets=&nNVMESockets=&requestedItem=" + itemCategory +
                     "&integratedGpu=";
             }
             let xhttp = new XMLHttpRequest();
 
-            xhttp.onreadystatechange = function () {
+        xhttp.onreadystatechange = function () {
 
-                if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState == 4 && this.status == 200) {
 
-                    console.log(this.responseText);
+                console.log(this.responseText);
 
-                    var results = JSON.parse(this.responseText);
+                var results = JSON.parse(this.responseText);
 
-                    switch (selectedElement) {
-                        case "Gpus":
-                            arrayElements = results;
-                            results.forEach(gpuTabler);
-                            break;
+                switch (selectedElement) {
+                    case "Gpus":
+                        arrayElements= results;
+                        results.forEach(gpuTabler);
+                        break;
 
-                        case "Cpus":
-                            arrayElements = results;
-                            results.forEach(cpuTabler);
-                            break;
+                    case "Cpus":
+                        arrayElements= results;
+                        results.forEach(cpuTabler);
+                        break;
 
-                        case "Ram":
-                            arrayElements = results;
-                            results.forEach(memoryTabler, {type: "Ram"});
-                            break;
+                    case "Ram":
+                        arrayElements= results;
+                        results.forEach(memoryTabler, {type: "Ram"});
+                        break;
 
-                        case "MassStorage":
-                            arrayElements = results;
-                            results.forEach(memoryTabler, {type: "MassStorage"});
-                            break;
+                    case "MassStorage":
+                        arrayElements= results;
+                        results.forEach(memoryTabler, {type: "MassStorage"});
+                        break;
 
-                        case "MotherBoards":
-                            results.forEach(addToResults)/*non effettuo il push direttamente qui per problemi di conversione*/
-                            results.forEach(moboTabler);
-                            break;
+                    case "MotherBoards":
+                        results.forEach(addToResults)/*non effettuo il push direttamente qui per problemi di conversione*/
+                        results.forEach(moboTabler);
+                        break;
 
-                        case "PcCase":
-                            results.forEach(addToResults)
-                            results.forEach(pcCaseTabler);
-                            break;
+                    case "PcCase":
+                        results.forEach(addToResults)
+                        results.forEach(pcCaseTabler);
+                        break;
 
-                        case "Psu":
-                            arrayElements = results;
-                            results.forEach(psusTabler);
-                            break;
-                        default:
-                            $("#searchResultBuild").html("Cannot visualize");
-                    }
-
-
+                    case "Psu":
+                        arrayElements= results;
+                        results.forEach(psusTabler);
+                        break;
+                    default:
+                        $("#searchResultBuild").html("Cannot visualize");
                 }
-            }
-            xhttp.open("POST", "/MYOPSite_war_exploded/itemsLister", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            setTimeout(xhttp.send(formData), 500);
-            console.log(formData);
-        }
-        while ((selectedElement == "MotherBoards" || selectedElement == "PcCase") && !formFactorEnd) ;
 
+
+            }
+        }
+        xhttp.open("POST", "/MYOPSite_war_exploded/itemsLister", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        setTimeout(xhttp.send(formData),500);
+        console.log(formData);
+    } while ((selectedElement == "MotherBoards" || selectedElement == "PcCase") && !formFactorEnd);
 }
 
 function addToResults(value){

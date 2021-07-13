@@ -21,7 +21,7 @@ create table Memories
     price          float     not null,
     amountmemories tinyint   not null,
     stock          int       not null,
-    imagepath      char(100)
+    imagepath      char(250)
 );
 
 create table Motherboards
@@ -37,7 +37,7 @@ create table Motherboards
     consumption    int       not null,
     price          float     not null,
     stock          int       not null,
-    imagepath      char(100)
+    imagepath      char(250)
 );
 
 create table Gpus
@@ -47,7 +47,7 @@ create table Gpus
     consumption int       not null,
     price       float     not null,
     stock       int       not null,
-    imagepath   char(100)
+    imagepath   char(250)
 );
 
 
@@ -60,7 +60,7 @@ create table Cpus
     consumption   int       not null,
     price         float     not null,
     stock         int       not null,
-    imagepath     char(100)
+    imagepath     char(250)
 );
 
 create table Psus
@@ -70,7 +70,7 @@ create table Psus
     power     int       not null,
     price     float     not null,
     stock     int       not null,
-    imagepath char(100)
+    imagepath char(250)
 );
 
 create table Pccases
@@ -80,7 +80,7 @@ create table Pccases
     formfactor char(10)  not null,
     price      float     not null,
     stock      int       not null,
-    imagepath  char(100)
+    imagepath  char(250)
 );
 
 
