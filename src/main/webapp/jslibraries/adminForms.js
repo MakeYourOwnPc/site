@@ -205,7 +205,7 @@ function prepareFormUpdate(item) {
                 '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
 
-                '<tr><td><img src="' + item.imagePath + '"></td></tr>'
+                '<tr><td></td><td><img src="' + item.imagePath + '"></td></tr>'
             break;
         case"Cpus":
             image=true;
@@ -239,7 +239,7 @@ function prepareFormUpdate(item) {
                 '<tr><td><label for="inStock">In Stock</label></td>' +
                 '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
-                '<tr><img src="' + item.imagePath + '"></td></tr>';
+                '<tr><td></td><img src="' + item.imagePath + '"></td></tr>';
             break;
 
         case"Memories":
@@ -279,7 +279,7 @@ function prepareFormUpdate(item) {
                 '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
 
-                '<td><img src="' + item.imagePath + '"></td></tr>';
+                '<td><td></td><img src="' + item.imagePath + '"></td></tr>';
             break;
         case"Cases":
             image=true;
@@ -309,7 +309,7 @@ function prepareFormUpdate(item) {
                 '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
 
-                '<td><img src="' + item.imagePath + '"></td></tr>';
+                '<td><td></td><img src="' + item.imagePath + '"></td></tr>';
             break;
         case"MotherBoards":
             image=true;
@@ -360,7 +360,7 @@ function prepareFormUpdate(item) {
                 '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
 
-                '<td><img src="' + item.imagePath + '"></td></tr>';
+                '<td><td></td><img src="' + item.imagePath + '"></td></tr>';
             break
         case"Psus":
             image=true;
@@ -382,7 +382,7 @@ function prepareFormUpdate(item) {
                 '<tr><td><label for="inStock">In Stock</label></td>' +
                 '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
-                '<td><img src="' + item.imagePath + '"></td></tr>';
+                '<td><td></td><img src="' + item.imagePath + '"></td></tr>';
             break;
 
         case"Users":/*Il modify User è Gestito da Javascript*/
