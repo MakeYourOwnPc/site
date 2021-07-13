@@ -265,7 +265,7 @@ function prepareFormUpdate(item) {
 
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
-                '<td><input type="number" name="consumption" id="consumption" value="' + item.consumption + '"required></td></tr>' +
+                '<td><input type="number" name="consumption" id="consumption" value="' + item.consumption + '" required></td></tr>' +
 
                 '<tr><td><label for="price">Price</label></td>' +
                 '<td><input type="number" step="0.01" name="price"  value="' + item.price + '"required></td></tr>' +
