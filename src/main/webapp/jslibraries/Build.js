@@ -279,7 +279,7 @@ function selectMOBO() {
     toggleOverlayBuild();
     selectedElement = "MotherBoards";
     itemCategory = "motherboards";
-    tableHeader = "<tr><th>Product Name</th><th>Form Factor</th><th>Ram Sockets</th><th>Ram Slots</th><th>NVME Slots</th><th>SATA Slots</th><th>Form Factor</th><th>Power Consumption</th><th>Price</th></tr>"
+    tableHeader = "<tr><th>Product Name</th><th>CPU Socket</th><th>Ram Sockets</th><th>Ram Slots</th><th>NVME Slots</th><th>SATA Slots</th><th>Form Factor</th><th>Power Consumption</th><th>Price</th></tr>"
 
     submitForm(tableHeader);
 
@@ -507,7 +507,7 @@ function addToResults(value){
 function gpuTabler(value) {
     var row;
     row = "<tr class='removable '>" +
-        "<td class='productName"+((value.stock<=0)?"outOfStock":"")+"' >" + value.name + "</td>" +
+        "<td class='productName"+((value.stock<=0)?" outOfStock":"")+"' >" + value.name + "</td>" +
         "<td class='consumption'>" + value.consumption + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
         "<td><img src='" + value.imagePath + "'></td>" +

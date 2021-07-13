@@ -24,7 +24,7 @@
         .outOfStock{
             color: red;
         }
-        .outOfStock:before{content:"Out Of Stock"}
+        .outOfStock:before{content:"Out Of Stock  "}
     </style>
 </head>
 <body>
