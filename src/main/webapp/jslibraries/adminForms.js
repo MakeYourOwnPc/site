@@ -239,8 +239,8 @@ function prepareFormUpdate(item) {
 
         case"Memories":
             image=true;
-            let ram = (!item.mType) ? 'checked' : '';
-            let massStorage = (item.mType) ? 'checked' : '';
+            let ram = (!item.mType) ? " checked " : '';
+            let massStorage = (item.mType) ? " checked " : '';
             formHTML =
                 ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="memories">' +
 
@@ -255,13 +255,13 @@ function prepareFormUpdate(item) {
                 '<td><input type="text" id="MEMsocket" name="MEMsocket" value="' + item.socket + '" maxlength="100"required></td></tr>' +
 
                 '<tr><td><label for="Ram">Ram</label></td>' +
-                '<td><input type="radio" id="Ram" name="mType" value="false"' + ram + '"required></td></tr>' +
+                '<td><input type="radio" id="Ram" name="mType" value="false"' + ram + '" required></td></tr>' +
 
                 '<tr><td><label for="MassStorage">MassStorage</label></td>' +
-                '<td class="form"><input type="radio" id="MassStorage" name="mType" value="true"' + massStorage + 'required</td></tr>' +
+                '<td class="form"><input type="radio" id="MassStorage" name="mType" value="true"' + massStorage + ' required</td></tr>' +
 
                 '<tr><td><label for="amountMemories">Amount Of Memories</label></td>' +
-                '<td><input type="number" id="amountMemories" name="amountOfMemories" value=' + item.amountMemories + 'required></td></tr>' +
+                '<td><input type="number" id="amountMemories" name="amountOfMemories" value=\"' + item.amountMemories + '\" required></td></tr>' +
 
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
