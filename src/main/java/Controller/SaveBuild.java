@@ -35,7 +35,7 @@ public class SaveBuild extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
-        HttpSession session = req.getSession();
+        HttpSession session = req.getSession(true);
         Gson gson = new Gson();
         String buildJson = req.getParameter("build");
         String referer = req.getParameter("referer");
@@ -64,22 +64,22 @@ public class SaveBuild extends HttpServlet {
             for(Integer idMem:memIds)
                 memories.add(memoryDao.doRetrieveById(idMem));
             if(user!=null) {
-                if(idBuild!=0) {
-                    if(!user.isAdmin())
-                     if (!user.getEmail().equals(build.getMaker())) {
-                         resp.setStatus(403);
-                         return;
-                     }
+                if (idBuild != 0) {
+                    if (!user.isAdmin())
+                        if (!user.getEmail().equals(build.getMaker())) {
+                            resp.setStatus(403);
+                            return;
+                        }
                     buildDao.doUpdate(build);
+                } else {
+                    build.setMaker(user.getEmail());
+                    buildDao.doSave(build);
                 }
-                else {
-                        build.setMaker(user.getEmail());
-                        buildDao.doSave(build);
-                    }
-                if(referer.equals("admin")) {
+                if (referer.equals("admin")) {
                     resp.sendRedirect("/MYOPSite_war_exploded/admin");
                     return;
                 }
+            }
                 resp.setContentType("plain/text");
                 resp.setCharacterEncoding("UTF-8");
                 synchronized (session) {
@@ -93,11 +93,10 @@ public class SaveBuild extends HttpServlet {
                     session.setAttribute("suggested", gson.toJson(build.isSuggested()));
                     session.setAttribute("id", build.getId());
                 }
-            }
-            resp.getWriter().print(build.getId());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            } catch (SQLException e) {
+            e.printStackTrace();
         }
+        resp.getWriter().print(build.getId());
 
     }
 }

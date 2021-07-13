@@ -55,7 +55,7 @@ public class MakePurchase extends HttpServlet {
                 }
             }
             purchase.setCreationDate(LocalDate.now());
-            Float price = buildDao.doRetrieveById(idBuild).price();
+            float price = buildDao.doRetrieveById(idBuild).price();
             try {
                 PurchaseDao purchaseDao = new PurchaseDao();
                 purchase.setIdBuild(idBuild);

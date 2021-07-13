@@ -58,7 +58,7 @@ public class Registration extends HttpServlet {
                     userDao.doSave(user);
                     user.setPassword("");
                     session.setAttribute("user", user);
-                    resp.sendRedirect(req.getHeader("referer"));
+                    resp.sendRedirect(req.getParameter("referer"));
                 } else {
                     req.setAttribute("errorDescription", "Email already used.");
                     throw new Exception();

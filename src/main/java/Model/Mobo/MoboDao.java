@@ -156,7 +156,7 @@ public class MoboDao implements IMoboDao<SQLException>{
     @Override
     public boolean doUpdate(Mobo mobo) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("UPDATE Memories SET name=?,formfactor=?,amountslotnvme=?,amountslotsata=?,amountslotram=?,cpusocket=?,ramsocket=?,consumption=?,price=?,socket=?,imagepath=?,stock=? WHERE id=?;")){
+            try(PreparedStatement ps = conn.prepareStatement("UPDATE Motherboards SET name=?,formfactor=?,amountslotnvme=?,amountslotsata=?,amountslotram=?,cpusocket=?,ramsocket=?,consumption=?,price=?,imagepath=?,stock=? WHERE id=?;")){
                 ps.setString(1,mobo.getName());
                 ps.setString(2,mobo.getFormFactor());
                 ps.setInt(3,mobo.getAmountSlotNvme());
@@ -198,7 +198,7 @@ public class MoboDao implements IMoboDao<SQLException>{
     @Override
     public boolean doSave(Mobo mobo) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Motherboards (name,formfactor,amountslotnvme,amountslotram,cpusocket,ramsocket,consumption,price,imagepath,stock) VALUES(?,?,?,?,?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
+            try(PreparedStatement ps = conn.prepareStatement("INSERT INTO Motherboards (name,formfactor,amountslotnvme,amountslotsata,amountslotram,cpusocket,ramsocket,consumption,price,imagepath,stock) VALUES(?,?,?,?,?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)){
                 ps.setString(1,mobo.getName());
                 ps.setString(2,mobo.getFormFactor());
                 ps.setInt(3,mobo.getAmountSlotNvme());

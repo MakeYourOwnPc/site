@@ -89,7 +89,7 @@ function updateSpecification() {
     if (cpu != null){
         cpuConnector=cpu.socket;
         price+=cpu.price;
-    powerNeeded += cpu.consumption;
+        powerNeeded += cpu.consumption;
     }
 
     if (massStorage1 != null) {
@@ -175,38 +175,34 @@ function checkValidity() {
     }
 
 
-        switch (formFactorCase.toLowerCase()){
-            case"mini-itx":if(formFactorMobo.toLowerCase()==("micro"))
-            {
-                createToast("Invalid Build","Case incompatible with Motherboard");
-                submitable=false;
-                return submitable;
-            }
-            case"micro-atx":if(formFactorMobo.toLowerCase()==("atx")){
-                createToast("Invalid Build","Case incompatible with Motherboard");
-                submitable=false;
-                return submitable;
-            }
-            case"atx":if(formFactorMobo.toLowerCase()==("eatx")){
-                createToast("Invalid Build","Case incompatible with Motherboard");
-                submitable=false;
-                return submitable;
-            }
-
-        }
-
-        if($("#buildType")=="") {
-            createToast("Invalid Build", "Build Type Not Selected")
+    switch (formFactorCase.toLowerCase()){
+        case"mini-itx":if(formFactorMobo.toLowerCase()==("micro"))
+        {
+            createToast("Invalid Build","Case incompatible with Motherboard");
             submitable=false;
             return submitable;
         }
-        if(!checkStock()){
+        case"micro-atx":if(formFactorMobo.toLowerCase()==("atx")){
+            createToast("Invalid Build","Case incompatible with Motherboard");
             submitable=false;
             return submitable;
         }
-        submitable=true;
-        updateBuildSubmitButton();
-        return true;
+        case"atx":if(formFactorMobo.toLowerCase()==("eatx")){
+            createToast("Invalid Build","Case incompatible with Motherboard");
+            submitable=false;
+            return submitable;
+        }
+
+    }
+
+    if($("#buildType")=="") {
+        createToast("Invalid Build", "Build Type Not Selected")
+        return submitable=false;
+    }
+    if(!checkStock())
+        return submitable=false;
+    updateBuildSubmitButton();
+    return submitable = true;
 
 
 }
@@ -435,8 +431,8 @@ function submitForm(headers) {
                 $("#massStorageOption").show();
                 if ($("#sata").prop("checked")) {
                     formData += "&MEMsocket=sata"
-                    }else formData += "&MEMsocket=nvme"
-        }else    $("#massStorageOption").hide();
+                }else formData += "&MEMsocket=nvme"
+            }else    $("#massStorageOption").hide();
 
             formData += "&power=&id=&formFactor=&CPUsocket=&RAMsocket=&nRAMSockets=&nSATASockets=&nNVMESockets=&requestedItem=" + itemCategory +
                 "&integratedGpu=";
@@ -453,7 +449,7 @@ function submitForm(headers) {
 
                 switch (selectedElement) {
                     case "Gpus":
-                       arrayElements= results;
+                        arrayElements= results;
                         results.forEach(gpuTabler);
                         break;
 
