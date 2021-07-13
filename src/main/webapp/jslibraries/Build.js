@@ -373,7 +373,7 @@ function submitForm(headers) {
             if (selectedElement == "MotherBoards") {/* scalare i vari formati di schede compatibili con i case*/
                 console.log(formFactorEnd + formFactor)
                 if (cpu != undefined)
-                    cpuSocketForm == cpu.socket;
+                    cpuSocketForm = cpu.socket;
                 if (formFactorFlag) {
                     if (formFactor.toLowerCase() == "eatx") {
                         formFactor = "atx"
