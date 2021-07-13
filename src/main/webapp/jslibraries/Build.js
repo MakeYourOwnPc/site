@@ -353,7 +353,7 @@ function submitForm(headers) {
     let formFactorFlag = false /*Verifica che durante la ricerca per pc Case sia stata cercata la form factor salvata una volta*/
     let formFactor = formFactorMobo;
     let formFactorEnd = true/* flag che gestisce il loop per la ricerca dei form factor*/
-    arrayElements=[];
+    arrayElements = [];
 
     do {/*il ciclo viene ripetuto solo con pcCase e Motherboards*/
         formData = "name=" + $("#productName").val().replaceAll(" ", "%20");
@@ -369,135 +369,140 @@ function submitForm(headers) {
                     slotSataUsed -= 1;
                 }
                 formData += "&mType=true"
-            }
-            else    $("#massStorageOption").hide();
+            } else $("#massStorageOption").hide();
             console.log(selectedElement)
 
 
             if (selectedElement == "MotherBoards") {/* scalare i vari formati di schede compatibili con i case*/
                 console.log(formFactorEnd + formFactor)
+                if (mobo != undefined)
+                    socketCpu == cpu.socket;
                 if (formFactorFlag) {
                     if (formFactor.toLowerCase() == "eatx") {
                         formFactor = "atx"
-                    }else if (formFactor.toLowerCase() == "atx") {
+                    } else if (formFactor.toLowerCase() == "atx") {
                         formFactor = "micro-atx"
 
-                    }
-                    else if (formFactor.toLowerCase() == "micro-atx") {
+                    } else if (formFactor.toLowerCase() == "micro-atx") {
                         formFactorEnd = true;/*flag per interrompere il ciclo*/
                         formFactor = "mini-itx"
 
                     }
                 } else {
-                    formFactor = (formFactorCase=='')?"eatx":formFactorCase;   /*alla prima chiamata di motherboard viene ricercato il form factor stesso del case che lo deve contenere
+                    formFactor = (formFactorCase == '') ? "eatx" : formFactorCase;   /*alla prima chiamata di motherboard viene ricercato il form factor stesso del case che lo deve contenere
                     se non è stato ancora selezionato parte dal più grande*/
 
-                    formFactorEnd=false;/*abilito il ciclo do while*/
+                    formFactorEnd = false;/*abilito il ciclo do while*/
 
                     formFactorFlag = true;
                 }
             }
+            if (selectedElement == "Cpus") /* scalare i vari formati di schede compatibili con i case*/
+                socketCpu = mobo.cpuSocket;
 
-            if (selectedElement == "PcCase")
+
+                if (selectedElement == "PcCase")
 
 
-                if (formFactorFlag) {
-                    if (formFactor.toLowerCase()=="mini-itx")
-                        formFactor = "micro-atx"
-                    else if (formFactor.toLowerCase()=="micro-atx") {
-                        formFactor = "atx"
-                    } else if (formFactor.toLowerCase()=="atx"){
-                        formFactor = "eatx"
-                        formFactorEnd = true;
+                    if (formFactorFlag) {
+                        if (formFactor.toLowerCase() == "mini-itx")
+                            formFactor = "micro-atx"
+                        else if (formFactor.toLowerCase() == "micro-atx") {
+                            formFactor = "atx"
+                        } else if (formFactor.toLowerCase() == "atx") {
+                            formFactor = "eatx"
+                            formFactorEnd = true;
+                        }
+                    } else {
+                        formFactorEnd = false;
+                        formFactor = (formFactorMobo == '') ? "mini-itx" : formFactorMobo;
+                        formFactorFlag = true;
                     }
-                } else {
-                    formFactorEnd=false;
-                    formFactor = (formFactorMobo=='')?"mini-itx":formFactorMobo;
-                    formFactorFlag = true;
+
+
+                if (selectedElement == "Ram") {
+                    formData += "&MEMsocket=" + socketRam + "&amountOfMemories=" + slotRamAvailable + "&mType=false";
                 }
+                formData += "&power=" + powerNeeded + "&id=&formFactor=" + formFactor + "&CPUsocket=" + socketCpu + "&RAMsocket=" + socketRam + "" +
+                    "&nRAMSockets=" + slotRamUsed + "&nSATASockets=" + slotSataUsed + "&nNVMESockets=" + slotNVMEUsed + "&requestedItem=" + itemCategory +
+                    "&integratedGpu=" + integratedCpu;
+            } else {/* inizio formazione del form senza controlli*/
 
-
-            if (selectedElement == "Ram") {
-                formData += "&MEMsocket=" + socketRam + "&amountOfMemories=" + slotRamAvailable + "&mType=false";
-            }
-            formData += "&power=" + powerNeeded + "&id=&formFactor=" + formFactor + "&CPUsocket=" + socketCpu + "&RAMsocket=" + socketRam + "" +
-                "&nRAMSockets=" + slotRamUsed + "&nSATASockets=" + slotSataUsed + "&nNVMESockets=" + slotNVMEUsed + "&requestedItem=" + itemCategory +
-                "&integratedGpu=" + integratedCpu;
-        } else {/* inizio formazione del form senza controlli*/
-
-            formFactorEnd = true;
-            if (selectedElement == "Ram") {
-                massStorageNumber=0;
-                formData += "&mType=false&MEMsocket=";
-            }
-            if (selectedElement == "MassStorage") {
-                formData+="&mType=true"
-                $("#massStorageOption").show();
-                if ($("#sata").prop("checked")) {
-                    formData += "&MEMsocket=sata"
-                    }else formData += "&MEMsocket=nvme"
-        }else    $("#massStorageOption").hide();
-
-            formData += "&power=&id=&formFactor=&CPUsocket=&RAMsocket=&nRAMSockets=&nSATASockets=&nNVMESockets=&requestedItem=" + itemCategory +
-                "&integratedGpu=";
-        }
-        let xhttp = new XMLHttpRequest();
-
-        xhttp.onreadystatechange = function () {
-
-            if (this.readyState == 4 && this.status == 200) {
-
-                console.log(this.responseText);
-
-                var results = JSON.parse(this.responseText);
-
-                switch (selectedElement) {
-                    case "Gpus":
-                       arrayElements= results;
-                        results.forEach(gpuTabler);
-                        break;
-
-                    case "Cpus":
-                        arrayElements= results;
-                        results.forEach(cpuTabler);
-                        break;
-
-                    case "Ram":
-                        arrayElements= results;
-                        results.forEach(memoryTabler, {type: "Ram"});
-                        break;
-
-                    case "MassStorage":
-                        arrayElements= results;
-                        results.forEach(memoryTabler, {type: "MassStorage"});
-                        break;
-
-                    case "MotherBoards":
-                        results.forEach(addToResults)/*non effettuo il push direttamente qui per problemi di conversione*/
-                        results.forEach(moboTabler);
-                        break;
-
-                    case "PcCase":
-                        results.forEach(addToResults)
-                        results.forEach(pcCaseTabler);
-                        break;
-
-                    case "Psu":
-                        arrayElements= results;
-                        results.forEach(psusTabler);
-                        break;
-                    default:
-                        $("#searchResultBuild").html("Cannot visualize");
+                formFactorEnd = true;
+                if (selectedElement == "Ram") {
+                    massStorageNumber = 0;
+                    formData += "&mType=false&MEMsocket=";
                 }
+                if (selectedElement == "MassStorage") {
+                    formData += "&mType=true"
+                    $("#massStorageOption").show();
+                    if ($("#sata").prop("checked")) {
+                        formData += "&MEMsocket=sata"
+                    } else formData += "&MEMsocket=nvme"
+                } else $("#massStorageOption").hide();
 
-
+                formData += "&power=&id=&formFactor=&CPUsocket=&RAMsocket=&nRAMSockets=&nSATASockets=&nNVMESockets=&requestedItem=" + itemCategory +
+                    "&integratedGpu=";
             }
+            let xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+
+                if (this.readyState == 4 && this.status == 200) {
+
+                    console.log(this.responseText);
+
+                    var results = JSON.parse(this.responseText);
+
+                    switch (selectedElement) {
+                        case "Gpus":
+                            arrayElements = results;
+                            results.forEach(gpuTabler);
+                            break;
+
+                        case "Cpus":
+                            arrayElements = results;
+                            results.forEach(cpuTabler);
+                            break;
+
+                        case "Ram":
+                            arrayElements = results;
+                            results.forEach(memoryTabler, {type: "Ram"});
+                            break;
+
+                        case "MassStorage":
+                            arrayElements = results;
+                            results.forEach(memoryTabler, {type: "MassStorage"});
+                            break;
+
+                        case "MotherBoards":
+                            results.forEach(addToResults)/*non effettuo il push direttamente qui per problemi di conversione*/
+                            results.forEach(moboTabler);
+                            break;
+
+                        case "PcCase":
+                            results.forEach(addToResults)
+                            results.forEach(pcCaseTabler);
+                            break;
+
+                        case "Psu":
+                            arrayElements = results;
+                            results.forEach(psusTabler);
+                            break;
+                        default:
+                            $("#searchResultBuild").html("Cannot visualize");
+                    }
+
+
+                }
+            }
+            xhttp.open("POST", "/MYOPSite_war_exploded/itemsLister", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            setTimeout(xhttp.send(formData), 500);
+            console.log(formData);
         }
-        xhttp.open("POST", "/MYOPSite_war_exploded/itemsLister", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        setTimeout(xhttp.send(formData),500);
-        console.log(formData);
-    } while ((selectedElement == "MotherBoards" || selectedElement == "PcCase") && !formFactorEnd);
+        while ((selectedElement == "MotherBoards" || selectedElement == "PcCase") && !formFactorEnd) ;
+
 }
 
 function addToResults(value){
