@@ -222,22 +222,22 @@ function prepareFormUpdate(item) {
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 '<tr><td><label for="CPUsocket">Socket</label></td>' +
-                '<td><input type="text" id="CPUsocket" name="CPUsocket" value="' + item.socket + '" maxlength="10"required></td></tr>' +
+                '<td><input type="text" id="CPUsocket" name="CPUsocket" value="' + item.socket + '" maxlength="10" required></td></tr>' +
 
                 '<tr><td><label for="integratedGpu">Integrated Gpu</label></td>' +
-                '<td><input type="radio" id="integratedGpu" name="integratedGpu" value="true"' + integrated + 'required></td></tr>' +
+                '<td><input type="radio" id="integratedGpu" name="integratedGpu" value="true"' + integrated + ' required></td></tr>' +
 
                 '<tr><td><label for="noIntegratedGpu">No Integrated Gpu</label></td>' +
-                '<td><input type="radio" id="noIntegratedGpu" name="integratedGpu" value="false"' + noIntegrated + 'required></td></tr>' +
+                '<td><input type="radio" id="noIntegratedGpu" name="integratedGpu" value="false"' + noIntegrated + ' required></td></tr>' +
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
-                '<td><input type="number" name="consumption" id="consumption" value="' + item.consumption + '"required></td></tr>' +
+                '<td><input type="number" name="consumption" id="consumption" value="' + item.consumption + '" required></td></tr>' +
 
                 '<tr><td><label for="price">Price</label></td>' +
-                '<td><input type="number" step="0.01" name="price" value="' + item.price + '"required></td></tr>' +
+                '<td><input type="number" step="0.01" name="price" value="' + item.price + '" required></td></tr>' +
 
                 '<tr><td><label for="inStock">In Stock</label></td>' +
-                '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
+                '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '" required></td></tr>' +
 
                 '<tr><td></td><img src="' + item.imagePath + '"></td></tr>';
             break;
