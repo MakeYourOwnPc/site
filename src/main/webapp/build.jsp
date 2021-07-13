@@ -177,7 +177,8 @@
     }
     function adminModifyBuild(){
         let referFlag=$("#refererAdmin").val();
-        if(referFlag!="admin") return;
+        if(!referFlag.includes("admin"))
+            return;
         $("#purchase").remove();
         $("#purchaseForm").remove();
         $("#saveBuild").remove();
