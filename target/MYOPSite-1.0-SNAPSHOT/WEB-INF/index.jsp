@@ -26,7 +26,9 @@
         <div id="builds">
 
             <c:forEach items="${builds}" var="build">
+
                 <div class="buildList">
+                    <div>
                     <img src="${build.imagePath}">
                 <ul>
                     <li>${build.type}</li>
@@ -35,12 +37,13 @@
                     <li>${build.mobo}</li>
                     <li><ul>
                     <c:forEach items="${build.memories}" var="memory">
-                        ${memory}
+                        <li>${memory}</li>
                     </c:forEach></ul></li>
                     <li>${build.pcCase}</li>
                     <li>${build.psu}</li>
 
                 </ul>
+                </div>
                     <form action="./showBuild" style="bottom: 0;position: absolute;width: 100%;">
                         <input name="id" value="${build.id}" type="hidden">
                         <input type="submit" class="btn fullBtn btn-success" value="Start ">
