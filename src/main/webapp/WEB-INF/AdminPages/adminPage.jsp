@@ -68,6 +68,7 @@
         </table>
     </form>
 
+
     <button class='btn active' onclick='submitForm()'>Search</button>
 </div>
 

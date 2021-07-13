@@ -166,6 +166,11 @@ function changeForm(text) {
     if (name)
         formHTML += "<tr><td><label for='name'>Name</label></td><td><input type='text' id='name' name='name'></td></tr>";
 
+    formHTML+='<tr><td><label for="resultsLimit">Results Per Page</label></td>' +
+        '<td><input type="number" name="limit" max="50" id="resultsLimit" value="25"></td></tr>' +
+        '<tr><td><label for="offset">Page</label></td>' +
+        '<td><input type="number" name="offset" id="offset" onclick="submitForm()" value="1"></td></tr>';
+
     $("#searchFormContainer").html(formHTML);
 
     $("#searchResultItem").html(tableHeader);
