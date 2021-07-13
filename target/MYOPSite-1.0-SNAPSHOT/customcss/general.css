@@ -85,7 +85,15 @@ button{
     margin: 10px;
     border-radius: 5px;
     background-color: var(--bg-default-color);
-    height: 655px;
+    height: 822px;
+}
+.buildList img{
+    width: 100%;
+}
+
+.buildList li {
+    padding:3px;
+    border-bottom: 1px #2D83A6;
 }
 .buildContainer{
     display: block;
@@ -96,10 +104,7 @@ button{
     text-align: center;
 }
 
-.buildList li {
-    padding:3px;
-    border-bottom: 1px #2D83A6;
-}
+
 .fullBtn{
     width: 100%;
     border-radius: 0px;
