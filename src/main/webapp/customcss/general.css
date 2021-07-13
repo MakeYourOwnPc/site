@@ -328,10 +328,9 @@ footer{
     border-top: white solid;
 
 }
-#updateFormBox img {
-    height: 100%;
-    width: 100%;
-    max-height: 100%;
+#updateFormBox>tbody>tr>td>img {
+
+    max-height: 260px;
 }
 td>img{
     max-height: 3rem;
