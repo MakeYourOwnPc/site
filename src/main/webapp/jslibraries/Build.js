@@ -355,6 +355,7 @@ function submitForm(headers) {
         formData = "name=" + $("#productName").val().replaceAll(" ", "%20");
 
         if (compatibilityCheck) {/*form con i controlli*/
+            let cpuSocketForm="";
             if (selectedElement == "MassStorage") {
                 $("#massStorageOption").show();
                 if ($("#sata").prop("checked")) {
@@ -371,8 +372,8 @@ function submitForm(headers) {
 
             if (selectedElement == "MotherBoards") {/* scalare i vari formati di schede compatibili con i case*/
                 console.log(formFactorEnd + formFactor)
-                if (mobo != undefined)
-                    socketCpu == cpu.socket;
+                if (cpu != undefined)
+                    cpuSocketForm == cpu.socket;
                 if (formFactorFlag) {
                     if (formFactor.toLowerCase() == "eatx") {
                         formFactor = "atx"
@@ -393,8 +394,8 @@ function submitForm(headers) {
                     formFactorFlag = true;
                 }
             }
-            if (selectedElement == "Cpus") /* scalare i vari formati di schede compatibili con i case*/
-                socketCpu = mobo.cpuSocket;
+            if (selectedElement == "Cpus"&&mobo!=undefined) /* scalare i vari formati di schede compatibili con i case*/
+                cpuSocketForm = mobo.cpuSocket;
 
 
                 if (selectedElement == "PcCase")
@@ -419,7 +420,7 @@ function submitForm(headers) {
                 if (selectedElement == "Ram") {
                     formData += "&MEMsocket=" + socketRam + "&amountOfMemories=" + slotRamAvailable + "&mType=false";
                 }
-                formData += "&power=" + powerNeeded + "&id=&formFactor=" + formFactor + "&CPUsocket=" + socketCpu + "&RAMsocket=" + socketRam + "" +
+                formData += "&power=" + powerNeeded + "&id=&formFactor=" + formFactor + "&CPUsocket=" + cpuSocketForm + "&RAMsocket=" + socketRam + "" +
                     "&nRAMSockets=" + slotRamUsed + "&nSATASockets=" + slotSataUsed + "&nNVMESockets=" + slotNVMEUsed + "&requestedItem=" + itemCategory +
                     "&integratedGpu=" + integratedCpu;
             } else {/* inizio formazione del form senza controlli*/
