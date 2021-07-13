@@ -105,7 +105,7 @@ public class MemoryDao implements IMemoryDao<SQLException>{
                 if(!socket.isBlank()){
                     if(!stringBuilder.isEmpty())
                         stringBuilder.append(" AND ");
-                    stringBuilder.append("UPPER(socket) LIKE UPPER('%"+socket+"%')");
+                    stringBuilder.append("socket='"+socket+"'");
                 }
                 if(mType!=null){
                     if(!stringBuilder.isEmpty())

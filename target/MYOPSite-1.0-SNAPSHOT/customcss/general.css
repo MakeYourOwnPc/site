@@ -310,7 +310,7 @@ table tbody{
     height: 100%;
 }
 .fullHeightFooter{
-    min-height: 83%;
+    min-height: 62vw;
 }
 .overlayElement *{
     opacity: 100%;

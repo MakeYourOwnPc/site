@@ -93,6 +93,7 @@ public class BuildDao implements IBuildDao<SQLException>{
                 build.setPcCase(rs.getString("pccase"));
                 build.setSuggested(rs.getBoolean("suggested"));
                 build.setType(rs.getString("type"));
+                build.setImagePath(rs.getString("imagepath"));
                 PreparedStatement ps2 = conn.prepareStatement("Select Memories.name name,amountofmemories FROM Memoriesbuiltin,Memories WHERE idbuild=? AND Memoriesbuiltin.id=Memories.id ORDER BY name;");
                 ps2.setInt(1,build.getId());
                 ResultSet rs2 = ps2.executeQuery();
@@ -220,7 +221,7 @@ public class BuildDao implements IBuildDao<SQLException>{
     @Override
     public ArrayList<BuildNames> doRetrieveByParameters(String mobo,String cpu,String gpu,String psu,String type,Boolean isSuggested,int limit,int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            String query = "SELECT Builds.id id,Motherboards.name mobo,Cpus.name cpu,Gpus.name gpu,Psus.name psu,Builds.type type,Builds.suggested suggested,Builds.maker maker,PcCases.imagepath imagepath,PcCases.name pccase FROM Builds,Gpus,Cpus,Motherboards,PcCases,Psus WHERE UPPER(Builds.type) LIKE UPPER('%"+type+"%') AND UPPER(Motherboards.name) LIKE UPPER('%"+mobo+"%') AND UPPER(Gpus.name) LIKE UPPER('%"+gpu+"%') AND UPPER(Cpus.name) LIKE UPPER('%"+cpu+"%') AND UPPER(Psus.name) LIKE UPPER('%"+psu+"%') AND Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id";
+            String query = "SELECT Builds.id id,Motherboards.name mobo,Cpus.name cpu,Gpus.name gpu,Psus.name psu,Builds.type type,Builds.suggested suggested,Builds.maker maker,PcCases.imagepath imagepath,PcCases.name pccase FROM Builds,Gpus,Cpus,Motherboards,PcCases,Psus WHERE UPPER(Builds.type) LIKE UPPER('"+type+"%') AND UPPER(Motherboards.name) LIKE UPPER('%"+mobo+"%') AND UPPER(Gpus.name) LIKE UPPER('%"+gpu+"%') AND UPPER(Cpus.name) LIKE UPPER('%"+cpu+"%') AND UPPER(Psus.name) LIKE UPPER('%"+psu+"%') AND Builds.cpu=Cpus.id AND Builds.gpu=Gpus.id AND Builds.mobo=Motherboards.id AND Builds.psu=Psus.id AND Builds.pcCase=PcCases.id";
                 String s="";
                 if(isSuggested!=null){
                     s=" AND suggested="+isSuggested;
