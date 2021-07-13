@@ -187,17 +187,17 @@ function prepareFormUpdate(item) {
                 '<td>'+ item.id + '</td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
-                '<td><input type="text" id="productName" name="name" value="' + item.name + '" onkeyup="checkProductName()" maxlength="100">' +
+                '<td><input type="text" id="productName" name="name" value="' + item.name + '" onkeyup="checkProductName()" maxlength="100"required>' +
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
-                '<td><input type="number" name="consumption" id="consumption" value="' + item.consumption + '"></td></tr>' +
+                '<td><input type="number" name="consumption" id="consumption" value="' + item.consumption + '"required></td></tr>' +
 
                 '<tr><td><label for="price">Price</label></td>' +
-                '<td><input type="number" step="0.01" name="price" value="' + item.price + '"></td></tr>' +
+                '<td><input type="number" step="0.01" name="price" value="' + item.price + '"required></td></tr>' +
 
                 '<tr><td><label for="inStock">In Stock</label></td>' +
-                '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
+                '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
 
                 '<tr><td><img src="' + item.imagePath + '"></td></tr>'
@@ -213,26 +213,26 @@ function prepareFormUpdate(item) {
                 '<td><input type="text" id="id" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
-                '<td><input name="name" type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()" maxlength="100">' +
+                '<td><input name="name" type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()" maxlength="100"required>' +
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 '<tr><td><label for="CPUsocket">Socket</label></td>' +
-                '<td><input type="text" id="CPUsocket" name="CPUsocket" value="' + item.socket + '" maxlength="10"></td></tr>' +
+                '<td><input type="text" id="CPUsocket" name="CPUsocket" value="' + item.socket + '" maxlength="10"required></td></tr>' +
 
                 '<tr><td><label for="integratedGpu">Integrated Gpu</label></td>' +
-                '<td><input type="radio" id="integratedGpu" name="integratedGpu" value="true"' + integrated + '></td></tr>' +
+                '<td><input type="radio" id="integratedGpu" name="integratedGpu" value="true"' + integrated + 'required></td></tr>' +
 
                 '<tr><td><label for="noIntegratedGpu">No Integrated Gpu</label></td>' +
-                '<td><input type="radio" id="noIntegratedGpu" name="integratedGpu" value="false"' + noIntegrated + '></td></tr>' +
+                '<td><input type="radio" id="noIntegratedGpu" name="integratedGpu" value="false"' + noIntegrated + 'required></td></tr>' +
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
-                '<td><input type="number" name="consumption" id="consumption" value="' + item.consumption + '"></td></tr>' +
+                '<td><input type="number" name="consumption" id="consumption" value="' + item.consumption + '"required></td></tr>' +
 
                 '<tr><td><label for="price">Price</label></td>' +
-                '<td><input type="number" step="0.01" name="price" value="' + item.price + '"></td></tr>' +
+                '<td><input type="number" step="0.01" name="price" value="' + item.price + '"required></td></tr>' +
 
                 '<tr><td><label for="inStock">In Stock</label></td>' +
-                '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
+                '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
                 '<tr><img src="' + item.imagePath + '"></td></tr>';
             break;
@@ -248,30 +248,30 @@ function prepareFormUpdate(item) {
                 '<td><input type="text" id="id" name="id" value="' + item.id + '" disabled></td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
-                '<td><input name="name" type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()" maxlength="100">' +
+                '<td><input name="name" type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()" maxlength="100"required>' +
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 ' <tr><td><label for="MEMsocket">Memory Socket</label></td>' +
-                '<td><input type="text" id="MEMsocket" name="MEMsocket" value="' + item.socket + '" maxlength="100"></td></tr>' +
+                '<td><input type="text" id="MEMsocket" name="MEMsocket" value="' + item.socket + '" maxlength="100"required></td></tr>' +
 
                 '<tr><td><label for="Ram">Ram</label></td>' +
-                '<td><input type="radio" id="Ram" name="mType" value="false"' + ram + '"></td></tr>' +
+                '<td><input type="radio" id="Ram" name="mType" value="false"' + ram + '"required></td></tr>' +
 
                 '<tr><td><label for="MassStorage">MassStorage</label></td>' +
-                '<td class="form"><input type="radio" id="MassStorage" name="mType" value="true"' + massStorage + '</td></tr>' +
+                '<td class="form"><input type="radio" id="MassStorage" name="mType" value="true"' + massStorage + 'required</td></tr>' +
 
                 '<tr><td><label for="amountMemories">Amount Of Memories</label></td>' +
-                '<td><input type="number" id="amountMemories" name="amountOfMemories" value=' + item.amountMemories + '></td></tr>' +
+                '<td><input type="number" id="amountMemories" name="amountOfMemories" value=' + item.amountMemories + 'required></td></tr>' +
 
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
-                '<td><input type="number" name="consumption" id="consumption" value="' + item.consumption + '"></td></tr>' +
+                '<td><input type="number" name="consumption" id="consumption" value="' + item.consumption + '"required></td></tr>' +
 
                 '<tr><td><label for="price">Price</label></td>' +
-                '<td><input type="number" step="0.01" name="price"  value="' + item.price + '"></td></tr>' +
+                '<td><input type="number" step="0.01" name="price"  value="' + item.price + '"required></td></tr>' +
 
                 '<tr><td><label for="inStock">In Stock</label></td>' +
-                '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
+                '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
 
                 '<td><img src="' + item.imagePath + '"></td></tr>';
@@ -287,21 +287,21 @@ function prepareFormUpdate(item) {
                 '<td><input type="text" id="id" name="id" value="' + item.id + '"   ></td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
-                '<td><input type="text" id="productName" name="name" value="' + item.name + '" onkeyup="checkProductName()" >' +
+                '<td><input type="text" id="productName" name="name" value="' + item.name + '" onkeyup="checkProductName()" required>' +
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 '<tr><td><label for="formFactor">Form Factor</label></td>' +
-                '<td><select id="formFActor" name="formFactor">' +
+                '<td><select id="formFActor" name="formFactor"required>' +
                 '<option value="mini-itx"' + miniitx + '>Mini-ITX</option>' +
                 " <option value='micro-ATX' " + microatx + ">Micro-ATX</option>" +
                 "<option value='ATX'" + atx + ">ATX</option></select></td></tr>" +
 
 
                 '<tr><td><label for="price">Price</label></td>' +
-                '<td><input type="number" step="0.01" name="price" value="' + item.price + '"></td></tr>' +
+                '<td><input type="number" step="0.01" name="price" value="' + item.price + '"required></td></tr>' +
 
                 '<tr><td><label for="inStock">In Stock</label></td>' +
-                '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
+                '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
 
                 '<td><img src="' + item.imagePath + '"></td></tr>';
@@ -322,22 +322,22 @@ function prepareFormUpdate(item) {
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 "<tr><td><label for='CPUsocket'>CPU Socket</label></td>" +
-                " <td><input type='text' id='CPUsocket' name='CPUsocket' value='" + item.cpuSocket + "'></td></tr>" +
+                " <td><input type='text' id='CPUsocket' name='CPUsocket' value='" + item.cpuSocket + "'required></td></tr>" +
 
                 "<tr><td><label for='RAMsocket'>RAM Socket</label></td>" +
-                " <td><input type='text' id='RAMsocket' name='RAMsocket' value='" + item.ramSocket + "'></td></tr>" +
+                " <td><input type='text' id='RAMsocket' name='RAMsocket' value='" + item.ramSocket + "'required></td></tr>" +
 
                 " <tr><td><label for='nRAMSockets'>RAM Slots</label></td>" +
-                "  <td><input type='number' id='nRAMSockets' name='nRAMSockets' value='" + item.amountSlotRam + "' ></td></tr>" +
+                "  <td><input type='number' id='nRAMSockets' name='nRAMSockets' value='" + item.amountSlotRam + "' required></td></tr>" +
 
                 " <tr><td><label for='nSATASockets'>SATA Slots</label></td>" +
-                "  <td><input type='number' id='nSATASockets' name='nSATASockets' value='" + item.amountSlotSata + "' ></td></tr>" +
+                "  <td><input type='number' id='nSATASockets' name='nSATASockets' value='" + item.amountSlotSata + "' required></td></tr>" +
 
                 " <tr><td><label for='nNVMESockets'>NVME Slots</label></td>" +
-                "  <td><input type='number' id='nNVMESockets' name='nNVMESockets' value='" + item.amountSlotNvme + "' ></td></tr>" +
+                "  <td><input type='number' id='nNVMESockets' name='nNVMESockets' value='" + item.amountSlotNvme + "' required></td></tr>" +
 
                 '<tr><td><label for="formFactor">Form Factor</label></td>' +
-                '<td><select id="formFActor" name="formFactor">' +
+                '<td><select id="formFActor" name="formFactor"required>' +
                 '<option value="mini-itx"' + miniitxm + '>Mini-ITX</option>' +
                 " <option value='micro-atx' " + microatxm + ">Micro-ATX</option>" +
                 "<option value='atx'" + atxm + ">ATX</option>" +
@@ -346,13 +346,13 @@ function prepareFormUpdate(item) {
                 "</td></tr>" +
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
-                '<td><input type="number" id="consumption" name="consumption" value="' + item.consumption + '"></td></tr>' +
+                '<td><input type="number" id="consumption" name="consumption" value="' + item.consumption + '"required></td></tr>' +
 
                 '<tr><td><label for="price">Price</label></td>' +
-                '<td><input type="number" step="0.01" name="price" value="' + item.price + '"></td></tr>' +
+                '<td><input type="number" step="0.01" name="price" value="' + item.price + '"required></td></tr>' +
 
                 '<tr><td><label for="inStock">In Stock</label></td>' +
-                '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
+                '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
 
                 '<td><img src="' + item.imagePath + '"></td></tr>';
@@ -365,17 +365,17 @@ function prepareFormUpdate(item) {
                 '<td><input type="text" id="id" name="id" name="name" value="' + item.id + '" disabled></td></tr>' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
-                '<td><input type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()">' +
+                '<td><input type="text" id="productName" value="' + item.name + '" onkeyup="checkProductName()"required>' +
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 '<tr><td><label for="power">Power</label></td>' +
-                '<td><input type="text" id="power" name="power" value="' + item.power + '"></td></tr>' +
+                '<td><input type="text" id="power" name="power" value="' + item.power + '"required></td></tr>' +
 
                 '<tr><td><label for="price">Price</label></td>' +
-                '<td><input type="number" step="0.01" name="price" value="' + item.price + '"></td></tr>' +
+                '<td><input type="number" step="0.01" name="price" value="' + item.price + '"required></td></tr>' +
 
                 '<tr><td><label for="inStock">In Stock</label></td>' +
-                '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"></td></tr>' +
+                '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
                 '<td><img src="' + item.imagePath + '"></td></tr>';
             break;
@@ -416,13 +416,13 @@ function prepareFormInsert() {
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
-                '<td><input type="number" name="consumption" id="consumption" ></td></tr>' +
+                '<td><input type="number" name="consumption" id="consumption" required></td></tr>' +
 
                 '<tr><td><label for="price">Price</label></td>' +
-                '<td><input type="number" step="0.01" name="price"></td></tr>' +
+                '<td><input type="number" step="0.01" name="price" required></td></tr>' +
 
                 '<tr><td><label for="inStock">In Stock</label></td>' +
-                '<td><input type="number" id="inStock" name="stock" ></td></tr>'
+                '<td><input type="number" id="inStock" name="stock" required></td></tr>'
 
 
             break;
@@ -439,22 +439,22 @@ function prepareFormInsert() {
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 '<tr><td><label for="CPUsocket">Socket</label></td>' +
-                '<td><input type="text" id="CPUsocket" name="CPUsocket"></td></tr>' +
+                '<td><input type="text" id="CPUsocket" name="CPUsocket"required></td></tr>' +
 
                 '<tr><td><label for="integratedGpu">Integrated Gpu</label></td>' +
-                '<td><input type="radio" id="integratedGpu" name="integratedGpu" ></td></tr>' +
+                '<td><input type="radio" id="integratedGpu" name="integratedGpu" required></td></tr>' +
 
                 '<tr><td><label for="noIntegratedGpu">No Integrated Gpu</label></td>' +
                 '<td><input type="radio" id="noIntegratedGpu" name="integratedGpu" value="false"></td></tr>' +
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
-                '<td><input type="number" name="consumption" id="consumption"></td></tr>' +
+                '<td><input type="number" name="consumption" id="consumption"required></td></tr>' +
 
                 '<tr><td><label for="price">Price</label></td>' +
-                '<td><input type="number" step="0.01" name="price" ></td></tr>' +
+                '<td><input type="number" step="0.01" name="price" required></td></tr>' +
 
                 '<tr><td><label for="inStock">In Stock</label></td>' +
-                '<td><input type="number" id="inStock" name="stock"></td></tr>'
+                '<td><input type="number" id="inStock" name="stock" required></td></tr>'
 
 
             break;
@@ -473,26 +473,26 @@ function prepareFormInsert() {
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 ' <tr><td><label for="MEMsocket">Memory Socket</label></td>' +
-                '<td><input type="text" id="MEMsocket" name="MEMsocket"></td></tr>' +
+                '<td><input type="text" id="MEMsocket" name="MEMsocket" required></td></tr>' +
 
                 '<tr><td><label for="Ram">Ram</label></td>' +
-                '<td><input type="radio" id="Ram" name="mType" value="false"></td></tr>' +
+                '<td><input type="radio" id="Ram" name="mType" value="false" required></td></tr>' +
 
                 '<tr><td><label for="MassStorage">MassStorage</label></td>' +
-                '<td class="form"><input type="radio" id="MassStorage" name="mType" value="true"</td></tr>' +
+                '<td class="form"><input type="radio" id="MassStorage" name="mType" value="true" required></td></tr>' +
 
                 '<tr><td><label for="amountMemories">Amount Of Memories</label></td>' +
                 '<td><input type="number" id="amountMemories" name="amountOfMemories" ></td></tr>' +
 
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
-                '<td><input type="number" name="consumption" id="consumption" ></td></tr>' +
+                '<td><input type="number" name="consumption" id="consumption" required></td></tr>' +
 
                 '<tr><td><label for="price">Price</label></td>' +
-                '<td><input type="number" step="0.01" name="price" ></td></tr>' +
+                '<td><input type="number" step="0.01" name="price" required></td></tr>' +
 
                 '<tr><td><label for="inStock">In Stock</label></td>' +
-                '<td><input type="number" id="inStock" name="stock"></td></tr>'
+                '<td><input type="number" id="inStock" name="stock" required></td></tr>'
 
 
             break;
@@ -513,13 +513,13 @@ function prepareFormInsert() {
                 "<option value='ATX'>ATX</option></select></td></tr>" +
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
-                '<td><input type="number" id="consumption" name="consumption"></td></tr>' +
+                '<td><input type="number" id="consumption" name="consumption" required></td></tr>' +
 
                 '<tr><td><label for="price">Price</label></td>' +
-                '<td><input type="number" step="0.01" name="price" ></td></tr>' +
+                '<td><input type="number" step="0.01" name="price" required></td></tr>' +
 
                 '<tr><td><label for="inStock">In Stock</label></td>' +
-                '<td><input type="number" id="inStock" name="stock" ></td></tr>'
+                '<td><input type="number" id="inStock" name="stock" required ></td></tr>'
 
 
             break;
@@ -531,26 +531,26 @@ function prepareFormInsert() {
                 '<input type="hidden" id="id" name="id" value="-1">' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
-                '<td><input type="text" id="productName" name="name" onkeyup="checkProductName()">' +
+                '<td><input type="text" id="productName" name="name" onkeyup="checkProductName()"required>' +
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 "<tr><td><label for='CPUsocket'>CPU Socket</label></td>" +
-                " <td><input type='text' id='CPUsocket' name='CPUsocket' ></td></tr>" +
+                " <td><input type='text' id='CPUsocket' name='CPUsocket' required></td></tr>" +
 
                 "<tr><td><label for='RAMsocket'>RAM Socket</label></td>" +
-                " <td><input type='text' id='RAMsocket' name='RAMsocket' ></td></tr>" +
+                " <td><input type='text' id='RAMsocket' name='RAMsocket' required></td></tr>" +
 
                 " <tr><td><label for='nRAMSockets'>RAM Slots</label></td>" +
-                "  <td><input type='number' id='nRAMSockets' name='nRAMSockets' ></td></tr>" +
+                "  <td><input type='number' id='nRAMSockets' name='nRAMSockets' required></td></tr>" +
 
                 " <tr><td><label for='nSATASockets'>SATA Slots</label></td>" +
-                "  <td><input type='number' id='nSATASockets' name='nSATASockets' ></td></tr>" +
+                "  <td><input type='number' id='nSATASockets' name='nSATASockets' required></td></tr>" +
 
                 " <tr><td><label for='nNVMESockets'>NVME Slots</label></td>" +
-                "  <td><input type='number' id='nNVMESockets' name='nNVMESockets' ></td></tr>" +
+                "  <td><input type='number' id='nNVMESockets' name='nNVMESockets' required></td></tr>" +
 
                 '<tr><td><label for="formFactor">Form Factor</label></td>' +
-                '<td><select id="formFActor" name="formFactor">' +
+                '<td><select id="formFActor" name="formFactor" required>' +
                 '<option value="mini-itx">Mini-ITX</option>' +
                 " <option value='micro-atx'>Micro-ATX</option>" +
                 "<option value='atx'>ATX</option>" +
@@ -558,13 +558,13 @@ function prepareFormInsert() {
                 "</select></td></tr>" +
 
                 '<tr><td><label for="consumption">Consumption</label></td>' +
-                '<td><input type="number" id="consumption" name="consumption"></td></tr>' +
+                '<td><input type="number" id="consumption" name="consumption"required></td></tr>' +
 
                 '<tr><td><label for="price">Price</label></td>' +
-                '<td><input type="number" step="0.01" name="price" ></td></tr>' +
+                '<td><input type="number" step="0.01" name="price" required ></td></tr>' +
 
                 '<tr><td><label for="inStock">In Stock</label></td>' +
-                '<td><input type="number" id="inStock" name="stock"></td></tr>'
+                '<td><input type="number" id="inStock" name="stock" required></td></tr>'
 
 
             break
@@ -575,17 +575,17 @@ function prepareFormInsert() {
                 '<input type="hidden" id="id" name="id" value="-1">' +
 
                 '<tr><td><label for="productName">Product Name</label></td>' +
-                '<td><input type="text" id="productName"  onkeyup="checkProductName()">' +
+                '<td><input type="text" id="productName"  onkeyup="checkProductName()" required>' +
                 '<span id="name-alert" class="alert-info " hidden> Product Already Present</span></td></tr>' +
 
                 '<tr><td><label for="power">Power</label></td>' +
-                '<td><input type="text" id="power" name="power" ></td></tr>' +
+                '<td><input type="text" id="power" name="power" required></td></tr>' +
 
                 '<tr><td><label for="price">Price</label></td>' +
-                '<td><input type="number" step="0.01" name="price" ></td></tr>' +
+                '<td><input type="number" step="0.01" name="price" required></td></tr>' +
 
                 '<tr><td><label for="inStock">In Stock</label></td>' +
-                '<td><input type="number" id="inStock" name="stock" ></td></tr>'
+                '<td><input type="number" id="inStock" name="stock" required></td></tr>'
 
 
             break;
