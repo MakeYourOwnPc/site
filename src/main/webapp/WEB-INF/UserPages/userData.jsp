@@ -94,6 +94,7 @@
     </div>
 </div>
 </div>
+
 </body>
 
 <script>
@@ -109,6 +110,7 @@
         else
             alertPass.hidden = false
     }
+
     function checkPassword() {
         let xhttp = new XMLHttpRequest();
         let oldPassword = document.getElementById("oldPassword")
@@ -122,7 +124,7 @@
                 let json = JSON.parse(this.responseText)
                 console.log(this.responseText)
                 if (json.attempts <= 0) {
-                    alert.innerText = "Too many attempts. Retry Later."
+                    alert.innerText = "Too many attempts. Try again in 5 minutes."
                     alert.hidden=false
                     submit.disabled = true
                 }else if (json.result == false) {

@@ -27,6 +27,9 @@
         }
 
     }
+    .confirmButton td .btn{
+        width: 100%;
+    }
 </style>
 
 <nav class="topbar">
@@ -102,7 +105,7 @@
         <div class="box-container">
             <table style="width: 100%">
                 <tr style="vertical-align: middle">
-                    <td><h1 style="float: left">Are you sure?</h1></td>
+                    <td><h1 style="text-align: center">Are you sure?</h1></td>
                     <td>
                         <button onclick="toggleOverlayMakeSure()" class="btn btn-danger" style="font-size: 26px;font-weight: bolder" >X</button>
                     </td>
@@ -110,7 +113,7 @@
             </table>
             <table>
                 <tbody>
-            <tr><td>
+            <tr class="confirmButton"><td>
                 <form action="/MYOPSite_war_exploded/admin/modifyDB" method="POST">
                 <input id='idToDelete' type='hidden' name='id'>
                 <input type='hidden' name='option' value='delete'>

@@ -13,6 +13,11 @@
     <meta name="viewport" content="width=device-witdht, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="customcss/general.css"/>
+    <style>
+        .confirmButton td .btn{
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 
@@ -62,7 +67,7 @@
                         </form>
                       </td>
                           <td style="width: 50%;height: 100%;">
-                              <button class="btn btn-danger" style="height: 100%;width: 100%" onclick="deleteBuild(${build.id})">Delete</button>
+                              <button class="btn btn-danger" style="height: 100%;width: 100%" onclick="toggleOverlayMakeSure(${build.id})">Delete</button>
                           </td>
 
                       </tr>
@@ -76,12 +81,38 @@
 </div>
 </div>
 <jsp:include page="/WEB-INF/pagecomponents/footer.jsp"></jsp:include>
-
+<div id="overlayMakeSure" class="overlayElement" style="display: none">
+    <div class="centered-box">
+        <div class="box-container">
+            <table style="width: 100%">
+                <tr style="vertical-align: middle">
+                    <td><h1 style="text-align: center">Are you sure?</h1></td>
+                    <td>
+                        <button onclick="toggleOverlayMakeSure()" class="btn btn-danger" style="font-size: 26px;font-weight: bolder" >X</button>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tbody>
+                <tr class="confirmButton"><td>
+                        <button class='btn btn-danger' id="confirmDelete">Yes</button>
+                </td>
+                    <td>
+                        <button onclick='toggleOverlayMakeSure()' class='btn active'>No</button>
+                    </td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 <script>
+    function toggleOverlayMakeSure(id) {
+        $("#overlayMakeSure").fadeToggle();
+        $("#confirmDelete").off().click(function(){deleteBuild(id);toggleOverlayMakeSure()})
+    }
     function deleteBuild(id){
         $("#build"+id).addClass("pendingRemoval");
-        let idBuild=id;
         $.ajax({
             url: "/MYOPSite_war_exploded/deleteBuild",
             type:"POST",

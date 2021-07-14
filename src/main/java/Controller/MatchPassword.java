@@ -36,11 +36,10 @@ public class MatchPassword extends HttpServlet {
                 }
 
             try {
-                TimeUnit.SECONDS.sleep(1);
+                TimeUnit.MILLISECONDS.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
                     if (LocalDateTime.now().isAfter(usersNextAttempt.get(user.getEmail()))) {
                         if (obj == null) {
                         counter = defaultCounter;
