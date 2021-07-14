@@ -20,7 +20,7 @@
 <div class="centered-box">
     <div class="box-container fullHeightList">
         <input type="hidden" id="result" value="${result}">
-        <h1>Registration Form</h1>
+        <h1>User Data</h1>
         <form name="registration" action="/MYOPSite_war_exploded/modifyUser" method="post" onsubmit="return validateData()">
 
             <table  class="User-box">
@@ -99,8 +99,8 @@
 <script>
     $(document).ready(function(){
         let result = document.getElementById("result").value
-        let toast = document.getElementById("toast")
-        toast.hidden=!result
+        if(!result)
+            createToast("Login Failed","Wrong Password")
     })
     function isPasswordMatching(password){
         let alertPass = document.getElementById("newPassword-alert")
@@ -112,7 +112,7 @@
     function checkPassword() {
         let xhttp = new XMLHttpRequest();
         let oldPassword = document.getElementById("oldPassword")
-        let alert = document.getElementById("oldPassword-alert")
+        let alert = document.getElementById("oldpassword-alert")
         let submit = document.getElementById("submit-check")
         let formName = document.getElementById("firstname")
         let formSurname = document.getElementById("lastname")
@@ -120,10 +120,12 @@
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 let json = JSON.parse(this.responseText)
+                console.log(this.responseText)
                 if (json.attempts <= 0) {
                     alert.innerText = "Too many attempts. Retry Later."
+                    alert.hidden=false
                     submit.disabled = true
-                } else if (json.result == false) {
+                }else if (json.result == false) {
                     alert.innerText = "Wrong Password";
                     alert.hidden = false;
                 } else {

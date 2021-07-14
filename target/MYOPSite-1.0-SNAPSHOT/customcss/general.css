@@ -76,7 +76,7 @@ button{
 /* In linea #2 | http://localhost:8080/MYOPSite_war_exploded/ */
 
 .buildList {
-    max-width: 300px;
+    max-width: 364px;
     border:solid #2D83A6;
     position: relative;
     display: inline-block;
@@ -85,7 +85,7 @@ button{
     margin: 10px;
     border-radius: 5px;
     background-color: var(--bg-default-color);
-    height: 822px;
+    height: 901px;
 }
 .buildList img{
     width: 100%;
@@ -327,6 +327,10 @@ footer{
     width: 100%;
     border-top: white solid;
 
+}
+#updateFormBox>tbody>tr>td>img {
+
+    max-height: 260px;
 }
 td>img{
     max-height: 3rem;

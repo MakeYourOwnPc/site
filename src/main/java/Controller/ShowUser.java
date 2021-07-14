@@ -23,8 +23,6 @@ public class ShowUser extends HttpServlet {
             else
                 result=false;
             req.setAttribute("result",result);
-            session.setAttribute("attempts",3);
-            session.setAttribute("nextAttempt", LocalDateTime.now());
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/UserPages/userData.jsp");
             dispatcher.forward(req,resp);
         }

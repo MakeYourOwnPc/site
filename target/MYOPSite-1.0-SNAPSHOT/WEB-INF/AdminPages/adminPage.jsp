@@ -75,7 +75,7 @@
 </div>
 
 <div id="overlayFormModify" class="overlayElement" style="display: none">
-    <div class="centered-box">
+    <div class="centered-box" style="top:632px">
         <div class="box-container">
             <table style="width: 100%">
                 <tr style="vertical-align: middle">
