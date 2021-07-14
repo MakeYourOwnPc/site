@@ -68,7 +68,7 @@ public class ItemsLister extends HttpServlet {
                 } else {
                     ArrayList<Cpu> list = null;
                     try {
-                        list = cpuDao.doRetrieveByParameters(nameCpu, socketCpu, integratedGpu, limit, limit * (offset - 1));
+                        list = cpuDao.doRetrieveByParameters(nameCpu, socketCpu.toUpperCase(), integratedGpu, limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         resp.setContentType("plain/text");
                         resp.setCharacterEncoding("UTF-8");
@@ -126,7 +126,7 @@ public class ItemsLister extends HttpServlet {
                 } else {
                     ArrayList<Memory> list = null;
                     try {
-                        list = memoryDao.doRetrieveByParameters(nameMemory, socketMemory, testType.isBlank() ? null : Boolean.valueOf(testType), limit, limit * (offset - 1));
+                        list = memoryDao.doRetrieveByParameters(nameMemory, socketMemory.toUpperCase(), testType.isBlank() ? null : Boolean.valueOf(testType), limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         resp.setContentType("plain/text");
                         resp.setCharacterEncoding("UTF-8");
@@ -160,7 +160,7 @@ public class ItemsLister extends HttpServlet {
                 } else {
                     ArrayList<Mobo> list = null;
                     try {
-                        list = moboDao.doRetrieveByParameters(nameMobo, socketRamMobo, socketCpuMobo, formFactor, numSlotNvme.isBlank() ? 0 : Integer.parseInt(numSlotNvme), numSlotSata.isBlank() ? 0 : Integer.parseInt(numSlotSata), numSlotRam.isBlank() ? 0 : Integer.parseInt(numSlotRam), limit, limit * (offset - 1));
+                        list = moboDao.doRetrieveByParameters(nameMobo, socketRamMobo.toUpperCase(), socketCpuMobo.toUpperCase(), formFactor, numSlotNvme.isBlank() ? 0 : Integer.parseInt(numSlotNvme), numSlotSata.isBlank() ? 0 : Integer.parseInt(numSlotSata), numSlotRam.isBlank() ? 0 : Integer.parseInt(numSlotRam), limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         resp.setContentType("plain/text");
                         resp.setCharacterEncoding("UTF-8");

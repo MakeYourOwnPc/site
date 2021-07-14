@@ -191,7 +191,7 @@ public class ModifyDB extends HttpServlet {
                 }
                 cpu.setName(nameCpu);
                 cpu.setPrice(Float.parseFloat(priceCpu));
-                cpu.setSocket(socketCpu);
+                cpu.setSocket(socketCpu.toUpperCase());
                 cpu.setIntegratedgpu(Boolean.parseBoolean(integratedGpu));
                 cpu.setConsumption(Integer.parseInt(consumptionCpu));
                 cpu.setStock(Integer.parseInt(stockCpu));
@@ -285,8 +285,8 @@ public class ModifyDB extends HttpServlet {
                 mobo.setAmountSlotNvme(Integer.parseInt(amountSlotNvme));
                 mobo.setAmountSlotRam(Integer.parseInt(amountSlotRam));
                 mobo.setAmountSlotSata(Integer.parseInt(stockMobo));
-                mobo.setCpuSocket(cpuSocket);
-                mobo.setRamSocket(ramSocket);
+                mobo.setCpuSocket(cpuSocket.toUpperCase());
+                mobo.setRamSocket(ramSocket.toUpperCase());
                 mobo.setStock(Integer.parseInt(stockMobo));
                 if (!fileNameMobo.isBlank()) {
                     mobo.setImagePath(ImagePaths.imagePath + fileNameMobo);
@@ -315,7 +315,7 @@ public class ModifyDB extends HttpServlet {
                     return;
                 }
                 memory.setName(nameMemory);
-                memory.setSocket(socketMemory);
+                memory.setSocket(socketMemory.toUpperCase());
                 memory.setmType(Boolean.parseBoolean(mType));
                 memory.setPrice(Float.parseFloat(priceMemory));
                 memory.setConsumption(Integer.parseInt(consumptionMemory));
@@ -408,7 +408,7 @@ public class ModifyDB extends HttpServlet {
                 if (!priceCpu.isBlank())
                     cpu.setPrice(Float.parseFloat(priceCpu));
                 if (!socketCpu.isBlank())
-                    cpu.setSocket(socketCpu);
+                    cpu.setSocket(socketCpu.toUpperCase());
                 if (!integratedGpu.isBlank())
                     cpu.setIntegratedgpu(Boolean.parseBoolean(integratedGpu));
                 if (!consumptionCpu.isBlank())
@@ -518,9 +518,9 @@ public class ModifyDB extends HttpServlet {
                 if (!amountSlotSata.isBlank() && Integer.parseInt(amountSlotSata) >= 0)
                     mobo.setAmountSlotSata(Integer.parseInt(stockMobo));
                 if (!cpuSocket.isBlank())
-                    mobo.setCpuSocket(cpuSocket);
+                    mobo.setCpuSocket(cpuSocket.toUpperCase());
                 if (!ramSocket.isBlank())
-                    mobo.setRamSocket(ramSocket);
+                    mobo.setRamSocket(ramSocket.toUpperCase());
                 if (!stockMobo.isBlank() && Integer.parseInt(stockMobo) >= 0)
                     mobo.setStock(Integer.parseInt(stockMobo));
                 if (!fileNameMobo.isBlank()) {
@@ -551,7 +551,7 @@ public class ModifyDB extends HttpServlet {
                 if (!nameMemory.isBlank())
                     memory.setName(nameMemory);
                 if (!socketMemory.isBlank())
-                    memory.setSocket(socketMemory);
+                    memory.setSocket(socketMemory.toUpperCase());
                 if (!mType.isBlank() && (mType.equals("true") || mType.equals("false")))
                     memory.setmType(Boolean.parseBoolean(mType));
                 if (!priceMemory.isBlank())
