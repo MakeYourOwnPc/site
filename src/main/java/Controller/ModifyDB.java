@@ -49,14 +49,14 @@ public class ModifyDB extends HttpServlet {
         }
         resp.setCharacterEncoding("UTF-8");
         switch (option) {
-            case "insert" -> {
+            case "insert":
                 try {
                     insert(requestedItem, req, resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            case "update" -> {
+                break;
+            case "update":
                 try {
                     update(requestedItem, req, resp);
                 } catch (SQLException throwables) {
@@ -64,88 +64,88 @@ public class ModifyDB extends HttpServlet {
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
                 }
-            }
-            case "delete" -> {
+                break;
+            case "delete":
                 try {
                     delete(requestedItem, req, resp);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-
+                break;
         }
     }
     public void delete(String requestedItem,HttpServletRequest req,HttpServletResponse resp) throws SQLException,ServletException,IOException{
+        String id;
         switch (requestedItem) {
-           case "users" -> {
-               String email = req.getParameter("email");
-               UserDao userDao = new UserDao();
-               if(email!=null)
-                   resp.getWriter().print(userDao.doDelete(email));
-           }
-            case "gpus" -> {
+            case "users":
+                String email = req.getParameter("email");
+                UserDao userDao = new UserDao();
+                if (email != null)
+                    resp.getWriter().print(userDao.doDelete(email));
+                break;
+            case "gpus":
                 GpuDao gpuDao = new GpuDao();
-                String id = req.getParameter("id");
-                if(id!=null)
+                 id = req.getParameter("id");
+                if (id != null)
                     resp.getWriter().print(gpuDao.doDelete(Integer.parseInt(id)));
-            }
-            case "cpus" -> {
+                break;
+            case "cpus":
                 CpuDao cpuDao = new CpuDao();
-                String id = req.getParameter("id");
-                if(id!=null)
+                 id = req.getParameter("id");
+                if (id != null)
                     resp.getWriter().print(cpuDao.doDelete(Integer.parseInt(id)));
-            }
-            case "psus" -> {
+                break;
+            case "psus":
                 PsuDao psuDao = new PsuDao();
-                String id = req.getParameter("id");
-                if(id!=null)
+                 id = req.getParameter("id");
+                if (id != null)
                     resp.getWriter().print(psuDao.doDelete(Integer.parseInt(id)));
-            }
-            case "cases" -> {
+                break;
+            case "cases":
                 PcCaseDao pcCaseDao = new PcCaseDao();
-                String id = req.getParameter("id");
-                if(id!=null)
+                 id = req.getParameter("id");
+                if (id != null)
                     resp.getWriter().print(pcCaseDao.doDelete(Integer.parseInt(id)));
-            }
-            case "motherboards" -> {
+                break;
+            case "motherboards":
                 MoboDao moboDao = new MoboDao();
-                String id = req.getParameter("id");
-                if(id!=null)
+                 id = req.getParameter("id");
+                if (id != null)
                     resp.getWriter().print(moboDao.doDelete(Integer.parseInt(id)));
-            }
-            case "memories" -> {
+                break;
+            case "memories":
                 MemoryDao memoryDao = new MemoryDao();
-                String id = req.getParameter("id");
-                if(id!=null)
+                 id = req.getParameter("id");
+                if (id != null)
                     resp.getWriter().print(memoryDao.doDelete(Integer.parseInt(id)));
-            }
-            case "builds" -> {
-               BuildDao buildDao = new BuildDao();
-               String id = req.getParameter("id");
-               if(id!=null)
-                   resp.getWriter().print(buildDao.doDelete(Integer.parseInt(id)));
+                break;
+            case "builds":
+                BuildDao buildDao = new BuildDao();
+                 id = req.getParameter("id");
+                if (id != null)
+                    resp.getWriter().print(buildDao.doDelete(Integer.parseInt(id)));
+                break;
+            case "countries":
+                CountryDao countryDao = new CountryDao();
+                 id = req.getParameter("id");
+                if (id != null) {
+                    ServletContext servletContext = req.getServletContext();
+                    synchronized (servletContext) {
+                        ArrayList<Country> countries = (ArrayList<Country>) servletContext.getAttribute("countries");
+                        for (int i = 0; i < countries.size(); i++)
+                            if (countries.get(i).getId().equals(id))
+                                countries.remove(i);
+                        servletContext.setAttribute("countries", countries);
+                    }
+                    resp.getWriter().print(countryDao.doDelete(id));
+                }
+                break;
         }
-        case "countries" -> {
-               CountryDao countryDao = new CountryDao();
-               String id = req.getParameter("id");
-               if(id!=null){
-                   ServletContext servletContext = req.getServletContext();
-                   synchronized (servletContext){
-                       ArrayList<Country> countries = (ArrayList<Country>) servletContext.getAttribute("countries");
-                       for(int i=0;i<countries.size();i++)
-                           if(countries.get(i).getId().equals(id))
-                               countries.remove(i);
-                           servletContext.setAttribute("countries",countries);
-                   }
-                   resp.getWriter().print(countryDao.doDelete(id));
-               }
-        }
-    }
         resp.sendRedirect("/MYOPSite_war_exploded/admin");
     }
     public void insert(String requestedItem, HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
         switch (requestedItem) {
-            case "gpus" -> {
+            case "gpus":
                 GpuDao gpuDao = new GpuDao();
                 Gpu gpu = new Gpu();
                 String nameGpu = req.getParameter("name");
@@ -164,18 +164,17 @@ public class ModifyDB extends HttpServlet {
                 gpu.setConsumption(Integer.parseInt(consumptionGpu));
                 gpu.setStock(Integer.parseInt(stockGpu));
                 if (!fileNameGpu.isBlank()) {
-                    gpu.setImagePath(ImagePaths.imagePath+fileNameGpu);
-                    try(InputStream inputStream = filePartGpu.getInputStream()){
-                        File file = new File(ImagePaths.uploadPath+fileNameGpu);
-                        Files.copy(inputStream,file.toPath());
+                    gpu.setImagePath(ImagePaths.imagePath + fileNameGpu);
+                    try (InputStream inputStream = filePartGpu.getInputStream()) {
+                        File file = new File(ImagePaths.uploadPath + fileNameGpu);
+                        Files.copy(inputStream, file.toPath());
                     }
-                }
-                else
+                } else
                     gpu.setImagePath(ImagePaths.defaultPath);
                 System.out.println(gpu.getImagePath());
                 resp.getWriter().print(gpuDao.doSave(gpu));
-            }
-            case "cpus" -> {
+                break;
+            case "cpus":
                 CpuDao cpuDao = new CpuDao();
                 Cpu cpu = new Cpu();
                 String nameCpu = req.getParameter("name");
@@ -197,17 +196,16 @@ public class ModifyDB extends HttpServlet {
                 cpu.setConsumption(Integer.parseInt(consumptionCpu));
                 cpu.setStock(Integer.parseInt(stockCpu));
                 if (!fileNameCpu.isBlank()) {
-                    cpu.setImagePath(ImagePaths.imagePath+fileNameCpu);
-                    try(InputStream inputStream = filePartCpu.getInputStream()){
-                        File file = new File(ImagePaths.uploadPath+fileNameCpu);
-                        Files.copy(inputStream,file.toPath());
+                    cpu.setImagePath(ImagePaths.imagePath + fileNameCpu);
+                    try (InputStream inputStream = filePartCpu.getInputStream()) {
+                        File file = new File(ImagePaths.uploadPath + fileNameCpu);
+                        Files.copy(inputStream, file.toPath());
                     }
-                }
-                else
+                } else
                     cpu.setImagePath(ImagePaths.defaultPath);
                 resp.getWriter().print(cpuDao.doSave(cpu));
-            }
-            case "psus" -> {
+                break;
+            case "psus":
                 PsuDao psuDao = new PsuDao();
                 Psu psu = new Psu();
                 String namePsu = req.getParameter("name");
@@ -225,17 +223,16 @@ public class ModifyDB extends HttpServlet {
                 psu.setPower(Integer.parseInt(power));
                 psu.setStock(Integer.parseInt(stockPsu));
                 if (!fileNamePsu.isBlank()) {
-                    psu.setImagePath(ImagePaths.imagePath+fileNamePsu);
-                    try(InputStream inputStream = filePartPsu.getInputStream()){
-                        File file = new File(ImagePaths.uploadPath+fileNamePsu);
-                        Files.copy(inputStream,file.toPath());
+                    psu.setImagePath(ImagePaths.imagePath + fileNamePsu);
+                    try (InputStream inputStream = filePartPsu.getInputStream()) {
+                        File file = new File(ImagePaths.uploadPath + fileNamePsu);
+                        Files.copy(inputStream, file.toPath());
                     }
-                }
-                else
+                } else
                     psu.setImagePath(ImagePaths.defaultPath);
                 resp.getWriter().print(psuDao.doSave(psu));
-            }
-            case "cases" -> {
+                break;
+            case "cases":
                 PcCaseDao pcCaseDao = new PcCaseDao();
                 PcCase pcCase = new PcCase();
                 String nameCase = req.getParameter("name");
@@ -248,22 +245,21 @@ public class ModifyDB extends HttpServlet {
                     resp.setStatus(500);
                     return;
                 }
-                    pcCase.setName(nameCase);
+                pcCase.setName(nameCase);
                 pcCase.setPrice(Float.parseFloat(priceCase));
                 pcCase.setFormFactor(formFactorCase);
                 pcCase.setStock(Integer.parseInt(stockCase));
                 if (!fileNameCase.isBlank()) {
-                    pcCase.setImagePath(ImagePaths.imagePath+fileNameCase);
-                    try(InputStream inputStream = filePartCase.getInputStream()){
-                        File file = new File(ImagePaths.uploadPath+fileNameCase);
-                        Files.copy(inputStream,file.toPath());
+                    pcCase.setImagePath(ImagePaths.imagePath + fileNameCase);
+                    try (InputStream inputStream = filePartCase.getInputStream()) {
+                        File file = new File(ImagePaths.uploadPath + fileNameCase);
+                        Files.copy(inputStream, file.toPath());
                     }
-                }
-                else
+                } else
                     pcCase.setImagePath(ImagePaths.defaultPath);
                 resp.getWriter().print(pcCaseDao.doSave(pcCase));
-            }
-            case "motherboards" -> {
+                break;
+            case "motherboards":
                 MoboDao moboDao = new MoboDao();
                 Mobo mobo = new Mobo();
                 String nameMobo = req.getParameter("name");
@@ -278,8 +274,7 @@ public class ModifyDB extends HttpServlet {
                 String stockMobo = req.getParameter("stock");
                 Part filePartMobo = req.getPart("image");
                 String fileNameMobo = Paths.get(filePartMobo.getSubmittedFileName()).getFileName().toString();
-                if (nameMobo.isBlank() || priceMobo.isBlank() || consumptionMobo.isBlank() || formFactorMobo.isBlank() || amountSlotNvme.isBlank() || Integer.parseInt(amountSlotNvme) < 0 || amountSlotRam.isBlank() || Integer.parseInt(amountSlotRam) < 0 || amountSlotSata.isBlank() || Integer.parseInt(amountSlotSata) < 0 || cpuSocket.isBlank() || ramSocket.isBlank() || stockMobo.isBlank() || Integer.parseInt(stockMobo) < 0)
-                {
+                if (nameMobo.isBlank() || priceMobo.isBlank() || consumptionMobo.isBlank() || formFactorMobo.isBlank() || amountSlotNvme.isBlank() || Integer.parseInt(amountSlotNvme) < 0 || amountSlotRam.isBlank() || Integer.parseInt(amountSlotRam) < 0 || amountSlotSata.isBlank() || Integer.parseInt(amountSlotSata) < 0 || cpuSocket.isBlank() || ramSocket.isBlank() || stockMobo.isBlank() || Integer.parseInt(stockMobo) < 0) {
                     resp.setStatus(500);
                     return;
                 }
@@ -294,17 +289,16 @@ public class ModifyDB extends HttpServlet {
                 mobo.setRamSocket(ramSocket);
                 mobo.setStock(Integer.parseInt(stockMobo));
                 if (!fileNameMobo.isBlank()) {
-                    mobo.setImagePath(ImagePaths.imagePath+fileNameMobo);
-                    try(InputStream inputStream = filePartMobo.getInputStream()){
-                        File file = new File(ImagePaths.uploadPath+fileNameMobo);
-                        Files.copy(inputStream,file.toPath());
+                    mobo.setImagePath(ImagePaths.imagePath + fileNameMobo);
+                    try (InputStream inputStream = filePartMobo.getInputStream()) {
+                        File file = new File(ImagePaths.uploadPath + fileNameMobo);
+                        Files.copy(inputStream, file.toPath());
                     }
-                }
-                else
+                } else
                     mobo.setImagePath(ImagePaths.defaultPath);
                 resp.getWriter().print(moboDao.doSave(mobo));
-            }
-            case "memories" -> {
+                break;
+            case "memories":
                 MemoryDao memoryDao = new MemoryDao();
                 Memory memory = new Memory();
                 String nameMemory = req.getParameter("name");
@@ -316,10 +310,10 @@ public class ModifyDB extends HttpServlet {
                 String stockMemory = req.getParameter("stock");
                 Part filePartMemory = req.getPart("image");
                 String fileNameMemory = Paths.get(filePartMemory.getSubmittedFileName()).getFileName().toString();
-                if (nameMemory.isBlank() || socketMemory.isBlank() || mType.isBlank() || !(mType.equals("true") || mType.equals("false")) || priceMemory.isBlank() || consumptionMemory.isBlank() || amountMemories.isBlank() || Integer.parseInt(amountMemories) < 0 || stockMemory.isBlank() || Integer.parseInt(stockMemory) < 0){
+                if (nameMemory.isBlank() || socketMemory.isBlank() || mType.isBlank() || !(mType.equals("true") || mType.equals("false")) || priceMemory.isBlank() || consumptionMemory.isBlank() || amountMemories.isBlank() || Integer.parseInt(amountMemories) < 0 || stockMemory.isBlank() || Integer.parseInt(stockMemory) < 0) {
                     resp.setStatus(500);
                     return;
-            }
+                }
                 memory.setName(nameMemory);
                 memory.setSocket(socketMemory);
                 memory.setmType(Boolean.parseBoolean(mType));
@@ -328,23 +322,22 @@ public class ModifyDB extends HttpServlet {
                 memory.setAmountMemories(Integer.parseInt(amountMemories));
                 memory.setStock(Integer.parseInt(stockMemory));
                 if (!fileNameMemory.isBlank()) {
-                    memory.setImagePath(ImagePaths.imagePath+fileNameMemory);
-                    try(InputStream inputStream = filePartMemory.getInputStream()){
-                        File file = new File(ImagePaths.uploadPath+fileNameMemory);
-                        Files.copy(inputStream,file.toPath());
+                    memory.setImagePath(ImagePaths.imagePath + fileNameMemory);
+                    try (InputStream inputStream = filePartMemory.getInputStream()) {
+                        File file = new File(ImagePaths.uploadPath + fileNameMemory);
+                        Files.copy(inputStream, file.toPath());
                     }
-                }
-                else
+                } else
                     memory.setImagePath(ImagePaths.defaultPath);
                 resp.getWriter().print(memoryDao.doSave(memory));
-            }
-            case "countries" -> {
+                break;
+            case "countries":
                 ServletContext servletContext = req.getServletContext();
                 CountryDao countryDao = new CountryDao();
                 String countryId = req.getParameter("id");
                 String countryLabel = req.getParameter("label");
                 Country country = new Country();
-                if(!countryLabel.isBlank()&&!countryLabel.isBlank()){
+                if (!countryLabel.isBlank() && !countryLabel.isBlank()) {
                     country.setId(countryId);
                     country.setName(countryLabel);
                     countryDao.doSave(country);
@@ -354,13 +347,13 @@ public class ModifyDB extends HttpServlet {
                         servletContext.setAttribute("countries", countries);
                     }
                 }
-            }
+                break;
         }
         resp.sendRedirect("/MYOPSite_war_exploded/admin");
     }
     public void update(String requestedItem, HttpServletRequest req, HttpServletResponse resp) throws SQLException, NoSuchAlgorithmException, ServletException, IOException {
         switch (requestedItem) {
-            case "users" -> {
+            case "users":
                 UserDao userDao = new UserDao();
                 String email = req.getParameter("email");
                 boolean admin = Boolean.parseBoolean(req.getParameter("admin"));
@@ -368,8 +361,7 @@ public class ModifyDB extends HttpServlet {
                     resp.getWriter().print(userDao.doChangeAdmin(email, admin));
                     return;
                 }
-            }
-            case "gpus" -> {
+            case "gpus":
                 String idGpu = req.getParameter("id");
                 GpuDao gpuDao = new GpuDao();
                 Gpu gpu = gpuDao.doRetrieveById(Integer.parseInt(idGpu));
@@ -389,17 +381,17 @@ public class ModifyDB extends HttpServlet {
                     gpu.setStock(Integer.parseInt(stockGpu));
                 if (!fileNameGpu.isBlank()) {
                     ImagePaths.checkFile(gpu.getImagePath());
-                    gpu.setImagePath(ImagePaths.imagePath+fileNameGpu);
-                    try(InputStream inputStream = filePartGpu.getInputStream()){
-                        File file = new File(ImagePaths.uploadPath+fileNameGpu);
-                        Files.copy(inputStream,file.toPath());
+                    gpu.setImagePath(ImagePaths.imagePath + fileNameGpu);
+                    try (InputStream inputStream = filePartGpu.getInputStream()) {
+                        File file = new File(ImagePaths.uploadPath + fileNameGpu);
+                        Files.copy(inputStream, file.toPath());
                     }
                 }
                 synchronized (gpuDao) {
                     resp.getWriter().print(gpuDao.doUpdate(gpu));
                 }
-            }
-            case "cpus" -> {
+                break;
+            case "cpus":
                 String idCpu = req.getParameter("id");
                 CpuDao cpuDao = new CpuDao();
                 Cpu cpu = cpuDao.doRetrieveById(Integer.parseInt(idCpu));
@@ -425,17 +417,17 @@ public class ModifyDB extends HttpServlet {
                     cpu.setStock(Integer.parseInt(stockCpu));
                 if (!fileNameCpu.isBlank()) {
                     ImagePaths.checkFile(cpu.getImagePath());
-                    cpu.setImagePath(ImagePaths.imagePath+fileNameCpu);
-                    try(InputStream inputStream = filePartCpu.getInputStream()){
-                        File file = new File(ImagePaths.uploadPath+fileNameCpu);
-                        Files.copy(inputStream,file.toPath());
+                    cpu.setImagePath(ImagePaths.imagePath + fileNameCpu);
+                    try (InputStream inputStream = filePartCpu.getInputStream()) {
+                        File file = new File(ImagePaths.uploadPath + fileNameCpu);
+                        Files.copy(inputStream, file.toPath());
                     }
                 }
                 synchronized (cpuDao) {
                     resp.getWriter().print(cpuDao.doUpdate(cpu));
                 }
-            }
-            case "psus" -> {
+                break;
+            case "psus":
                 String idPsu = req.getParameter("id");
                 PsuDao psuDao = new PsuDao();
                 Psu psu = psuDao.doRetrieveById(Integer.parseInt(idPsu));
@@ -455,17 +447,17 @@ public class ModifyDB extends HttpServlet {
                     psu.setStock(Integer.parseInt(stockPsu));
                 if (!fileNamePsu.isBlank()) {
                     ImagePaths.checkFile(psu.getImagePath());
-                    psu.setImagePath(ImagePaths.imagePath+fileNamePsu);
-                    try(InputStream inputStream = filePartPsu.getInputStream()){
-                        File file = new File(ImagePaths.uploadPath+fileNamePsu);
-                        Files.copy(inputStream,file.toPath());
+                    psu.setImagePath(ImagePaths.imagePath + fileNamePsu);
+                    try (InputStream inputStream = filePartPsu.getInputStream()) {
+                        File file = new File(ImagePaths.uploadPath + fileNamePsu);
+                        Files.copy(inputStream, file.toPath());
                     }
                 }
                 synchronized (psuDao) {
                     resp.getWriter().print(psuDao.doUpdate(psu));
                 }
-            }
-            case "cases" -> {
+                break;
+            case "cases":
                 String idCase = req.getParameter("id");
                 PcCaseDao pcCaseDao = new PcCaseDao();
                 PcCase pcCase = pcCaseDao.doRetrieveById(Integer.parseInt(idCase));
@@ -485,17 +477,17 @@ public class ModifyDB extends HttpServlet {
                     pcCase.setStock(Integer.parseInt(stockCase));
                 if (!fileNameCase.isBlank()) {
                     ImagePaths.checkFile(pcCase.getImagePath());
-                    pcCase.setImagePath(ImagePaths.imagePath+fileNameCase);
-                    try(InputStream inputStream = filePartCase.getInputStream()){
-                        File file = new File(ImagePaths.uploadPath+fileNameCase);
-                        Files.copy(inputStream,file.toPath());
+                    pcCase.setImagePath(ImagePaths.imagePath + fileNameCase);
+                    try (InputStream inputStream = filePartCase.getInputStream()) {
+                        File file = new File(ImagePaths.uploadPath + fileNameCase);
+                        Files.copy(inputStream, file.toPath());
                     }
                 }
                 synchronized (pcCaseDao) {
                     resp.getWriter().print(pcCaseDao.doUpdate(pcCase));
                 }
-            }
-            case "motherboards" -> {
+                break;
+            case "motherboards":
                 String idMobo = req.getParameter("id");
                 MoboDao moboDao = new MoboDao();
                 Mobo mobo = moboDao.doRetrieveById(Integer.parseInt(idMobo));
@@ -533,17 +525,17 @@ public class ModifyDB extends HttpServlet {
                     mobo.setStock(Integer.parseInt(stockMobo));
                 if (!fileNameMobo.isBlank()) {
                     ImagePaths.checkFile(mobo.getImagePath());
-                    mobo.setImagePath(ImagePaths.imagePath+fileNameMobo);
-                    try(InputStream inputStream = filePartMobo.getInputStream()){
-                        File file = new File(ImagePaths.uploadPath+fileNameMobo);
-                        Files.copy(inputStream,file.toPath());
+                    mobo.setImagePath(ImagePaths.imagePath + fileNameMobo);
+                    try (InputStream inputStream = filePartMobo.getInputStream()) {
+                        File file = new File(ImagePaths.uploadPath + fileNameMobo);
+                        Files.copy(inputStream, file.toPath());
                     }
                 }
                 synchronized (moboDao) {
                     resp.getWriter().print(moboDao.doUpdate(mobo));
                 }
-            }
-            case "memories" -> {
+                break;
+            case "memories":
                 String idMemory = req.getParameter("id");
                 MemoryDao memoryDao = new MemoryDao();
                 Memory memory = memoryDao.doRetrieveById(Integer.parseInt(idMemory));
@@ -572,16 +564,16 @@ public class ModifyDB extends HttpServlet {
                     memory.setStock(Integer.parseInt(stockMemory));
                 if (!fileNameMemory.isBlank()) {
                     ImagePaths.checkFile(memory.getImagePath());
-                    memory.setImagePath(ImagePaths.imagePath+fileNameMemory);
-                    try(InputStream inputStream = filePartMemory.getInputStream()){
-                        File file = new File(ImagePaths.uploadPath+fileNameMemory);
-                        Files.copy(inputStream,file.toPath());
+                    memory.setImagePath(ImagePaths.imagePath + fileNameMemory);
+                    try (InputStream inputStream = filePartMemory.getInputStream()) {
+                        File file = new File(ImagePaths.uploadPath + fileNameMemory);
+                        Files.copy(inputStream, file.toPath());
                     }
                 }
                 synchronized (memoryDao) {
                     resp.getWriter().print(memoryDao.doUpdate(memory));
                 }
-            }
+                break;
         }
         resp.sendRedirect("/MYOPSite_war_exploded/admin");
     }

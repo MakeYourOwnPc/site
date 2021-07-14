@@ -27,7 +27,7 @@
                     <a class="nav-link" href="/MYOPSite_war_exploded/build.jsp">Build</a>
                 </li>
                 <li class="nav-item dropdown ">
-                    <a class="nav-link dropdown-toggle  <%if(user==null){%> disabled <%}%>" <%if(user==null){%> aria-disabled="true" <%}%> href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle  <%if(user==null){%> disabled <%}%>" <%if(user==null){%> aria-disabled="true" <%}%> id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         User Managment
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

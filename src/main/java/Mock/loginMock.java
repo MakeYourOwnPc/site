@@ -41,10 +41,5 @@ public class loginMock  extends HttpServlet {
         RequestDispatcher dispatcher= request.getRequestDispatcher("./WEB-INF/index.jsp");
         dispatcher.forward(request,response);
     }
-    void boh(){
-        String hr="hello";
-        java.lang.StringBuilder lol= new java.lang.StringBuilder();
-        lol.isEmpty();
-        hr.isEmpty();
-    }
+
 }

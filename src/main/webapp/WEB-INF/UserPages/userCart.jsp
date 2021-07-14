@@ -31,7 +31,7 @@
          <div class="halfPage">
             <div class="buildList">
 
-            <img src="${build.imagePath}">
+            <img src="${build.imagePath}" alt="">
             <ul>
                 <li>${build.type}</li>
                 <li>${build.gpu}</li>

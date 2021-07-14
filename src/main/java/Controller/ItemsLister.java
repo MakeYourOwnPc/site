@@ -44,7 +44,7 @@ public class ItemsLister extends HttpServlet {
         int limit = (req.getParameter("limit")==null)?50:Integer.parseInt(req.getParameter("limit"));
         int offset = (req.getParameter("offset")==null)?0:Integer.parseInt(req.getParameter("offset"));
         switch (requestedItem) {
-            case "cpus" -> {
+            case "cpus":
                 CpuDao cpuDao = new CpuDao();
                 String nameCpu = req.getParameter("name");
                 String socketCpu = req.getParameter("CPUsocket");
@@ -56,7 +56,7 @@ public class ItemsLister extends HttpServlet {
                     integratedGpu = null;
                 if (nameCpu.isBlank() && socketCpu.isBlank() && test.isBlank()) {
                     try {
-                        ArrayList<Cpu> list = cpuDao.doRetrieveAll(limit, limit*(offset-1));
+                        ArrayList<Cpu> list = cpuDao.doRetrieveAll(limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         String json = gson.toJson(list);
                         resp.setContentType("plain/text");
@@ -68,7 +68,7 @@ public class ItemsLister extends HttpServlet {
                 } else {
                     ArrayList<Cpu> list = null;
                     try {
-                        list = cpuDao.doRetrieveByParameters(nameCpu, socketCpu, integratedGpu, limit, limit*(offset-1));
+                        list = cpuDao.doRetrieveByParameters(nameCpu, socketCpu, integratedGpu, limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         resp.setContentType("plain/text");
                         resp.setCharacterEncoding("UTF-8");
@@ -78,13 +78,13 @@ public class ItemsLister extends HttpServlet {
                     }
 
                 }
-            }
-            case "gpus" -> {
+                break;
+            case "gpus":
                 GpuDao gpuDao = new GpuDao();
                 String nameGpu = req.getParameter("name");
                 if (nameGpu.isBlank()) {
                     try {
-                        ArrayList<Gpu> list = gpuDao.doRetrieveAll(limit, limit*(offset-1));
+                        ArrayList<Gpu> list = gpuDao.doRetrieveAll(limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         String json = gson.toJson(list);
                         resp.setContentType("plain/text");
@@ -96,7 +96,7 @@ public class ItemsLister extends HttpServlet {
                 } else {
                     ArrayList<Gpu> list = null;
                     try {
-                        list = gpuDao.doRetrieveByName(nameGpu, limit, limit*(offset-1));
+                        list = gpuDao.doRetrieveByName(nameGpu, limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         resp.setContentType("plain/text");
                         resp.setCharacterEncoding("UTF-8");
@@ -106,15 +106,15 @@ public class ItemsLister extends HttpServlet {
                     }
 
                 }
-            }
-            case "memories" -> {
+                break;
+            case "memories":
                 MemoryDao memoryDao = new MemoryDao();
                 String nameMemory = req.getParameter("name");
                 String socketMemory = req.getParameter("MEMsocket");
                 String testType = req.getParameter("mType");
                 if (nameMemory.isBlank() && socketMemory.isBlank() && testType.isBlank()) {
                     try {
-                        ArrayList<Memory> list = memoryDao.doRetrieveAll(limit, limit*(offset-1));
+                        ArrayList<Memory> list = memoryDao.doRetrieveAll(limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         String json = gson.toJson(list);
                         resp.setContentType("plain/text");
@@ -126,7 +126,7 @@ public class ItemsLister extends HttpServlet {
                 } else {
                     ArrayList<Memory> list = null;
                     try {
-                        list = memoryDao.doRetrieveByParameters(nameMemory, socketMemory, testType.isBlank() ? null : Boolean.valueOf(testType), limit, limit*(offset-1));
+                        list = memoryDao.doRetrieveByParameters(nameMemory, socketMemory, testType.isBlank() ? null : Boolean.valueOf(testType), limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         resp.setContentType("plain/text");
                         resp.setCharacterEncoding("UTF-8");
@@ -136,8 +136,8 @@ public class ItemsLister extends HttpServlet {
                     }
 
                 }
-            }
-            case "motherboards" -> {
+                break;
+            case "motherboards":
                 MoboDao moboDao = new MoboDao();
                 String nameMobo = req.getParameter("name");
                 String socketRamMobo = req.getParameter("RAMsocket");
@@ -148,7 +148,7 @@ public class ItemsLister extends HttpServlet {
                 String numSlotNvme = req.getParameter("nNVMESockets");
                 if (nameMobo.isBlank() && socketRamMobo.isBlank() && socketCpuMobo.isBlank() && formFactor.isBlank() && numSlotNvme.isBlank() && numSlotSata.isBlank() && numSlotRam.isBlank()) {
                     try {
-                        ArrayList<Mobo> list = moboDao.doRetrieveAll(limit, limit*(offset-1));
+                        ArrayList<Mobo> list = moboDao.doRetrieveAll(limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         String json = gson.toJson(list);
                         resp.setContentType("plain/text");
@@ -160,7 +160,7 @@ public class ItemsLister extends HttpServlet {
                 } else {
                     ArrayList<Mobo> list = null;
                     try {
-                        list = moboDao.doRetrieveByParameters(nameMobo, socketRamMobo, socketCpuMobo, formFactor, numSlotNvme.isBlank() ? 0 : Integer.parseInt(numSlotNvme), numSlotSata.isBlank() ? 0 : Integer.parseInt(numSlotSata), numSlotRam.isBlank() ? 0 : Integer.parseInt(numSlotRam), limit, limit*(offset-1));
+                        list = moboDao.doRetrieveByParameters(nameMobo, socketRamMobo, socketCpuMobo, formFactor, numSlotNvme.isBlank() ? 0 : Integer.parseInt(numSlotNvme), numSlotSata.isBlank() ? 0 : Integer.parseInt(numSlotSata), numSlotRam.isBlank() ? 0 : Integer.parseInt(numSlotRam), limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         resp.setContentType("plain/text");
                         resp.setCharacterEncoding("UTF-8");
@@ -170,14 +170,14 @@ public class ItemsLister extends HttpServlet {
                     }
 
                 }
-            }
-            case "psus" -> {
+                break;
+            case "psus":
                 PsuDao psuDao = new PsuDao();
                 String namePsu = req.getParameter("name");
                 String power = req.getParameter("power");
                 if (namePsu.isBlank() && power.isBlank()) {
                     try {
-                        ArrayList<Psu> list = psuDao.doRetrieveAll(limit, limit*(offset-1));
+                        ArrayList<Psu> list = psuDao.doRetrieveAll(limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         String json = gson.toJson(list);
                         resp.setContentType("plain/text");
@@ -189,7 +189,7 @@ public class ItemsLister extends HttpServlet {
                 } else {
                     ArrayList<Psu> list = null;
                     try {
-                        list = psuDao.doRetrieveByParameters(namePsu, power.isBlank() ? 0 : Integer.parseInt(power), limit, limit*(offset-1));
+                        list = psuDao.doRetrieveByParameters(namePsu, power.isBlank() ? 0 : Integer.parseInt(power), limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         resp.setContentType("plain/text");
                         resp.setCharacterEncoding("UTF-8");
@@ -198,14 +198,14 @@ public class ItemsLister extends HttpServlet {
                         throwables.printStackTrace();
                     }
                 }
-            }
-            case "cases" -> {
+                break;
+            case "cases":
                 PcCaseDao pcCaseDao = new PcCaseDao();
                 String namePcCase = req.getParameter("name");
                 String formFactorCase = req.getParameter("formFactor");
                 if (namePcCase.isBlank() && formFactorCase.isBlank()) {
                     try {
-                        ArrayList<PcCase> list = pcCaseDao.doRetrieveAll(limit, limit*(offset-1));
+                        ArrayList<PcCase> list = pcCaseDao.doRetrieveAll(limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         String json = gson.toJson(list);
                         resp.setContentType("plain/text");
@@ -217,7 +217,7 @@ public class ItemsLister extends HttpServlet {
                 } else {
                     ArrayList<PcCase> list = null;
                     try {
-                        list = pcCaseDao.doRetrieveByParameters(namePcCase, formFactorCase, limit, limit*(offset-1));
+                        list = pcCaseDao.doRetrieveByParameters(namePcCase, formFactorCase, limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         resp.setContentType("plain/text");
                         resp.setCharacterEncoding("UTF-8");
@@ -226,8 +226,8 @@ public class ItemsLister extends HttpServlet {
                         throwables.printStackTrace();
                     }
                 }
-            }
-            case "builds" -> {
+                break;
+            case "builds":
                 BuildDao buildDao = new BuildDao();
                 String mobo = req.getParameter("moboName");
                 String cpu = req.getParameter("cpuName");
@@ -239,7 +239,7 @@ public class ItemsLister extends HttpServlet {
                 String type = req.getParameter("type");
                 if (mobo.isBlank() && cpu.isBlank() && gpu.isBlank() && psu.isBlank() && pcCase.isBlank() && maker.isBlank() && suggested.isBlank() && type.isBlank()) {
                     try {
-                        ArrayList<BuildNames> list = buildDao.doRetrieveAll(limit, limit*(offset-1));
+                        ArrayList<BuildNames> list = buildDao.doRetrieveAll(limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         String json = gson.toJson(list);
                         resp.setContentType("plain/text");
@@ -251,7 +251,7 @@ public class ItemsLister extends HttpServlet {
                 } else {
                     ArrayList<BuildNames> list = null;
                     try {
-                        list = buildDao.doRetrieveByParameters(mobo, cpu, gpu, psu, type, suggested.isBlank() ? null : Boolean.valueOf(suggested), limit, limit*(offset-1));
+                        list = buildDao.doRetrieveByParameters(mobo, cpu, gpu, psu, type, suggested.isBlank() ? null : Boolean.valueOf(suggested), limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         resp.setContentType("plain/text");
                         resp.setCharacterEncoding("UTF-8");
@@ -260,15 +260,15 @@ public class ItemsLister extends HttpServlet {
                         throwables.printStackTrace();
                     }
                 }
-            }
-            case "purchases" -> {
+                break;
+            case "purchases":
                 PurchaseDao purchaseDao = new PurchaseDao();
                 String email = req.getParameter("email");
                 String startingDate = req.getParameter("startingDate");
                 String endingDate = req.getParameter("endingDate");
                 if (email.isBlank() && startingDate.isBlank() && endingDate.isBlank()) {
                     try {
-                        ArrayList<Purchase> list = purchaseDao.doRetrieveAll(limit, limit*(offset-1));
+                        ArrayList<Purchase> list = purchaseDao.doRetrieveAll(limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         String json = gson.toJson(list);
                         resp.setContentType("plain/text");
@@ -280,7 +280,7 @@ public class ItemsLister extends HttpServlet {
                 } else {
                     ArrayList<Purchase> list = null;
                     try {
-                        list = purchaseDao.doRetrieveByParameters(email,startingDate.isBlank()?new Date(0):Date.valueOf(startingDate),endingDate.isBlank()? Date.valueOf(LocalDate.now()):Date.valueOf(endingDate), limit, limit*(offset-1));
+                        list = purchaseDao.doRetrieveByParameters(email, startingDate.isBlank() ? new Date(0) : Date.valueOf(startingDate), endingDate.isBlank() ? Date.valueOf(LocalDate.now()) : Date.valueOf(endingDate), limit, limit * (offset - 1));
                         Gson gson = new Gson();
                         resp.setContentType("plain/text");
                         resp.setCharacterEncoding("UTF-8");
@@ -289,20 +289,20 @@ public class ItemsLister extends HttpServlet {
                         throwables.printStackTrace();
                     }
                 }
-            }
-            case "countries" ->{
+                break;
+            case "countries":
                 CountryDao countryDao = new CountryDao();
-                    try {
-                        ArrayList<Country> list = countryDao.doRetrieveAll();
-                        Gson gson = new Gson();
-                        String json = gson.toJson(list);
-                        resp.setContentType("plain/text");
-                        resp.setCharacterEncoding("UTF-8");
-                        resp.getWriter().print(json);
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-            }
+                try {
+                    ArrayList<Country> list = countryDao.doRetrieveAll();
+                    Gson gson = new Gson();
+                    String json = gson.toJson(list);
+                    resp.setContentType("plain/text");
+                    resp.setCharacterEncoding("UTF-8");
+                    resp.getWriter().print(json);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                break;
         }
     }
 }

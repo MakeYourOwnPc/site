@@ -2,7 +2,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
     <title>Make Your Own Pc</title>
     <meta name="viewport" content="width=device-witdht, initial-scale=1.0"/>
@@ -29,7 +29,7 @@
 
                 <div class="buildList">
                     <div>
-                    <img src="${build.imagePath}">
+                    <img src="${build.imagePath}" alt="">
                 <ul>
                     <li>${build.type}</li>
                     <li>${build.gpu}</li>

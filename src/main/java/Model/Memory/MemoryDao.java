@@ -97,24 +97,17 @@ public class MemoryDao implements IMemoryDao<SQLException>{
     @Override
     public ArrayList<Memory> doRetrieveByParameters(String name,String socket, Boolean mType, int limit, int offset) throws SQLException {
         try(Connection conn = ConnPool.getConnection()){
-            String query= "SELECT * FROM Memories WHERE ";
-                StringBuilder stringBuilder = new StringBuilder();
-                if(!name.isBlank()){
-                    stringBuilder.append(" UPPER(name) LIKE UPPER('%"+name+"%')");
-                }
+            String query= "SELECT * FROM Memories WHERE UPPER(name) LIKE UPPER('%"+name+"%')";
                 if(!socket.isBlank()){
-                    if(!stringBuilder.isEmpty())
-                        stringBuilder.append(" AND ");
-                    stringBuilder.append("socket='"+socket+"'");
+
+                    query+=" AND socket='"+socket+"'";
                 }
                 if(mType!=null){
-                    if(!stringBuilder.isEmpty())
-                        stringBuilder.append(" AND ");
-                    stringBuilder.append("mtype="+mType);
+                    query+=" AND mtype="+mType;
                 }
-                stringBuilder.append(" ORDER BY name LIMIT "+offset+","+limit+";");
+                query+=" ORDER BY name LIMIT "+offset+","+limit+";";
                 ArrayList<Memory> list = new ArrayList<>();
-                ResultSet rs = conn.createStatement().executeQuery(query+ stringBuilder);
+                ResultSet rs = conn.createStatement().executeQuery(query);
             while(rs.next()){
                 Memory memory = new Memory();
                 memory.setConsumption(rs.getInt("consumption"));

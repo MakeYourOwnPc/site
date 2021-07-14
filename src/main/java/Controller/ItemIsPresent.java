@@ -40,66 +40,66 @@ public class ItemIsPresent extends HttpServlet {
         }
         resp.setCharacterEncoding("UTF-8");
         switch (requestedItem) {
-            case "gpus" -> {
+            case "gpus":
                 GpuDao gpuDao = new GpuDao();
-                ArrayList<Gpu> list = null;
+                ArrayList<Gpu> listg = null;
                 try {
-                    list = gpuDao.doRetrieveByName(name, 1000, 0);
-                    for (Gpu gpu : list)
+                    listg = gpuDao.doRetrieveByName(name, 1000, 0);
+                    for (Gpu gpu : listg)
                         if (gpu.getName().equalsIgnoreCase(name) && gpu.getId() != Integer.parseInt(id))
                             resp.getWriter().print("itemIsPresent");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            case "cpus" -> {
+                break;
+            case "cpus":
                 CpuDao cpuDao = new CpuDao();
-                ArrayList<Cpu> list = null;
+                ArrayList<Cpu> listc = null;
                 try {
-                    list = cpuDao.doRetrieveByName(name, 1000, 0);
-                    for (Cpu cpu : list)
+                    listc = cpuDao.doRetrieveByName(name, 1000, 0);
+                    for (Cpu cpu : listc)
                         if (cpu.getName().equalsIgnoreCase(name) && cpu.getId() != Integer.parseInt(id))
                             resp.getWriter().print("itemIsPresent");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            case "psus" -> {
+                break;
+            case "psus":
                 PsuDao psuDao = new PsuDao();
-                ArrayList<Psu> list = null;
+                ArrayList<Psu> listp = null;
                 try {
-                    list = psuDao.doRetrieveByName(name, 1000, 0);
-                    for (Psu psu : list)
+                    listp = psuDao.doRetrieveByName(name, 1000, 0);
+                    for (Psu psu : listp)
                         if (psu.getName().equalsIgnoreCase(name) && psu.getId() != Integer.parseInt(id))
                             resp.getWriter().print("itemIsPresent");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            case "motherboards" -> {
+                break;
+            case "motherboards":
                 MoboDao moboDao = new MoboDao();
-                ArrayList<Mobo> list = null;
+                ArrayList<Mobo> listm = null;
                 try {
-                    list = moboDao.doRetrieveByName(name, 1000, 0);
-                    for (Mobo mobo : list)
+                    listm = moboDao.doRetrieveByName(name, 1000, 0);
+                    for (Mobo mobo : listm)
                         if (mobo.getName().equalsIgnoreCase(name) && mobo.getId() != Integer.parseInt(id))
                             resp.getWriter().print("itemIsPresent");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            case "memories" -> {
+                break;
+            case "memories":
                 MemoryDao memoryDao = new MemoryDao();
-                ArrayList<Memory> list = null;
+                ArrayList<Memory> listmem = null;
                 try {
-                    list = memoryDao.doRetrieveByName(name, 1000, 0);
-                    for (Memory memory : list)
+                    listmem = memoryDao.doRetrieveByName(name, 1000, 0);
+                    for (Memory memory : listmem)
                         if (memory.getName().equalsIgnoreCase(name) && memory.getId() != Integer.parseInt(id))
                             resp.getWriter().print("itemIsPresent");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
+                break;
         }
     }
 }

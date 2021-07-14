@@ -38,7 +38,7 @@
 
             <c:forEach items="${builds}" var="build">
                 <div class="buildList" id="build${build.id}">
-                    <img src="${build.imagePath}">
+                    <img src="${build.imagePath}" alt="">
                     <ul>
                         <li>${build.type}</li>
                         <li>${build.gpu}</li>

@@ -52,7 +52,7 @@
 
             <div class="box-container">
             <div class="buildList">
-                <img src="<%=build.getImagePath()%>">
+                <img src="<%=build.getImagePath()%>" alt="">
                 <ul>
                     <li><%=build.getType()%></li>
                     <li><%=build.getGpu()%></li>

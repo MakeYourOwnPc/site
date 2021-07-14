@@ -63,7 +63,7 @@ function gpuTabler(value) {
         "<td class='consumption'>" + value.consumption + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
         "<td class='inStock'>" + value.stock + "</td>" +
-        "<td><img src='"+value.imagePath+"'></td>" +
+        "<td><img src='"+value.imagePath+"' alt=''></td>" +
         buttonAdder(value.id) +
         "</tr>";
     $("#searchResultItem").append(row);
@@ -82,7 +82,7 @@ function cpuTabler(value) {
     row += "<td class='consumption'>" + value.consumption + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
         "<td class='inStock'>" + value.stock + "</td>" +
-        "<td><img src='"+value.imagePath+"'></td>" +
+        "<td><img src='"+value.imagePath+"' alt=''></td>" +
         buttonAdder(value.id) +
         "</tr>"
     $("#searchResultItem").append(row);
@@ -102,7 +102,7 @@ function memoryTabler(value) {
         "<td class='consumption'>" + value.consumption + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
         "<td class='inStock'>" + value.stock + "</td>" +
-        "<td><img src='"+value.imagePath+"'></td>" +
+        "<td><img src='"+value.imagePath+"' alt=''></td>" +
         buttonAdder(value.id) +
         "</tr>"
     $("#searchResultItem").append(row);
@@ -122,7 +122,7 @@ function moboTabler(value) {
         "<td class='consumption'>" + value.consumption + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
         "<td class='inStock'>" + value.stock + "</td>" +
-        "<td><img src='"+value.imagePath+"'></td>" +
+        "<td><img src='"+value.imagePath+"' alt=''></td>" +
         buttonAdder(value.id) +
         "</tr>"
     $("#searchResultItem").append(row);
@@ -136,7 +136,7 @@ function pcCaseTabler(value) {
         "<td class='formFactor'>" + value.formFactor + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
         "<td class='inStock'>" + value.stock + "</td>" +
-        "<td><img src='"+value.imagePath+"'></td>" +
+        "<td><img src='"+value.imagePath+"' alt=''></td>" +
         buttonAdder(value.id) +
         "</tr>"
     $("#searchResultItem").append(row);
@@ -176,7 +176,7 @@ function psusTabler(value) {
         "<td class='power'>" + value.power + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
         "<td class='inStock'>" + value.stock + "</td>" +
-        "<td><img src='"+value.imagePath+"'></td>" +
+        "<td><img src='"+value.imagePath+"' alt=''></td>" +
         buttonAdder(value.id) +
         "</tr>"
     $("#searchResultItem").append(row);
