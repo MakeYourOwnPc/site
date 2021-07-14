@@ -7,8 +7,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<html>
+<html lang="en">
+
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <title>MYOC-PersonalBuild</title>
     <meta name="viewport" content="width=device-witdht, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
@@ -18,14 +21,15 @@
             width: 100%;
         }
     </style>
+    <style>
+        tr:nth-child(2n) {
+            background: rgba(0,0,0,0.4);
+        }
+    </style>
 </head>
 <body>
 
-<style>
-    tr:nth-child(2n) {
-        background: rgba(0,0,0,0.4);
-    }
-</style>
+
 
 <script src="bootstrap/js/bootstrap.js" defer></script>
 <script src="bootstrap/popper.js" defer></script>
@@ -51,7 +55,7 @@
                         <li>${build.mobo}</li>
                         <li><ul>
                             <c:forEach items="${build.memories}" var="memory">
-                                ${memory}
+                               <li> ${memory}</li>
                             </c:forEach></ul></li>
                         <li>${build.pcCase}</li>
                         <li>${build.psu}</li>

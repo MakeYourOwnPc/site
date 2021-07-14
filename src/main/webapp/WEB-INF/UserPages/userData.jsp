@@ -1,8 +1,12 @@
 
 <% response.addHeader("Set-Cookie", "Secure; SameSite=strict");%>
 
-<html>
+<html lang="en">
+
+
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <title>MYOC-YourData</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>

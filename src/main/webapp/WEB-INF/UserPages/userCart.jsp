@@ -1,12 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% response.addHeader("Set-Cookie", "Secure; SameSite=strict");%>
 
-<html>
+<html lang="en">
+
+
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <title>MYOC-YourCart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="customcss/general.css"/>
+    <style>
+        tr:nth-child(2n) {
+            background: rgba(0,0,0,0.4);
+        }
+    </style>
 </head>
 <body>
 <script src="bootstrap/js/bootstrap.js" defer></script>
@@ -14,11 +23,7 @@
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
 <script src="jslibraries/jQuery.js"></script>
 <script src="jslibraries/utilities.js"></script>
-<style>
-    tr:nth-child(2n) {
-        background: rgba(0,0,0,0.4);
-    }
-</style>
+
 <div class="fullHeightFooter">
 <div id="pageContenent">
     <div>

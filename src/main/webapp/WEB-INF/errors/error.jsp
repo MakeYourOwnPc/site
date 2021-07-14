@@ -14,16 +14,17 @@
 %>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <title>MYOP-<%=statusCode%></title>
-    <meta name="viewport" content="width=device-witdht, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="/MYOPSite_war_exploded/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/MYOPSite_war_exploded/customcss/general.css"/>
 </head>
 <script src="bootstrap/js/bootstrap.js" defer></script>
 <script src="bootstrap/popper.js" defer></script>
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
-<script src="jslibraries/jQuery.js"></script>
-<script src="jslibraries/utilities.js"></script>
+<script src="/MYOPSite_war_exploded/jslibraries/jQuery.js"></script>
+<script src="/MYOPSite_war_exploded/jslibraries/utilities.js"></script>
 <body>
 <div class="fullHeightFooter">
 <h1>Error Type:<br><%=exceptionType%></h1>

@@ -13,12 +13,23 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="en">
+
+
+
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <title>MYOC-Old Orders</title>
     <meta name="viewport" content="width=device-witdht, initial-scale=1.0"/>
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="./customcss/general.css"/>
+
+    <style>
+        tr:nth-child(2n) {
+            background: rgba(0,0,0,0.4);
+        }
+    </style>
 </head>
 <body>
 <script src="./bootstrap/js/bootstrap.js" defer></script>
@@ -27,11 +38,7 @@
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
 <script src="./jslibraries/jQuery.js"defer></script>
 
-<style>
-    tr:nth-child(2n) {
-        background: rgba(0,0,0,0.4);
-    }
-</style>
+
 
 <input type="hidden" id="new" value="${purchased}">
 <div class="fullHeightFooter">
