@@ -28,18 +28,13 @@ public class Login extends HttpServlet {
                 UserDao userDao = new UserDao();
                 User user = userDao.doRetrieveByEmail(email);
                 boolean failedLogin = true;
-                if (user != null) {
-                    if (hashedPassword.equals(user.getPassword())) {
+                if (user!=null && hashedPassword.equals(user.getPassword())) {
                         failedLogin = false;
                         user.setPassword("");
                         session.setAttribute("user", user);
-                    }
                 }
                 session.setAttribute("failedLogin", failedLogin);
                 String referer = req.getHeader("referer");
-                if (referer.equals("/WEB-INF/UserPages/login.jsp")) {
-                    resp.sendRedirect("/WEB-INF/UserPages/showCart.jsp");
-                }
                 resp.sendRedirect(referer);
             }
         } catch (NoSuchAlgorithmException | SQLException e) {

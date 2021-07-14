@@ -1,8 +1,8 @@
 <%@ page import="Model.User.User" %>
 <% User user= (User) session.getAttribute("user");%>
 <script>
-    document.onload= function (){
-        if($("#failedLogin").val()==true) createToast("Login Error","Email or Password incorrect");
+    window.onload= function (){
+        if($("#failedLogin").val()=="true") createToast("Login Error","Email or Password incorrect");
     }
     function loggedToEnterCart(){
         if($("#loggedHeader").val()=="")
@@ -64,9 +64,7 @@
             <%}%>
         </div>
     </div>
-    <%if (request.getAttribute("failedLogin")!=null&&(boolean)request.getAttribute("failedLogin")) {%>
-    <input type="hidden" id="failedLogin" value="true">
-    <%}else{%>
-    <input type="hidden" id="failedLogin" value="false">
-    <%}%>
+    <input type="hidden" id="failedLogin" value="${failedLogin}">
+    <%if(session.getAttribute("failedLogin")!=null)
+    session.removeAttribute("failedLogin");%>
 </nav>
