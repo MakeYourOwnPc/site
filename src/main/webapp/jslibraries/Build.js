@@ -549,7 +549,7 @@ function gpuTabler(value) {
         "<td class='productName"+((value.stock<=0)?" outOfStock":"")+"' >" + value.name + "</td>" +
         "<td class='consumption'>" + value.consumption + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
-        "<td><img src='" + value.imagePath + "'></td>" +
+        "<td><img src='" + value.imagePath + "' alt=''></td>" +
         buttonAdder(value.id, "Gpu") +
         "</tr>";
     $("#searchResultBuild").append(row);
@@ -566,7 +566,7 @@ function cpuTabler(value) {
     row += "<td class='consumption'>" + value.consumption + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
         "<td class='inStock'>" + value.stock + "</td>" +
-        "<td><img src='" + value.imagePath + "'></td>" +
+        "<td><img src='" + value.imagePath + "' alt=''></td>" +
         buttonAdder(value.id, "Cpu") +
         "</tr>"
     $("#searchResultBuild").append(row);
@@ -579,7 +579,7 @@ function memoryTabler(value) {
         "<td class='amountOfMemories'>" + value.amountMemories + "</td>" +
         "<td class='consumption'>" + value.consumption + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
-        "<td><img src='" + value.imagePath + "'></td>" +
+        "<td><img src='" + value.imagePath + "' alt=''></td>" +
         buttonAdder(value.id, this.type,massStorageNumber) +
         "</tr>"
     $("#searchResultBuild").append(row);
@@ -597,7 +597,7 @@ function moboTabler(value) {
         "<td class='formFactor'>" + value.formFactor + "</td>" +
         "<td class='consumption'>" + value.consumption + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
-        "<td><img src='" + value.imagePath + "'></td>" +
+        "<td><img src='" + value.imagePath + "' alt=''></td>" +
         buttonAdder(value.id, "MotherBoards") +
         "</tr>"
     $("#searchResultBuild").append(row);
@@ -609,7 +609,7 @@ function pcCaseTabler(value) {
         "<td class='productName "+((value.stock<=0)?" outOfStock":"")+"' >" + value.name + "</td>" +
         "<td class='formFactor'>" + value.formFactor + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
-        "<td><img src='" + value.imagePath + "'></td>" +
+        "<td><img src='" + value.imagePath + "' alt=''></td>" +
         buttonAdder(value.id, "PcCase") +
         "</tr>"
     $("#searchResultBuild").append(row);
@@ -622,7 +622,7 @@ function psusTabler(value) {
         "<td class='productName"+((value.stock<=0)?" outOfStock":"")+"' >" + value.name + "</td>" +
         "<td class='power'>" + value.power + "</td>" +
         "<td class='price'>" + value.price + "$</td>" +
-        "<td><img src='" + value.imagePath + "'></td>" +
+        "<td><img src='" + value.imagePath + "' alt=''></td>" +
         buttonAdder(value.id, "Psu") +
         "</tr>"
     $("#searchResultBuild").append(row);

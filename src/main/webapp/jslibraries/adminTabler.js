@@ -182,6 +182,7 @@ function psusTabler(value) {
     $("#searchResultItem").append(row);
 }
 function purchaseTabler(value){
+    var row;
     row='<tr class="removable">'+
         '<td class="creationDate">'+value.creationDate.year+'-'+value.creationDate.month+'-'+value.creationDate.day+'</td>'+
        ' <td class="email">'+value.email+'</td>'+
@@ -197,6 +198,7 @@ function purchaseTabler(value){
 }
 
 function countryTabler(value){
+    var row;
     row='<tr class="removable">'+
         '<td class="countryId">'+value.id+'</td>'+
         '<td class="countryLabel">'+value.name+'</td>'+
