@@ -261,6 +261,13 @@ function selectGPU() {
     selectedElement = "Gpus";
     itemCategory = "gpus";
     tableHeader = "<tr><th>Product Name</th><th>Power Consumption</th><th>Price</th></tr>";
+    $(".removeButton").show();
+    $("#remove").off();
+    $("#remove").click(function(){
+        gpu=null;
+        $("#gpu").val("NONE");
+        toggleOverlayBuild();
+    });
 
     submitForm(tableHeader);
 
@@ -271,6 +278,7 @@ function selectCPU() {
     selectedElement = "Cpus";
     itemCategory = "cpus";
     tableHeader = "<tr><th>Product Name</th><th>Socket</th><th>Integrated Gpu</th><th>Power Consumption</th><th>Price</th></tr>"
+    $(".removeButton").hide();
 
     submitForm(tableHeader);
 }
@@ -280,6 +288,7 @@ function selectMOBO() {
     selectedElement = "MotherBoards";
     itemCategory = "motherboards";
     tableHeader = "<tr><th>Product Name</th><th>CPU Socket</th><th>Ram Sockets</th><th>Ram Slots</th><th>NVME Slots</th><th>SATA Slots</th><th>Form Factor</th><th>Power Consumption</th><th>Price</th></tr>"
+    $(".removeButton").hide();
 
     submitForm(tableHeader);
 
@@ -291,6 +300,7 @@ function selectRAM() {
 
     itemCategory = "memories";
     tableHeader = "<tr><th>Product Name</th><th>Number Of Sticks</th><th>Power Consumption</th><th>Price</th></tr>"
+    $(".removeButton").hide();
 
 
     submitForm(tableHeader);
@@ -306,6 +316,27 @@ function selectMassStorage(number) {
     itemCategory = "memories";
     tableHeader = "<tr><th>Product Name</th><th>Number Of Memories</th><th>Power Consumption</th><th>Price</th></tr>"
 
+    if(number>=2) {/* funzione che imposta il pulsante di cancellazione dell'elemento*/
+        $(".removeButton").show();
+        if (number == 2)
+            $("#remove").off();
+            $("#remove").click(function () {
+                massStorage2 = null;
+                $("#massStorage2").val("NONE");
+                toggleOverlayBuild();
+            });
+        if (number == 3)
+            $("#remove").off();
+        $("#remove").click(function () {
+                massStorage3 = null;
+                $("#massStorage3").val("NONE");
+            toggleOverlayBuild();
+            });
+    }
+else
+        $(".removeButton").hide();
+
+
     submitForm(tableHeader, number);
 
 }
@@ -313,6 +344,7 @@ function selectMassStorage(number) {
 function selectPcCase() {
     toggleOverlayBuild();
     selectedElement = "PcCase"
+    $(".removeButton").hide();
 
     itemCategory = "cases";
     tableHeader = "<tr><th>Product Name</th><th>Form Factor</th><th>Price</th></tr>"
@@ -327,6 +359,7 @@ function selectPsu() {
 
     itemCategory = "psus";
     tableHeader = "<tr><th>Product Name</th><th>Power</th><th>Price</th></tr>"
+    $(".removeButton").hide();
 
 
     submitForm(tableHeader);

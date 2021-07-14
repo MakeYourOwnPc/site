@@ -69,6 +69,7 @@
                 <tr>
                     <td><label for="compatible">Check By Compatible Component</label></td>
                     <td><input type="checkbox" name="compatible" id="compatible" onclick="submitForm()"></td>
+                    <td class="removeButton"><input type="button" name="compatible" id="remove" class="btn btn-danger" value="RemoveItem"></td>
                 </tr>
                 <tr id="massStorageOption" style="display: none">
                     <td>
