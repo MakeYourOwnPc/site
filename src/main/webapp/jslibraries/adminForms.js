@@ -95,6 +95,7 @@ function changeForm(text) {
                 "<td><input type='number' id='power' name='power'></td></tr>";
             break;
         case "Users":
+            $("#insertButton").attr("hidden","true");
             tableHeader = "<thead><tr><th>Firstname</th><th>Lastname</th><th>Email</th><th>Is Admin</th></tr>"
 
             $("#searchResultItem").addClass("usersTable");
@@ -612,7 +613,7 @@ function prepareFormInsert() {
         case"Countries":
             formHTML= ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="countries">' +
                 '<input type="hidden" name="option" value="insert">'+
-                '<tr><td><label for="countryName">Count Name</label></td>' +
+                '<tr><td><label for="countryName">Country Name</label></td>' +
                 '<td><input type="text" id="countryName" name="label"required>'+
                 '<tr><td><label for="countryId">Country ID</label></td>' +
                 '<td><input type="text" id="countryId" name="id" required>';

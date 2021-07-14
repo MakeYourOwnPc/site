@@ -20,10 +20,11 @@
         .confirmButton td .btn{
             width: 100%;
         }
-    </style>
-    <style>
         tr:nth-child(2n) {
             background: rgba(0,0,0,0.4);
+        }
+        .buildList{
+            height: 937px;
         }
     </style>
 </head>
