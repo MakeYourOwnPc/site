@@ -126,7 +126,7 @@ function updateSpecification() {
         }
         powerNeeded += massStorage3.consumption;
     }
-    $("#endPrice").text(price);
+    $("#endPrice").text(price.toFixed(2));
 
 }
 function checkValidity() {
@@ -143,22 +143,22 @@ function checkValidity() {
         createToast("Invalid Build","No Important Component Selected");
         return;
     }
-    if(powerNeeded>=power){
+    if(powerNeeded>power){
         createToast("Invalid Build","PSU too weak:PSU:"+power+"/Consumed:"+powerNeeded);
         submitable=false;
         return;
     }
-    if(slotRamUsed>=slotRam){
+    if(slotRamUsed>slotRam){
         createToast("Invalid Build","Too many Ram Sticks for Motherboard");
         submitable=false;
         return;
     }
-    if(slotNVMEUsed>=slotNVME){
+    if(slotNVMEUsed>slotNVME){
         createToast("Invalid Build","Too many NVME Memories for Motherboard");
         submitable=false;
         return;
     }
-    if(slotSataUsed>=slotSata){
+    if(slotSataUsed>slotSata){
         createToast("Invalid Build","Too many SATA Memories for Motherboard");
         submitable=false;
         return;
@@ -443,6 +443,9 @@ function submitForm(headers) {
             }
             let xhttp = new XMLHttpRequest();
 
+        formData+="&limit="+$("#resultsLimit").val()+"&offset="+$("#offset").val();
+
+
         xhttp.onreadystatechange = function () {
 
             if (this.readyState == 4 && this.status == 200) {
@@ -499,6 +502,8 @@ function submitForm(headers) {
         console.log(formData);
     } while ((selectedElement == "MotherBoards" || selectedElement == "PcCase") && !formFactorEnd);
 }
+
+
 
 function addToResults(value){
     arrayElements.push(value);

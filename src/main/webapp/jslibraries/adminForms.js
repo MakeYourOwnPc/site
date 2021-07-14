@@ -82,6 +82,7 @@ function changeForm(text) {
                 "<option value='mini-itx'>Mini-ITX</option>" +
                 "<option value='micro-atx'>Micro-ATX</option>" +
                 "<option value='atx'>ATX</option>" +
+                "<option value='eatx'>EATX</option>" +
                 "</select></td></tr>";
             power = false;
             break;
@@ -279,13 +280,13 @@ function prepareFormUpdate(item) {
                 '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
 
-                '<td><td></td><img src="' + item.imagePath + '"></td></tr>';
-            break;
+                '<tr><td></td><td><img src="' + item.imagePath + '"></td></tr>';            break;
         case"Cases":
             image=true;
-            let miniitx = (item.formFactor == "mini-itx") ? 'selected' : '';
-            let microatx = (item.formFactor == "micro-ATX") ? 'selected' : '';
-            let atx = (item.formFactor == "ATX") ? 'selected' : '';
+            let miniitx = (item.formFactor.toUpperCase( "mini-itx")) ? 'selected' : '';
+            let microatx = (item.formFactor.toUpperCase("micro-ATX")) ? 'selected' : '';
+            let atx = (item.formFactor.toUpperCase("atx")) ? 'selected' : '';
+            let eatx = (item.formFactor.toUpperCase("eatx")) ? 'selected' : '';
             formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="cases">' +
 
                 '<tr><td><label for="id">DataBase Id</label></td>' +
@@ -299,7 +300,9 @@ function prepareFormUpdate(item) {
                 '<td><select id="formFActor" name="formFactor"required>' +
                 '<option value="mini-itx"' + miniitx + '>Mini-ITX</option>' +
                 " <option value='micro-ATX' " + microatx + ">Micro-ATX</option>" +
-                "<option value='ATX'" + atx + ">ATX</option></select></td></tr>" +
+                "<option value='atx'" + atx + ">ATX</option>" +
+                "<option value='eatx'" + eatx + ">EATX</option>" +
+                "</select></td></tr>" +
 
 
                 '<tr><td><label for="price">Price</label></td>' +
@@ -309,14 +312,13 @@ function prepareFormUpdate(item) {
                 '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
 
-                '<td><td></td><img src="' + item.imagePath + '"></td></tr>';
-            break;
+                '<tr><td></td><td><img src="' + item.imagePath + '"></td></tr>';            break;
         case"MotherBoards":
             image=true;
             let miniitxm = (item.formFactor == "mini-itx") ? 'selected' : '';
             let microatxm = (item.formFactor == "micro-atx") ? 'selected' : '';
             let atxm = (item.formFactor == "atx") ? 'selected' : '';
-            let eatx = (item.formFactor == "eatx") ? 'selected' : '';
+            let eatxm = (item.formFactor == "eatx") ? 'selected' : '';
             formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="motherboards">' +
 
                 '<tr><td><label for="id">DataBase Id</label></td>' +
@@ -346,7 +348,7 @@ function prepareFormUpdate(item) {
                 '<option value="mini-itx"' + miniitxm + '>Mini-ITX</option>' +
                 " <option value='micro-atx' " + microatxm + ">Micro-ATX</option>" +
                 "<option value='atx'" + atxm + ">ATX</option>" +
-                "<option value='eatx'" + eatx + ">ATX</option>" +
+                "<option value='eatx'" + eatxm + ">EATX</option>" +
                 "</select>" +
                 "</td></tr>" +
 
@@ -360,8 +362,7 @@ function prepareFormUpdate(item) {
                 '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
 
-                '<td><td></td><img src="' + item.imagePath + '"></td></tr>';
-            break
+                '<tr><td></td><td><img src="' + item.imagePath + '"></td></tr>';            break
         case"Psus":
             image=true;
             formHTML = ' <input type="hidden" id="requestedItemUpdate" name="requestedItem" value="psus">' +
@@ -382,8 +383,7 @@ function prepareFormUpdate(item) {
                 '<tr><td><label for="inStock">In Stock</label></td>' +
                 '<td><input type="number" id="inStock" name="stock" value="' + item.stock + '"required></td></tr>' +
 
-                '<td><td></td><img src="' + item.imagePath + '"></td></tr>';
-            break;
+                '<tr><td></td><td><img src="' + item.imagePath + '"></td></tr>';            break;
 
         case"Users":/*Il modify User è Gestito da Javascript*/
             let admin = (item.admin) ? 'checked' : '';
@@ -515,10 +515,10 @@ function prepareFormInsert() {
                 '<td><select id="formFActor" name="formFactor">' +
                 '<option value="mini-itx">Mini-ITX</option>' +
                 " <option value='micro-ATX' >Micro-ATX</option>" +
-                "<option value='ATX'>ATX</option></select></td></tr>" +
+                "<option value='atx'>ATX</option>" +
+                "<option value='eatx'>EATX</option>" +
+                "</select></td></tr>" +
 
-                '<tr><td><label for="consumption">Consumption</label></td>' +
-                '<td><input type="number" id="consumption" name="consumption" required></td></tr>' +
 
                 '<tr><td><label for="price">Price</label></td>' +
                 '<td><input type="number" step="0.01" name="price" required></td></tr>' +
@@ -617,8 +617,9 @@ function prepareFormInsert() {
                 '<tr><td><label for="countryId">Country ID</label></td>' +
                 '<td><input type="text" id="countryId" name="id" required>';
             break;
-
-
+        case "Builds":
+            window.location.href="/MYOPSite_war_exploded/build.jsp";
+            return
     }
 
     let buttonHTML='<tr><td><input id="submitDBUpdate" type="submit" class="btn btn-success" value="Insert Element"></td></tr>';
