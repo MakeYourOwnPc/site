@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>logout</servlet-name>
-        <servlet-class>Mock.LogOutMock</servlet-class>
+        <servlet-class>Controller.Logout</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>logout</servlet-name>
@@ -14,11 +14,11 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>AccsessAdminPage</servlet-name>
+        <servlet-name>AccessAdminPage</servlet-name>
         <servlet-class>Controller.AdminPage</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AccsessAdminPage</servlet-name>
+        <servlet-name>AccessAdminPage</servlet-name>
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
 
