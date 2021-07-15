@@ -166,15 +166,15 @@
         let submit = document.getElementById("submit-registration");
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                if(this.responseText=="true"){
-                    emailalert.innerText="Email Already Present";
-                    submit.disabled=true;
-                    emailalert.hidden=false;
+                if (this.responseText == "true") {
+                    emailalert.innerText = "Email Already Present";
+                    submit.disabled = true;
+                    emailalert.hidden = false;
                     console.log("email rejected");
-                }
-                else
-                    submit.disabled=false;
-                    emailalert.hidden=true;
+                } else{
+                    submit.disabled = false;
+                emailalert.hidden = true;
+            }
             }
         };
         xhttp.open("POST", "/MYOPSite_war_exploded/emailispresent", true);
