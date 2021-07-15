@@ -62,10 +62,7 @@ public class SaveBuild extends HttpServlet {
             MoboDao moboDao = new MoboDao();
             MemoryDao memoryDao = new MemoryDao();
             PcCaseDao pcCaseDao = new PcCaseDao();
-            Gpu gpu=null;
-            if(build.getGpu()!=0) {
-                 gpu= gpuDao.doRetrieveById(build.getGpu());
-            }
+            Gpu gpu= gpuDao.doRetrieveById(build.getGpu());
             Cpu cpu = cpuDao.doRetrieveById(build.getCpu());
             Mobo mobo = moboDao.doRetrieveById(build.getMobo());
             Psu psu = psuDao.doRetrieveById(build.getPsu());
@@ -94,10 +91,7 @@ public class SaveBuild extends HttpServlet {
                 resp.setContentType("plain/text");
                 resp.setCharacterEncoding("UTF-8");
                 synchronized (session) {
-                    if(gpu!=null) {
                         session.setAttribute("gpu", gson.toJson(gpu));
-                    }
-                    else session.setAttribute("gpu", "");
                     session.setAttribute("cpu", gson.toJson(cpu));
                     session.setAttribute("psu", gson.toJson(psu));
                     session.setAttribute("mobo", gson.toJson(mobo));

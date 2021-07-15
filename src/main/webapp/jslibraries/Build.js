@@ -141,7 +141,7 @@ function checkValidity() {
         createToast("Invalid Build","No Important Component Selected");
         return;
     }
-    if(gpu==null &&cpu!=null&&cpu.integratedgpu==false){
+    if(gpu==null){
         createToast("Invalid Build","No Gpu Selected With Cpu Without Integrated Gpu ");
         submitable=false;
         return ;
@@ -264,13 +264,7 @@ function selectGPU() {
     selectedElement = "Gpus";
     itemCategory = "gpus";
     tableHeader = "<tr><th>Product Name</th><th>Power Consumption</th><th>Price</th></tr>";
-    $(".removeButton").show();
-    $("#remove").off();
-    $("#remove").click(function(){
-        gpu=null;
-        $("#gpu").val("NONE");
-        toggleOverlayBuild();
-    });
+    $(".removeButton").hide();
 
     submitForm(tableHeader);
 
