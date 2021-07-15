@@ -56,12 +56,9 @@
                     <td>
                         <input type="password" name="newPasswordTest" id="newPasswordTest">
                     <span id="newPasswordTest-alert" class="alert-info" hidden>Not The Same Password</span>
-                    </td></tr>
-                <tr><td>
+                </td></tr></table>
                     <input class="btn active" value="Modify Data" onclick=toggleOverlayPassword() id="modify-data">
                     <input type="submit" class="btn active" id="applyChanges" value="Apply Changes" hidden>
-                </td></tr>
-            </table>
 
         </form>
         <div id="overlayFormPassword" class="overlayElement" style="display: none">
@@ -69,22 +66,15 @@
                 <div class="box-container">
                     <table style="width: 100%">
                         <tr style="vertical-align: middle">
-                            <td><h1 id="updateTitle" style="float: left"></h1></td>
+                            <td><h3 id="updateTitle" style="text-align: center">Insert Your Password</h3></td>
                             <td>
-                                <button onclick="toggleOverlayPassword()" class="btn btn-danger" style="font-size: 26px;font-weight: bolder" >X</button>
+                                <button onclick="toggleOverlayPassword()" class="btn btn-danger" style="float: right;font-size: 26px;font-weight: bolder" >X</button>
                             </td>
                         </tr>
                     </table>
-                    <tr><td>
                         <input type="password" placeholder="Insert Password" id="oldPassword" required>
                         <span id="oldpassword-alert" class="alert-info" hidden>Wrong Password</span>
-                    </td></tr>
-                    <tr><td>
                         <button id="submit-check" onclick="checkPassword()" class="btn active">Submit</button>
-                    </td></tr>
-                        </table>
-                    </form>
-
                 </div>
             </div>
         </div>
