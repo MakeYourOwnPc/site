@@ -20,8 +20,8 @@
     <link rel="stylesheet" type="text/css" href="/MYOPSite_war_exploded/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/MYOPSite_war_exploded/customcss/general.css"/>
 </head>
-<script src="bootstrap/js/bootstrap.js" defer></script>
-<script src="bootstrap/popper.js" defer></script>
+<script src="/MYOPSite_war_exploded/bootstrap/js/bootstrap.js" defer></script>
+<script src="/MYOPSite_war_exploded/bootstrap/popper.js" defer></script>
 <jsp:include page="/WEB-INF/pagecomponents/header.jsp"></jsp:include>
 <script src="/MYOPSite_war_exploded/jslibraries/jQuery.js"></script>
 <script src="/MYOPSite_war_exploded/jslibraries/utilities.js"></script>
