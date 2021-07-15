@@ -5,6 +5,7 @@ function testRegexPassword(password){
     console.log(regex.test(password));
    return regex.test((password));
 }
+/*
 function validateUser(){
     let password=document.getElementById("password");
     let passwordtest=document.getElementById("passwordtest");
@@ -38,7 +39,7 @@ function validateUser(){
     else document.getElementById("passwordtest-alert").hidden=true;
 
     return submitable;
-}
+}*/
 
 function toggleOverlayModify() {
     $("#overlayFormModify").fadeToggle();
@@ -49,6 +50,7 @@ function toggleOverlayPassword() {
 function toggleOverlayBuild() {
     $("#overlayFormBuild").fadeToggle();
 }
+/*
 function existingEmail(){
     let xhttp = new XMLHttpRequest();
     let emailalert = document.getElementById("email-alert");
@@ -69,13 +71,13 @@ function existingEmail(){
     xhttp.open("POST", "/MYOPSite_war_exploded/emailispresent", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("email="+document.getElementById("email").value);
-}
+}*/
 
 function createToast(title,message){
     let toastHtml;
     toastHtml="<div id=\"toast\" class=\"toast-box\">\n" +
         "    <div class=\"toast-header\">" +
-        "<button onclick=\"closeToast()\" style=\" padding: ;margin: 6px;\" class=\"btn-danger btn\">X</button>" +
+        "<button onclick=\"closeToast()\" style=\"margin: 6px;\" class=\"btn-danger btn\">X</button>" +
         "<h3 id=\"toastTitle\">"+title+"</h3></div>" +
         "    <div class=\"toast-body\"><span id=\"toastMessage\">"+message+"</span></div>\n" +
         "</div>";
