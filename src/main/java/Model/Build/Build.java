@@ -167,10 +167,9 @@ public class Build {
         MemoryDao memoryDao = new MemoryDao();
         Mobo mobo = moboDao.doRetrieveById(this.mobo);
         Cpu cpu = cpuDao.doRetrieveById(this.cpu);
-        if(this.gpu!=0){
-            Gpu gpu = gpuDao.doRetrieveById(this.gpu);
-            consumption+= gpu.getConsumption();
-        }
+        Gpu gpu = gpuDao.doRetrieveById(this.gpu);
+        consumption+= gpu.getConsumption();
+
 
         PcCase pcCase = pcCaseDao.doRetrieveById(this.pcCase);
         Psu psu = psuDao.doRetrieveById(this.psu);
@@ -199,8 +198,6 @@ public class Build {
         if (ramMemories > mobo.getAmountSlotRam()||ramMemories==0)
             throw new BuildException("ramSticksError");
 
-        if(this.gpu==0&& cpu.isIntegratedgpu()==false)
-            throw new BuildException("noGpuAndNoIntegratedGraphics");
 
 
 
