@@ -153,6 +153,12 @@ public class Build {
     }
 
     public boolean verifier() throws SQLException,BuildException {
+        int sataDrives = 0;
+        int nvmeDrives = 0;
+        int ramMemories = 0;
+        int consumption=0;
+
+
         MoboDao moboDao = new MoboDao();
         CpuDao cpuDao = new CpuDao();
         GpuDao gpuDao = new GpuDao();
@@ -161,17 +167,17 @@ public class Build {
         MemoryDao memoryDao = new MemoryDao();
         Mobo mobo = moboDao.doRetrieveById(this.mobo);
         Cpu cpu = cpuDao.doRetrieveById(this.cpu);
-        Gpu gpu = gpuDao.doRetrieveById(this.gpu);
+        if(this.gpu!=0){
+            Gpu gpu = gpuDao.doRetrieveById(this.gpu);
+            consumption+= gpu.getConsumption();
+        }
+
         PcCase pcCase = pcCaseDao.doRetrieveById(this.pcCase);
         Psu psu = psuDao.doRetrieveById(this.psu);
         ArrayList<Memory> memories = new ArrayList<>();
         for(int id:this.memories){
             memories.add(memoryDao.doRetrieveById(id));
         }
-        int sataDrives = 0;
-        int nvmeDrives = 0;
-        int ramMemories = 0;
-        int consumption=0;
 
         for (Memory memory : memories) {
             if (memory.ismType()) {
@@ -190,10 +196,14 @@ public class Build {
             throw new BuildException("nvmeError");
         if (sataDrives > mobo.getAmountSlotSata())
             throw new BuildException("sataError");
-        if (ramMemories > mobo.getAmountSlotRam())
+        if (ramMemories > mobo.getAmountSlotRam()||ramMemories==0)
             throw new BuildException("ramSticksError");
 
-        consumption+= gpu.getConsumption();
+        if(this.gpu==0&& cpu.isIntegratedgpu()==false)
+            throw new BuildException("noGpuAndNoIntegratedGraphics");
+
+
+
 
         if(!cpu.getSocket().equalsIgnoreCase(mobo.getCpuSocket()))
             throw new BuildException("cpuError");

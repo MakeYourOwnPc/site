@@ -137,11 +137,14 @@ function checkValidity() {
         createToast("Invalid Build","No Mass Storage Selected");
     }
     if(!submitable) {
-        if(gpu==null &&cpu.integratedGpu==null){
-            createToast("Invalid Build","No Gpu Selected With Cpu Without Integrated Gpu ");
-        }
+
         createToast("Invalid Build","No Important Component Selected");
         return;
+    }
+    if(gpu==null &&cpu!=null&&cpu.integratedgpu==false){
+        createToast("Invalid Build","No Gpu Selected With Cpu Without Integrated Gpu ");
+        submitable=false;
+        return ;
     }
     if(powerNeeded>power){
         createToast("Invalid Build","PSU too weak:PSU:"+power+"/Consumed:"+powerNeeded);
@@ -325,13 +328,13 @@ function selectMassStorage(number) {
                 $("#massStorage2").val("NONE");
                 toggleOverlayBuild();
             });
-        if (number == 3)
+        if (number == 3){
             $("#remove").off();
         $("#remove").click(function () {
                 massStorage3 = null;
                 $("#massStorage3").val("NONE");
             toggleOverlayBuild();
-            });
+            })};
     }
 else
         $(".removeButton").hide();
@@ -632,7 +635,7 @@ function psusTabler(value) {
 function buttonAdder(id, type, number) {
     let buttonForm;
     let action;
-    if (type != null && number != 0&&number!=null)
+    if (type != null&&type!="Ram" && number != 0&&number!=null)
         action = "add" + type + number + "(" + id + ")";
     else {
         action = "add" + type + "(" + id + ")";
@@ -649,6 +652,7 @@ function addGpu(id) {
     gpu = elem;
     selectedElementObject = elem;
     $("#gpu").val(elem.name)
+    updateSpecification();
     toggleOverlayBuild();
 
 }
@@ -658,6 +662,7 @@ function addCpu(id) {
     cpu = elem;
     selectedElementObject = elem;
     $("#cpu").val(elem.name)
+    updateSpecification();
     toggleOverlayBuild();
 }
 
@@ -666,6 +671,7 @@ function addMotherBoards(id) {
     mobo = elem;
     selectedElementObject = elem;
     $("#mobo").val(elem.name)
+    updateSpecification();
     toggleOverlayBuild();
 }
 
@@ -674,6 +680,7 @@ function addPcCase(id) {
     pcCase = elem;
     selectedElementObject = elem;
     $("#pcCase").val(elem.name)
+    updateSpecification();
     toggleOverlayBuild();
 }
 
@@ -682,6 +689,7 @@ function addPsu(id) {
     psu = elem;
     selectedElementObject = elem;
     $("#psu").val(elem.name)
+    updateSpecification();
     toggleOverlayBuild();
 }
 
@@ -690,6 +698,7 @@ function addRam(id) {
     ram = elem;
     selectedElementObject = elem;
     $("#ram").val(elem.name)
+    updateSpecification();
     toggleOverlayBuild();
 }
 
@@ -698,7 +707,7 @@ function addMassStorage1(id) {
     massStorage1 = elem;
     selectedElementObject = elem;
     $("#massStorage1").val(elem.name)
-
+    updateSpecification();
     toggleOverlayBuild();
 }
 
@@ -707,7 +716,7 @@ function addMassStorage2(id) {
     massStorage2 = elem;
     selectedElementObject = elem;
     $("#massStorage2").val(elem.name)
-
+    updateSpecification();
     toggleOverlayBuild();
 }
 
@@ -716,6 +725,7 @@ function addMassStorage3(id) {
     massStorage3 = elem;
     selectedElementObject = elem;
     $("#massStorage3").val(elem.name)
+    updateSpecification();
 
     toggleOverlayBuild();
 }

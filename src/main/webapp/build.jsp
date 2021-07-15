@@ -218,14 +218,16 @@
         let oldMemories=$("#oldMemories").text()
         let oldPsu=$("#oldPsu").val()
         let oldPcCase=$("#oldPcCase").val()
-        if(oldmobo===""||oldGpu===""||oldCpu===""||oldMemories===""||oldPsu===""||oldPcCase===""){
+        if(oldmobo===""||oldCpu===""||oldMemories===""||oldPsu===""||oldPcCase===""){
             return;
         }
         mobo = JSON.parse(oldmobo);
 
         $("#mobo").val(mobo.name);
+        if(oldGpu!=""){
         gpu = JSON.parse(oldGpu);
-        $("#gpu").val(gpu.name);
+        $("#gpu").val(gpu.name);}
+        else $("#gpu").val("NONE")
         cpu = JSON.parse(oldCpu);
         $("#cpu").val(cpu.name);
         let memories=JSON.parse(oldMemories);
